@@ -3,8 +3,9 @@ package com.yjk.app.vo;
 import java.math.BigDecimal;
 
 public class ReleasePurchaseInfoVO {
-
-	//名称
+	//ID 
+	 private Long id;
+	 	//名称
 		private String name;
 		//二级机型ID
 		private BigDecimal twoStageModeId;
@@ -28,6 +29,14 @@ public class ReleasePurchaseInfoVO {
 		private Integer type;
 		//语音内容
 		private String voice;
+		
+		
+		public Long getId() {
+			return id;
+		}
+		public void setId(Long id) {
+			this.id = id;
+		}
 		public String getName() {
 			return name;
 		}

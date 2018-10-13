@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 public class ReleasePurchaseInfoDTO {
 
+	
+	//id
+	private Long id;
 	//名称
 	private String name;
 	//二级机型ID
@@ -28,6 +31,23 @@ public class ReleasePurchaseInfoDTO {
 	private Integer type;
 	//语音内容
 	private String voice;
+	//会员Id
+	private Long memberId;
+	
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
 	public String getName() {
 		return name;
 	}

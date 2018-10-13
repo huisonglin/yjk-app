@@ -2,6 +2,7 @@ package com.yjk.app.service.impl;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class DeviceSeekToPurchaseInfoServiceImpl implements DeviceSeekToPurchase
 		DeviceSeekToPurchaseInfoDO deviceSeekToPurchaseInfoDO = new DeviceSeekToPurchaseInfoDO();
 		BeanUtils.copyProperties(deviceSeekToPurchaseInfoDO, releasePurchaseInfoDTO);
 		deviceSeekToPurchaseInfoDO.setStatus(1);
+		deviceSeekToPurchaseInfoDO.setCreateTime(new Date());
+		deviceSeekToPurchaseInfoDO.setUpdateTime(new Date());
 		deviceSeekToPurchaseInfoMapper.insertSelective(deviceSeekToPurchaseInfoDO);
 		return R.ok();
 	}
@@ -71,6 +74,20 @@ public class DeviceSeekToPurchaseInfoServiceImpl implements DeviceSeekToPurchase
 		ReleasePurchaseInfoVO releasePurchaseInfoVO = new ReleasePurchaseInfoVO(); 
 		BeanUtils.copyProperties(releasePurchaseInfoVO, selectByPrimaryKey);
 		return R.ok().put("info", releasePurchaseInfoVO);
+	}
+	
+	/**
+	  * 更新求购信息 
+	 * @param releasePurchaseInfoDTO
+	 * @return
+	 * @throws Exception
+	 */
+	public R updateReleasePurchaseInfo(ReleasePurchaseInfoDTO releasePurchaseInfoDTO) throws Exception {
+		DeviceSeekToPurchaseInfoDO deviceSeekToPurchaseInfoDO = new DeviceSeekToPurchaseInfoDO();
+		BeanUtils.copyProperties(deviceSeekToPurchaseInfoDO, releasePurchaseInfoDTO);
+		deviceSeekToPurchaseInfoDO.setUpdateTime(new Date());
+		deviceSeekToPurchaseInfoMapper.updateByPrimaryKeySelective(deviceSeekToPurchaseInfoDO);
+		return R.ok();
 	}
 	
 }
