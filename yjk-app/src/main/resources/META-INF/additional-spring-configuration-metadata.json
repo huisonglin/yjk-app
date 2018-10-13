@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "jwtvalidate.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtvalidate.jwt.secret'"
+  },
+  {
+    "name": "spring.redis.max-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.max-idle'"
+  },
+  {
+    "name": "spring.redis.min-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.min-idle'"
+  },
+  {
+    "name": "spring.redis.max-active",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.max-active'"
+  },
+  {
+    "name": "spring.redis.max-wait",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.redis.max-wait'"
+  }
+]}

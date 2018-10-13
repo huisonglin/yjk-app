@@ -1,0 +1,337 @@
+目标package: test.one
+
+当前时间：
+2018-8-29
+15:25:44
+2018-08-29 15:25:44
+
+所有配置的属性信息:
+targetPackage - test.one
+templateFormatter - tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter
+templatePath - generator/test-one.ftl
+targetProject - D:\workspace-sts-3.9.4.RELEASE\yjk-app\src\test\java
+fileName - ${tableClass.shortClassName}Test.txt
+
+实体和表的信息：
+表名：yjk_device
+变量名：yjkDevice
+小写名：yjkdevice
+类名：YjkDevice
+全名：test.model.YjkDevice
+包名：test.model
+
+列的信息：
+=====================================
+主键：
+    -------------------------------------
+    列名：id
+    列类型：BIGINT
+    字段名：id
+    注释：主键ID
+    类型包名：java.lang
+    类型短名：Long
+    类型全名：java.lang.Long
+    是否主键：true
+    是否可空：false
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+
+基础列：
+    -------------------------------------
+    列名：device_name
+    列类型：VARCHAR
+    字段名：deviceName
+    注释：设备名称
+    类型包名：java.lang
+    类型短名：String
+    类型全名：java.lang.String
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：true
+    是否为字符串列：true
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：255
+    列精度：0
+    -------------------------------------
+    列名：manufacture
+    列类型：TIMESTAMP
+    字段名：manufacture
+    注释：出厂日期
+    类型包名：java.util
+    类型短名：Date
+    类型全名：java.util.Date
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：work_time
+    列类型：INTEGER
+    字段名：workTime
+    注释：工作时间
+    类型包名：java.lang
+    类型短名：Integer
+    类型全名：java.lang.Integer
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：10
+    列精度：0
+    -------------------------------------
+    列名：pics
+    列类型：VARCHAR
+    字段名：pics
+    注释：设备图片
+    类型包名：java.lang
+    类型短名：String
+    类型全名：java.lang.String
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：true
+    是否为字符串列：true
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：255
+    列精度：0
+    -------------------------------------
+    列名：member_id
+    列类型：BIGINT
+    字段名：memberId
+    注释：会员ID
+    类型包名：java.lang
+    类型短名：Long
+    类型全名：java.lang.Long
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：type
+    列类型：INTEGER
+    字段名：type
+    注释：类型
+    类型包名：java.lang
+    类型短名：Integer
+    类型全名：java.lang.Integer
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：10
+    列精度：0
+    -------------------------------------
+    列名：status
+    列类型：INTEGER
+    字段名：status
+    注释：状态
+    类型包名：java.lang
+    类型短名：Integer
+    类型全名：java.lang.Integer
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：10
+    列精度：0
+    -------------------------------------
+    列名：sale_status
+    列类型：INTEGER
+    字段名：saleStatus
+    注释：0未发布 1已发布
+    类型包名：java.lang
+    类型短名：Integer
+    类型全名：java.lang.Integer
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：10
+    列精度：0
+    -------------------------------------
+    列名：spec_id
+    列类型：BIGINT
+    字段名：specId
+    注释：规格ID
+    类型包名：java.lang
+    类型短名：Long
+    类型全名：java.lang.Long
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：two_stage_mode_id
+    列类型：BIGINT
+    字段名：twoStageModeId
+    注释：二级机型ID
+    类型包名：java.lang
+    类型短名：Long
+    类型全名：java.lang.Long
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：mode_id
+    列类型：BIGINT
+    字段名：modeId
+    注释：机型ID
+    类型包名：java.lang
+    类型短名：Long
+    类型全名：java.lang.Long
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：rent_status
+    列类型：INTEGER
+    字段名：rentStatus
+    注释：0未发布 1已发布
+    类型包名：java.lang
+    类型短名：Integer
+    类型全名：java.lang.Integer
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：10
+    列精度：0
+    -------------------------------------
+    列名：remark
+    列类型：VARCHAR
+    字段名：remark
+    注释：备注
+    类型包名：java.lang
+    类型短名：String
+    类型全名：java.lang.String
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：true
+    是否为字符串列：true
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：255
+    列精度：0
+    -------------------------------------
+    列名：create_time
+    列类型：TIMESTAMP
+    字段名：createTime
+    注释：创建时间
+    类型包名：java.util
+    类型短名：Date
+    类型全名：java.util.Date
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+    -------------------------------------
+    列名：update_time
+    列类型：TIMESTAMP
+    字段名：updateTime
+    注释：更新时间
+    类型包名：java.util
+    类型短名：Date
+    类型全名：java.util.Date
+    是否主键：false
+    是否可空：true
+    是否为BLOB列：false
+    是否为String列：false
+    是否为字符串列：false
+    是否为日期列：false
+    是否为时间列：false
+    是否为序列列：false
+    列长度：19
+    列精度：0
+
+Blob列：
+
+=====================================
+全部列：
+列名 - 字段名
+    id - id
+    device_name - deviceName
+    manufacture - manufacture
+    work_time - workTime
+    pics - pics
+    member_id - memberId
+    type - type
+    status - status
+    sale_status - saleStatus
+    spec_id - specId
+    two_stage_mode_id - twoStageModeId
+    mode_id - modeId
+    rent_status - rentStatus
+    remark - remark
+    create_time - createTime
+    update_time - updateTime

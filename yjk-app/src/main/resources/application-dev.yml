@@ -1,0 +1,117 @@
+#web server
+server:
+  port: 8080
+  servlet:
+    context-path: /app
+  tomcat:
+    uri-encoding: UTF-8
+logging:
+  level:
+    com: debug
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 300MB
+      max-request-size: 300MB
+  #time format
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #datasource
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    ds1:
+      url: jdbc:mysql://127.0.0.1:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
+      username: root
+      password: 123456
+      driverClassName: com.mysql.jdbc.Driver
+      name: datasource1
+      #连接池建立时创建的初始化连接数
+      initialSize: 5
+      #连接池中最小连接数
+      minIdle: 5
+      #连接池中最大连接数
+      maxActive: 20
+      #获取连接时最大等待时间，单位是毫秒
+      maxWait: 60000
+      #间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      #一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 30000
+      #用来检测连接是否有效
+      validationQuery: SELECT 1
+      #是否在连接空闲一段时间后检测其可用性，申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      testWhileIdle: true
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      testOnBorrow: false
+      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      testOnReturn: false
+      #是否缓存preparedStatement，也就是PSCache
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+    ds2:
+      url: jdbc:mysql://127.0.0.1:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
+      username: root
+      password: 123456
+      driverClassName: com.mysql.jdbc.Driver
+      name: datasource2
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      useGlobalDataSourceStat: true
+  redis:
+    database: 0
+    host: 39.106.4.135
+    port: 6379
+    password: 19930711
+  activemq:
+    broker-url: tcp://39.106.4.135:61616
+    user: gchl
+    password: gchl2018
+    in-memory: true
+    pool:
+      enabled: false
+  cache:
+    type: ehcache
+
+#mybatis
+mybatis:
+   configuration:
+    mapUnderscoreToCamelCase: true
+   mapperLocations: classpath:mapper/*.xml
+   typeAliasesPackage: com.yjk.app.entity
+   
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
+
+pagehelper:
+ helperDialect: mysql
+ reasonable: true
+ supportMethodsArguments: true
+ params: count=countSql
+
+jwtvalidate:
+    # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+    jwt:
+        # 加密秘钥
+        secret: gongchengjiiehulian2017
+        # token有效时长，7天，单位秒
+        expire: 2000000
+        header: token
