@@ -41,8 +41,8 @@ public class DeviceServiceImpl implements DeviceService{
 		deviceDO.setSaleStatus(0);//未发布
 		deviceDO.setRentStatus(0);//未发布
 		deviceDO.setRemark(addDeviceDTO.getRemark());
-		deviceMapper.insertSelective(deviceDO);
-		return R.ok();
+		int id = deviceMapper.insertSelective(deviceDO);
+		return R.ok().put("info", id);
 	}
 	
 	public R updateDevcie(DeviceDTO editDeviceDTO) {

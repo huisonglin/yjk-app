@@ -38,12 +38,14 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		deviceRentOutInfoDO.setCreateTime(new Date());
 		deviceRentOutInfoDO.setUpdateTime(new Date());
 		deviceRentOutInfoDO.setStatus(1);
+		Long deviceId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
-			deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
+			Integer id = deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
+			deviceId = Long.valueOf(id.toString());
 		}else {
 			deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
 		}
-		return R.ok();
+		return R.ok().put("info", deviceId);
 	}
 	
 	/**

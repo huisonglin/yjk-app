@@ -148,7 +148,7 @@ public class MemberServiceImpl implements MemberService{
 		memberInfo.setUpdateTime(new Date());
 		memberInfo.setMemberId(member.getId());
 		memberInfoMapper.insertSelective(memberInfo);
-		return R.ok();
+		return R.ok().put("info",member);
 		
 	}
 	
