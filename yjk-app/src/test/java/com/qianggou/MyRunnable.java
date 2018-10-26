@@ -1,6 +1,7 @@
 package com.qianggou;
 
 import java.util.List;
+import java.util.Random;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
@@ -19,7 +20,7 @@ public class MyRunnable implements Runnable{
     	    jedis.auth("19930711");
 	        try {
 	            while(!tryQg(jedis)) {
-	            	Thread.sleep(300);
+	            	Thread.sleep(new Random().nextInt(300));
 	            }
 	 
 	        } catch (Exception e) {
@@ -37,14 +38,21 @@ public class MyRunnable implements Runnable{
 			
 			if (valint <= 100 && valint>=1) {
 			
-			     Transaction tx = jedis.multi();// 开启事务
+	
 			   // tx.incr("watchkeys");
-			    tx.incrBy("watchkeys", -1);
+			     int count = new Random().nextInt(5)+1;
+			     if(valint-count<0) {
+			        String failuserifo = "fail"+userinfo;
+			        String failinfo="用户：" + failuserifo + "商品争抢失败，抢购失败(库存不足)";
+			        System.out.println(failinfo);
+			    	 return false;
+			     }
+			    Transaction tx = jedis.multi();// 开启事务
+			    tx.incrBy("watchkeys", -count);
  
 			    List<Object> list = tx.exec();// 提交事务，如果此时watchkeys被改动了，则返回null
 			     
 			    if (list == null ||list.size()==0) {
- 
 			        String failuserifo = "fail"+userinfo;
 			        String failinfo="用户：" + failuserifo + "商品争抢失败，抢购失败(尝试重新抢购)";
 			        System.out.println(failinfo);
@@ -53,9 +61,15 @@ public class MyRunnable implements Runnable{
 			        return false;
 			    } else {
 			        for(Object succ : list){
+			        	if(Integer.parseInt(succ.toString())<0) {
+			        		String failuserifo = "fail"+userinfo;
+					        String failinfo="用户：" + failuserifo + "商品争抢失败，抢购失败(库存不足)";
+					        System.out.println(failinfo);
+					        return true;
+			        	}
 			             String succuserifo ="succ"+succ.toString() +userinfo ;
-			             String succinfo="用户：" + succuserifo + "抢购成功，当前抢购成功人数:"
-			                     + (1-(valint-100));
+			             String succinfo="用户：" + succuserifo + "抢购成功,成功抢购了"+count+"件，当前商品剩余:"
+			                     + succ+"件" ;
 			             System.out.println(succinfo);
 			             /* 抢购成功业务逻辑 */
 			             jedis.setnx(succuserifo, succinfo);

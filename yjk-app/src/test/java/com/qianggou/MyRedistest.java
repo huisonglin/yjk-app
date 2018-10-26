@@ -17,7 +17,7 @@ public class MyRedistest {
         // jedis.del("setsucc", "setfail"); 
          jedis.close();
           
-         for (int i = 0; i < 70; i++) {//设置1000个人来发起抢购
+         for (int i = 0; i < 300; i++) {//设置1000个人来发起抢购
              executor.execute(new MyRunnable("user"+getRandomString(6)));
          }
          executor.shutdown();
