@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DistributedLock {
-	int lockTime() default 1000; //默认1秒钟之后释放 
+	int lockTime() default 3000; //默认1秒钟之后释放 
 }

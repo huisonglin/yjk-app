@@ -42,7 +42,7 @@ public class DeviceServiceImpl implements DeviceService{
 		deviceDO.setRentStatus(0);//未发布
 		deviceDO.setRemark(addDeviceDTO.getRemark());
 		deviceMapper.insertSelective(deviceDO);
-		return R.ok();
+		return R.ok().put("info", deviceDO.getId());
 	}
 	
 	public R updateDevcie(DeviceDTO editDeviceDTO) {

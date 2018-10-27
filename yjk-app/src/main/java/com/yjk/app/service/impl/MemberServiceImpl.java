@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yjk.app.annotation.DistributedLock;
 import com.yjk.app.common.Constants;
 import com.yjk.app.dao.MemberInfoMapper;
 import com.yjk.app.dao.MemberMapper;
@@ -148,7 +149,7 @@ public class MemberServiceImpl implements MemberService{
 		memberInfo.setUpdateTime(new Date());
 		memberInfo.setMemberId(member.getId());
 		memberInfoMapper.insertSelective(memberInfo);
-		return R.ok();
+		return R.ok().put("info",member);
 		
 	}
 	

@@ -44,17 +44,16 @@ public class PutOnRentInfoServiceImpl {
 	 */
 	public R putOnRent(Long deviceId) throws Exception {
 		
-/*		Device device = deviceMapper.selectByPrimaryKey(deviceId);
+		DeviceDO device = deviceMapper.selectByPrimaryKey(deviceId);
 		if(device == null) {
 			throw new RRException("该设备不存在");
-		}*/
+		}
 		rentItemInfo rentItemInfo = new rentItemInfo();
-		rentItemInfo.setId(10l);
-		rentItemInfo.setName("小天才早教机3");
-		rentItemInfo.setUrl("http://www.pic.com/2.jpg");
+		rentItemInfo.setId(deviceId);
+		rentItemInfo.setName(device.getDeviceName());
+		rentItemInfo.setUrl(device.getPics());
 		rentItemInfo.setLast_modified(new Date());
 		SolrInputDocument doc = SolrUtil.SolrInputDocumentCoverter(rentItemInfo);
-		//doc.addField("last_modified", new Date());
 		solrClient.add(doc);
 		solrClient.commit();	
 		return R.ok();

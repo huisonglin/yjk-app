@@ -9,7 +9,18 @@
 	<cache name="role" eternal="false" maxElementsInMemory="20000"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
-		<cache name="memberInfo" eternal="false" maxElementsInMemory="20000"
+	<cache name="memberInfo" eternal="false" maxElementsInMemory="20000"
+	overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+	timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
+		<cache name="modelList" eternal="false" maxElementsInMemory="20000"
+	overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+	timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
+	
+			<cache name="twoStagemodelList" eternal="false" maxElementsInMemory="20000"
+	overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+	timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
+	
+			<cache name="specList" eternal="false" maxElementsInMemory="20000"
 	overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 	timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"/>
 </ehcache>
