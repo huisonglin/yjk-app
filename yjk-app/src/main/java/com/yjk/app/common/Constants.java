@@ -5,7 +5,7 @@ public class Constants {
 	public static final Integer pageSize = 10;
 	//我的足迹
 	public static final String MY_FOOTPRINT = "My_footprint";
-	
+	//保存当前设备标识
 	public static final String TERMINAL = "terminal";
 	//点击详情总数
 	public static final String Total_Count_View = "Total_Count_View";	
