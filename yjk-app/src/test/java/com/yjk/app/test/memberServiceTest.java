@@ -1,7 +1,6 @@
 package com.yjk.app.test;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +22,7 @@ public class memberServiceTest {
 
 	@Test
 	public void test() throws Exception {
-		R r = putOnRentInfoServiceImpl.putOnRent(7L);
+		R r = putOnRentInfoServiceImpl.putOnRent(8L);
 		System.out.println(JSON.toJSON(r));
 		
 	}

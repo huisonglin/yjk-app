@@ -13,6 +13,8 @@ import com.yjk.app.entity.DeviceDO;
 
 public class SolrUtil {
 	
+	
+	@SuppressWarnings("rawtypes")
 	public static SolrInputDocument SolrInputDocumentCoverter(Object bean) throws Exception {
 		Map describe = PropertyUtils.describe(bean);
 		Set keySet = describe.keySet();
@@ -22,6 +24,10 @@ public class SolrUtil {
 			Object object = describe.get(fieldName);
 			System.out.println(fieldName+"---"+object);
 			if(object != null) {
+				if(object instanceof Date) {
+					Date date = (Date)object;
+					object = new Date(date.getTime() + 28800000l);
+				}
 				System.out.println(object.getClass());
 				doc.addField(fieldName.toString(), object);
 			}
