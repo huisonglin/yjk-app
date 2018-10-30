@@ -267,4 +267,23 @@ public class DeviceDO implements Serializable {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
+	@Override
+	public String toString() {
+		return "DeviceDO [id=" + id + ", deviceName=" + deviceName + ", manufacture=" + manufacture + ", workTime="
+				+ workTime + ", pics=" + pics + ", memberId=" + memberId + ", type=" + type + ", status=" + status
+				+ ", saleStatus=" + saleStatus + ", specId=" + specId + ", twoStageModeId=" + twoStageModeId
+				+ ", modeId=" + modeId + ", rentStatus=" + rentStatus + ", remark=" + remark + ", newMachinePrice="
+				+ newMachinePrice + ", selfEstimate=" + selfEstimate + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", getNewMachinePrice()=" + getNewMachinePrice() + ", getSelfEstimate()="
+				+ getSelfEstimate() + ", getId()=" + getId() + ", getDeviceName()=" + getDeviceName()
+				+ ", getManufacture()=" + getManufacture() + ", getWorkTime()=" + getWorkTime() + ", getPics()="
+				+ getPics() + ", getMemberId()=" + getMemberId() + ", getType()=" + getType() + ", getStatus()="
+				+ getStatus() + ", getSaleStatus()=" + getSaleStatus() + ", getSpecId()=" + getSpecId()
+				+ ", getTwoStageModeId()=" + getTwoStageModeId() + ", getModeId()=" + getModeId() + ", getRentStatus()="
+				+ getRentStatus() + ", getRemark()=" + getRemark() + ", getCreateTime()=" + getCreateTime()
+				+ ", getUpdateTime()=" + getUpdateTime() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+	
+	
 }

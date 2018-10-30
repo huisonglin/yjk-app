@@ -59,9 +59,16 @@ public class RedisLock implements Lock {
 		// TODO Auto-generated method stub
 		String uuid = UUID.randomUUID().toString();
 		Jedis jedis = RedisPool.getJedis();
-		boolean setReisLock = RedisUtil.tryGetDistributedLock(jedis, lockName, uuid, lockTime);
-		jedis.close();
+		boolean setReisLock = false;
+		try {
+			setReisLock = RedisUtil.tryGetDistributedLock(jedis, lockName, uuid, lockTime);
+		} catch (Exception e) {
+			
+		}finally {
+			jedis.close();
+		}
 		if (setReisLock) {
+			System.out.println(Thread.currentThread().getName()+"--"+uuid);
 			local.set(uuid);
 			System.out.println("加锁成功");
 			return true;
@@ -80,6 +87,7 @@ public class RedisLock implements Lock {
 	@Override
 	public void unlock() {
 		String uuid = local.get();
+		System.out.println(Thread.currentThread().getName()+"--"+uuid);
 		Jedis jedis = RedisPool.getJedis();
 		boolean keyDel = RedisUtil.releaseDistributedLock(jedis, lockName, uuid);
 		jedis.close();
