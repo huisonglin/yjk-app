@@ -1,7 +1,6 @@
 package com.yjk.app.test;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.util.List;
 
@@ -42,6 +41,7 @@ public class memberServiceTest {
 		}
 
 		//searchService.search(1);
+
 
 		
 	}
