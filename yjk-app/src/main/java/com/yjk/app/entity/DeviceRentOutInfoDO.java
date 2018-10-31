@@ -49,7 +49,16 @@ public class DeviceRentOutInfoDO implements Serializable {
 	private Date createTime;
 	//更新时间
 	private Date updateTime;
+	//发布时间
+	private Date newstime;
 
+	
+	public Date getNewstime() {
+		return newstime;
+	}
+	public void setNewstime(Date newstime) {
+		this.newstime = newstime;
+	}
 	/**
 	 * 设置：主键ID
 	 */
