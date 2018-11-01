@@ -60,8 +60,7 @@ public class DeviceDO implements Serializable {
 	private Date createTime;
 	//更新时间
 	private Date updateTime;
-	
-	
+
 
 	public BigDecimal getNewMachinePrice() {
 		return newMachinePrice;

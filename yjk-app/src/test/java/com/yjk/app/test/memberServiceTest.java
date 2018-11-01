@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.alibaba.fastjson.JSON;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.entity.DeviceDO;
+import com.yjk.app.service.SearchService;
 import com.yjk.app.service.impl.PutOnRentInfoServiceImpl;
 import com.yjk.app.util.R;
 
@@ -25,19 +26,23 @@ public class memberServiceTest {
 
 	@Autowired
 	PutOnRentInfoServiceImpl putOnRentInfoServiceImpl;
-	
 	@Autowired
 	DeviceMapper deviceMapper;
+	@Autowired
+	SearchService searchService;
+
 	@Test
 	public void test() throws Exception {
-		Example example = new Example(DeviceDO.class);
-		example.selectProperties("deviceName");
-		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("id", 25l);
-		List<DeviceDO> deviceDOs = deviceMapper.selectByExample(example);
-		for (DeviceDO deviceDO : deviceDOs) {
-			System.out.println(deviceDO);
+/*		List<DeviceDO> selectAll = deviceMapper.selectAll();
+		for (DeviceDO deviceDO : selectAll) {
+			R r = putOnRentInfoServiceImpl.putOnRent(deviceDO.getId());
+			System.out.println(JSON.toJSON(r));
+		}*/
+		for(int i=0;i<400;i++) {
+			putOnRentInfoServiceImpl.putOnRent(27L);
 		}
+
+
 	}
 	
 	

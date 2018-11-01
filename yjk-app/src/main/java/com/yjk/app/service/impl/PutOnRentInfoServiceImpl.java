@@ -2,6 +2,7 @@ package com.yjk.app.service.impl;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.ibatis.reflection.ArrayUtil;
 import org.apache.solr.client.solrj.SolrClient;
@@ -13,13 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.dao.DeviceMapper;
+import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.entity.DeviceDO;
+import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.exception.RRException;
+import com.yjk.app.service.DeviceRentOutInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
+import com.yjk.app.util.UuidUtils;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 /**
  * 上架发布出售
@@ -36,6 +44,9 @@ public class PutOnRentInfoServiceImpl {
 	@Autowired
 	DeviceMapper deviceMapper;
 	
+	@Autowired
+	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
+	
 	/**
 	 * 上架出租信息
 	 * @param deviceId
@@ -48,14 +59,25 @@ public class PutOnRentInfoServiceImpl {
 		if(device == null) {
 			throw new RRException("该设备不存在");
 		}
+		Example example = new Example(DeviceRentOutInfoDO.class);
+		Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("deviceId", 27);
+		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByExample(example).get(0);
+		deviceRentOutInfoDO.setNewstime(new Date());
 		rentItemInfo rentItemInfo = new rentItemInfo();
-		rentItemInfo.setId(deviceId);
+		rentItemInfo.setId(UuidUtils.get32UUID());
 		rentItemInfo.setName(device.getDeviceName());
-		rentItemInfo.setUrl(device.getPics());
-		rentItemInfo.setLast_modified(new Date());
+		rentItemInfo.setInfo_position("115."+new Random().nextInt(8000)+" "+"32."+new Random().nextInt(8000));
+		rentItemInfo.setPopularity(PublishingTypeEnum.RENT_OUT.getValue());
+		if(device.getPics() != null) {
+			String[] split = device.getPics().split("#");
+			rentItemInfo.setUrl(split[0]);
+		}
+		rentItemInfo.setLast_modified(deviceRentOutInfoDO.getNewstime());
 		SolrInputDocument doc = SolrUtil.SolrInputDocumentCoverter(rentItemInfo);
 		solrClient.add(doc);
 		solrClient.commit();	
+		deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
 		return R.ok();
 	}
 	
@@ -74,17 +96,17 @@ public class PutOnRentInfoServiceImpl {
 	public static class rentItemInfo{
 		
 		//主键id
-		Long id;
+		String id;
 		//名称
 		String name;	
 		//图片地址
 		String url;
 		//经纬度
-		String lonAndlat;
+		String info_position;
 		//星级		
 		Integer starLeve;
 		//列表类型
-		Integer type;   //1设备出租 2设备出售  3工程发布  4紧急求购
+		Integer popularity;   //1设备出租 2设备出售  3工程发布  4紧急求购
 		//规格ID
 		Long specId;
 		//机型ID
@@ -130,12 +152,13 @@ public class PutOnRentInfoServiceImpl {
 		public void setTwoStageModeId(Long twoStageModeId) {
 			this.twoStageModeId = twoStageModeId;
 		}
+		
 
-		public Long getId() {
+		public String getId() {
 			return id;
 		}
 
-		public void setId(Long id) {
+		public void setId(String id) {
 			this.id = id;
 		}
 
@@ -155,12 +178,14 @@ public class PutOnRentInfoServiceImpl {
 			this.url = url;
 		}
 
-		public String getLonAndlat() {
-			return lonAndlat;
+		
+
+		public String getInfo_position() {
+			return info_position;
 		}
 
-		public void setLonAndlat(String lonAndlat) {
-			this.lonAndlat = lonAndlat;
+		public void setInfo_position(String info_position) {
+			this.info_position = info_position;
 		}
 
 		public Integer getStarLeve() {
@@ -171,13 +196,14 @@ public class PutOnRentInfoServiceImpl {
 			this.starLeve = starLeve;
 		}
 
-		public Integer getType() {
-			return type;
+		public Integer getPopularity() {
+			return popularity;
 		}
 
-		public void setType(Integer type) {
-			this.type = type;
+		public void setPopularity(Integer popularity) {
+			this.popularity = popularity;
 		}
+
 		
 		
 		

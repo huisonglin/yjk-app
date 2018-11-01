@@ -17,6 +17,7 @@ import com.yjk.app.annotation.LimitedAccessByToken;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.interceptor.AuthorizationInterceptor;
 
+
 @Component
 public class LimitUtil {
 
