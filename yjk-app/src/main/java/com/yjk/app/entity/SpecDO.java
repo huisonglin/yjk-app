@@ -45,11 +45,11 @@ public class SpecDO {
 		this.twoStageModeId = twoStageModeId;
 	}
 
-	public String getBrand() {
+	public String getBrand() { 
 		return brand;
 	}
 
-	public void setBrand(String brand) {
+	public void setBrand(String brand) { 
 		this.brand = brand;
 	}
 

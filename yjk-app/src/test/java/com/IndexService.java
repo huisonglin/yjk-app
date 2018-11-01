@@ -21,7 +21,7 @@ public class IndexService {
 	public static void main(String[] args) {
 		try {
 			CountDownLatch start = new CountDownLatch(1);// 初始化计数器为 一
-			RedisLock redisLook = new RedisLock();
+			RedisLock redisLook = new RedisLock("lock",1000);
 			for (int i = 0; i < 12; i++) {// 模擬16个线程
 				MyTestThread tt = new MyTestThread(start, redisLook);
 				Thread t = new Thread(tt);

@@ -36,6 +36,7 @@ public class MyTestThread implements Runnable {
 			age = age - 1;
 		}
 		redisLock.unlock();
+
 	}
 
 }
