@@ -11,7 +11,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
 @RestController
-public class SearchController {
+public class ApiSearchController {
 
 	@Autowired
 	private SearchService searchService;

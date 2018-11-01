@@ -22,7 +22,7 @@ import com.yjk.app.validator.Assert;
 
 @RestController
 @RequestMapping("/deviceRentOut")
-public class DeviceRentOutInfoController {
+public class ApiDeviceRentOutInfoController {
 
 	@Autowired
 	DeviceRentOutInfoService deviceRentOutInfoService;
