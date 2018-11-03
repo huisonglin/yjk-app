@@ -5,6 +5,7 @@ import java.util.Random;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.dao.DeviceMapper;
@@ -13,6 +14,7 @@ import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.entity.MemberDO;
+import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
 import tk.mybatis.mapper.entity.Example;
@@ -24,7 +26,7 @@ import tk.mybatis.mapper.entity.Example.Criteria;
  *
  */
 @Service
-public class PutOnRentInfoServiceImpl {
+public class PutOnRentInfoServiceImpl implements PutOnRentInfoService{
 
 
 	@Autowired
@@ -45,21 +47,17 @@ public class PutOnRentInfoServiceImpl {
 	 * @return
 	 * @throws Exception 
 	 */
+	@Async
 	public R putOnRent(Long deviceRentOutInfoId) throws Exception {
 		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(deviceRentOutInfoId);
-		Example example = new Example(DeviceDO.class);
-		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("id", deviceRentOutInfoDO.getDeviceId());
-		DeviceDO device = deviceMapper.selectByExample(criteria).get(0);
+		DeviceDO device = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getDeviceId());
 		deviceRentOutInfoDO.setNewstime(new Date());
 		rentItemInfo rentItemInfo = new rentItemInfo();
-		Integer id = new Random().nextInt(10000);
-		rentItemInfo.setId(id.toString());
-		MemberDO member = memberMapper.selectByPrimaryKey(device.getMemberId());
-		rentItemInfo.setStarLeve(member.getCreditScore());
+		rentItemInfo.setId(deviceRentOutInfoId.toString());
 		rentItemInfo.setModeId(device.getModeId());
 		rentItemInfo.setTwoStageModeId(device.getTwoStageModeId());
 		rentItemInfo.setSpecId(device.getSpecId());
+		rentItemInfo.setAddress(deviceRentOutInfoDO.getAddress());
 		rentItemInfo.setName(device.getDeviceName());
 		rentItemInfo.setInfo_position(deviceRentOutInfoDO.getLongitude()+" "+deviceRentOutInfoDO.getLatitude());
 		rentItemInfo.setPopularity(PublishingTypeEnum.RENT_OUT.getValue());
@@ -82,6 +80,7 @@ public class PutOnRentInfoServiceImpl {
 	 * @return
 	 * @throws Exception
 	 */
+	@Async
 	public R rentInfoOut(Long deviceRentOutInfoId) throws Exception {
 		solrClient.deleteById(deviceRentOutInfoId.toString());
 		solrClient.commit();
@@ -100,6 +99,8 @@ public class PutOnRentInfoServiceImpl {
 		String name;	
 		//图片地址
 		String url;
+		
+		String address;
 		//经纬度
 		String info_position;
 		//星级		
@@ -117,6 +118,14 @@ public class PutOnRentInfoServiceImpl {
 		
 		
 		
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
 
 		public Date getLast_modified() {
 			return last_modified;

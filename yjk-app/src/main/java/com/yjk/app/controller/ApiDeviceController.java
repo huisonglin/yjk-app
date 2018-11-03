@@ -31,14 +31,15 @@ public class ApiDeviceController {
 		addDeviceDTO.setMemberId(memberId);
 		Assert.isBlank(addDeviceDTO.getDeviceName(), "设备名称不能为空");
 		Assert.isBlank(addDeviceDTO.getPics(), "设备图片不能为空");
-		Assert.isNull(addDeviceDTO.getManufacture(), "出厂日期不能为空");
 		Assert.isNull(addDeviceDTO.getMemberId(), "用户ID不能为空");
-		Assert.isNull(addDeviceDTO.getModeId(), "机型ID不能为空");
 		Assert.isNull(addDeviceDTO.getTwoStageModeId(), "二级机型ID不能为空");
 		Assert.isNull(addDeviceDTO.getSpecId(), "规格ID不能为空");
-		Assert.isNull(addDeviceDTO.getNewMachinePrice(), "新机价格不能为空");
+		Assert.isNull(addDeviceDTO.getModeId(), "机型ID不能为空");
+
+/*		Assert.isNull(addDeviceDTO.getNewMachinePrice(), "新机价格不能为空");
+		Assert.isNull(addDeviceDTO.getManufacture(), "出厂日期不能为空");
 		Assert.isNull(addDeviceDTO.getSelfEstimate(), "自我估值不能为空");
-		Assert.isNull(addDeviceDTO.getWorkTime(), "工作时长不能为空");
+		Assert.isNull(addDeviceDTO.getWorkTime(), "工作时长不能为空");*/
 		return deviceService.addDevice(addDeviceDTO) ;
 	}
 	

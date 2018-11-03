@@ -31,6 +31,8 @@ public class DeviceRentOutInfoDO implements Serializable {
 	private Long deviceId;
 	//出租地址
 	private String address;
+	
+	private String addressDetail;
 	//经度
 	private Double longitude;
 	//纬度
@@ -53,6 +55,12 @@ public class DeviceRentOutInfoDO implements Serializable {
 	private Date newstime;
 
 	
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
 	public Date getNewstime() {
 		return newstime;
 	}

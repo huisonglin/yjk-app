@@ -25,8 +25,18 @@ public class DeviceRentOutInfoDTO {
 	private Integer type;
 	//语音内容
 	private String voice;
+	
+	private String addressDetail;
 	//出租备注
 	private String remark;
+	
+	
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
 	public Long getId() {
 		return id;
 	}

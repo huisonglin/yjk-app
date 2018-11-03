@@ -1,16 +1,9 @@
 package com.yjk.app.service.impl;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.converters.BigDecimalConverter;
-import org.apache.commons.beanutils.converters.DoubleConverter;
-import org.apache.commons.beanutils.converters.IntegerConverter;
-import org.apache.commons.beanutils.converters.LongConverter;
-import org.apache.commons.beanutils.converters.ShortConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +12,7 @@ import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.service.DeviceRentOutInfoService;
+import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentOutInfoVO;
 
@@ -28,7 +22,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
 	@Autowired
 	SelfIncreasingIdService selfIncreasingIdService;
-	
+	@Autowired
+	PutOnRentInfoService putOnRentInfoService;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentOutInfoDTO
@@ -68,24 +63,28 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	 * 下架发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
-	public R cacelRentOutInfo(Long id) {
+	public R cacelRentOutInfo(Long id) throws Exception {
 		DeviceRentOutInfoDO droid = new DeviceRentOutInfoDO();
 		droid.setId(id);
 		droid.setStatus(1);
 		deviceRentOutInfoMapper.updateByPrimaryKeySelective(droid);
+		putOnRentInfoService.rentInfoOut(id);
 		return R.ok();
 	}
 	/**
 	 * 上架发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
-	public R releaseRentOutInfo(Long id) {
+	public R releaseRentOutInfo(Long id) throws Exception {
 		DeviceRentOutInfoDO droid = new DeviceRentOutInfoDO();
 		droid.setId(id);
 		droid.setStatus(2);
 		deviceRentOutInfoMapper.updateByPrimaryKeySelective(droid);
+		putOnRentInfoService.putOnRent(id);
 		return R.ok();
 	}
 	/**

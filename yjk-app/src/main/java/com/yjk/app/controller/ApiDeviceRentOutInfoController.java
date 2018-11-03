@@ -60,10 +60,11 @@ public class ApiDeviceRentOutInfoController {
 	 * 下架发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
 	@Login
 	@RequestMapping("/cacelRentOutInfo")
-	public R cacelRentOutInfo(Long id) {
+	public R cacelRentOutInfo(Long id) throws Exception {
 		Assert.isNull(id, "id不能为空");
 		return deviceRentOutInfoService.cacelRentOutInfo(id);
 	}
@@ -71,10 +72,11 @@ public class ApiDeviceRentOutInfoController {
 	 * 上架发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
 	@Login
 	@RequestMapping("/releaseRentOutInfo")
-	public R releaseRentOutInfo(Long id) {
+	public R releaseRentOutInfo(Long id) throws Exception {
 		Assert.isNull(id, "id不能为空");
 		return deviceRentOutInfoService.releaseRentOutInfo(id);
 	}
@@ -82,10 +84,11 @@ public class ApiDeviceRentOutInfoController {
 	 * 删除发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
 	@Login
 	@RequestMapping("/delRentOutInfo")
-	public R delRentOutInfo(Long id) {
+	public R delRentOutInfo(Long id) throws Exception {
 		Assert.isNull(id, "id不能为空");
 		return deviceRentOutInfoService.delRentOutInfo(id);
 	}

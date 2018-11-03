@@ -26,17 +26,17 @@ public interface DeviceRentOutInfoService {
 	 * @param id
 	 * @return
 	 */
-	public R cacelRentOutInfo(Long id) ;
+	public R cacelRentOutInfo(Long id)  throws Exception ;
 	/**
 	 * 上架发布出售信息
 	 * @param id
 	 * @return
 	 */
-	public R releaseRentOutInfo(Long id) ;
+	public R releaseRentOutInfo(Long id)  throws Exception ;
 	/**
 	 * 删除发布出售信息
 	 * @param id
 	 * @return
 	 */
-	public R delRentOutInfo(Long id) ;
+	public R delRentOutInfo(Long id)  throws Exception  ;
 }

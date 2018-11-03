@@ -2,7 +2,7 @@ package com.yjk.app.common;
 
 public enum PublishingTypeEnum {
 
-	RENT_OUT("发布出租",1),SELL("发布出售",2),RENTAL_IN_NEED("发布求租",3),SEEK_TO_PURCHASE("发布求购",4);
+	RENT_OUT("发布出租",1),RENTAL_IN_NEED("发布求租",2),SELL("发布出售",3),SEEK_TO_PURCHASE("发布求购",4);
 	
 	String name;
 	

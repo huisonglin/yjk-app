@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.service.SearchService;
+import com.yjk.app.service.impl.PutOnProjectInfoServiceImpl;
 import com.yjk.app.service.impl.PutOnRentInfoServiceImpl;
 import com.yjk.app.util.R;
 
@@ -27,6 +28,8 @@ public class memberServiceTest {
 	@Autowired
 	PutOnRentInfoServiceImpl putOnRentInfoServiceImpl;
 	@Autowired
+	PutOnProjectInfoServiceImpl putOnProjectInfoServiceImpl;
+	@Autowired
 	DeviceMapper deviceMapper;
 	@Autowired
 	SearchService searchService;
@@ -38,9 +41,9 @@ public class memberServiceTest {
 			R r = putOnRentInfoServiceImpl.putOnRent(deviceDO.getId());
 			System.out.println(JSON.toJSON(r));
 		}*/
-		for(int i=0;i<400;i++) {
-			putOnRentInfoServiceImpl.putOnRent(27L);
-		}
+	
+			//putOnRentInfoServiceImpl.putOnRent(5L);
+		putOnProjectInfoServiceImpl.putOnProject(1L);
 
 
 	}

@@ -29,6 +29,10 @@ public class DeviceRentalInNeedInfoDO implements Serializable {
 	private Long memberId;
 	//施工地点
 	private String adress;
+	//详细地址
+	private String addressDetail;
+	
+	private String pics;
 	//名称
 	private String name;
 	//经度
@@ -76,7 +80,22 @@ public class DeviceRentalInNeedInfoDO implements Serializable {
 	private Date newstime;
 	
 	
-
+	
+	public String getAddressDetail() {
+		return addressDetail;
+	}
+	public void setAddressDetail(String addressDetail) {
+		this.addressDetail = addressDetail;
+	}
+	public String getPics() {
+		return pics;
+	}
+	public void setPics(String pics) {
+		this.pics = pics;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public Date getNewstime() {
 		return newstime;
 	}

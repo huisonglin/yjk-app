@@ -2,25 +2,26 @@ package com.yjk.app.dto;
 
 public class PositionDTO {
 
-	private Double lon; //经度
+	private Double longitude; //经度
 	
-	private Double lat; //纬度
+	private Double latitude; //纬度
 
-	public Double getLon() {
-		return lon;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setLon(Double lon) {
-		this.lon = lon;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
-	public Double getLat() {
-		return lat;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setLat(Double lat) {
-		this.lat = lat;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
+
 	
 	
 }
