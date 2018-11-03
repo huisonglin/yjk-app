@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.dao.DeviceSeekToPurchaseInfoMapper;
 import com.yjk.app.dto.ReleasePurchaseInfoDTO;
 import com.yjk.app.entity.DeviceSeekToPurchaseInfoDO;
@@ -21,6 +22,9 @@ public class DeviceSeekToPurchaseInfoServiceImpl implements DeviceSeekToPurchase
 	@Autowired
 	private DeviceSeekToPurchaseInfoMapper deviceSeekToPurchaseInfoMapper;
 	
+	@Autowired
+	SelfIncreasingIdService selfIncreasingIdService;
+	
 	/**
 	 * 发布求购信息
 	 * @param releasePurchaseInfoDTO
@@ -33,6 +37,7 @@ public class DeviceSeekToPurchaseInfoServiceImpl implements DeviceSeekToPurchase
 		deviceSeekToPurchaseInfoDO.setStatus(1);
 		deviceSeekToPurchaseInfoDO.setCreateTime(new Date());
 		deviceSeekToPurchaseInfoDO.setUpdateTime(new Date());
+		deviceSeekToPurchaseInfoDO.setId(selfIncreasingIdService.generateId());
 		deviceSeekToPurchaseInfoMapper.insertSelective(deviceSeekToPurchaseInfoDO);
 		return R.ok();
 	}

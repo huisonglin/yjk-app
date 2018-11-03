@@ -14,6 +14,7 @@ import org.apache.commons.beanutils.converters.ShortConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
@@ -25,6 +26,8 @@ import com.yjk.app.vo.DeviceRentOutInfoVO;
 public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	@Autowired
 	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
+	@Autowired
+	SelfIncreasingIdService selfIncreasingIdService;
 	
 	/**
 	 * 添加或者修改发布信息
@@ -40,6 +43,7 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		deviceRentOutInfoDO.setStatus(1);
 		Long deviceId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
+			deviceRentOutInfoDO.setId(selfIncreasingIdService.generateId());
 			deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
 			deviceId = deviceRentOutInfoDO.getId();
 		}else {

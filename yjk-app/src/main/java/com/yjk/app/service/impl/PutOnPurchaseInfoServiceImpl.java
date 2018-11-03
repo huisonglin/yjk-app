@@ -1,9 +1,7 @@
 package com.yjk.app.service.impl;
 
-import java.io.IOException;
 
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,7 +33,7 @@ public class PutOnPurchaseInfoServiceImpl {
 		/**
 		 * 主键
 		 */
-		Long id;
+		String id;
 		/**
 		 * 名称
 		 */

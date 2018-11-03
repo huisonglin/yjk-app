@@ -1,31 +1,20 @@
 package com.yjk.app.service.impl;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
-
-import org.apache.ibatis.reflection.ArrayUtil;
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.alibaba.fastjson.JSON;
 import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
+import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
-import com.yjk.app.exception.RRException;
-import com.yjk.app.service.DeviceRentOutInfoService;
+import com.yjk.app.entity.MemberDO;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
-import com.yjk.app.util.UuidUtils;
-
-import edu.emory.mathcs.backport.java.util.Arrays;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
@@ -47,27 +36,32 @@ public class PutOnRentInfoServiceImpl {
 	@Autowired
 	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
 	
+	@Autowired
+	MemberMapper memberMapper;
+	
 	/**
 	 * 上架出租信息
 	 * @param deviceId
 	 * @return
 	 * @throws Exception 
 	 */
-	public R putOnRent(Long deviceId) throws Exception {
-		
-		DeviceDO device = deviceMapper.selectByPrimaryKey(deviceId);
-		if(device == null) {
-			throw new RRException("该设备不存在");
-		}
-		Example example = new Example(DeviceRentOutInfoDO.class);
+	public R putOnRent(Long deviceRentOutInfoId) throws Exception {
+		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(deviceRentOutInfoId);
+		Example example = new Example(DeviceDO.class);
 		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("deviceId", 27);
-		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByExample(example).get(0);
+		criteria.andEqualTo("id", deviceRentOutInfoDO.getDeviceId());
+		DeviceDO device = deviceMapper.selectByExample(criteria).get(0);
 		deviceRentOutInfoDO.setNewstime(new Date());
 		rentItemInfo rentItemInfo = new rentItemInfo();
-		rentItemInfo.setId(UuidUtils.get32UUID());
+		Integer id = new Random().nextInt(10000);
+		rentItemInfo.setId(id.toString());
+		MemberDO member = memberMapper.selectByPrimaryKey(device.getMemberId());
+		rentItemInfo.setStarLeve(member.getCreditScore());
+		rentItemInfo.setModeId(device.getModeId());
+		rentItemInfo.setTwoStageModeId(device.getTwoStageModeId());
+		rentItemInfo.setSpecId(device.getSpecId());
 		rentItemInfo.setName(device.getDeviceName());
-		rentItemInfo.setInfo_position("115."+new Random().nextInt(8000)+" "+"32."+new Random().nextInt(8000));
+		rentItemInfo.setInfo_position(deviceRentOutInfoDO.getLongitude()+" "+deviceRentOutInfoDO.getLatitude());
 		rentItemInfo.setPopularity(PublishingTypeEnum.RENT_OUT.getValue());
 		if(device.getPics() != null) {
 			String[] split = device.getPics().split("#");
@@ -82,9 +76,14 @@ public class PutOnRentInfoServiceImpl {
 	}
 	
 	
-	
-	public R rentInfoOut(Long device) throws Exception {
-		solrClient.deleteById(device.toString());
+	/**
+	 * 取消上架
+	 * @param deviceRentOutInfoId
+	 * @return
+	 * @throws Exception
+	 */
+	public R rentInfoOut(Long deviceRentOutInfoId) throws Exception {
+		solrClient.deleteById(deviceRentOutInfoId.toString());
 		solrClient.commit();
 		return R.ok();
 	}
@@ -115,8 +114,6 @@ public class PutOnRentInfoServiceImpl {
 		Long twoStageModeId;
 		//发布日期
 		Date last_modified;
-		
-		
 		
 		
 		
@@ -152,6 +149,7 @@ public class PutOnRentInfoServiceImpl {
 		public void setTwoStageModeId(Long twoStageModeId) {
 			this.twoStageModeId = twoStageModeId;
 		}
+		
 		
 
 		public String getId() {

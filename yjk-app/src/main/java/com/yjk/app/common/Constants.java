@@ -2,6 +2,8 @@ package com.yjk.app.common;
 
 public class Constants {
 
+	public static final String SELF_INCREASING_ID  ="selfIncreasingId";
+	
 	public static final Integer pageSize = 10;
 	//我的足迹
 	public static final String MY_FOOTPRINT = "My_footprint";
