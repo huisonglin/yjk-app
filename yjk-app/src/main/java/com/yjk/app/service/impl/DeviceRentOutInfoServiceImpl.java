@@ -91,12 +91,14 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	 * 删除发布出售信息
 	 * @param id
 	 * @return
+	 * @throws Exception 
 	 */
-	public R delRentOutInfo(Long id) {
+	public R delRentOutInfo(Long id) throws Exception {
 		DeviceRentOutInfoDO droid = new DeviceRentOutInfoDO();
 		droid.setId(id);
 		droid.setStatus(3);
 		deviceRentOutInfoMapper.updateByPrimaryKeySelective(droid);
+		putOnRentInfoService.rentInfoOut(id);
 		return R.ok();
 	}
 }
