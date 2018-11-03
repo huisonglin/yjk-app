@@ -1,6 +1,6 @@
 #web server
 server:
-  port: 8080
+  port: 8085
   servlet:
     context-path: /app
   tomcat:
@@ -22,9 +22,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     ds1:
-      url: jdbc:mysql://39.106.4.135:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
-      username: root
-      password: uAiqwVwjJ8-i
+      url: jdbc:mysql://shuijie.mysqldb.chinacloudapi.cn:3306/yjk?useUnicode=true&characterEncoding=utf8
+      username: shuijie%wy
+      password: wy123456789?0.0
       driverClassName: com.mysql.jdbc.Driver
       name: datasource1
       #连接池建立时创建的初始化连接数
