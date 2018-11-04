@@ -34,4 +34,5 @@ public class ApiSearchController {
 		R search = searchService.search(searchDTO);
 		return search;
 	}
+	
 }

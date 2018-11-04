@@ -24,6 +24,8 @@ public interface MemberService {
 	 
 	 R loginByXcx(String code);
 	 
+	 R loginByXcxNeedMobile(String code);
+	 
 	 R bindMobile(BindMobileDTO bindMobileDTO);
 	 
 	 R memberInfo(Long memberId);

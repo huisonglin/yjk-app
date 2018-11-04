@@ -1,8 +1,7 @@
 package com.yjk.app.vo;
 
-import java.util.Date;
 
-public class DeviceRentOutInfoVO {
+public class DeviceRentOutInfoVO{
 
 	private Long id;
 	//会员ID

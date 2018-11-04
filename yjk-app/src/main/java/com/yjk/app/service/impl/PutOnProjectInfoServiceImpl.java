@@ -101,7 +101,9 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 		 * 规格ID
 		 */
 		Long specId;
-		
+		/**
+		 * 图片
+		 */
 		String url;
 		
 		

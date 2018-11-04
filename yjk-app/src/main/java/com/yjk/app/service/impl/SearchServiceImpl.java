@@ -59,7 +59,9 @@ public class SearchServiceImpl implements SearchService{
 				item.setAddress(solrDocument.get("address").toString());
 			}
 			if(solrDocument.get("_dist_")!= null) {
-				item.setDistance(solrDocument.get("_dist_").toString());
+				StringBuilder b = new StringBuilder(formatDouble(Double.parseDouble(solrDocument.get("_dist_").toString())));
+				b.append("km");
+				item.setDistance(b.toString());
 			}
 			if(solrDocument.get("id") != null) {
 				item.setId(solrDocument.get("id").toString());
@@ -81,5 +83,15 @@ public class SearchServiceImpl implements SearchService{
 		PageUtils pageUtils = new PageUtils(result, pageObj.getTotalPage() == 0 ? 1 : pageObj.getTotalPage());
 		return R.ok().put("info", pageUtils);
 	}
+	
+    /**
+     * 如果只是用于程序中的格式化数值然后输出，那么这个方法还是挺方便的。
+     * 应该是这样使用：System.out.println(String.format("%.2f", d));
+     * @param d
+     * @return
+     */
+    public static String formatDouble(double d) {
+        return String.format("%.2f", d);
+    }
 
 }

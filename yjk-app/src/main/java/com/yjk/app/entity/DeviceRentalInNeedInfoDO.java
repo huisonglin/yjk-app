@@ -80,7 +80,26 @@ public class DeviceRentalInNeedInfoDO implements Serializable {
 	private Date newstime;
 	
 	
+	private String contactName;
 	
+	private String contactMobile;
+	
+	
+	
+	
+	
+	public String getContactName() {
+		return contactName;
+	}
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
+	public String getContactMobile() {
+		return contactMobile;
+	}
+	public void setContactMobile(String contactMobile) {
+		this.contactMobile = contactMobile;
+	}
 	public String getAddressDetail() {
 		return addressDetail;
 	}

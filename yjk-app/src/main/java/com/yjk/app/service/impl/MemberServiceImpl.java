@@ -250,9 +250,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	
 	/**
-	 * 用户通过小程序登录
+	 * 用户通过小程序登录(需要保定手机号才能登陆)
 	 */
-	public R loginByXcx(String code) {
+	public R loginByXcxNeedMobile(String code) {
 		String openId = getOpenIdByCode(code);
 		Example example = new Example(MemberDO.class);
 		example.createCriteria().andEqualTo("xcxOpenId",openId);
@@ -267,6 +267,46 @@ public class MemberServiceImpl implements MemberService{
 		loginVO.setHeadImage(member.getHeadImage());
 		loginVO.setNickName(member.getNickName());
 		loginVO.setMobile(member.getMoble());
+		return R.ok().put("info", loginVO);
+	}
+	
+	/**
+	 * 不需要通过手机号就能登陆
+	 */
+	public R loginByXcx(String code) {
+		String openId = getOpenIdByCode(code);
+		Example example = new Example(MemberDO.class);
+		example.createCriteria().andEqualTo("xcxOpenId",openId);
+		List<MemberDO> members = memberMapper.selectByExample(example);
+		MemberDO memberDO = null;
+		if(members.size()<1) {
+			MemberDO member = new MemberDO();
+			member.setStatus(1);
+			member.setType(1);//普通用户
+			member.setCreateTime(new Date());
+			member.setUpdateTime(new Date());
+			member.setCreditScore(0);
+			member.setNickName(generateNickName());
+			member.setInviteCode(generateInviteCode());
+			member.setCorporageCertification(0);//0 未认证  1待审核 2已认证
+			member.setPersionCertification(0);//0未认证 1待审核  2已认证
+			member.setXcxOpenId(openId);
+			memberMapper.insertSelective(member);
+			MemberInfoDO memberInfo = new MemberInfoDO();
+			memberInfo.setCreateTime(new Date());
+			memberInfo.setUpdateTime(new Date());
+			memberInfo.setMemberId(member.getId());
+			memberInfoMapper.insertSelective(memberInfo);
+			memberDO = member;
+		}else {
+			memberDO = members.get(0);
+		}
+		
+		LoginVO loginVO = new LoginVO();
+		loginVO.setToken(jwtUtils.generateToken(memberDO.getId().toString()));
+		loginVO.setHeadImage(memberDO.getHeadImage());
+		loginVO.setNickName(memberDO.getNickName());
+		loginVO.setMobile(memberDO.getMoble());
 		return R.ok().put("info", loginVO);
 	}
 	

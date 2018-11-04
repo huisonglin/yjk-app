@@ -11,6 +11,7 @@ import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
+import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
@@ -33,11 +34,12 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	public R addOrUpdateRentOutInfo(DeviceRentOutInfoDTO deviceRentOutInfoDTO) throws Exception {
 		DeviceRentOutInfoDO deviceRentOutInfoDO = new DeviceRentOutInfoDO();
 		PropertyUtils.copyProperties(deviceRentOutInfoDO, deviceRentOutInfoDTO);
-		deviceRentOutInfoDO.setCreateTime(new Date());
+		
 		deviceRentOutInfoDO.setUpdateTime(new Date());
 		deviceRentOutInfoDO.setStatus(1);
 		Long deviceId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
+			deviceRentOutInfoDO.setCreateTime(new Date());
 			deviceRentOutInfoDO.setId(selfIncreasingIdService.generateId());
 			deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
 			deviceId = deviceRentOutInfoDO.getId();
@@ -55,6 +57,9 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	 */
 	public R editRentOutInfo(Long id) throws Exception {
 		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(id);
+		if(deviceRentOutInfoDO == null) {
+			throw new RRException("检索不到该条数据");
+		}
 		DeviceRentOutInfoVO deviceRentOutInfoVO = new DeviceRentOutInfoVO();
 		BeanUtils.copyProperties(deviceRentOutInfoVO, deviceRentOutInfoDO);
 		return R.ok().put("info", deviceRentOutInfoVO);
