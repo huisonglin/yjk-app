@@ -6,17 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yjk.app.annotation.LimitedAccessByIP;
-import com.yjk.app.annotation.LimitedAccessByToken;
 import com.yjk.app.annotation.Login;
-import com.yjk.app.annotation.LoginUser;
-import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dto.BindMobileDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.entity.MemberDO;
-import com.yjk.app.entity.MemberInfoDO;
 import com.yjk.app.service.MemberService;
 import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
@@ -30,7 +26,7 @@ public class ApiMemberController {
 	
 	@Login
 	@RequestMapping("register")
-	@LimitedAccessByToken(key = "test",EachInterva = 3 ,timesOfDay = 8)
+	@LimitedAccessByIP(key = "register",EachInterva = 3)
 	public R register(RegisterDTO registerDTO) {
 		Assert.isBlank(registerDTO.getMobile(), "手机号不能为空");
 		Assert.isBlank(registerDTO.getPassword(), "密码不能为空");

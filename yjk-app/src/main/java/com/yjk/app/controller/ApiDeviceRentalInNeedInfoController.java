@@ -19,7 +19,7 @@ import com.yjk.app.validator.Assert;
  */
 @RestController
 @RequestMapping("/rentalInNeedInfo")
-public class DeviceRentalInNeedInfoController {
+public class ApiDeviceRentalInNeedInfoController {
 
 	@Autowired
 	DeviceRentalInNeedInfoService deviceRentalInNeedInfoService;

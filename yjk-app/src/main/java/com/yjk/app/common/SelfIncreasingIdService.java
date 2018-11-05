@@ -10,6 +10,10 @@ public class SelfIncreasingIdService {
     @Autowired
     ValueOperations<String, String> valueOperations;
     
+    /**
+     * id自增器
+     * @return
+     */
     public Long generateId() {
     	Long id = valueOperations.increment(Constants.SELF_INCREASING_ID, 1);
     	return id;
