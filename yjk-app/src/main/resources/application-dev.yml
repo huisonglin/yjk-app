@@ -22,9 +22,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     ds1:
-      url: jdbc:mysql://127.0.0.1:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
+      url: jdbc:mysql://39.106.4.135:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
       username: root
-      password: 123456
+      password: uAiqwVwjJ8-i
       driverClassName: com.mysql.jdbc.Driver
       name: datasource1
       #连接池建立时创建的初始化连接数
@@ -54,7 +54,7 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
     ds2:
-      url: jdbc:mysql://127.0.0.1:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
+      url: jdbc:mysql://39.106.4.135:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
       username: root
       password: 123456
       driverClassName: com.mysql.jdbc.Driver
