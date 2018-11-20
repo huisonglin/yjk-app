@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import com.yjk.app.dao.MemberInfoMapper;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dto.BindMobileDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
+import com.yjk.app.dto.GenerateOpenIdDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.RegisterDTO;
@@ -28,10 +30,12 @@ import com.yjk.app.entity.MemberInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.MemberService;
 import com.yjk.app.util.JwtUtils;
+import com.yjk.app.util.PayUtil;
 import com.yjk.app.util.R;
 import com.yjk.app.util.RandomMethod;
 import com.yjk.app.util.UuidUtils;
 import com.yjk.app.validator.Assert;
+import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.LoginVO;
 
 import tk.mybatis.mapper.entity.Example;
@@ -251,8 +255,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	/**
 	 * 用户通过小程序登录(需要保定手机号才能登陆)
+	 * @throws Exception 
 	 */
-	public R loginByXcxNeedMobile(String code) {
+	public R loginByXcxNeedMobile(String code) throws Exception {
 		String openId = getOpenIdByCode(code);
 		Example example = new Example(MemberDO.class);
 		example.createCriteria().andEqualTo("xcxOpenId",openId);
@@ -272,8 +277,9 @@ public class MemberServiceImpl implements MemberService{
 	
 	/**
 	 * 不需要通过手机号就能登陆
+	 * @throws Exception 
 	 */
-	public R loginByXcx(String code) {
+	public R loginByXcx(String code) throws Exception {
 		String openId = getOpenIdByCode(code);
 		Example example = new Example(MemberDO.class);
 		example.createCriteria().andEqualTo("xcxOpenId",openId);
@@ -376,16 +382,23 @@ public class MemberServiceImpl implements MemberService{
 		return R.ok().put("info", loginVO);
 	}
 	
-	
+	@Autowired
+	PayUtil payUtil;
 	/***
 	 * 根据code获取小程序的openId
 	 * @return
+	 * @throws Exception 
 	 */
-	private String getOpenIdByCode(String code) {
-		String openId = null;
-		//todo....
-		openId = "openId"+ code;
-		return openId;
+	private String getOpenIdByCode(String code) throws Exception {
+		GenerateOpenIdDTO generateOpenIdDTO = new GenerateOpenIdDTO();
+		generateOpenIdDTO.setCode(code);
+		Jscode2SessionVO xcxAccessOpenId = payUtil.xcxAccessOpenId(generateOpenIdDTO);
+		String openid = xcxAccessOpenId.getOpenid();
+		if(openid == null) {
+			openid = "openId"+code;
+		}
+		return openid;
+		 
 	}
 	
 	@Cacheable(value = "memberInfo")

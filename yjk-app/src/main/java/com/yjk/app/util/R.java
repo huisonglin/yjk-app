@@ -6,6 +6,13 @@ import java.util.Map;
 public class R extends HashMap<String, Object>{
 	private static final long serialVersionUID = 1L;
 	
+	public static final String CODE = "code";
+	
+	public static final String MSG = "msg";
+	
+	public static final Integer SUCCESS = 0;
+	
+	
 	public R() {
 		put("code", 0);
 		put("msg", "success");

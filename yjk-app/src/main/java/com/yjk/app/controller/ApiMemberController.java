@@ -73,7 +73,7 @@ public class ApiMemberController {
 	}
 	
 	@RequestMapping("loginByXcx")
-	public R loginByXcx(String code) {
+	public R loginByXcx(String code) throws Exception {
 		Assert.isBlank(code, "code不能为空");
 		return memberService.loginByXcx(code);
 	}

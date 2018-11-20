@@ -22,9 +22,9 @@ public interface MemberService {
 	 
 	 R editMemberInfo(MemberDO member);
 	 
-	 R loginByXcx(String code);
+	 R loginByXcx(String code) throws Exception;
 	 
-	 R loginByXcxNeedMobile(String code);
+	 R loginByXcxNeedMobile(String code) throws Exception;
 	 
 	 R bindMobile(BindMobileDTO bindMobileDTO);
 	 
