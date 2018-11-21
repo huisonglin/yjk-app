@@ -1,4 +1,4 @@
-package com.activemq;
+package com.yjk.app;
 
 import java.util.Date;
 import java.util.List;
@@ -41,14 +41,15 @@ public class ActiveMQTest {
 		}
 	}*/
 
-/*	@Autowired
+	@Autowired
 	JmsTemplate jmsTemplate;
 	
 	@Test
 	public void test() {
 		
+		/*jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),"你好");*/
 		
-		Object message1 = "corn消息内容：" + "nihaoa";
+/*		Object message1 = "corn消息内容：" + "nihaoa";
 		//分 时 天 月 星期几
 
 		jmsTemplate.convertAndSend(new ActiveMQQueue("myFirstMessage"),message1, new ScheduleMessagePostProcessor("40 22 * * *"));
@@ -89,6 +90,6 @@ public class ActiveMQTest {
 		Object message2 = "message：" + "我过来啊，接住哈";
 		jmsTemplate.convertAndSend(new ActiveMQQueue("myFirstMessage"),message2, new ScheduleMessagePostProcessor(1 * 1000));//延时30秒
 		jmsTemplate.convertAndSend(new ActiveMQQueue("myFirstMessage"),message2, new ScheduleMessagePostProcessor(3600 * 24 * 1000));//延时24小时
-		System.out.println("消息2：[" + message2 + "] 延时发送成功！");
-	}*/
+		System.out.println("消息2：[" + message2 + "] 延时发送成功！");*/
+	}
 }

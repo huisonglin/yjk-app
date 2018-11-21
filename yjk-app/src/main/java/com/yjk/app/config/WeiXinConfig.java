@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class WeiXinConfig {
 
+	
 	@Value("${wx.mch_id}")
 	private String mechId;
 	
@@ -27,7 +28,32 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.tradeType}")
 	private String tradeType;
 	
+	@Value("${wx.xcx.decryptUserInfoUrl}")
+	private String xcxDecryptUserInfoUrl;
+	
+	@Value("${wx.xcx.decryptedPhoneNumber}")
+	private String xcxDecryptedPhoneNumber;
+	
+	
+	
 
+	
+
+	public String getXcxDecryptedPhoneNumber() {
+		return xcxDecryptedPhoneNumber;
+	}
+
+	public void setXcxDecryptedPhoneNumber(String xcxDecryptedPhoneNumber) {
+		this.xcxDecryptedPhoneNumber = xcxDecryptedPhoneNumber;
+	}
+
+	public String getXcxDecryptUserInfoUrl() {
+		return xcxDecryptUserInfoUrl;
+	}
+
+	public void setXcxDecryptUserInfoUrl(String xcxDecryptUserInfoUrl) {
+		this.xcxDecryptUserInfoUrl = xcxDecryptUserInfoUrl;
+	}
 
 	public String getMechId() {
 		return mechId;

@@ -80,9 +80,9 @@ spring:
     port: 6379
     password: /jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=
   activemq:
-    broker-url: tcp://39.106.4.135:61616
-    user: gchl
-    password: gchl2018
+    broker-url: tcp://139.219.5.19:61616
+    user: admin
+    password: admin
     in-memory: true
     pool:
       enabled: false
@@ -122,6 +122,14 @@ wx:
   xcx:
     appid: wx9d25741d9e1075d6
     appSecret: c33726a8e4267379e5529b5a3e489d35
-    accessPayParamUrl: https://www.huisonglin.top/weixin/xcx/unifiedorder
+    #服务器地址
+    baseUrl: http://localhost:8087
+    #获取支付参数的地址
+    accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
-    accessOpenIdUrl: https://www.huisonglin.top/weixin/xcx/generateOpenId
+    #获取openId的地址
+    accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
+    #解密用户身份信息的地址
+    decryptUserInfoUrl: ${wx.xcx.baseUrl}/weixin/xcx/decryptUserInfo
+    #解密用户手机号的地址
+    decryptedPhoneNumber: ${wx.xcx.baseUrl}/weixin/xcx/decryptedPhoneNumber

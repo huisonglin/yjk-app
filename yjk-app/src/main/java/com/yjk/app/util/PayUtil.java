@@ -2,20 +2,20 @@ package com.yjk.app.util;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import com.alibaba.fastjson.JSON;
 import com.yjk.app.config.WeiXinConfig;
+import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
+import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
 import com.yjk.app.exception.RRException;
+import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
+import com.yjk.app.vo.PhoneNumberVO;
 import com.yjk.app.vo.XcxPayPramsVO;
-
-import tk.mybatis.mapper.entity.Config;
 
 @Component
 public class PayUtil {
@@ -45,6 +45,13 @@ public class PayUtil {
 		return R.ok().put("data", dealResult(result,XcxPayPramsVO.class));
 	}
 	
+	/**
+	 * 获取openId
+	 * @param generateOpenIdDTO
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
 	public Jscode2SessionVO xcxAccessOpenId(GenerateOpenIdDTO generateOpenIdDTO)throws Exception {
 		generateOpenIdDTO.setAppId(weiXinConfig.getXcxAppId());
 		generateOpenIdDTO.setAppSecret(weiXinConfig.getXcxAppSecret());
@@ -52,7 +59,32 @@ public class PayUtil {
 		return (Jscode2SessionVO)dealResult(result,Jscode2SessionVO.class);
 	}
 	
+	/**
+	 * 解密用户信息
+	 * @param decryptUserInfoDTO
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
+	public DecryptUserInfoVO DecryptUserInfo(DecryptUserInfoDTO decryptUserInfoDTO)throws Exception {
+		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptUserInfoUrl(), BeanUtils.describe(decryptUserInfoDTO));
+		return (DecryptUserInfoVO)dealResult(result,DecryptUserInfoVO.class);
+	}
+	
+	/**
+	 * 解密获取用户手机号
+	 * @param phoneNumberDTO
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public PhoneNumberVO decryptedPhoneNumber(PhoneNumberDTO phoneNumberDTO)throws Exception {
+		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptedPhoneNumber(), BeanUtils.describe(phoneNumberDTO));
+		return (PhoneNumberVO)dealResult(result,PhoneNumberVO.class);
+	}
+
+	
+	
 	public static  <T> Object dealResult(HttpClientResult result,Class<T> clazz)
 			throws IntrospectionException, IllegalAccessException, InstantiationException, InvocationTargetException {
 		if(result.getCode() == 200) {
@@ -62,8 +94,7 @@ public class PayUtil {
 			if(msg.equals(R.SUCCESS)) {
 				Object rsg = r.get("data");
 				if(rsg != null) {
-
-					Object data = MapOrBeanConvert.convertMap(clazz, (Map<String, String>)rsg);
+					T data = JSONUtil.parse(JSON.toJSONString(rsg), clazz);
 					return data;
 				}else {
 					throw new RRException("请求异常");

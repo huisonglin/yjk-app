@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javax.management.modelmbean.ModelMBeanNotificationBroadcaster;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -20,10 +23,12 @@ import com.yjk.app.common.Constants;
 import com.yjk.app.dao.MemberInfoMapper;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dto.BindMobileDTO;
+import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
+import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.entity.MemberDO;
 import com.yjk.app.entity.MemberInfoDO;
@@ -35,8 +40,10 @@ import com.yjk.app.util.R;
 import com.yjk.app.util.RandomMethod;
 import com.yjk.app.util.UuidUtils;
 import com.yjk.app.validator.Assert;
+import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.LoginVO;
+import com.yjk.app.vo.PhoneNumberVO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -157,6 +164,23 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 	
+	
+	public R bindMobileByXcx(PhoneNumberDTO phoneNumberDTO,Long userId) throws Exception {
+		String session_key = valueOperations.get(Constants.XCX_SESSION_KEY+userId);
+		phoneNumberDTO.setSession_key(session_key);
+		PhoneNumberVO phoneNumberVO = payUtil.decryptedPhoneNumber(phoneNumberDTO);
+		if(phoneNumberVO !=null) {
+			MemberDO memberDO = new MemberDO();
+			memberDO.setId(userId);
+			if(phoneNumberVO.getPhoneNumber() != null) {
+				memberDO.setMoble(phoneNumberVO.getPhoneNumber());
+			}else {
+				memberDO.setMoble(phoneNumberVO.getPurePhoneNumber());
+			}
+			memberMapper.updateByPrimaryKeySelective(memberDO);
+		}
+		return R.ok();
+	}
 	/**
 	 * 生成用户呢城
 	 */
@@ -279,24 +303,30 @@ public class MemberServiceImpl implements MemberService{
 	 * 不需要通过手机号就能登陆
 	 * @throws Exception 
 	 */
-	public R loginByXcx(String code) throws Exception {
-		String openId = getOpenIdByCode(code);
+	public R loginByXcx(String code,String iv,String encryptedData) throws Exception {
+		Jscode2SessionVO jsv = getOpenIdAndSeesinKeyByCode(code);
 		Example example = new Example(MemberDO.class);
-		example.createCriteria().andEqualTo("xcxOpenId",openId);
+		example.createCriteria().andEqualTo("xcxOpenId",jsv.getOpenid());
 		List<MemberDO> members = memberMapper.selectByExample(example);
 		MemberDO memberDO = null;
 		if(members.size()<1) {
+			DecryptUserInfoDTO decryptUserInfoDTO = new DecryptUserInfoDTO(); 
+			decryptUserInfoDTO.setIv(iv);
+			decryptUserInfoDTO.setEncryptedData(encryptedData);
+			decryptUserInfoDTO.setSession_key(jsv.getSession_key());
+			DecryptUserInfoVO decryptUserInfo = payUtil.DecryptUserInfo(decryptUserInfoDTO);
 			MemberDO member = new MemberDO();
 			member.setStatus(1);
 			member.setType(1);//普通用户
 			member.setCreateTime(new Date());
 			member.setUpdateTime(new Date());
 			member.setCreditScore(0);
-			member.setNickName(generateNickName());
+			member.setHeadImage(decryptUserInfo.getAvatarUrl());
+			member.setNickName(decryptUserInfo.getNickName());
 			member.setInviteCode(generateInviteCode());
 			member.setCorporageCertification(0);//0 未认证  1待审核 2已认证
 			member.setPersionCertification(0);//0未认证 1待审核  2已认证
-			member.setXcxOpenId(openId);
+			member.setXcxOpenId(jsv.getOpenid());
 			memberMapper.insertSelective(member);
 			MemberInfoDO memberInfo = new MemberInfoDO();
 			memberInfo.setCreateTime(new Date());
@@ -307,7 +337,8 @@ public class MemberServiceImpl implements MemberService{
 		}else {
 			memberDO = members.get(0);
 		}
-		
+		//保存用户的session_key
+		valueOperations.set(Constants.XCX_SESSION_KEY+memberDO.getId().toString(), jsv.getSession_key());
 		LoginVO loginVO = new LoginVO();
 		loginVO.setToken(jwtUtils.generateToken(memberDO.getId().toString()));
 		loginVO.setHeadImage(memberDO.getHeadImage());
@@ -398,6 +429,24 @@ public class MemberServiceImpl implements MemberService{
 			openid = "openId"+code;
 		}
 		return openid;
+		 
+	}
+	
+	/***
+	 * 根据code获取小程序的openId
+	 * @return
+	 * @throws Exception 
+	 */
+	private Jscode2SessionVO getOpenIdAndSeesinKeyByCode(String code) throws Exception {
+		GenerateOpenIdDTO generateOpenIdDTO = new GenerateOpenIdDTO();
+		generateOpenIdDTO.setCode(code);
+		Jscode2SessionVO jscode2SessionVO = payUtil.xcxAccessOpenId(generateOpenIdDTO);
+		if(jscode2SessionVO != null && jscode2SessionVO.getOpenid()!=null && jscode2SessionVO.getSession_key()!=null) {
+			return jscode2SessionVO;
+		}else {
+			throw new RRException("获取openId失败");
+		}
+
 		 
 	}
 	

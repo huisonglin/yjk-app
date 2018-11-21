@@ -13,6 +13,8 @@ public class Constants {
 	public static final String Total_Count_View = "Total_Count_View";	
     //会员注册短信验证码key
     public static final String ZC_KEY_CAPTCHA = "zc_captcha";
+    
+    public static final String XCX_SESSION_KEY = "session_key_";
     //会员注册短信模板
     public static final String ZC_SMS_TEMPLATE = "验证码:#CODE#（会员注册），10分钟内有效。如非本人操作，请忽略。";
        

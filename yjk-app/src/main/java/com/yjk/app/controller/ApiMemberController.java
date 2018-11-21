@@ -11,6 +11,7 @@ import com.yjk.app.dto.BindMobileDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
+import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.MemberService;
@@ -25,7 +26,7 @@ public class ApiMemberController {
 	MemberService memberService;
 	
 	@Login
-	@RequestMapping("register")
+	@RequestMapping("/register")
 	@LimitedAccessByIP(key = "register",EachInterva = 3)
 	public R register(RegisterDTO registerDTO) {
 		Assert.isBlank(registerDTO.getMobile(), "手机号不能为空");
@@ -36,12 +37,24 @@ public class ApiMemberController {
 	}
 	
 	
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public R login(LoginDTO loginDTO) {
 		Assert.isBlank(loginDTO.getMobile(), "手机号不能为空");
 		Assert.isBlank(loginDTO.getPassword(), "密码不能为空");
 		R r = memberService.login(loginDTO);
 		return r;
+	}
+	
+	/**
+	 * 通过微信绑定手机号
+	 * @return
+	 */
+	@Login
+	@RequestMapping("bindMobileByXcx")
+	public R bindMobileByXcx(PhoneNumberDTO phoneNumberDTO,@RequestAttribute("memberId")Long userId) throws Exception{
+		Assert.isBlank(phoneNumberDTO.getEncryptedData(), "encryptedData不能为空");
+		Assert.isBlank(phoneNumberDTO.getIv(), "iv不能为空");
+		return memberService.bindMobileByXcx(phoneNumberDTO, userId);
 	}
 	
 	@Login
@@ -73,9 +86,11 @@ public class ApiMemberController {
 	}
 	
 	@RequestMapping("loginByXcx")
-	public R loginByXcx(String code) throws Exception {
+	public R loginByXcx(String code,String iv,String encryptedData) throws Exception {
 		Assert.isBlank(code, "code不能为空");
-		return memberService.loginByXcx(code);
+		Assert.isBlank(iv, "iv不能为空");
+		Assert.isBlank(encryptedData, "encryptedData不能为空");
+		return memberService.loginByXcx(code,iv,encryptedData);
 	}
 	
 	@RequestMapping("bindMobile")
