@@ -457,4 +457,13 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 	
+	/**
+	 * 用户身份选择
+	 * @return
+	 */
+	public R chooseIdentify(String memberId,String identify) {
+		valueOperations.set(Constants.IDENTIFY+memberId, identify);
+		return R.ok();
+	}
+	
 }

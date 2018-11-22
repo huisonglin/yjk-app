@@ -108,4 +108,11 @@ public class ApiMemberController {
 		return memberService.memberInfo(memberId);
 	}
 	
+	@Login
+	@RequestMapping("chooseIdentify")
+	public R chooseIdentify(@RequestAttribute("memberId")Long memberId,String identify) {
+		Assert.isBlank(identify, "用户身份不能为空");
+		return memberService.chooseIdentify(memberId.toString(), identify);
+	}
+	
 }
