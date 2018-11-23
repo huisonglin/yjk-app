@@ -7,9 +7,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.jms.core.JmsTemplate;
 
+import com.alibaba.fastjson.JSON;
 import com.yjk.app.common.Constants;
 import com.yjk.app.dto.TemplateDTO;
 import com.yjk.app.service.wx.template.annotation.NotificationType;
@@ -27,6 +30,9 @@ import com.yjk.app.vo.XcxPayNotifyInfoVO;
 @NotificationType(type = 1)
 public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 
+	@Autowired
+	JmsTemplate jmsTemplate;
+	
 	@Autowired
 	ValueOperations<String, String> valueOperations;
 	@Override
@@ -57,6 +63,8 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		Map<String, String> keyword3vlaue = new HashMap<>();
 		keyword3vlaue.put("value", xcxPayNotifyInfoVO.getOut_trade_no());
 		data.put("keyword3", keyword3vlaue);
+		
+		
 		Map<String, String> keyword4vlaue = new HashMap<>();
 		String format;
 		try {
@@ -67,7 +75,6 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 			keyword4vlaue.put("value",format);
 			data.put("keyword4", keyword4vlaue);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -75,15 +82,9 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		Map<String, String> keyword5vlaue = new HashMap<>();
 		keyword5vlaue.put("value", unifiedorderAttachVO.getKindlyReminder());
 		data.put("keyword5", keyword5vlaue);
-/*		Map<String, String> value = new HashMap<>();
-		value.put("value", "2018-11-12");
-		data.put("keyword1", value);
-		Map<String, String> value2 = new HashMap<>();
-		value2.put("value", "拨打电话");
-		data.put("keyword2", value2);
-		Map<String, String> value3 = new HashMap<>();
-		data.put("keyword3", value3);*/
+
 		templateDTO.setData(data);
+		jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
 	}
 
 
