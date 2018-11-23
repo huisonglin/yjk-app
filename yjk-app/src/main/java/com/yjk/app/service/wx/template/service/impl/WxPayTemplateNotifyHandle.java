@@ -40,27 +40,28 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		TemplateDTO templateDTO = new TemplateDTO();
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = request.getXcxPayNotifyInfoVO();
 		String prepayId = valueOperations.get(Constants.PREPAY_ID+xcxPayNotifyInfoVO.getOut_trade_no());
-		templateDTO.setEmphasis_keyword("keyword1");
+
 		templateDTO.setTemplate_id("zy0h2iLzUeSgCH12DPMPTM011GT4Dk5FQ1W6KVYsamI");
 		templateDTO.setForm_id(prepayId);
 		templateDTO.setTouser(xcxPayNotifyInfoVO.getOpenid());
 		Map<String, Map<String, String>> data = new HashMap<>();
 		BigDecimal money = new BigDecimal(xcxPayNotifyInfoVO.getTotal_fee()).divide(new BigDecimal("100"), 2,BigDecimal.ROUND_HALF_UP);
 		
+		templateDTO.setEmphasis_keyword("keyword1"); //该字段放大
 		
-		Map<String, String> keyword1vlaue = new HashMap<>();
+		Map<String, String> keyword1vlaue = new HashMap<>(); //金额
 		keyword1vlaue.put("value", money.toString());
 		data.put("keyword1",keyword1vlaue);
 		
 		String attach = xcxPayNotifyInfoVO.getAttach();
 		UnifiedorderAttachVO unifiedorderAttachVO = JSONUtil.parse(attach, UnifiedorderAttachVO.class);
 		
-		Map<String, String> keyword2vlaue = new HashMap<>();
+		Map<String, String> keyword2vlaue = new HashMap<>(); //商品名称
 		keyword2vlaue.put("value", unifiedorderAttachVO.getGoodzName());
 		data.put("keyword2", keyword2vlaue);
 		
 		
-		Map<String, String> keyword3vlaue = new HashMap<>();
+		Map<String, String> keyword3vlaue = new HashMap<>(); //订单号
 		keyword3vlaue.put("value", xcxPayNotifyInfoVO.getOut_trade_no());
 		data.put("keyword3", keyword3vlaue);
 		
@@ -69,17 +70,17 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		String format;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			Date date = sdf.parse(xcxPayNotifyInfoVO.getTime_end());
+			Date date = sdf.parse(xcxPayNotifyInfoVO.getTime_end()); 
 			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			format = sdf2.format(date);
-			keyword4vlaue.put("value",format);
+			keyword4vlaue.put("value",format);//支付时间
 			data.put("keyword4", keyword4vlaue);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 		
-		Map<String, String> keyword5vlaue = new HashMap<>();
+		Map<String, String> keyword5vlaue = new HashMap<>(); //微信提示
 		keyword5vlaue.put("value", unifiedorderAttachVO.getKindlyReminder());
 		data.put("keyword5", keyword5vlaue);
 
