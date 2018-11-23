@@ -6,26 +6,27 @@ public class UnifiedorderAttachVO {
 	
 	private String queueName;
 	//商品名称
-	private String goodzName;
+	private String gn;
 	//温馨提示
-	private String kindlyReminder;
+	private String kr;
 
 	
 
-	public String getGoodzName() {
-		return goodzName;
+	
+	public String getGn() {
+		return gn;
 	}
 
-	public void setGoodzName(String goodzName) {
-		this.goodzName = goodzName;
+	public void setGn(String gn) {
+		this.gn = gn;
 	}
 
-	public String getKindlyReminder() {
-		return kindlyReminder;
+	public String getKr() {
+		return kr;
 	}
 
-	public void setKindlyReminder(String kindlyReminder) {
-		this.kindlyReminder = kindlyReminder;
+	public void setKr(String kr) {
+		this.kr = kr;
 	}
 
 	public String getApikey() {
@@ -47,11 +48,17 @@ public class UnifiedorderAttachVO {
 	public UnifiedorderAttachVO() {
 		
 	}
-	public UnifiedorderAttachVO(String apiKey, String queueName) {
+
+	public UnifiedorderAttachVO(String apikey, String queueName, String gn, String kr) {
 		super();
-		this.apikey = apiKey;
+		this.apikey = apikey;
 		this.queueName = queueName;
+		this.gn = gn;
+		this.kr = kr;
 	}
+
+	
+	
 	
 	
 }

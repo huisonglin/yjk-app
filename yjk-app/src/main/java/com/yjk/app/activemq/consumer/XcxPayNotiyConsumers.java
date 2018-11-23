@@ -20,7 +20,7 @@ public class XcxPayNotiyConsumers {
 	TemplateMessageStragegy templateMessageStragegy;
 	
 	@JmsListener(destination="${wx.xcx.xcxNotifyQueueName}")
-	public void consumer(String message) {		
+	public void consumer(String message) throws Exception {		
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = JSONUtil.parse(message, XcxPayNotifyInfoVO.class);
 		valueOperations.set(xcxPayNotifyInfoVO.getOut_trade_no(), message);
 		

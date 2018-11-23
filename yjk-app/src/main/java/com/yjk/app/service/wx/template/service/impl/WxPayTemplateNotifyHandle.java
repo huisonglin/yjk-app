@@ -19,6 +19,7 @@ import com.yjk.app.service.wx.template.annotation.NotificationType;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.service.WxTemplateNotify;
 import com.yjk.app.util.JSONUtil;
+import com.yjk.app.util.PayUtil;
 import com.yjk.app.vo.UnifiedorderAttachVO;
 import com.yjk.app.vo.XcxPayNotifyInfoVO;
 
@@ -34,30 +35,34 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 	JmsTemplate jmsTemplate;
 	
 	@Autowired
+	PayUtil payUtil;
+	
+	@Autowired
 	ValueOperations<String, String> valueOperations;
 	@Override
-	public void doSendTemplateMessage(NotifyRequest request) {
+	public void doSendTemplateMessage(NotifyRequest request) throws Exception {
 		TemplateDTO templateDTO = new TemplateDTO();
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = request.getXcxPayNotifyInfoVO();
 		String prepayId = valueOperations.get(Constants.PREPAY_ID+xcxPayNotifyInfoVO.getOut_trade_no());
 
-		templateDTO.setTemplate_id("zy0h2iLzUeSgCH12DPMPTM011GT4Dk5FQ1W6KVYsamI");
+		templateDTO.setTemplate_id("zy0h2iLzUeSgCH12DPMPTJ4MTWP0FwYA3qDgEnPK80Q");
 		templateDTO.setForm_id(prepayId);
 		templateDTO.setTouser(xcxPayNotifyInfoVO.getOpenid());
+		templateDTO.setAccess_token(payUtil.xcxAccessToken());
 		Map<String, Map<String, String>> data = new HashMap<>();
 		BigDecimal money = new BigDecimal(xcxPayNotifyInfoVO.getTotal_fee()).divide(new BigDecimal("100"), 2,BigDecimal.ROUND_HALF_UP);
 		
-		templateDTO.setEmphasis_keyword("keyword1"); //该字段放大
+		
 		
 		Map<String, String> keyword1vlaue = new HashMap<>(); //金额
-		keyword1vlaue.put("value", money.toString());
+		keyword1vlaue.put("value", "￥"+money.toString()+"元");
 		data.put("keyword1",keyword1vlaue);
 		
 		String attach = xcxPayNotifyInfoVO.getAttach();
 		UnifiedorderAttachVO unifiedorderAttachVO = JSONUtil.parse(attach, UnifiedorderAttachVO.class);
 		
 		Map<String, String> keyword2vlaue = new HashMap<>(); //商品名称
-		keyword2vlaue.put("value", unifiedorderAttachVO.getGoodzName());
+		keyword2vlaue.put("value", unifiedorderAttachVO.getGn());
 		data.put("keyword2", keyword2vlaue);
 		
 		
@@ -81,10 +86,12 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 
 		
 		Map<String, String> keyword5vlaue = new HashMap<>(); //微信提示
-		keyword5vlaue.put("value", unifiedorderAttachVO.getKindlyReminder());
+		keyword5vlaue.put("value", unifiedorderAttachVO.getKr());
 		data.put("keyword5", keyword5vlaue);
 
 		templateDTO.setData(data);
+		
+		templateDTO.setEmphasis_keyword("keyword1.DATA"); //该字段放大
 		jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
 	}
 

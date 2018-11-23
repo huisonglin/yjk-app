@@ -17,7 +17,7 @@ public class TemplateMessageTest {
 	TemplateMessageStragegy templateMessageStragegy;
 	
 	@Test
-	public void test() {
+	public void test() throws Exception {
 		NotifyRequest n = new NotifyRequest();
 		n.setType(1);
 		templateMessageStragegy.excute(n);

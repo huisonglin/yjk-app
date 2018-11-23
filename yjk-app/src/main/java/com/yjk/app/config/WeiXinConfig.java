@@ -37,10 +37,31 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.xcxNotifyQueueName}")
 	private String xcxNotifyQueueName;
 	
+	@Value("${wx.xcx.accessToken}")
+	private String accessToken;
+	
+	@Value("${wx.xcx.accessTokendUrl}")
+	private String accessTokendUrl;
 	
 	
 	
 	
+
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public String getAccessTokendUrl() {
+		return accessTokendUrl;
+	}
+
+	public void setAccessTokendUrl(String accessTokendUrl) {
+		this.accessTokendUrl = accessTokendUrl;
+	}
 
 	public String getXcxNotifyQueueName() {
 		return xcxNotifyQueueName;

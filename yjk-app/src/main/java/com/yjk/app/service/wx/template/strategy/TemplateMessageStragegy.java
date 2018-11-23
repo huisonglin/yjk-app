@@ -15,7 +15,7 @@ public class TemplateMessageStragegy{
 	@Resource(name = "beansWithAnnotationMap")
 	Map<String, Object> beansWithAnnotationMap;
 	
-	public void excute(NotifyRequest request) {
+	public void excute(NotifyRequest request) throws Exception {
 		WxTemplateNotify wxTemplateNotify=null;
 		//Map<String, Object> beansWithAnnotationMap = this.applicationContext.getBeansWithAnnotation(NotificationType.class); 
 	    for(Map.Entry<String, Object> entry : beansWithAnnotationMap.entrySet()){  

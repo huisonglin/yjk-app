@@ -3,18 +3,22 @@ package com.yjk.app.util;
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
+import com.yjk.app.dto.AccessTokenDTO;
 import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
 import com.yjk.app.exception.RRException;
+import com.yjk.app.vo.AccessTokenVO;
 import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.PhoneNumberVO;
@@ -45,13 +49,13 @@ public class PayUtil {
 		xcxUnifiedorderDTO.setTrade_type(weiXinConfig.getTradeType());
 		xcxUnifiedorderDTO.setAppid(weiXinConfig.getXcxAppId());
 		xcxUnifiedorderDTO.setMch_id(weiXinConfig.getMechId());
-		xcxUnifiedorderDTO.setAttach(JSON.toJSONString(new UnifiedorderAttachVO(weiXinConfig.getApikey(), "xcxPayNotiy-dev")));
+		xcxUnifiedorderDTO.setAttach(JSON.toJSONString(new UnifiedorderAttachVO(weiXinConfig.getApikey(), weiXinConfig.getXcxNotifyQueueName(),xcxUnifiedorderDTO.getBody(),xcxUnifiedorderDTO.getDetail())));
 		xcxUnifiedorderDTO.setKey(weiXinConfig.getApikey());
 		xcxUnifiedorderDTO.setNotify_url(weiXinConfig.getXcxAccessPayParamUrl()+"/notify");
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessPayParamUrl(),BeanUtils.describe(xcxUnifiedorderDTO));
 		XcxPayPramsVO xcxPayPramsVO = (XcxPayPramsVO)dealResult(result,XcxPayPramsVO.class);
 		//获取预支付ID,供发送信息模板
-		valueOperations.set(xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
+		valueOperations.set(Constants.PREPAY_ID+xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
 		return R.ok().put("data", xcxPayPramsVO);
 	}
 	
@@ -81,6 +85,26 @@ public class PayUtil {
 		return (DecryptUserInfoVO)dealResult(result,DecryptUserInfoVO.class);
 	}
 	
+	/**
+	 * 获取accessToken
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String xcxAccessToken() throws Exception {
+		String accessToken = valueOperations.get(weiXinConfig.getAccessToken());
+		if(accessToken == null) {
+			AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
+			accessTokenDTO.setAppid(weiXinConfig.getXcxAppId());
+			accessTokenDTO.setSecret(weiXinConfig.getXcxAppSecret());
+			HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getAccessTokendUrl(), BeanUtils.describe(accessTokenDTO));
+			AccessTokenVO dealResult = (AccessTokenVO)dealResult(result,AccessTokenVO.class);
+			accessToken = dealResult.getAccess_token();
+			valueOperations.set(weiXinConfig.getAccessToken(), accessToken,Long.valueOf(dealResult.getExpires_in()),TimeUnit.SECONDS);
+		}
+		return accessToken;
+
+	}
 	/**
 	 * 解密获取用户手机号
 	 * @param phoneNumberDTO

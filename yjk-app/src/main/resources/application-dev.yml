@@ -122,6 +122,7 @@ wx:
   xcx:
     appid: wx9d25741d9e1075d6
     appSecret: c33726a8e4267379e5529b5a3e489d35
+    accessToken: accessToken_dev
     #appid: wxde59926deb607689
     #appSecret: f7b774417e98b3d926d6d12e26db8a7d
     #服务器地址
@@ -129,10 +130,12 @@ wx:
     #获取支付参数的地址
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
-    xcxNotifyQueueName: xcxPayNotiy-dev
+    xcxNotifyQueueName: nd
     #获取openId的地址
     accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
     #解密用户身份信息的地址
     decryptUserInfoUrl: ${wx.xcx.baseUrl}/weixin/xcx/decryptUserInfo
     #解密用户手机号的地址
     decryptedPhoneNumber: ${wx.xcx.baseUrl}/weixin/xcx/decryptedPhoneNumber
+    #获取accessToken地址
+    accessTokendUrl: ${wx.xcx.baseUrl}/weixin/xcx/accessToken
