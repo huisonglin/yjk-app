@@ -5,8 +5,28 @@ public class UnifiedorderAttachVO {
 	private String apikey;
 	
 	private String queueName;
+	//商品名称
+	private String goodzName;
+	//温馨提示
+	private String kindlyReminder;
 
 	
+
+	public String getGoodzName() {
+		return goodzName;
+	}
+
+	public void setGoodzName(String goodzName) {
+		this.goodzName = goodzName;
+	}
+
+	public String getKindlyReminder() {
+		return kindlyReminder;
+	}
+
+	public void setKindlyReminder(String kindlyReminder) {
+		this.kindlyReminder = kindlyReminder;
+	}
 
 	public String getApikey() {
 		return apikey;

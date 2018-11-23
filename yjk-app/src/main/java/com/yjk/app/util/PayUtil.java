@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.yjk.app.config.WeiXinConfig;
@@ -25,6 +26,9 @@ public class PayUtil {
 
 	@Autowired
 	WeiXinConfig weiXinConfig;
+	
+	@Autowired
+	ValueOperations<String, String> valueOperations;
 	/**
 	 * 生成小程序支付参数
 	 * @param xcxUnifiedorderDTO
@@ -45,7 +49,10 @@ public class PayUtil {
 		xcxUnifiedorderDTO.setKey(weiXinConfig.getApikey());
 		xcxUnifiedorderDTO.setNotify_url(weiXinConfig.getXcxAccessPayParamUrl()+"/notify");
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessPayParamUrl(),BeanUtils.describe(xcxUnifiedorderDTO));
-		return R.ok().put("data", dealResult(result,XcxPayPramsVO.class));
+		XcxPayPramsVO xcxPayPramsVO = (XcxPayPramsVO)dealResult(result,XcxPayPramsVO.class);
+		//获取预支付ID,供发送信息模板
+		valueOperations.set(xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
+		return R.ok().put("data", xcxPayPramsVO);
 	}
 	
 	/**

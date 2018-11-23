@@ -1,5 +1,7 @@
 package com.yjk.app.service.wx.template.request;
 
+import com.yjk.app.vo.XcxPayNotifyInfoVO;
+
 public class NotifyRequest {
 
 	/**
@@ -7,7 +9,7 @@ public class NotifyRequest {
 	 */
 	private Integer type;
 	
-	private String orderNo;
+	private XcxPayNotifyInfoVO xcxPayNotifyInfoVO;
 
 	public Integer getType() {
 		return type;
@@ -17,13 +19,16 @@ public class NotifyRequest {
 		this.type = type;
 	}
 
-	public String getOrderNo() {
-		return orderNo;
+	public XcxPayNotifyInfoVO getXcxPayNotifyInfoVO() {
+		return xcxPayNotifyInfoVO;
 	}
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setXcxPayNotifyInfoVO(XcxPayNotifyInfoVO xcxPayNotifyInfoVO) {
+		this.xcxPayNotifyInfoVO = xcxPayNotifyInfoVO;
 	}
+
+	
+
 	
 	
 }
