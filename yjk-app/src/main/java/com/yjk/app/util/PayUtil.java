@@ -2,6 +2,8 @@ package com.yjk.app.util;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,7 @@ import com.yjk.app.exception.RRException;
 import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.PhoneNumberVO;
+import com.yjk.app.vo.UnifiedorderAttachVO;
 import com.yjk.app.vo.XcxPayPramsVO;
 
 @Component
@@ -38,10 +41,10 @@ public class PayUtil {
 		xcxUnifiedorderDTO.setTrade_type(weiXinConfig.getTradeType());
 		xcxUnifiedorderDTO.setAppid(weiXinConfig.getXcxAppId());
 		xcxUnifiedorderDTO.setMch_id(weiXinConfig.getMechId());
-		xcxUnifiedorderDTO.setAttach(weiXinConfig.getApikey());
+		xcxUnifiedorderDTO.setAttach(JSON.toJSONString(new UnifiedorderAttachVO(weiXinConfig.getApikey(), "xcxPayNotiy-dev")));
 		xcxUnifiedorderDTO.setKey(weiXinConfig.getApikey());
 		xcxUnifiedorderDTO.setNotify_url(weiXinConfig.getXcxAccessPayParamUrl()+"/notify");
-		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessPayParamUrl(), BeanUtils.describe(xcxUnifiedorderDTO));
+		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessPayParamUrl(),BeanUtils.describe(xcxUnifiedorderDTO));
 		return R.ok().put("data", dealResult(result,XcxPayPramsVO.class));
 	}
 	

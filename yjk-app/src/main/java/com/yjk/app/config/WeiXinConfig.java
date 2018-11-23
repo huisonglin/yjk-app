@@ -34,10 +34,21 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.decryptedPhoneNumber}")
 	private String xcxDecryptedPhoneNumber;
 	
+	@Value("${wx.xcx.xcxNotifyQueueName}")
+	private String xcxNotifyQueueName;
+	
+	
+	
 	
 	
 
-	
+	public String getXcxNotifyQueueName() {
+		return xcxNotifyQueueName;
+	}
+
+	public void setXcxNotifyQueueName(String xcxNotifyQueueName) {
+		this.xcxNotifyQueueName = xcxNotifyQueueName;
+	}
 
 	public String getXcxDecryptedPhoneNumber() {
 		return xcxDecryptedPhoneNumber;

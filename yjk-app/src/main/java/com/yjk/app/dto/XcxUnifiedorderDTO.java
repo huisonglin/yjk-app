@@ -2,6 +2,8 @@ package com.yjk.app.dto;
 
 import java.math.BigDecimal;
 
+import com.yjk.app.vo.UnifiedorderAttachVO;
+
 /**
  * 微信小程序下单参数对象
  * @author huisonglin
@@ -127,6 +129,7 @@ public class XcxUnifiedorderDTO {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
+
 
 	public String getAttach() {
 		return attach;

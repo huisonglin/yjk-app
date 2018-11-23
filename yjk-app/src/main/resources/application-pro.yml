@@ -129,6 +129,7 @@ wx:
     #获取支付参数的地址
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
+    xcxNotifyQueueName: xcxPayNotiy-pro
     #获取openId的地址
     accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
     #解密用户身份信息的地址
