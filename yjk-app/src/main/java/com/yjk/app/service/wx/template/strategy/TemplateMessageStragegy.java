@@ -2,9 +2,8 @@ package com.yjk.app.service.wx.template.strategy;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
-
 import com.yjk.app.service.wx.template.annotation.NotificationType;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.service.WxTemplateNotify;
@@ -12,16 +11,17 @@ import com.yjk.app.service.wx.template.service.WxTemplateNotify;
 @Component
 public class TemplateMessageStragegy{
 
-	@Autowired
+	
+	@Resource(name = "beansWithAnnotationMap")
 	Map<String, Object> beansWithAnnotationMap;
 	
 	public void excute(NotifyRequest request) {
 		WxTemplateNotify wxTemplateNotify=null;
+		//Map<String, Object> beansWithAnnotationMap = this.applicationContext.getBeansWithAnnotation(NotificationType.class); 
 	    for(Map.Entry<String, Object> entry : beansWithAnnotationMap.entrySet()){  
-	    	
+	    	System.out.println(beansWithAnnotationMap);
 	    	Object value = entry.getValue();
-	    	System.out.println(value.getClass());
-	    	NotificationType annotation = value.getClass().getAnnotation(NotificationType.class);
+	    	NotificationType annotation = entry.getValue().getClass().getAnnotation(NotificationType.class);
 	    	Integer type = annotation.type();
 	    	if(request.getType() == type) {
 	    		wxTemplateNotify = (WxTemplateNotify)value;
@@ -32,5 +32,6 @@ public class TemplateMessageStragegy{
 	    	wxTemplateNotify.doSendTemplateMessage(request);
 	    }
 	}
+
 
 }

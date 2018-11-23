@@ -21,7 +21,8 @@ public class TemplateMessageConfig implements ApplicationContextAware{
 	
 	@Bean
 	public Map<String, Object> beansWithAnnotationMap(){
-		return this.applicationContext.getBeansWithAnnotation(NotificationType.class); 
+		 Map<String, Object> beansWithAnnotation = this.applicationContext.getBeansWithAnnotation(NotificationType.class); 
+		 return beansWithAnnotation;
 	}
 
 }
