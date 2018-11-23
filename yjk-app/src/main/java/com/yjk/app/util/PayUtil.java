@@ -2,9 +2,7 @@ package com.yjk.app.util;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
@@ -53,7 +51,7 @@ public class PayUtil {
 		xcxUnifiedorderDTO.setKey(weiXinConfig.getApikey());
 		xcxUnifiedorderDTO.setNotify_url(weiXinConfig.getXcxAccessPayParamUrl()+"/notify");
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessPayParamUrl(),BeanUtils.describe(xcxUnifiedorderDTO));
-		XcxPayPramsVO xcxPayPramsVO = (XcxPayPramsVO)dealResult(result,XcxPayPramsVO.class);
+		XcxPayPramsVO xcxPayPramsVO = dealResult(result,XcxPayPramsVO.class);
 		//获取预支付ID,供发送信息模板
 		valueOperations.set(Constants.PREPAY_ID+xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
 		return R.ok().put("data", xcxPayPramsVO);
@@ -70,7 +68,7 @@ public class PayUtil {
 		generateOpenIdDTO.setAppId(weiXinConfig.getXcxAppId());
 		generateOpenIdDTO.setAppSecret(weiXinConfig.getXcxAppSecret());
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessOpenIdUrl(), BeanUtils.describe(generateOpenIdDTO));
-		return (Jscode2SessionVO)dealResult(result,Jscode2SessionVO.class);
+		return dealResult(result,Jscode2SessionVO.class);
 	}
 	
 	/**
@@ -82,7 +80,7 @@ public class PayUtil {
 	@SuppressWarnings("unchecked")
 	public DecryptUserInfoVO DecryptUserInfo(DecryptUserInfoDTO decryptUserInfoDTO)throws Exception {
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptUserInfoUrl(), BeanUtils.describe(decryptUserInfoDTO));
-		return (DecryptUserInfoVO)dealResult(result,DecryptUserInfoVO.class);
+		return dealResult(result,DecryptUserInfoVO.class);
 	}
 	
 	/**
@@ -98,7 +96,7 @@ public class PayUtil {
 			accessTokenDTO.setAppid(weiXinConfig.getXcxAppId());
 			accessTokenDTO.setSecret(weiXinConfig.getXcxAppSecret());
 			HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getAccessTokendUrl(), BeanUtils.describe(accessTokenDTO));
-			AccessTokenVO dealResult = (AccessTokenVO)dealResult(result,AccessTokenVO.class);
+			AccessTokenVO dealResult = dealResult(result,AccessTokenVO.class);
 			accessToken = dealResult.getAccess_token();
 			valueOperations.set(weiXinConfig.getAccessToken(), accessToken,Long.valueOf(dealResult.getExpires_in()),TimeUnit.SECONDS);
 		}
@@ -114,12 +112,12 @@ public class PayUtil {
 	@SuppressWarnings("unchecked")
 	public PhoneNumberVO decryptedPhoneNumber(PhoneNumberDTO phoneNumberDTO)throws Exception {
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptedPhoneNumber(), BeanUtils.describe(phoneNumberDTO));
-		return (PhoneNumberVO)dealResult(result,PhoneNumberVO.class);
+		return dealResult(result,PhoneNumberVO.class);
 	}
 
 	
 	
-	public static  <T> Object dealResult(HttpClientResult result,Class<T> clazz)
+	public static  <T>  T dealResult(HttpClientResult result,Class<T> clazz)
 			throws IntrospectionException, IllegalAccessException, InstantiationException, InvocationTargetException {
 		if(result.getCode() == 200) {
 			String content = result.getContent();
