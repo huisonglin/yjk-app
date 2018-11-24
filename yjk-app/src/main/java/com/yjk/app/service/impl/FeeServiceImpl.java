@@ -118,7 +118,7 @@ public class FeeServiceImpl implements FeeService{
 			weiXinRefundDTO.setOut_refund_no(UuidUtils.generateOrderNo("TK"));
 			String money = orderDO.getMoney().multiply(new BigDecimal("100")).intValue()+"";
 			weiXinRefundDTO.setTotalFee(money);
-			weiXinRefundDTO.setRefundFee(money);
+			weiXinRefundDTO.setRefundFee("1");
 			weiXinRefundDTO.setOutTradeNo(orderDO.getOrderNo());
 			weiXinRefundDTO.setTransactionId(orderDO.getTransactionId());
 			WeiXinRefundVO refundByWeiXin = payUtil.refundByWeiXin(weiXinRefundDTO);
@@ -129,7 +129,7 @@ public class FeeServiceImpl implements FeeService{
 				orderMapper.updateByPrimaryKeySelective(orderDO);
 				return R.ok();
 			}else {
-				throw new RRException(refundByWeiXin.getReturn_msg());
+				throw new RRException(refundByWeiXin.getErr_code_des()+"("+refundByWeiXin.getErr_code()+")");
 			}
 		}else {
 			throw new RRException("您还未支付,无法退款");
