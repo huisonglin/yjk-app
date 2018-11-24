@@ -13,14 +13,18 @@ import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.OrderTypeEnum;
+import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.dao.OrderMapper;
 import com.yjk.app.dto.DialingDTO;
 import com.yjk.app.dto.DialingRefundDTO;
+import com.yjk.app.dto.RefundTemplateInfoVO;
 import com.yjk.app.dto.WeiXinRefundDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
 import com.yjk.app.entity.OrderDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.FeeService;
+import com.yjk.app.service.wx.template.request.NotifyRequest;
+import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.JSONUtil;
 import com.yjk.app.util.PayUtil;
 import com.yjk.app.util.R;
@@ -99,7 +103,8 @@ public class FeeServiceImpl implements FeeService{
 
 	}
 	
-	
+	@Autowired
+	TemplateMessageStragegy templateMessageStragegy;
 	
 	/**
 	 * 拨打电话退款接口
@@ -127,6 +132,19 @@ public class FeeServiceImpl implements FeeService{
 				orderDO.setStatus(OrderStatusEnum.REFUND.getValue());
 				orderDO.setRefundTime(new Date());
 				orderMapper.updateByPrimaryKeySelective(orderDO);
+				
+				//发送模板信息
+				RefundTemplateInfoVO refundTemplateInfoVO = new RefundTemplateInfoVO();
+				refundTemplateInfoVO.setGoodzName("拨打电话");
+				refundTemplateInfoVO.setKindlyReminder("找机械，我来云机酷");
+				refundTemplateInfoVO.setOpenId(dialingRefundDTO.getOpenId());
+				refundTemplateInfoVO.setOrderNo(orderDO.getOrderNo());
+				refundTemplateInfoVO.setReason("信息缺乏真实性");
+				refundTemplateInfoVO.setRefundMoeny(weiXinRefundDTO.getRefundFee());
+				NotifyRequest notifyRequest = new NotifyRequest();
+				notifyRequest.setType(TemplateEnum.REFUND.getValue());
+				notifyRequest.setRefundTemplateInfoVO(refundTemplateInfoVO);
+				templateMessageStragegy.excute(notifyRequest);
 				return R.ok();
 			}else {
 				throw new RRException(refundByWeiXin.getErr_code_des()+"("+refundByWeiXin.getErr_code()+")");

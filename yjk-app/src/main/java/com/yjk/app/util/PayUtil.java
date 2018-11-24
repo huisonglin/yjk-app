@@ -85,10 +85,15 @@ public class PayUtil {
 	@SuppressWarnings("unchecked")
 	public WeiXinRefundVO refundByWeiXin(WeiXinRefundDTO weiXinRefundDTO) throws Exception {
 		
-		weiXinRefundDTO.setApiKey(weiXinConfig.getApikey());
+		weiXinRefundDTO.setApiKey("1145B1AFA2994480808B42793E486A81");
+		weiXinRefundDTO.setAppid("wxbcac66730a4136dc");
+		weiXinRefundDTO.setMch_id("1498445182");
+		
+/*		weiXinRefundDTO.setApiKey(weiXinConfig.getApikey());
 		weiXinRefundDTO.setAppid(weiXinConfig.getXcxAppId());
+		weiXinRefundDTO.setMch_id(weiXinConfig.getMechId());*/
+		
 		weiXinRefundDTO.setCertUrl(weiXinConfig.getCertUrl());
-		weiXinRefundDTO.setMch_id(weiXinConfig.getMechId());
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getRefundUrl(), BeanUtils.describe(weiXinRefundDTO));
 		return dealResult(result,WeiXinRefundVO.class);
 	}
@@ -120,6 +125,9 @@ public class PayUtil {
 			HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getAccessTokendUrl(), BeanUtils.describe(accessTokenDTO));
 			AccessTokenVO dealResult = dealResult(result,AccessTokenVO.class);
 			accessToken = dealResult.getAccess_token();
+			if(accessToken == null) {
+				throw new RRException("获取accessToken失败,请检查配置！");
+			}
 			valueOperations.set(weiXinConfig.getAccessToken(), accessToken,Long.valueOf(dealResult.getExpires_in()),TimeUnit.SECONDS);
 		}
 		return accessToken;

@@ -117,12 +117,12 @@ jwtvalidate:
         header: token
         
 wx:
-  mch_id: 1498445182
-  apikey: 1145B1AFA2994480808B42793E486A81
+  mch_id: 1499766942
+  apikey: MueFW1stFzFxnXghpVGY0B7DT8EFg66B
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
-  certUrl: D:/workspace-sts-3.9.4.RELEASE/YunJiKu/src/main/resources/apiclient_cert.p12
+  certUrl: D:/apiclient_cert.p12
   xcx:
-    appid: wxbcac66730a4136dc
+    appid: wx9d25741d9e1075d6
     appSecret: c33726a8e4267379e5529b5a3e489d35
     accessToken: accessToken_dev
     #appid: wxde59926deb607689

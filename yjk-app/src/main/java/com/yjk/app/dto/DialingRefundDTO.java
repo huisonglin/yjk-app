@@ -5,6 +5,18 @@ public class DialingRefundDTO {
 	private Long memberId;
 	
 	private String orderId;
+	
+	private String openId;
+	
+	
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 
 	public Long getMemberId() {
 		return memberId;

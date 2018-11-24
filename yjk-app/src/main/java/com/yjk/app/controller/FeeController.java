@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mysql.fabric.xmlrpc.base.Member;
 import com.yjk.app.annotation.Login;
 import com.yjk.app.annotation.LoginUser;
 import com.yjk.app.dto.DialingDTO;
@@ -32,9 +33,10 @@ public class FeeController {
 	
 	@Login
 	@RequestMapping("/dialing/refund")
-	public R dialingRefund(DialingRefundDTO dialingRefundDTO, @RequestAttribute("memberId") Long memberId) throws Exception {
+	public R dialingRefund(DialingRefundDTO dialingRefundDTO, @LoginUser MemberDO memberDO) throws Exception {
 		Assert.isBlank(dialingRefundDTO.getOrderId(), "订单ID不能为空");
-		dialingRefundDTO.setMemberId(memberId);
+		dialingRefundDTO.setMemberId(memberDO.getId());
+		dialingRefundDTO.setOpenId(memberDO.getXcxOpenId());
 		return feeService.dialingRefund(dialingRefundDTO);
 	}
 }

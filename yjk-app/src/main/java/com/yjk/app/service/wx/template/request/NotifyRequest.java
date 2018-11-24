@@ -2,6 +2,7 @@ package com.yjk.app.service.wx.template.request;
 
 import com.yjk.app.vo.XcxPayNotifyInfoVO;
 
+import com.yjk.app.dto.RefundTemplateInfoVO;
 public class NotifyRequest {
 
 	/**
@@ -10,6 +11,18 @@ public class NotifyRequest {
 	private Integer type;
 	
 	private XcxPayNotifyInfoVO xcxPayNotifyInfoVO;
+	
+	private RefundTemplateInfoVO RefundTemplateInfoVO;
+	
+	
+
+	public RefundTemplateInfoVO getRefundTemplateInfoVO() {
+		return RefundTemplateInfoVO;
+	}
+
+	public void setRefundTemplateInfoVO(RefundTemplateInfoVO refundTemplateInfoVO) {
+		RefundTemplateInfoVO = refundTemplateInfoVO;
+	}
 
 	public Integer getType() {
 		return type;
