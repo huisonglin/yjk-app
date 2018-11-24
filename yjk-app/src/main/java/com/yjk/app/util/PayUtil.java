@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.qiniu.util.Json;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dto.AccessTokenDTO;
 import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
+import com.yjk.app.dto.WeiXinRefundDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.vo.AccessTokenVO;
@@ -21,6 +24,7 @@ import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.PhoneNumberVO;
 import com.yjk.app.vo.UnifiedorderAttachVO;
+import com.yjk.app.vo.WeiXinRefundVO;
 import com.yjk.app.vo.XcxPayPramsVO;
 
 @Component
@@ -54,6 +58,7 @@ public class PayUtil {
 		XcxPayPramsVO xcxPayPramsVO = dealResult(result,XcxPayPramsVO.class);
 		//获取预支付ID,供发送信息模板
 		valueOperations.set(Constants.PREPAY_ID+xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
+		valueOperations.set(Constants.XCX_PAY_PRAMS+xcxUnifiedorderDTO.getOut_trade_no(), new Gson().toJson(xcxPayPramsVO), 7200, TimeUnit.SECONDS); //有效期两个小时
 		return R.ok().put("data", xcxPayPramsVO);
 	}
 	
@@ -69,6 +74,23 @@ public class PayUtil {
 		generateOpenIdDTO.setAppSecret(weiXinConfig.getXcxAppSecret());
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxAccessOpenIdUrl(), BeanUtils.describe(generateOpenIdDTO));
 		return dealResult(result,Jscode2SessionVO.class);
+	}
+	
+	/**
+	 * 微信退款  
+	 * @param weiXinRefundDTO
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public WeiXinRefundVO refundByWeiXin(WeiXinRefundDTO weiXinRefundDTO) throws Exception {
+		
+		weiXinRefundDTO.setApiKey(weiXinConfig.getApikey());
+		weiXinRefundDTO.setAppid(weiXinConfig.getXcxAppId());
+		weiXinRefundDTO.setCertUrl(weiXinConfig.getCertUrl());
+		weiXinRefundDTO.setMch_id(weiXinConfig.getMechId());
+		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getRefundUrl(), BeanUtils.describe(weiXinRefundDTO));
+		return dealResult(result,WeiXinRefundVO.class);
 	}
 	
 	/**

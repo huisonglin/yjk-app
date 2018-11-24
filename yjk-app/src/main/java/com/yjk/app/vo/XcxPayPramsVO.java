@@ -12,7 +12,16 @@ public class XcxPayPramsVO {
 		private String _package;
 		private String paySign;
 		private String openId;
+		private String isNeedPay = "true";
 		
+				
+
+		public String getIsNeedPay() {
+			return isNeedPay;
+		}
+		public void setIsNeedPay(String isNeedPay) {
+			this.isNeedPay = isNeedPay;
+		}
 		public String getOpenId() {
 			return openId;
 		}

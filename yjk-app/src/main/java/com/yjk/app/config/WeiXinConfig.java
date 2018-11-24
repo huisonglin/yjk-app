@@ -43,9 +43,29 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.accessTokendUrl}")
 	private String accessTokendUrl;
 	
+	@Value("${wx.refundUrl}")
+	private String refundUrl;
+	
+	@Value("${wx.certUrl}")
+	private String certUrl;
 	
 	
 	
+	public String getCertUrl() {
+		return certUrl;
+	}
+
+	public void setCertUrl(String certUrl) {
+		this.certUrl = certUrl;
+	}
+
+	public String getRefundUrl() {
+		return refundUrl;
+	}
+
+	public void setRefundUrl(String refundUrl) {
+		this.refundUrl = refundUrl;
+	}
 
 	public String getAccessToken() {
 		return accessToken;

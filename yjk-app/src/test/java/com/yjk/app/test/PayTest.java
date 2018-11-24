@@ -19,7 +19,7 @@ public class PayTest {
 	
 	@Test
 	public void test() throws Exception {
-		R dialing = feeServiceImpl.Dialing(null);
-		System.out.println(JSON.toJSONString(dialing));
+/*		R dialing = feeServiceImpl.Dialing(null);
+		System.out.println(JSON.toJSONString(dialing));*/
 	}
 }

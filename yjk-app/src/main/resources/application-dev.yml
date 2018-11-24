@@ -120,7 +120,7 @@ wx:
   mch_id: 1499766942
   apikey: MueFW1stFzFxnXghpVGY0B7DT8EFg66B
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
-  certUrl: /home/gchl/apiclient_cert.p12
+  certUrl: D:/workspace-sts-3.9.4.RELEASE/YunJiKu/src/main/resources/apiclient_cert.p12
   xcx:
     appid: wx9d25741d9e1075d6
     appSecret: c33726a8e4267379e5529b5a3e489d35
@@ -128,7 +128,7 @@ wx:
     #appid: wxde59926deb607689
     #appSecret: f7b774417e98b3d926d6d12e26db8a7d
     #服务器地址
-    baseUrl: http://test.huisonglin.top
+    baseUrl: http://127.0.0.1:8086
     #获取支付参数的地址
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
