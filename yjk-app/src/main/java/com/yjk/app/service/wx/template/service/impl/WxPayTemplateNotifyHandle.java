@@ -14,6 +14,7 @@ import org.springframework.jms.core.JmsTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.yjk.app.common.Constants;
+import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dto.TemplateDTO;
 import com.yjk.app.service.wx.template.annotation.NotificationType;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
@@ -38,6 +39,9 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 	PayUtil payUtil;
 	
 	@Autowired
+	WeiXinConfig weiXinConfig;
+	
+	@Autowired
 	ValueOperations<String, String> valueOperations;
 	@Override
 	public void doSendTemplateMessage(NotifyRequest request) throws Exception {
@@ -48,6 +52,7 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		templateDTO.setTemplate_id("zy0h2iLzUeSgCH12DPMPTJ4MTWP0FwYA3qDgEnPK80Q");
 		templateDTO.setForm_id(prepayId);
 		templateDTO.setTouser(xcxPayNotifyInfoVO.getOpenid());
+		templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径
 		templateDTO.setAccess_token(payUtil.xcxAccessToken());
 		Map<String, Map<String, String>> data = new HashMap<>();
 		BigDecimal money = new BigDecimal(xcxPayNotifyInfoVO.getTotal_fee()).divide(new BigDecimal("100"), 2,BigDecimal.ROUND_HALF_UP);

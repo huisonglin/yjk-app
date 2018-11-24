@@ -43,9 +43,19 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.accessTokendUrl}")
 	private String accessTokendUrl;
 	
+	@Value("${wx.xcx.page}")
+	private String xcxPage;
 	
 	
 	
+
+	public String getXcxPage() {
+		return xcxPage;
+	}
+
+	public void setXcxPage(String xcxPage) {
+		this.xcxPage = xcxPage;
+	}
 
 	public String getAccessToken() {
 		return accessToken;
