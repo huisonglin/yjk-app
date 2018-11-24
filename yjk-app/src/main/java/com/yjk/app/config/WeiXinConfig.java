@@ -45,9 +45,30 @@ public class WeiXinConfig {
 	
 	@Value("${wx.xcx.page}")
 	private String xcxPage;
+	@Value("${wx.refundUrl}")
+	private String refundUrl;
+	
+	@Value("${wx.certUrl}")
+	private String certUrl;
+
 	
 	
 	
+	public String getCertUrl() {
+		return certUrl;
+	}
+
+	public void setCertUrl(String certUrl) {
+		this.certUrl = certUrl;
+	}
+
+	public String getRefundUrl() {
+		return refundUrl;
+	}
+
+	public void setRefundUrl(String refundUrl) {
+		this.refundUrl = refundUrl;
+	}
 
 	public String getXcxPage() {
 		return xcxPage;

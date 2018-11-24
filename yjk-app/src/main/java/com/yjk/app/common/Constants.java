@@ -6,6 +6,8 @@ public class Constants {
 	
 	public static final String PREPAY_ID = "prepay_id_";//预支付ID
 	
+	public static final String XCX_PAY_PRAMS = "xcx_pay_prams_";//小程序支付参数
+	
 	public static final String SELF_INCREASING_ID  ="selfIncreasingId";
 	
 	public static final Integer pageSize = 10;
