@@ -115,16 +115,18 @@ jwtvalidate:
         # token有效时长，7天，单位秒
         expire: 2000000
         header: token
-        
+            
 wx:
   mch_id: 1499766942
   apikey: MueFW1stFzFxnXghpVGY0B7DT8EFg66B
+  refundUrl: ${wx.xcx.baseUrl}/weixin/refund
+  certUrl: /home/gchl/apiclient_cert.p12
   xcx:
-    #appid: wx9d25741d9e1075d6
-    #appSecret: c33726a8e4267379e5529b5a3e489d35
     appid: wxc8b75cbbe1edb0d5
     appSecret: 0a15d8d0210355e0a36716ba37addf66
     accessToken: accessToken_pro
+    #appid: wxde59926deb607689
+    #appSecret: f7b774417e98b3d926d6d12e26db8a7d
     #服务器地址
     baseUrl: http://test.huisonglin.top
     #获取支付参数的地址

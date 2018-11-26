@@ -8,8 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.OrderTypeEnum;
