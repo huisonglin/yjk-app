@@ -45,6 +45,10 @@ public class DeviceRentOutInfoDO implements Serializable {
 	private Integer status;
 	//出租备注
 	private String remark;
+	//联系人手机号
+	private String contactMobile;
+	//联系人姓名
+	private String contactName;
 	//活跃度
 	private Integer liveness;
 	//创建时间
@@ -55,6 +59,20 @@ public class DeviceRentOutInfoDO implements Serializable {
 	private Date newstime;
 
 	
+	
+	
+	public String getContactMobile() {
+		return contactMobile;
+	}
+	public void setContactMobile(String contactMobile) {
+		this.contactMobile = contactMobile;
+	}
+	public String getContactName() {
+		return contactName;
+	}
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
 	public String getAddressDetail() {
 		return addressDetail;
 	}
