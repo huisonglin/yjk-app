@@ -43,8 +43,11 @@ public class DeviceVO {
 	public void setWorkTime(Integer workTime) {
 		this.workTime = workTime;
 	}
-	public String getPics() {
-		return pics;
+	public String[] getPics() {
+		if(pics != null && !"".equals(pics)) {
+			return pics.split("#");
+		}
+		return null;
 	}
 	public void setPics(String pics) {
 		this.pics = pics;

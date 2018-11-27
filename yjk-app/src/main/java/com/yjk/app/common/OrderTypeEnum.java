@@ -1,7 +1,7 @@
 package com.yjk.app.common;
 
 public enum OrderTypeEnum {
-	CALL_UP("未支付",1);
+	CALL_UP("拨打电话",1);
 	
 	String name;
 	

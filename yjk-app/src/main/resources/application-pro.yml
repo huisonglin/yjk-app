@@ -22,9 +22,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     ds1:
-      url: jdbc:mysql://39.106.4.135:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
-      username: root
-      password: uAiqwVwjJ8-i
+      url: jdbc:mysql://shuijie.mysqldb.chinacloudapi.cn:3306/yjk?useUnicode=true&characterEncoding=utf8
+      username: shuijie%wy
+      password: wy123456789?0.0
       driverClassName: com.mysql.jdbc.Driver
       name: datasource1
       #连接池建立时创建的初始化连接数
@@ -122,8 +122,8 @@ wx:
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
   certUrl: /home/gchl/apiclient_cert.p12
   xcx:
-    appid: wxc8b75cbbe1edb0d5
-    appSecret: 0a15d8d0210355e0a36716ba37addf66
+    appid: wxe58b479e170a58a4
+    appSecret: 2b8ef2d84f12ebe6b8782877e894a84c
     accessToken: accessToken_pro
     #appid: wxde59926deb607689
     #appSecret: f7b774417e98b3d926d6d12e26db8a7d

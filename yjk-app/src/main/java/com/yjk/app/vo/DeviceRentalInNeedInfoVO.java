@@ -87,8 +87,11 @@ public class DeviceRentalInNeedInfoVO{
 	public void setAddressDetail(String addressDetail) {
 		this.addressDetail = addressDetail;
 	}
-	public String getPics() {
-		return pics;
+	public String[] getPics() {
+		if(pics != null && !"".equals(pics)) {
+			return pics.split("#");
+		}
+		return null;
 	}
 	public void setPics(String pics) {
 		this.pics = pics;
