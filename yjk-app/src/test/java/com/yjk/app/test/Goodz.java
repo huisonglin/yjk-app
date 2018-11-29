@@ -1,67 +1,29 @@
 package com.yjk.app.test;
 
+import java.util.List;
+
+import redis.clients.jedis.Jedis;
+
 public class Goodz {
-
-	private String id;
 	
-	private Integer count;
-	
-	private Integer size;
-
-	public String getId() {
-		return id;
+	public static Jedis jedis;
+	static {
+		jedis = new Jedis("YunJiKuRedis.redis.cache.chinacloudapi.cn",6379);
+		jedis.auth("/jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=");
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public static void main(String[] args) {
+		Goodz g = new Goodz();
+		while(true) {
+			g.dealRequest();
+		}
 	}
 
-	public Integer getCount() {
-		return count;
+	public void dealRequest() {
+		List<String> blpop = jedis.blpop(10, "xtkg");
+		for (String string : blpop) {
+			System.out.println(string);
+		}
 	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	public Integer getSize() {
-		return size;
-	}
-
-	public void setSize(Integer size) {
-		this.size = size;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Goodz other = (Goodz) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		other.setCount(this.getCount()+other.getCount());
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Goodz [id=" + id + ", count=" + count + ", size=" + size + "]";
-	}
-	
 	
 }

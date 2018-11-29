@@ -37,6 +37,19 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private String contactMobile;
 	//距离
 	private String distance;
+	
+	private String active;
+	
+	
+	public String getActive() {
+		if(active == null) {
+			return "一小时之前活跃";
+		}
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
+	}
 	public Long getId() {
 		return id;
 	}
