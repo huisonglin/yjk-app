@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
+import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
+import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
@@ -25,6 +27,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	SelfIncreasingIdService selfIncreasingIdService;
 	@Autowired
 	PutOnRentInfoService putOnRentInfoService;
+	@Autowired
+	DeviceMapper deviceMapper;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentOutInfoDTO
@@ -37,16 +41,32 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		
 		deviceRentOutInfoDO.setUpdateTime(new Date());
 		deviceRentOutInfoDO.setStatus(1);
-		Long deviceId = deviceRentOutInfoDO.getId();
+		Long deviceRentOutInfoId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
+			
+			DeviceDO deviceDO = new DeviceDO();
+			deviceDO.setCreateTime(new Date());
+			deviceDO.setDeviceName(deviceRentOutInfoDTO.getDeviceName());
+			deviceDO.setManufacture(deviceRentOutInfoDTO.getManufacture());
+			deviceDO.setMemberId(deviceRentOutInfoDTO.getMemberId());
+			deviceDO.setModeId(deviceRentOutInfoDTO.getModeId());
+			deviceDO.setTwoStageModeId(deviceRentOutInfoDTO.getTwoStageModeId());
+			deviceDO.setSpecId(deviceRentOutInfoDTO.getSpecId());
+			deviceDO.setPics(deviceRentOutInfoDTO.getPics());
+			deviceDO.setType(1);
+			deviceMapper.insertSelective(deviceDO);
 			deviceRentOutInfoDO.setCreateTime(new Date());
 			deviceRentOutInfoDO.setId(selfIncreasingIdService.generateId());
+			deviceRentOutInfoDO.setDeviceId(deviceDO.getId());
 			deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
-			deviceId = deviceRentOutInfoDO.getId();
+			deviceRentOutInfoId = deviceRentOutInfoDO.getId();
 		}else {
+			DeviceDO deviceDO = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getId());
+			PropertyUtils.copyProperties(deviceDO, deviceRentOutInfoDTO);
+			deviceMapper.updateByPrimaryKeySelective(deviceDO);
 			deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
 		}
-		return R.ok().put("info", deviceId);
+		return R.ok().put("info", deviceRentOutInfoId);
 	}
 	
 	/**

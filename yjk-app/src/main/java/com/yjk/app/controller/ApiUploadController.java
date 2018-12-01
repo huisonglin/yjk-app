@@ -27,7 +27,7 @@ public class ApiUploadController {
 
 	@ResponseBody
 	@RequestMapping("/data")
-	public String ups(@RequestParam("file") MultipartFile[] files,
+	public R ups(@RequestParam("file") MultipartFile[] files,
             HttpServletRequest request) throws IOException {
 		Long startTime = System.currentTimeMillis();		
 		List<ImageVO> images = new ArrayList<>();
@@ -42,6 +42,6 @@ public class ApiUploadController {
 		Long endTime = System.currentTimeMillis();
 		System.out.println("本次请求处理时间为："+new Long(endTime-startTime)+"ms");
 		R r = R.ok().put("info", images);
-		return JSON.toJSONString(r);
+		return r;
 	}
 }
