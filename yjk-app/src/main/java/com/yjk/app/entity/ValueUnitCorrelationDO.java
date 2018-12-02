@@ -1,5 +1,6 @@
 package com.yjk.app.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -20,10 +21,12 @@ public class ValueUnitCorrelationDO {
     private  Long infoId;
    
 	 //价格
-    private  Double price;
+    private  BigDecimal price;
    
 	 //创建时间
     private  Date createTime;
+    
+    private Long priceUnitSkuId;
    
 	 //更新时间
     private  Date updateTime;
@@ -42,15 +45,21 @@ public class ValueUnitCorrelationDO {
     public  void  setInfoId(Long infoId){
     	this.infoId=infoId;
     }  
+    
    
-    public  Double  getPrice(){
-    		return  this.price;
-    };
-    public  void  setPrice(Double price){
-    	this.price=price;
-    }  
-   
-    public  Date  getCreateTime(){
+    public Long getPriceUnitSkuId() {
+		return priceUnitSkuId;
+	}
+	public void setPriceUnitSkuId(Long priceUnitSkuId) {
+		this.priceUnitSkuId = priceUnitSkuId;
+	}
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+	public  Date  getCreateTime(){
     		return  this.createTime;
     };
     public  void  setCreateTime(Date createTime){

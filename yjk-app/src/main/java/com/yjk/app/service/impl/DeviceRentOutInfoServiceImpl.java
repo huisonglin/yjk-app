@@ -16,6 +16,7 @@ import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
+import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentOutInfoVO;
 
@@ -29,6 +30,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	PutOnRentInfoService putOnRentInfoService;
 	@Autowired
 	DeviceMapper deviceMapper;
+	@Autowired
+	ValueUnitCorrelationService valueUnitCorrelationService;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentOutInfoDTO
@@ -36,14 +39,14 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	 * @throws Exception
 	 */
 	public R addOrUpdateRentOutInfo(DeviceRentOutInfoDTO deviceRentOutInfoDTO) throws Exception {
+		
+
 		DeviceRentOutInfoDO deviceRentOutInfoDO = new DeviceRentOutInfoDO();
 		PropertyUtils.copyProperties(deviceRentOutInfoDO, deviceRentOutInfoDTO);
-		
 		deviceRentOutInfoDO.setUpdateTime(new Date());
 		deviceRentOutInfoDO.setStatus(1);
 		Long deviceRentOutInfoId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
-			
 			DeviceDO deviceDO = new DeviceDO();
 			deviceDO.setCreateTime(new Date());
 			deviceDO.setDeviceName(deviceRentOutInfoDTO.getDeviceName());
@@ -61,11 +64,14 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 			deviceRentOutInfoMapper.insertSelective(deviceRentOutInfoDO);
 			deviceRentOutInfoId = deviceRentOutInfoDO.getId();
 		}else {
+			DeviceRentOutInfoDO deviceRentOutInfo = deviceRentOutInfoMapper.selectByPrimaryKey(deviceRentOutInfoDO);
 			DeviceDO deviceDO = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getId());
 			PropertyUtils.copyProperties(deviceDO, deviceRentOutInfoDTO);
+			deviceDO.setId(deviceRentOutInfo.getDeviceId());
 			deviceMapper.updateByPrimaryKeySelective(deviceDO);
 			deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
 		}
+		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentOutInfoDTO.getPrice(), deviceRentOutInfoDO.getId());
 		return R.ok().put("info", deviceRentOutInfoId);
 	}
 	
@@ -80,8 +86,17 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		if(deviceRentOutInfoDO == null) {
 			throw new RRException("检索不到该条数据");
 		}
+		DeviceDO deviceDO = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getDeviceId());
+		
 		DeviceRentOutInfoVO deviceRentOutInfoVO = new DeviceRentOutInfoVO();
-		BeanUtils.copyProperties(deviceRentOutInfoVO, deviceRentOutInfoDO);
+		PropertyUtils.copyProperties(deviceRentOutInfoVO, deviceDO);
+		PropertyUtils.copyProperties(deviceRentOutInfoVO, deviceRentOutInfoDO);
+		if(deviceDO.getPics() != null) {
+			String[] pics = deviceDO.getPics().split("#");
+			deviceRentOutInfoVO.setPicsList(pics);
+		}
+		deviceRentOutInfoVO.setPriceName(valueUnitCorrelationService.showPriceName(deviceRentOutInfoDO.getId()));
+		deviceRentOutInfoVO.setPrice(valueUnitCorrelationService.showPrice(deviceRentOutInfoDO.getId()));
 		return R.ok().put("info", deviceRentOutInfoVO);
 	}
 	/**

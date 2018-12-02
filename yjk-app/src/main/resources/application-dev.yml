@@ -122,8 +122,8 @@ wx:
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
   certUrl: D:/apiclient_cert.p12
   xcx:
-    appid: wx9d25741d9e1075d6
-    appSecret: c33726a8e4267379e5529b5a3e489d35
+    appid: wxde59926deb607689
+    appSecret: f7b774417e98b3d926d6d12e26db8a7d
     accessToken: accessToken_dev
     #appid: wxde59926deb607689
     #appSecret: f7b774417e98b3d926d6d12e26db8a7d
