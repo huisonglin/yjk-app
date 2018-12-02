@@ -36,10 +36,17 @@ public class ApiDeviceRentOutInfoController {
 	@RequestMapping("/addOrUpdateRentOutInfo")
 	@LimitedAccessByIP(key = "addOrUpdateRentOutInfo" ,EachInterva=5)
 	public R addOrUpdateRentOutInfo(DeviceRentOutInfoDTO deviceRentOutInfoDTO,@RequestAttribute("memberId")Long memberId) throws Exception {
+		
+		Assert.isBlank(deviceRentOutInfoDTO.getPics(), "图片不能为空");
+		Assert.isBlank(deviceRentOutInfoDTO.getDeviceName(), "机械名称不能为空");
+		Assert.isNull(deviceRentOutInfoDTO.getModeId(), "一级机型Id不能为空");
+		Assert.isNull(deviceRentOutInfoDTO.getTwoStageModeId(), "二级机型Id不能为空");
+		Assert.isNull(deviceRentOutInfoDTO.getSpecId(), "规格Id不能为空");
 		Assert.isBlank(deviceRentOutInfoDTO.getAddress(), "地址不能为空");
-		Assert.isNull(deviceRentOutInfoDTO.getDeviceId(), "设备ID不能为空");
+		Assert.isBlank(deviceRentOutInfoDTO.getAddressDetail(), "详细地址不能为空");
 		Assert.isNull(deviceRentOutInfoDTO.getLatitude(), "纬度不能为空");
 		Assert.isNull(deviceRentOutInfoDTO.getLongitude(), "经度不能为空");
+		Assert.isNull(deviceRentOutInfoDTO.getContactMobile(), "联系电话");
 		deviceRentOutInfoDTO.setMemberId(memberId);
 		return deviceRentOutInfoService.addOrUpdateRentOutInfo(deviceRentOutInfoDTO);
 	}

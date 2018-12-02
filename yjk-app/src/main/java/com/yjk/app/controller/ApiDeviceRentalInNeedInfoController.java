@@ -38,7 +38,7 @@ public class ApiDeviceRentalInNeedInfoController {
 		Assert.isBlank(deviceRentalInNeedInfoDTO.getName(), "求租设备名称不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getLatitude(), "纬度不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getLongitude(), "经度不能为空");
-		Assert.isNull(deviceRentalInNeedInfoDTO.getPics(), "图片不能为空");
+		//Assert.isNull(deviceRentalInNeedInfoDTO.getPics(), "图片不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getContactMobile(), "联系方式不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getModeId(), "机型Id不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getTwoStageModeId(), "二级机型Id不能为空");
