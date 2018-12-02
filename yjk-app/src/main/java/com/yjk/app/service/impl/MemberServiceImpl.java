@@ -179,7 +179,7 @@ public class MemberServiceImpl implements MemberService{
 			}
 			memberMapper.updateByPrimaryKeySelective(memberDO);
 		}
-		return R.ok();
+		return R.ok().put("info", phoneNumberVO);
 	}
 	/**
 	 * 生成用户呢城
