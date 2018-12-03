@@ -14,6 +14,8 @@ public class DeviceRentalInNeedInfoVO{
 	private String addressDetail;
 	//图片集
 	private String pics;
+	
+	private String[] picList;
 	//名称
 	private String name;
 	//经度
@@ -32,12 +34,12 @@ public class DeviceRentalInNeedInfoVO{
 	private String term;
 	//进场时间
 	private Date inTime;
-	//备注
+/*	//备注
 	private String remark;
 	//运输费
 	private String transportation;
 	//税费
-	private String taxation;
+	private String taxation;*/
 	//设备进场付款
 	private String equipmentArrivalPayment;
 	//按月进度付款
@@ -51,6 +53,12 @@ public class DeviceRentalInNeedInfoVO{
 	private String contactMobile;
 	
 	
+	public String[] getPicList() {
+		return picList;
+	}
+	public void setPicList(String[] picList) {
+		this.picList = picList;
+	}
 	public String getContactName() {
 		return contactName;
 	}
@@ -87,11 +95,9 @@ public class DeviceRentalInNeedInfoVO{
 	public void setAddressDetail(String addressDetail) {
 		this.addressDetail = addressDetail;
 	}
-	public String[] getPics() {
-		if(pics != null && !"".equals(pics)) {
-			return pics.split("#");
-		}
-		return null;
+	
+	public String getPics() {
+		return pics;
 	}
 	public void setPics(String pics) {
 		this.pics = pics;
@@ -150,7 +156,7 @@ public class DeviceRentalInNeedInfoVO{
 	public void setInTime(Date inTime) {
 		this.inTime = inTime;
 	}
-	public String getRemark() {
+/*	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
@@ -167,7 +173,7 @@ public class DeviceRentalInNeedInfoVO{
 	}
 	public void setTaxation(String taxation) {
 		this.taxation = taxation;
-	}
+	}*/
 	public String getEquipmentArrivalPayment() {
 		return equipmentArrivalPayment;
 	}

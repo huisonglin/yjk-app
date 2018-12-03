@@ -59,7 +59,21 @@ public class MemberDO implements Serializable {
 	private Date createTime;
 	//更新时间
 	private Date updateTime;
+	//剩余拨打次数
+	private Integer remainCallCount;
+	
+	
 
+	
+	public Integer getRemainCallCount() {
+		return remainCallCount;
+	}
+	public void setRemainCallCount(Integer remainCallCount) {
+		this.remainCallCount = remainCallCount;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	/**
 	 * 设置：会员ID
 	 */

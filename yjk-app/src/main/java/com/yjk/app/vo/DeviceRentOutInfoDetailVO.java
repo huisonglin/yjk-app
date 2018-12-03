@@ -7,6 +7,8 @@ public class DeviceRentOutInfoDetailVO {
 
 	private Long id;
 	
+	private Long memberId;
+	
 	private String pics;
 	
 	//出租地址
@@ -22,7 +24,7 @@ public class DeviceRentOutInfoDetailVO {
 	//联系人姓名
 	private String contactName;
 	
-	private String price;
+	private List<ValueUnitNameVO> price;
 	
 	private Date manufacture;
 	
@@ -35,6 +37,13 @@ public class DeviceRentOutInfoDetailVO {
 	private String active;
 	
 	
+	
+	public Long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
 	public String getActive() {
 		if(active == null) {
 			return "一小时之前活跃";
@@ -115,14 +124,14 @@ public class DeviceRentOutInfoDetailVO {
 		this.contactName = contactName;
 	}
 
-	public String getPrice() {
+	
+
+	public List<ValueUnitNameVO> getPrice() {
 		return price;
 	}
-
-	public void setPrice(String price) {
+	public void setPrice(List<ValueUnitNameVO> price) {
 		this.price = price;
 	}
-
 	public Date getManufacture() {
 		return manufacture;
 	}

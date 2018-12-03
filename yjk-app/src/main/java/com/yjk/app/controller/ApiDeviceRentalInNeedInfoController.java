@@ -35,6 +35,7 @@ public class ApiDeviceRentalInNeedInfoController {
 	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=5)
 	public R addOrUpdateNeedInfo(DeviceRentalInNeedInfoDTO deviceRentalInNeedInfoDTO,@RequestAttribute("memberId") Long memberId) throws Exception{
 		Assert.isBlank(deviceRentalInNeedInfoDTO.getAdress(), "地址不能为空");
+		Assert.isNull(deviceRentalInNeedInfoDTO.getAddressDetail(), "详细地址不能为空");
 		Assert.isBlank(deviceRentalInNeedInfoDTO.getName(), "求租设备名称不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getLatitude(), "纬度不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getLongitude(), "经度不能为空");

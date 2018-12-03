@@ -50,7 +50,7 @@ public class ApiMemberController {
 	 * @return
 	 */
 	@Login
-	@RequestMapping("bindMobileByXcx")
+	@RequestMapping("/bindMobileByXcx")
 	public R bindMobileByXcx(PhoneNumberDTO phoneNumberDTO,@RequestAttribute("memberId")Long userId) throws Exception{
 		Assert.isBlank(phoneNumberDTO.getEncryptedData(), "encryptedData不能为空");
 		Assert.isBlank(phoneNumberDTO.getIv(), "iv不能为空");
@@ -58,7 +58,7 @@ public class ApiMemberController {
 	}
 	
 	@Login
-	@RequestMapping("modifyPassword")
+	@RequestMapping("/modifyPassword")
 	public R modifyPassword(ModifyPasswordDTO modifyPasswordDTO,@RequestAttribute("memberId") Long memberId) {
 		modifyPasswordDTO.setMemberId(memberId);
 		Assert.isNull(modifyPasswordDTO.getMemberId(), "用户ID不能为空");
@@ -68,7 +68,7 @@ public class ApiMemberController {
 		return r;
 	}
 	
-	@RequestMapping("forgotPassword")
+	@RequestMapping("/forgotPassword")
 	public R forgotPassword(ForgotPasswordDTO forgotPasswordDTO) {
 		Assert.isBlank(forgotPasswordDTO.getMobile(), "手机号不能为空");
 		Assert.isBlank(forgotPasswordDTO.getNewPassword(), "新密码不能为空");
@@ -78,14 +78,14 @@ public class ApiMemberController {
 	}
 	
 	@Login
-	@RequestMapping("editMemberInfo")
+	@RequestMapping("/editMemberInfo")
 	public R editMemberInfo(MemberDO member,@RequestAttribute("memberId") Long id) {
 		member.setId(id);
 		R r = memberService.editMemberInfo(member);
 		return r;
 	}
 	
-	@RequestMapping("loginByXcx")
+	@RequestMapping("/loginByXcx")
 	public R loginByXcx(String code,String iv,String encryptedData) throws Exception {
 		Assert.isBlank(code, "code不能为空");
 		Assert.isBlank(iv, "iv不能为空");
@@ -93,7 +93,7 @@ public class ApiMemberController {
 		return memberService.loginByXcx(code,iv,encryptedData);
 	}
 	
-	@RequestMapping("bindMobile")
+	@RequestMapping("/bindMobile")
 	@LimitedAccessByIP(key="xcxMemberRegister",EachInterva=3)
 	public R bindMobile(BindMobileDTO bindMobileDTO) {
 		Assert.isBlank(bindMobileDTO.getMobile(), "手机号不能为空");
@@ -103,16 +103,22 @@ public class ApiMemberController {
 	}
 	
 	@Login
-	@RequestMapping("memberInfo")
+	@RequestMapping("/memberInfo")
 	public R memberInfo(@RequestAttribute("memberId") Long memberId) {
 		return memberService.memberInfo(memberId);
 	}
 	
 	@Login
-	@RequestMapping("chooseIdentify")
+	@RequestMapping("/chooseIdentify")
 	public R chooseIdentify(@RequestAttribute("memberId")Long memberId,String identify) {
 		Assert.isBlank(identify, "用户身份不能为空");
 		return memberService.chooseIdentify(memberId.toString(), identify);
+	}
+	
+	@Login
+	@RequestMapping("/remainingNumbercallCount")
+	public R RemainingNumbercallCount(@RequestAttribute("memberId")Long memberId) {
+		return R.ok().put("info", memberService.RemainingNumbercallCount(memberId));
 	}
 	
 }

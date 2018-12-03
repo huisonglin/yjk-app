@@ -12,15 +12,18 @@ import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.OrderTypeEnum;
 import com.yjk.app.common.TemplateEnum;
+import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dao.OrderMapper;
 import com.yjk.app.dto.DialingDTO;
 import com.yjk.app.dto.DialingRefundDTO;
 import com.yjk.app.dto.RefundTemplateInfoVO;
 import com.yjk.app.dto.WeiXinRefundDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
+import com.yjk.app.entity.MemberDO;
 import com.yjk.app.entity.OrderDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.FeeService;
+import com.yjk.app.service.MemberService;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.JSONUtil;
@@ -46,6 +49,11 @@ public class FeeServiceImpl implements FeeService{
 	@Autowired
 	ValueOperations<String, String> valueOperations;
 	
+	@Autowired
+	MemberService memberService;
+	@Autowired
+	MemberMapper memberMapper;
+	
 	public R dialing(DialingDTO dialingDTO) throws Exception {
 		
 		Example example =  new Example(OrderDO.class);
@@ -58,6 +66,16 @@ public class FeeServiceImpl implements FeeService{
 			xcxPayPramsVO.setIsNeedPay("false");
 			return R.ok().put("data", xcxPayPramsVO);
 		}else {
+			Integer count = memberService.RemainingNumbercallCount(dialingDTO.getMemberId());
+			if(count > 0) {
+				MemberDO memberDO = new MemberDO();
+				memberDO.setId(dialingDTO.getMemberId());
+				memberDO.setRemainCallCount(count - 1);
+				memberMapper.updateByPrimaryKeySelective(memberDO);
+				XcxPayPramsVO xcxPayPramsVO = new XcxPayPramsVO();
+				xcxPayPramsVO.setIsNeedPay("false");
+				return R.ok().put("data", xcxPayPramsVO);
+			}
 			Example example2 =  new Example(OrderDO.class);
 			example2.setOrderByClause("create_time desc limit 1");
 			Criteria criteria2 = example2.createCriteria();

@@ -34,4 +34,6 @@ public interface MemberService {
 	 R bindMobileByXcx(PhoneNumberDTO phoneNumberDTO,Long userId) throws Exception;
 	 
 	 R chooseIdentify(String memberId,String identify);
+	 
+	 Integer RemainingNumbercallCount(Long memberId);
 }

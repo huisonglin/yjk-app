@@ -32,7 +32,8 @@ public class ApiUploadController {
 		Long startTime = System.currentTimeMillis();		
 		List<ImageVO> images = new ArrayList<>();
 		for (MultipartFile multipartFile : files) {
-			String url = QiNiuUtils.upload(multipartFile.getBytes());
+			//String originalFilename = multipartFile.getOriginalFilename();
+			String url = QiNiuUtils.upload(multipartFile.getBytes(),null);
 			url = "http://img.huisonglin.top/"+url+detail;
 			System.out.println(url);	
 			ImageVO iv = new ImageVO();
@@ -45,3 +46,5 @@ public class ApiUploadController {
 		return r;
 	}
 }
+
+

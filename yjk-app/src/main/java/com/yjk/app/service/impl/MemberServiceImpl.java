@@ -339,6 +339,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		//保存用户的session_key
 		valueOperations.set(Constants.XCX_SESSION_KEY+memberDO.getId().toString(), jsv.getSession_key());
+		valueOperations.set(Constants.LAST_LOGIN_TIME+memberDO.getId(), System.currentTimeMillis()+"");
 		LoginVO loginVO = new LoginVO();
 		loginVO.setToken(jwtUtils.generateToken(memberDO.getId().toString()));
 		loginVO.setHeadImage(memberDO.getHeadImage());
@@ -464,6 +465,25 @@ public class MemberServiceImpl implements MemberService{
 	public R chooseIdentify(String memberId,String identify) {
 		valueOperations.set(Constants.IDENTIFY+memberId, identify);
 		return R.ok();
+	}
+	
+	public Integer RemainingNumbercallCount(Long memberId) {
+		
+		
+		Example example = new Example(MemberDO.class);
+		example.selectProperties("id","remainCallCount");
+		Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("id",memberId);
+		List<MemberDO> memberDOs = memberMapper.selectByExample(example);
+		if(memberDOs != null && memberDOs.size()  == 1) {
+			Integer remainCallCount = memberDOs.get(0).getRemainCallCount();
+			if(remainCallCount == null) {
+				remainCallCount = 0;
+			}
+			return remainCallCount;
+		}
+		
+		return 0;
 	}
 	
 }

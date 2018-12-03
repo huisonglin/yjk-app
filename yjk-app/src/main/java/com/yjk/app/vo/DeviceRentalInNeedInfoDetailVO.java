@@ -21,16 +21,16 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private String term;
 	//进场时间
 	private Date inTime;
-	//备注
-	private String remark;
+/*	//备注
+	private String remark;*/
 	//设备进场付款
 	private String equipmentArrivalPayment;
 	//按月进度付款
 	private String monthlyPayment;
 	//设备退场结清尾款
 	private String exitPayment;
-	//单价
-	private String price;
+/*	//单价
+	private String price;*/
 	//联系人姓名
 	private String contactName;
 	//联系人手机号
@@ -40,7 +40,16 @@ public class DeviceRentalInNeedInfoDetailVO {
 	
 	private String active;
 	
+	private Long memberId;
 	
+	
+	
+	public Long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Long memberId) {
+		this.memberId = memberId;
+	}
 	public String getActive() {
 		if(active == null) {
 			return "一小时之前活跃";
@@ -101,12 +110,12 @@ public class DeviceRentalInNeedInfoDetailVO {
 	public void setInTime(Date inTime) {
 		this.inTime = inTime;
 	}
-	public String getRemark() {
+/*	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
+	}*/
 	public String getEquipmentArrivalPayment() {
 		return equipmentArrivalPayment;
 	}
@@ -125,12 +134,12 @@ public class DeviceRentalInNeedInfoDetailVO {
 	public void setExitPayment(String exitPayment) {
 		this.exitPayment = exitPayment;
 	}
-	public String getPrice() {
+/*	public String getPrice() {
 		return price;
 	}
 	public void setPrice(String price) {
 		this.price = price;
-	}
+	}*/
 	public String getContactName() {
 		return contactName;
 	}

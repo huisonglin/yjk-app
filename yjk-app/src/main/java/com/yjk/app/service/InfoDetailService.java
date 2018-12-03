@@ -4,5 +4,5 @@ import com.yjk.app.util.R;
 
 public interface InfoDetailService {
 
-	public R infoDetail(Long id,Integer infoType) throws Exception;
+	public Object infoDetail(Long id,Integer infoType) throws Exception;
 }

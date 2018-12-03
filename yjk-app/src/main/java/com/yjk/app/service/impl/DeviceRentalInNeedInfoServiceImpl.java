@@ -64,6 +64,8 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		}
 		DeviceRentalInNeedInfoVO vo = new DeviceRentalInNeedInfoVO();
 		PropertyUtils.copyProperties(vo, deviceRentalInNeedInfoDO);
+		String[] picList = deviceRentalInNeedInfoDO.getPics().split("#");
+		vo.setPicList(picList);
 		return R.ok().put("info", vo);
 	}
 	
@@ -75,6 +77,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = new DeviceRentalInNeedInfoDO();
 		deviceRentalInNeedInfoDO.setId(id);
 		deviceRentalInNeedInfoDO.setStatus(1);
+		deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		putOnProjectInfoService.projectInfoOut(id);
 		return R.ok();
 	}
@@ -87,6 +90,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = new DeviceRentalInNeedInfoDO();
 		deviceRentalInNeedInfoDO.setId(id);
 		deviceRentalInNeedInfoDO.setStatus(2);
+		deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		putOnProjectInfoService.putOnProject(id);
 		return R.ok();
 	}
@@ -100,6 +104,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = new DeviceRentalInNeedInfoDO();
 		deviceRentalInNeedInfoDO.setId(id);
 		deviceRentalInNeedInfoDO.setStatus(3);
+		deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		putOnProjectInfoService.projectInfoOut(id);
 		return R.ok();
 	}
