@@ -8,7 +8,10 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import com.yjk.app.controller.bind.StringConverterBigDecimal;
 import com.yjk.app.controller.bind.StringConverterDate;
+import com.yjk.app.controller.bind.StringConverterInterger;
+import com.yjk.app.controller.bind.StringConverterLong;
 
 @Configuration
 public class WebConfigBeans {
@@ -26,6 +29,10 @@ public class WebConfigBeans {
             GenericConversionService genericConversionService = (GenericConversionService) initializer
             		.getConversionService();
             genericConversionService.addConverter(new StringConverterDate());
+            genericConversionService.addConverter(new StringConverterInterger());
+            genericConversionService.addConverter(new StringConverterLong());
+            genericConversionService.addConverter(new StringConverterBigDecimal());
+            
         }
 
     }
