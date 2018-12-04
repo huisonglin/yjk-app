@@ -75,4 +75,14 @@ public class ApiDeviceController {
 		Assert.isNull(deviceDTO.getWorkTime(), "工作时长不能为空");
 		return deviceService.updateDevcie(deviceDTO);
 	}
+	/**
+	 * 我的发布列表接口
+	 * @param memberId
+	 * @return
+	 */
+	@Login
+	@RequestMapping("/myList")
+	public R myList(@RequestAttribute("memberId")Long memberId) {
+		return deviceService.myList(memberId);
+	}
 }

@@ -24,6 +24,8 @@
 
 package com.yjk.app;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -63,12 +65,13 @@ public class Generator {
             e.printStackTrace();
         }
     }*/
+	
 
-    public static InputStream getResourceAsStream(String path){
+  /*  public static InputStream getResourceAsStream(String path){
         return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-    }
+    }*/
 
-    public static void main(String[] args) throws Exception {
+/*    public static void main(String[] args) throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         ConfigurationParser cp = new ConfigurationParser(warnings);
@@ -79,5 +82,5 @@ public class Generator {
         for (String warning : warnings) {
             System.out.println(warning);
         }
-    }
+    }*/
 }

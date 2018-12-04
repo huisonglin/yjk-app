@@ -13,4 +13,7 @@ public interface DeviceService {
 	R editDevice(Long id);
 	
 	R updateDevcie(DeviceDTO editDeviceDTO);
+	//我的设备列表
+	R myList(Long memberId);
+
 }

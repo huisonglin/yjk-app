@@ -1,7 +1,9 @@
 package com.yjk.app.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.service.DeviceService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceVO;
+import com.yjk.app.vo.MyListVO;
 
 @Service
 public class DeviceServiceImpl implements DeviceService{
@@ -79,7 +82,15 @@ public class DeviceServiceImpl implements DeviceService{
 		return R.ok().put("info", deviceVO);
 	}
 	
-	
+	public R myList(Long memberId) {
+		List<MyListVO> myList = deviceMapper.myList(memberId);
+		for (MyListVO myListVO : myList) {
+			if(StringUtils.isNotBlank(myListVO.getPics())) {
+				myListVO.setPics(myListVO.getPics().split("#")[0]);
+			}
+		}
+		return R.ok().put("info", myList);
+	}
 	
 	
 }
