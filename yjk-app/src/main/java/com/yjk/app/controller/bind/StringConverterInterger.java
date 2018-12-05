@@ -11,6 +11,9 @@ public class StringConverterInterger implements Converter<String, Integer>{
 		if(StringUtils.isBlank(source)) {
 			return null;
 		}
+		if("\"\"".equals(source)) {
+			return null;
+		}
 		return Integer.parseInt(source);
 	}
 

@@ -7,7 +7,11 @@ public class StringConverterLong implements Converter<String, Long>{
 
 	@Override
 	public Long convert(String source) {
+		System.out.println(source);
 		if(StringUtils.isBlank(source)) {
+			return null;
+		}
+		if("\"\"".equals(source)) {
 			return null;
 		}
 		return Long.valueOf(source);

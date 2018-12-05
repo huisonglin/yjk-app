@@ -12,6 +12,9 @@ public class StringConverterBigDecimal implements Converter<String, BigDecimal>{
 		if(StringUtils.isBlank(source)) {
 			return null;
 		}
+		if("\"\"".equals(source)) {
+			return null;
+		}
 		return new BigDecimal(source);
 	}
 
