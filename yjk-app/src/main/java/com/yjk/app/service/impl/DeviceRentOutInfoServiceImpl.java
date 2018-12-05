@@ -32,6 +32,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	DeviceMapper deviceMapper;
 	@Autowired
 	ValueUnitCorrelationService valueUnitCorrelationService;
+	
+	
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentOutInfoDTO
@@ -72,6 +74,7 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 			deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
 		}
 		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentOutInfoDTO.getPrice(), deviceRentOutInfoDO.getId());
+		putOnRentInfoService.putOnRent(deviceRentOutInfoId);
 		return R.ok().put("info", deviceRentOutInfoId);
 	}
 	

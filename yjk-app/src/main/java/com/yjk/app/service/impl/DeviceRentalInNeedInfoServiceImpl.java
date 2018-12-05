@@ -50,6 +50,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 			deviceRentalInNeedInfoDO.setUpdateTime(new Date());
 			deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		}
+		putOnProjectInfoService.putOnProject(rentalInNeedInfoId);
 		return R.ok().put("info", rentalInNeedInfoId);
 	}
 	

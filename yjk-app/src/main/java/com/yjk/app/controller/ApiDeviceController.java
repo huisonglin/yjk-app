@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yjk.app.annotation.Login;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.service.DeviceService;
 import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
@@ -84,5 +85,23 @@ public class ApiDeviceController {
 	@RequestMapping("/myList")
 	public R myList(@RequestAttribute("memberId")Long memberId) {
 		return deviceService.myList(memberId);
+	}
+	
+	/**
+	 * 刷新位置并发布
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	@Login
+	@RequestMapping("/refreshPositionAndPublish")
+	public R refreshPositionAndPublish(RefreshPositionAndPublishDTO dto) throws Exception {
+		Assert.isNull(dto.getInfoId(), "信息ID不能为空");
+		Assert.isNull(dto.getInfoType(), "信息类型不能为空");
+		Assert.isNull(dto.getAddress(), "地址不能为空");
+		Assert.isNull(dto.getAddressDetail(), "详细地址不能为空");
+		Assert.isNull(dto.getLatitude(), "纬度不能为空");
+		Assert.isNull(dto.getLongitude(), "经度不能为空");
+		return deviceService.refreshPositionAndPublish(dto);
 	}
 }

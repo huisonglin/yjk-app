@@ -38,7 +38,7 @@ public class ApiInfoDetailController {
 			if(lastTime != null) {
 				Date date = new Date(Long.valueOf(lastTime));
 				String showTime = DatetimeUtil.showTime(date, null);
-				d.setActive(showTime+"前活跃");
+				d.setActive(showTime+"活跃");
 			}
 		}
 		if(infoDetail instanceof DeviceRentalInNeedInfoDetailVO) {

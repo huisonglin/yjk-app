@@ -1,6 +1,7 @@
 package com.yjk.app.service;
 
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.util.R;
 
 public interface DeviceService {
@@ -15,5 +16,7 @@ public interface DeviceService {
 	R updateDevcie(DeviceDTO editDeviceDTO);
 	//我的设备列表
 	R myList(Long memberId);
+	
+	public R refreshPositionAndPublish(RefreshPositionAndPublishDTO dto) throws Exception ;
 
 }

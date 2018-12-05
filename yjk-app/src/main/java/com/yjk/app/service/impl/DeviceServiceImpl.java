@@ -8,9 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.dao.DeviceMapper;
+import com.yjk.app.dao.DeviceRentOutInfoMapper;
+import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.entity.DeviceDO;
+import com.yjk.app.entity.DeviceRentOutInfoDO;
+import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
 import com.yjk.app.service.DeviceService;
+import com.yjk.app.service.PutOnProjectInfoService;
+import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceVO;
 import com.yjk.app.vo.MyListVO;
@@ -92,5 +99,38 @@ public class DeviceServiceImpl implements DeviceService{
 		return R.ok().put("info", myList);
 	}
 	
+	
+	@Autowired
+	PutOnRentInfoService putOnRentInfoService;
+	@Autowired
+	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
+	@Autowired
+	PutOnProjectInfoService putOnProjectInfoService;
+	@Autowired
+	DeviceRentalInNeedInfoMapper deviceRentalInNeedInfoMapper;
+	
+	public R refreshPositionAndPublish(RefreshPositionAndPublishDTO dto) throws Exception {
+		
+		if(dto.getInfoType() == 1) {//发布出租
+			DeviceRentOutInfoDO deviceRentOutInfoDO = new DeviceRentOutInfoDO();
+			deviceRentOutInfoDO.setId(dto.getInfoId());
+			deviceRentOutInfoDO.setAddress(dto.getAddress());
+			deviceRentOutInfoDO.setAddressDetail(dto.getAddressDetail());
+			deviceRentOutInfoDO.setLatitude(dto.getLatitude());
+			deviceRentOutInfoDO.setLongitude(dto.getLongitude());
+			deviceRentOutInfoMapper.updateByPrimaryKeySelective(deviceRentOutInfoDO);
+			putOnRentInfoService.putOnRent(dto.getInfoId());
+		}else if(dto.getInfoType() == 2) {
+			DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = new DeviceRentalInNeedInfoDO();
+			deviceRentalInNeedInfoDO.setId(dto.getInfoId());
+			deviceRentalInNeedInfoDO.setAdress(dto.getAddress());
+			deviceRentalInNeedInfoDO.setAddressDetail(dto.getAddressDetail());
+			deviceRentalInNeedInfoDO.setLatitude(dto.getLatitude());
+			deviceRentalInNeedInfoDO.setLongitude(dto.getLongitude());
+			deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
+			putOnProjectInfoService.putOnProject(dto.getInfoId());
+		}
+		return R.ok();
+	}
 	
 }
