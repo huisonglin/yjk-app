@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.SearchDTO;
+import com.yjk.app.service.InfoDetailService;
 import com.yjk.app.service.SearchService;
 import com.yjk.app.util.Page;
 import com.yjk.app.util.PageUtil;
@@ -25,7 +26,10 @@ public class SearchServiceImpl implements SearchService{
 	@Autowired
 	private SolrClient solrClient;
 	
-	public static Integer pageSize = 10;
+	public static Integer pageSize = 25;
+	
+	@Autowired
+	InfoDetailService infoDetailService;
 	
 	@Override
 	public R search(SearchDTO searchDTO) throws Exception {
@@ -77,7 +81,8 @@ public class SearchServiceImpl implements SearchService{
 			if(solrDocument.get("popularity") != null) {
 				item.setType(solrDocument.get("popularity").toString());
 			}
-			
+			Object infoDetail = infoDetailService.infoDetail(Long.valueOf(item.getId()), Integer.parseInt(item.getType()));
+			item.setItemDetail(infoDetail);
 			result.add(item);
 		}
 		

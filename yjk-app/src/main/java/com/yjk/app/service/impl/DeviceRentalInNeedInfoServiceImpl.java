@@ -43,7 +43,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 			deviceRentalInNeedInfoDO.setCreateTime(new Date());
 			deviceRentalInNeedInfoDO.setUpdateTime(new Date());
 			deviceRentalInNeedInfoDO.setId(id);
-			deviceRentalInNeedInfoDO.setStatus(1);//未上架
+			deviceRentalInNeedInfoDO.setStatus(2);//已上架
 			deviceRentalInNeedInfoMapper.insertSelective(deviceRentalInNeedInfoDO);
 			rentalInNeedInfoId = deviceRentalInNeedInfoDO.getId();
 		}else {

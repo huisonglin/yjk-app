@@ -14,7 +14,16 @@ public class QueryResultItemVO {
 	//信息类型
 	private String type;
 	
+	private Object itemDetail;
 	
+
+	public Object getItemDetail() {
+		return itemDetail;
+	}
+
+	public void setItemDetail(Object itemDetail) {
+		this.itemDetail = itemDetail;
+	}
 
 	public String getType() {
 		return type;

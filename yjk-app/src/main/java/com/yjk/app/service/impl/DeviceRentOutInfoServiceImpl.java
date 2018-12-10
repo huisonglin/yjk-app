@@ -46,7 +46,7 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		DeviceRentOutInfoDO deviceRentOutInfoDO = new DeviceRentOutInfoDO();
 		PropertyUtils.copyProperties(deviceRentOutInfoDO, deviceRentOutInfoDTO);
 		deviceRentOutInfoDO.setUpdateTime(new Date());
-		deviceRentOutInfoDO.setStatus(1);
+		deviceRentOutInfoDO.setStatus(2);
 		Long deviceRentOutInfoId = deviceRentOutInfoDO.getId();
 		if(deviceRentOutInfoDO.getId() == null) {
 			DeviceDO deviceDO = new DeviceDO();
