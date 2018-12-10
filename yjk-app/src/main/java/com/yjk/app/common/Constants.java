@@ -3,6 +3,8 @@ package com.yjk.app.common;
 public class Constants {
 	
 	public static final String LAST_LOGIN_TIME = "last_login_time_";
+	
+	public static final String XCX_SHARE_INFO = "xcx_share_info_";
 
 	public static final String IDENTIFY = "identify_"; //1出租者  2求租者
 	

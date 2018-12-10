@@ -15,6 +15,12 @@ public class StringConverterBigDecimal implements Converter<String, BigDecimal>{
 		if("\"\"".equals(source)) {
 			return null;
 		}
+		if("请选择".equals(source)) {
+			return null;
+		}
+		if("undefined".equals(source)) {
+			return null;
+		}
 		return new BigDecimal(source);
 	}
 

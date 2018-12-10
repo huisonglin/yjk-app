@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yjk.app.annotation.DistributedLock;
 import com.yjk.app.common.Constants;
+import com.yjk.app.dao.FeedBackMapper;
 import com.yjk.app.dao.MemberInfoMapper;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dto.BindMobileDTO;
@@ -30,6 +31,8 @@ import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
+import com.yjk.app.dto.ShareInfoDTO;
+import com.yjk.app.entity.FeedBackDO;
 import com.yjk.app.entity.MemberDO;
 import com.yjk.app.entity.MemberInfoDO;
 import com.yjk.app.exception.RRException;
@@ -44,6 +47,7 @@ import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.LoginVO;
 import com.yjk.app.vo.PhoneNumberVO;
+import com.yjk.app.vo.ShareInfoVO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
@@ -327,6 +331,7 @@ public class MemberServiceImpl implements MemberService{
 			member.setCorporageCertification(0);//0 未认证  1待审核 2已认证
 			member.setPersionCertification(0);//0未认证 1待审核  2已认证
 			member.setXcxOpenId(jsv.getOpenid());
+			member.setRemainCallCount(5);
 			memberMapper.insertSelective(member);
 			MemberInfoDO memberInfo = new MemberInfoDO();
 			memberInfo.setCreateTime(new Date());
@@ -484,6 +489,31 @@ public class MemberServiceImpl implements MemberService{
 		}
 		
 		return 0;
+	}
+	
+	@Autowired
+	FeedBackMapper feedBackMapper;
+	
+	public R feedBack(Long memberId,String content) {
+		FeedBackDO feedBackDO = new FeedBackDO();
+		feedBackDO.setContent(content);
+		feedBackDO.setCreateTime(new Date());
+		feedBackDO.setMemberId(memberId);
+		feedBackMapper.insertSelective(feedBackDO);
+		return R.ok();
+	}
+	
+	public R getShareInfo(ShareInfoDTO shareInfoDTO,String memberId) throws Exception {
+/*		String session_key = valueOperations.get(Constants.XCX_SESSION_KEY+memberId);
+		shareInfoDTO.setSession_key(session_key);
+		ShareInfoVO shareInfoVO = payUtil.DecryptShareInfo(shareInfoDTO);
+		if(shareInfoVO!=null && shareInfoVO.getOpenGId() != null) {
+			valueOperations.set(Constants.XCX_SHARE_INFO+memberId, shareInfoVO.getOpenGId());
+		}*/
+		MemberDO memberDO = memberMapper.selectByPrimaryKey(memberId);
+		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
+		memberMapper.updateByPrimaryKeySelective(memberDO);
+		return R.ok();
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.yjk.app.service.impl;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.PublishingTypeEnum;
@@ -30,7 +31,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 	DeviceMapper deviceMapper;
 	@Autowired
 	ValueUnitCorrelationService valueUnitCorrelationService;
-	//@Cacheable(value = "infoDetail", key="#id")
+	@Cacheable(value = "infoDetail", key="#id")
 	public Object infoDetail(Long id,Integer infoType) throws Exception {
 		System.out.println("走了数据库....");
 		if(PublishingTypeEnum.RENT_OUT.getValue() == infoType) { //发布出租

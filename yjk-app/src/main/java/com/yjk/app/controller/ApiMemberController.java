@@ -13,6 +13,7 @@ import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
+import com.yjk.app.dto.ShareInfoDTO;
 import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.MemberService;
 import com.yjk.app.util.R;
@@ -121,4 +122,19 @@ public class ApiMemberController {
 		return R.ok().put("info", memberService.RemainingNumbercallCount(memberId));
 	}
 	
+	@Login
+	@RequestMapping("/feedBack")
+	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=5)
+	public R feedBack(@RequestAttribute("memberId")Long memberId,String content) {
+		Assert.isBlank(content, "反馈内容不能为空");
+		return memberService.feedBack(memberId, content);
+	}
+	
+	@Login
+	@RequestMapping("/getShareInfo")
+	public R getShareInfo(ShareInfoDTO shareInfoDTO,@RequestAttribute("memberId")String memberId)throws Exception  {
+		Assert.isBlank(shareInfoDTO.getEncryptedData(), "encryptedData不能为空");
+		Assert.isBlank(shareInfoDTO.getIv(), "iv不能为空");
+		return memberService.getShareInfo(shareInfoDTO, memberId);
+	}
 }

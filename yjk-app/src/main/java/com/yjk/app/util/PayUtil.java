@@ -16,6 +16,7 @@ import com.yjk.app.dto.AccessTokenDTO;
 import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
+import com.yjk.app.dto.ShareInfoDTO;
 import com.yjk.app.dto.WeiXinRefundDTO;
 import com.yjk.app.dto.XcxUnifiedorderDTO;
 import com.yjk.app.exception.RRException;
@@ -23,6 +24,7 @@ import com.yjk.app.vo.AccessTokenVO;
 import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.PhoneNumberVO;
+import com.yjk.app.vo.ShareInfoVO;
 import com.yjk.app.vo.UnifiedorderAttachVO;
 import com.yjk.app.vo.WeiXinRefundVO;
 import com.yjk.app.vo.XcxPayPramsVO;
@@ -59,6 +61,7 @@ public class PayUtil {
 		//获取预支付ID,供发送信息模板
 		valueOperations.set(Constants.PREPAY_ID+xcxUnifiedorderDTO.getOut_trade_no(), xcxPayPramsVO.get_package().replaceAll("prepay_id=", ""));
 		valueOperations.set(Constants.XCX_PAY_PRAMS+xcxUnifiedorderDTO.getOut_trade_no(), new Gson().toJson(xcxPayPramsVO), 7200, TimeUnit.SECONDS); //有效期两个小时
+		xcxPayPramsVO.setOrderId(xcxUnifiedorderDTO.getOut_trade_no());
 		return R.ok().put("data", xcxPayPramsVO);
 	}
 	
@@ -85,13 +88,13 @@ public class PayUtil {
 	@SuppressWarnings("unchecked")
 	public WeiXinRefundVO refundByWeiXin(WeiXinRefundDTO weiXinRefundDTO) throws Exception {
 		
-		weiXinRefundDTO.setApiKey("1145B1AFA2994480808B42793E486A81");
+/*		weiXinRefundDTO.setApiKey("1145B1AFA2994480808B42793E486A81");
 		weiXinRefundDTO.setAppid("wxbcac66730a4136dc");
-		weiXinRefundDTO.setMch_id("1498445182");
+		weiXinRefundDTO.setMch_id("1498445182");*/
 		
-/*		weiXinRefundDTO.setApiKey(weiXinConfig.getApikey());
+		weiXinRefundDTO.setApiKey(weiXinConfig.getApikey());
 		weiXinRefundDTO.setAppid(weiXinConfig.getXcxAppId());
-		weiXinRefundDTO.setMch_id(weiXinConfig.getMechId());*/
+		weiXinRefundDTO.setMch_id(weiXinConfig.getMechId());
 		
 		weiXinRefundDTO.setCertUrl(weiXinConfig.getCertUrl());
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getRefundUrl(), BeanUtils.describe(weiXinRefundDTO));
@@ -108,6 +111,11 @@ public class PayUtil {
 	public DecryptUserInfoVO DecryptUserInfo(DecryptUserInfoDTO decryptUserInfoDTO)throws Exception {
 		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptUserInfoUrl(), BeanUtils.describe(decryptUserInfoDTO));
 		return dealResult(result,DecryptUserInfoVO.class);
+	}
+	
+	public ShareInfoVO DecryptShareInfo(ShareInfoDTO shareInfoDTO) throws Exception{
+		HttpClientResult result = HttpClientUtils.doGet(weiXinConfig.getXcxDecryptedShareInfo(), BeanUtils.describe(shareInfoDTO));
+		return dealResult(result,ShareInfoVO.class);
 	}
 	
 	/**

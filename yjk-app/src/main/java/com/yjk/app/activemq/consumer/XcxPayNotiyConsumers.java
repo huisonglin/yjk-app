@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.TemplateEnum;
+import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dao.OrderMapper;
+import com.yjk.app.entity.MemberDO;
 import com.yjk.app.entity.OrderDO;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
@@ -31,13 +33,15 @@ public class XcxPayNotiyConsumers {
 	TemplateMessageStragegy templateMessageStragegy;
 	@Autowired
 	OrderMapper orderMapper;
+	@Autowired
+	MemberMapper memberMapper;
 	
 	@SuppressWarnings("unchecked")
 	@JmsListener(destination="${wx.xcx.xcxNotifyQueueName}")
 	public void consumer(String message) throws Exception {		
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = JSONUtil.parse(message, XcxPayNotifyInfoVO.class);
 		Example example = new Example(OrderDO.class);
-		example.selectProperties("id","status","orderNo");
+		example.selectProperties("id","status","orderNo","memberId");
 		Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("orderNo", xcxPayNotifyInfoVO.getOut_trade_no());
 		List<OrderDO> orders = orderMapper.selectByExample(example);
@@ -51,6 +55,15 @@ public class XcxPayNotiyConsumers {
 				orderDO.setStatus(OrderStatusEnum.PAYMENT.getValue());
 				orderDO.setTransactionId(xcxPayNotifyInfoVO.getTransaction_id());
 				orderMapper.updateByPrimaryKeySelective(orderDO);
+				MemberDO memberDO = memberMapper.selectByPrimaryKey(orderDO.getMemberId());
+				Integer remainCallCount = memberDO.getRemainCallCount();
+				if(remainCallCount == null) {
+					memberDO.setRemainCallCount(1);
+				}else {
+					memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
+				}
+				memberMapper.updateByPrimaryKeySelective(memberDO);
+				
 			}
 		}
 		

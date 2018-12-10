@@ -6,6 +6,7 @@ import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
+import com.yjk.app.dto.ShareInfoDTO;
 import com.yjk.app.entity.MemberDO;
 import com.yjk.app.util.R;
 
@@ -36,4 +37,8 @@ public interface MemberService {
 	 R chooseIdentify(String memberId,String identify);
 	 
 	 Integer RemainingNumbercallCount(Long memberId);
+	 
+	 R feedBack(Long memberId,String content);
+	 
+	 R getShareInfo(ShareInfoDTO shareInfoDTO,String memberId)throws Exception ;
 }

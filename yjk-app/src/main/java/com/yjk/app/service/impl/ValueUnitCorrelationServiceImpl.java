@@ -40,14 +40,16 @@ public class ValueUnitCorrelationServiceImpl implements ValueUnitCorrelationServ
 		String[] prices = price.split("#");
 		if(prices != null && prices.length > 0) {
 			for (String pricesAndvalue : prices) {
-				String[] pv = pricesAndvalue.split("-");
-				ValueUnitCorrelationDO  vc = new ValueUnitCorrelationDO();
-				vc.setInfoId(infoId);
-				vc.setPrice(new BigDecimal(Long.valueOf(pv[0])));
-				vc.setPriceUnitSkuId(Long.valueOf(pv[1]));
-				vc.setCreateTime(new Date());
-				vc.setUpdateTime(new Date());
-				valueUnitCorrelationMapper.insertSelective(vc);
+				if(StringUtils.isNotBlank(pricesAndvalue)) {
+					String[] pv = pricesAndvalue.split("-");
+					ValueUnitCorrelationDO  vc = new ValueUnitCorrelationDO();
+					vc.setInfoId(infoId);
+					vc.setPrice(new BigDecimal(Long.valueOf(pv[0])));
+					vc.setPriceUnitSkuId(Long.valueOf(pv[1]));
+					vc.setCreateTime(new Date());
+					vc.setUpdateTime(new Date());
+					valueUnitCorrelationMapper.insertSelective(vc);
+				}
 			}
 		}
 	}

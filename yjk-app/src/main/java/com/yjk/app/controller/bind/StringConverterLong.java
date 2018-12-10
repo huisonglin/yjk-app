@@ -14,6 +14,12 @@ public class StringConverterLong implements Converter<String, Long>{
 		if("\"\"".equals(source)) {
 			return null;
 		}
+		if("请选择".equals(source)) {
+			return null;
+		}
+		if("undefined".equals(source)) {
+			return null;
+		}
 		return Long.valueOf(source);
 	}
 

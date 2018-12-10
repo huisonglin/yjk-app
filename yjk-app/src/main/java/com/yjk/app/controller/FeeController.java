@@ -1,6 +1,7 @@
 package com.yjk.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.yjk.app.annotation.Login;
@@ -29,6 +30,12 @@ public class FeeController {
 	}
 	
 	@Login
+	@RequestMapping("/dialingDesc")
+	public R dialingDesc(DialingDTO dialingDTO,@RequestAttribute("memberId")Long memberId) {
+		return feeService.dialingDesc(dialingDTO);
+	}
+	
+	@Login
 	@RequestMapping("/dialing/refund")
 	public R dialingRefund(DialingRefundDTO dialingRefundDTO, @LoginUser MemberDO memberDO) throws Exception {
 		Assert.isBlank(dialingRefundDTO.getOrderId(), "订单ID不能为空");
@@ -36,4 +43,6 @@ public class FeeController {
 		dialingRefundDTO.setOpenId(memberDO.getXcxOpenId());
 		return feeService.dialingRefund(dialingRefundDTO);
 	}
+	
+
 }

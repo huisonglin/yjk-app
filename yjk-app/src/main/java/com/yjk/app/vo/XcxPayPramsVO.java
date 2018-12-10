@@ -14,8 +14,17 @@ public class XcxPayPramsVO {
 		private String openId;
 		private String isNeedPay = "true";
 		
+		private String orderId;
+		
+		
 				
 
+		public String getOrderId() {
+			return orderId;
+		}
+		public void setOrderId(String orderId) {
+			this.orderId = orderId;
+		}
 		public String getIsNeedPay() {
 			return isNeedPay;
 		}

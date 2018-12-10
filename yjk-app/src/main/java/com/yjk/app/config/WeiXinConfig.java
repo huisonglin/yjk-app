@@ -43,6 +43,9 @@ public class WeiXinConfig {
 	@Value("${wx.xcx.accessTokendUrl}")
 	private String accessTokendUrl;
 	
+	@Value("${wx.xcx.decryptedShareInfo}")
+	private String xcxDecryptedShareInfo;
+	
 	@Value("${wx.xcx.page}")
 	private String xcxPage;
 	@Value("${wx.refundUrl}")
@@ -54,6 +57,15 @@ public class WeiXinConfig {
 	
 	
 	
+
+	public String getXcxDecryptedShareInfo() {
+		return xcxDecryptedShareInfo;
+	}
+
+	public void setXcxDecryptedShareInfo(String xcxDecryptedShareInfo) {
+		this.xcxDecryptedShareInfo = xcxDecryptedShareInfo;
+	}
+
 	public String getCertUrl() {
 		return certUrl;
 	}

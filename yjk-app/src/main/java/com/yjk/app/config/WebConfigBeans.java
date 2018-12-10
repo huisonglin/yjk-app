@@ -10,8 +10,10 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.yjk.app.controller.bind.StringConverterBigDecimal;
 import com.yjk.app.controller.bind.StringConverterDate;
+import com.yjk.app.controller.bind.StringConverterDouble;
 import com.yjk.app.controller.bind.StringConverterInterger;
 import com.yjk.app.controller.bind.StringConverterLong;
+import com.yjk.app.controller.bind.StringConverterString;
 
 @Configuration
 public class WebConfigBeans {
@@ -31,6 +33,8 @@ public class WebConfigBeans {
             genericConversionService.addConverter(new StringConverterDate());
             genericConversionService.addConverter(new StringConverterInterger());
             genericConversionService.addConverter(new StringConverterLong());
+            genericConversionService.addConverter(new StringConverterDouble());
+            genericConversionService.addConverter(new StringConverterString());
             genericConversionService.addConverter(new StringConverterBigDecimal());
             
         }

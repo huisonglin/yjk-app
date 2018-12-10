@@ -80,7 +80,7 @@ spring:
     port: 6379
     password: /jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=
   activemq:
-    broker-url: tcp://139.219.5.19:61616
+    broker-url: tcp://139.219.12.141:61616
     user: admin
     password: admin
     in-memory: true
@@ -121,14 +121,16 @@ wx:
   apikey: MueFW1stFzFxnXghpVGY0B7DT8EFg66B
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
   certUrl: /home/gchl/apiclient_cert.p12
+  #certUrl: D:\BaiduNetdiskDownload\oldversionSandu\src\main\resources\apiclient_cert.p12
   xcx:
     #appid: wxe58b479e170a58a4
     #appSecret: 2b8ef2d84f12ebe6b8782877e894a84c
     accessToken: accessToken_pro
-    appid: wxde59926deb607689
-    appSecret: f7b774417e98b3d926d6d12e26db8a7d
+    appid: wx9d25741d9e1075d6
+    appSecret: e8afd86136db2968ab2e0ac9523ec56b
     #服务器地址
-    baseUrl: http://test.huisonglin.top
+    baseUrl: http://pay.huisonglin.top
+    #baseUrl: http://127.0.0.1:8086
     #获取支付参数的地址
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
@@ -138,6 +140,8 @@ wx:
     accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
     #解密用户身份信息的地址
     decryptUserInfoUrl: ${wx.xcx.baseUrl}/weixin/xcx/decryptUserInfo
+    #解密分享信息的地址
+    decryptedShareInfo: ${wx.xcx.baseUrl}/weixin/xcx/decryptedShareInfo
     #解密用户手机号的地址
     decryptedPhoneNumber: ${wx.xcx.baseUrl}/weixin/xcx/decryptedPhoneNumber
     #获取accessToken地址

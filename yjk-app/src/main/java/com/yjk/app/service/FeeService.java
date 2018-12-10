@@ -10,4 +10,6 @@ public interface FeeService {
 	public R dialing(DialingDTO dialingDTO) throws Exception ;
 	
 	public R dialingRefund(DialingRefundDTO dialingRefundDTO) throws Exception;
+	
+	public R dialingDesc(DialingDTO dialingDTO);
 }

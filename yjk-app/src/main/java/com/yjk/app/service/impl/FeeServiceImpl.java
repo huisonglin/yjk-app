@@ -54,9 +54,20 @@ public class FeeServiceImpl implements FeeService{
 	@Autowired
 	MemberMapper memberMapper;
 	
+	
+	public R dialingDesc(DialingDTO dialingDTO) {
+		MemberDO memberDO = memberMapper.selectByPrimaryKey(dialingDTO.getMemberId());
+		if(memberDO.getRemainCallCount() < 1) {
+			throw new RRException("您的拨打次数不足！");
+		}
+		memberDO.setRemainCallCount(memberDO.getRemainCallCount()-1);
+		memberMapper.updateByPrimaryKeySelective(memberDO);
+		return R.ok();
+	}
+	
 	public R dialing(DialingDTO dialingDTO) throws Exception {
 		
-		Example example =  new Example(OrderDO.class);
+		/*		Example example =  new Example(OrderDO.class);
 		Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("infoId", dialingDTO.getInfoId());
 		criteria.andEqualTo("status",OrderStatusEnum.PAYMENT.getValue());
@@ -65,8 +76,8 @@ public class FeeServiceImpl implements FeeService{
 			XcxPayPramsVO xcxPayPramsVO = new XcxPayPramsVO();
 			xcxPayPramsVO.setIsNeedPay("false");
 			return R.ok().put("data", xcxPayPramsVO);
-		}else {
-			Integer count = memberService.RemainingNumbercallCount(dialingDTO.getMemberId());
+		}else {*/
+/*			Integer count = memberService.RemainingNumbercallCount(dialingDTO.getMemberId());
 			if(count > 0) {
 				MemberDO memberDO = new MemberDO();
 				memberDO.setId(dialingDTO.getMemberId());
@@ -75,7 +86,7 @@ public class FeeServiceImpl implements FeeService{
 				XcxPayPramsVO xcxPayPramsVO = new XcxPayPramsVO();
 				xcxPayPramsVO.setIsNeedPay("false");
 				return R.ok().put("data", xcxPayPramsVO);
-			}
+			}*/
 			Example example2 =  new Example(OrderDO.class);
 			example2.setOrderByClause("create_time desc limit 1");
 			Criteria criteria2 = example2.createCriteria();
@@ -105,8 +116,8 @@ public class FeeServiceImpl implements FeeService{
 			
 			XcxUnifiedorderDTO xcxUnifiedorderDTO = new XcxUnifiedorderDTO();
 			xcxUnifiedorderDTO.setOpenid(dialingDTO.getOpenId());
-			xcxUnifiedorderDTO.setBody("发布出租");
-			xcxUnifiedorderDTO.setDetail("找机械,就来云机酷");
+			xcxUnifiedorderDTO.setBody("拨打电话");
+			xcxUnifiedorderDTO.setDetail("快租机械,总有你的");
 			xcxUnifiedorderDTO.setNonce_str(UuidUtils.get32UUID());
 			
 			xcxUnifiedorderDTO.setOut_trade_no(orderNo);
@@ -114,8 +125,9 @@ public class FeeServiceImpl implements FeeService{
 			xcxUnifiedorderDTO.setTotal_fee(orderDO.getMoney());
 			
 
-			return payUtil.xcxAccessPayParam(xcxUnifiedorderDTO);
-		}
+			R xcxAccessPayParam = payUtil.xcxAccessPayParam(xcxUnifiedorderDTO);
+			return xcxAccessPayParam; 
+	//	}
 
 	}
 	
@@ -128,7 +140,10 @@ public class FeeServiceImpl implements FeeService{
 	 */
 	public R dialingRefund(DialingRefundDTO dialingRefundDTO) throws Exception {
 		
-		OrderDO orderDO = orderMapper.selectByPrimaryKey(dialingRefundDTO.getOrderId());
+		Example example = new Example(OrderDO.class);
+		Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("orderNo",dialingRefundDTO.getOrderId());
+		OrderDO orderDO = orderMapper.selectByExample(example).get(0);
 		if(orderDO.getStatus() == OrderStatusEnum.REFUND.getValue()) {
 			throw new RRException("您已经退过款项了");
 		}
@@ -139,7 +154,7 @@ public class FeeServiceImpl implements FeeService{
 			weiXinRefundDTO.setOut_refund_no(UuidUtils.generateOrderNo("TK"));
 			String money = orderDO.getMoney().multiply(new BigDecimal("100")).intValue()+"";
 			weiXinRefundDTO.setTotalFee(money);
-			weiXinRefundDTO.setRefundFee("1");
+			weiXinRefundDTO.setRefundFee(money);
 			weiXinRefundDTO.setOutTradeNo(orderDO.getOrderNo());
 			weiXinRefundDTO.setTransactionId(orderDO.getTransactionId());
 			WeiXinRefundVO refundByWeiXin = payUtil.refundByWeiXin(weiXinRefundDTO);
@@ -152,7 +167,7 @@ public class FeeServiceImpl implements FeeService{
 				//发送模板信息
 				RefundTemplateInfoVO refundTemplateInfoVO = new RefundTemplateInfoVO();
 				refundTemplateInfoVO.setGoodzName("拨打电话");
-				refundTemplateInfoVO.setKindlyReminder("找机械，我来云机酷");
+				refundTemplateInfoVO.setKindlyReminder("快租机械,总有你的");
 				refundTemplateInfoVO.setOpenId(dialingRefundDTO.getOpenId());
 				refundTemplateInfoVO.setOrderNo(orderDO.getOrderNo());
 				refundTemplateInfoVO.setReason("信息缺乏真实性");

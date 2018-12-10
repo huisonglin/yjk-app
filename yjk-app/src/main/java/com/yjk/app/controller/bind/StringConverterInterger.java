@@ -14,6 +14,12 @@ public class StringConverterInterger implements Converter<String, Integer>{
 		if("\"\"".equals(source)) {
 			return null;
 		}
+		if("请选择".equals(source)) {
+			return null;
+		}
+		if("undefined".equals(source)) {
+			return null;
+		}
 		return Integer.parseInt(source);
 	}
 
