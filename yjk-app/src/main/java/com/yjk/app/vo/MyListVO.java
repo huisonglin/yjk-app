@@ -2,6 +2,8 @@ package com.yjk.app.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MyListVO {
 //b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status
 	

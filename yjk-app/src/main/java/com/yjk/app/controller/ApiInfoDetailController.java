@@ -2,6 +2,7 @@ package com.yjk.app.controller;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,6 @@ public class ApiInfoDetailController {
 				d.setActive(showTime+"活跃");
 			}
 		}
-		
 		return R.ok().put("info", infoDetail);
 	}
 }

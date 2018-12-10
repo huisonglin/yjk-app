@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.util.QiNiuUtils;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.ImageVO;
@@ -34,10 +35,10 @@ public class ApiUploadController {
 		for (MultipartFile multipartFile : files) {
 			//String originalFilename = multipartFile.getOriginalFilename();
 			String url = QiNiuUtils.upload(multipartFile.getBytes(),null);
-			url = "http://img.huisonglin.top/"+url+detail;
-			System.out.println(url);	
+			url = QiNiuConfig.DOMAIN+url;
 			ImageVO iv = new ImageVO();
 			iv.setUrl(url);
+			iv.setSuffix(QiNiuConfig.XCX_THUMBNAIL);
 			images.add(iv);
 		}
 		Long endTime = System.currentTimeMillis();

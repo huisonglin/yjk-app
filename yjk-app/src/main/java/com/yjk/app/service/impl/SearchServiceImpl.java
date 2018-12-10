@@ -9,6 +9,8 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.SearchDTO;
 import com.yjk.app.service.SearchService;
 import com.yjk.app.util.Page;
@@ -67,7 +69,7 @@ public class SearchServiceImpl implements SearchService{
 				item.setId(solrDocument.get("id").toString());
 			}
 			if(solrDocument.get("url") != null) {
-				item.setPic(solrDocument.get("url").toString());
+				item.setPic(solrDocument.get("url").toString()+QiNiuConfig.XCX_INDEX);
 			}
 			if(solrDocument.get("name")!= null) {
 				item.setName(solrDocument.get("name").toString());

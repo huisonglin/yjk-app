@@ -4,6 +4,17 @@ public class ImageVO {
 
 	private String url;
 	
+	private String suffix;
+	
+	
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+
 	private Long timestamp = System.currentTimeMillis();
 
 	public String getUrl() {

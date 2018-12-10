@@ -2,6 +2,8 @@ package com.yjk.app.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class DeviceRentalInNeedInfoVO{
 
 	//主键ID

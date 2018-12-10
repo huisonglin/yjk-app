@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
@@ -89,14 +90,14 @@ public class DeviceServiceImpl implements DeviceService{
 		return R.ok().put("info", deviceVO);
 	}
 	
-	public R myList(Long memberId) {
+	public List<MyListVO> myList(Long memberId) {
 		List<MyListVO> myList = deviceMapper.myList(memberId);
 		for (MyListVO myListVO : myList) {
 			if(StringUtils.isNotBlank(myListVO.getPics())) {
-				myListVO.setPics(myListVO.getPics().split("#")[0]);
+				myListVO.setPics(myListVO.getPics().split("#")[0]+QiNiuConfig.XCX_THUMBNAIL);
 			}
 		}
-		return R.ok().put("info", myList);
+		return myList;
 	}
 	
 	

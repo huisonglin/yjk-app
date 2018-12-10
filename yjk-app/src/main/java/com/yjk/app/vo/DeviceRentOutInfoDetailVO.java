@@ -3,6 +3,8 @@ package com.yjk.app.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.yjk.app.config.QiNiuConfig;
+
 public class DeviceRentOutInfoDetailVO {
 
 	private Long id;
@@ -75,7 +77,11 @@ public class DeviceRentOutInfoDetailVO {
 
 	public String[] getPics() {
 		if(pics != null && !"".equals(pics)) {
-			return pics.split("#");
+			String[] urls = pics.split("#");
+			for(int i=0;i<urls.length;i++) {
+				urls[i]=urls[i]+QiNiuConfig.XCX_DETAIL;
+			}
+			return urls;
 		}
 		return null;
 	}

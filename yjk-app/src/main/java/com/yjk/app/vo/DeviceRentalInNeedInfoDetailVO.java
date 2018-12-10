@@ -2,6 +2,11 @@ package com.yjk.app.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.yjk.app.config.QiNiuConfig;
+
 public class DeviceRentalInNeedInfoDetailVO {
 
 
@@ -79,7 +84,11 @@ public class DeviceRentalInNeedInfoDetailVO {
 	}
 	public String[] getPics() {
 		if(pics != null && !"".equals(pics)) {
-			return pics.split("#");
+			String[] urls = pics.split("#");
+			for(int i=0;i<urls.length;i++) {
+				urls[i]=urls[i]+QiNiuConfig.XCX_DETAIL;
+			}
+			return urls;
 		}
 		return null;
 	}
@@ -104,6 +113,7 @@ public class DeviceRentalInNeedInfoDetailVO {
 	public void setTerm(String term) {
 		this.term = term;
 	}
+	
 	public Date getInTime() {
 		return inTime;
 	}

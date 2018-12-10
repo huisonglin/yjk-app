@@ -16,7 +16,7 @@ spring:
       max-request-size: 300MB
   #time format
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy年MM月dd日
     time-zone: GMT+8
   #datasource
   datasource:
