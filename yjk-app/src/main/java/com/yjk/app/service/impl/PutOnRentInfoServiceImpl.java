@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.yjk.app.common.PublishingTypeEnum;
+import com.yjk.app.config.SolrEnvironmentConfig;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dao.MemberMapper;
@@ -41,6 +42,9 @@ public class PutOnRentInfoServiceImpl implements PutOnRentInfoService{
 	@Autowired
 	MemberMapper memberMapper;
 	
+	@Autowired
+	SolrEnvironmentConfig solrEnvironmentConfig;
+	
 	/**
 	 * 上架出租信息
 	 * @param deviceId
@@ -61,6 +65,7 @@ public class PutOnRentInfoServiceImpl implements PutOnRentInfoService{
 		rentItemInfo.setName(device.getDeviceName());
 		rentItemInfo.setInfo_position(deviceRentOutInfoDO.getLongitude()+" "+deviceRentOutInfoDO.getLatitude());
 		rentItemInfo.setPopularity(PublishingTypeEnum.RENT_OUT.getValue());
+		rentItemInfo.setSubject(solrEnvironmentConfig.getEnvironment());
 		if(device.getPics() != null) {
 			String[] split = device.getPics().split("#");
 			rentItemInfo.setUrl(split[0]);
@@ -115,9 +120,19 @@ public class PutOnRentInfoServiceImpl implements PutOnRentInfoService{
 		Long twoStageModeId;
 		//发布日期
 		Date last_modified;
+		//环境
+		String subject;
 		
 		
 		
+
+		public String getSubject() {
+			return subject;
+		}
+
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
 
 		public String getAddress() {
 			return address;

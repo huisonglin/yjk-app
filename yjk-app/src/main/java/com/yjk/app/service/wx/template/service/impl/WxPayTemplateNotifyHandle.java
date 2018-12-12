@@ -49,7 +49,7 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = request.getXcxPayNotifyInfoVO();
 		String prepayId = valueOperations.get(Constants.PREPAY_ID+xcxPayNotifyInfoVO.getOut_trade_no());
 
-		templateDTO.setTemplate_id("zy0h2iLzUeSgCH12DPMPTJ4MTWP0FwYA3qDgEnPK80Q");
+		templateDTO.setTemplate_id("Fdpt-Jv8sBnxgMXX79nunl80I5Ij2X5C8S9pMhqy_Vw");//zy0h2iLzUeSgCH12DPMPTJ4MTWP0FwYA3qDgEnPK80Q
 		templateDTO.setForm_id(prepayId);
 		templateDTO.setTouser(xcxPayNotifyInfoVO.getOpenid());
 		templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径

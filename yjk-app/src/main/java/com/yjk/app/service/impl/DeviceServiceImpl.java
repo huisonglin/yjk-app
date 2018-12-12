@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.config.QiNiuConfig;
@@ -110,6 +111,7 @@ public class DeviceServiceImpl implements DeviceService{
 	@Autowired
 	DeviceRentalInNeedInfoMapper deviceRentalInNeedInfoMapper;
 	
+	@CacheEvict(value="infoDetail", key="#dto.infoId")
 	public R refreshPositionAndPublish(RefreshPositionAndPublishDTO dto) throws Exception {
 		
 		if(dto.getInfoType() == 1) {//发布出租

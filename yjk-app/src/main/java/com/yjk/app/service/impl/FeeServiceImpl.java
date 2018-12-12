@@ -12,6 +12,7 @@ import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.OrderTypeEnum;
 import com.yjk.app.common.TemplateEnum;
+import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dao.OrderMapper;
 import com.yjk.app.dto.DialingDTO;
@@ -53,6 +54,8 @@ public class FeeServiceImpl implements FeeService{
 	MemberService memberService;
 	@Autowired
 	MemberMapper memberMapper;
+	@Autowired
+	WeiXinConfig weiXinConfig;
 	
 	
 	public R dialingDesc(DialingDTO dialingDTO) {
@@ -106,7 +109,7 @@ public class FeeServiceImpl implements FeeService{
 			orderDO.setInfoId(dialingDTO.getInfoId());
 			String orderNo = UuidUtils.generateOrderNo("NO");
 			orderDO.setOrderNo(orderNo);
-			orderDO.setMoney(new BigDecimal("0.01"));
+			orderDO.setMoney(new BigDecimal(weiXinConfig.getFee()));
 			orderDO.setMemberId(dialingDTO.getMemberId());
 			orderDO.setPayTime(new Date());
 			orderDO.setStatus(OrderStatusEnum.UNPAID.getValue());

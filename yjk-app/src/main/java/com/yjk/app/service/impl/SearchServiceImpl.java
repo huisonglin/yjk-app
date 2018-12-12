@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.config.QiNiuConfig;
+import com.yjk.app.config.SolrEnvironmentConfig;
 import com.yjk.app.dto.SearchDTO;
 import com.yjk.app.service.InfoDetailService;
 import com.yjk.app.service.SearchService;
@@ -28,13 +29,16 @@ public class SearchServiceImpl implements SearchService{
 	
 	public static Integer pageSize = 25;
 	
+/*	@Autowired
+	InfoDetailService infoDetailService;*/
+	
 	@Autowired
-	InfoDetailService infoDetailService;
+	SolrEnvironmentConfig solrEnvironmentConfig;
 	
 	@Override
 	public R search(SearchDTO searchDTO) throws Exception {
 		SolrQuery params = new SolrQuery();
-		StringBuilder builder = new StringBuilder("*:*");
+		StringBuilder builder = new StringBuilder("subject:").append(solrEnvironmentConfig.getEnvironment());
 		if(searchDTO.getType() != null) {
 			builder.append(" AND popularity:").append(searchDTO.getType());
 		}
@@ -81,8 +85,8 @@ public class SearchServiceImpl implements SearchService{
 			if(solrDocument.get("popularity") != null) {
 				item.setType(solrDocument.get("popularity").toString());
 			}
-			Object infoDetail = infoDetailService.infoDetail(Long.valueOf(item.getId()), Integer.parseInt(item.getType()));
-			item.setItemDetail(infoDetail);
+/*			Object infoDetail = infoDetailService.infoDetail(Long.valueOf(item.getId()), Integer.parseInt(item.getType()));
+			item.setItemDetail(infoDetail);*/
 			result.add(item);
 		}
 		
