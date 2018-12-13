@@ -5,14 +5,14 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+/*@Component*/
 public class Sub {
 
-	@Autowired
+/*	@Autowired
 	RedisLister redisLister;
 	
 	@PostConstruct
 	public void startList() {
 		redisLister.listerMessage();
-	}
+	}*/
 }

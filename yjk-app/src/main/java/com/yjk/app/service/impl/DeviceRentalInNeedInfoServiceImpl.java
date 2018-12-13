@@ -3,10 +3,12 @@ package com.yjk.app.service.impl;
 import java.util.Date;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
+import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dto.DeviceRentalInNeedInfoDTO;
 import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
@@ -65,8 +67,13 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		}
 		DeviceRentalInNeedInfoVO vo = new DeviceRentalInNeedInfoVO();
 		PropertyUtils.copyProperties(vo, deviceRentalInNeedInfoDO);
-		String[] picList = deviceRentalInNeedInfoDO.getPics().split("#");
-		vo.setPicList(picList);
+		if(StringUtils.isNotBlank(deviceRentalInNeedInfoDO.getPics())) {
+			String[] picList = deviceRentalInNeedInfoDO.getPics().split("#");
+			for(int i=0;i<picList.length;i++) {
+				picList[i] = picList[i]+QiNiuConfig.XCX_DETAIL;
+			}
+			vo.setPicList(picList);
+		}
 		return R.ok().put("info", vo);
 	}
 	

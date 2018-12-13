@@ -32,7 +32,7 @@ public class ApiDeviceRentalInNeedInfoController {
 	 */
 	@Login
 	@RequestMapping("/addOrUpdateNeedInfo")
-	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=5)
+	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=10)
 	public R addOrUpdateNeedInfo(DeviceRentalInNeedInfoDTO deviceRentalInNeedInfoDTO,@RequestAttribute("memberId") Long memberId) throws Exception{
 		Assert.isBlank(deviceRentalInNeedInfoDTO.getAdress(), "地址不能为空");
 		Assert.isNull(deviceRentalInNeedInfoDTO.getAddressDetail(), "详细地址不能为空");

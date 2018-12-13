@@ -4,10 +4,12 @@ import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
+import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
@@ -94,8 +96,11 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		DeviceRentOutInfoVO deviceRentOutInfoVO = new DeviceRentOutInfoVO();
 		PropertyUtils.copyProperties(deviceRentOutInfoVO, deviceDO);
 		PropertyUtils.copyProperties(deviceRentOutInfoVO, deviceRentOutInfoDO);
-		if(deviceDO.getPics() != null) {
+		if(StringUtils.isNotBlank(deviceDO.getPics())) {
 			String[] pics = deviceDO.getPics().split("#");
+			for(int i=0;i<pics.length;i++) {
+				pics[i] = pics[i] + QiNiuConfig.XCX_DETAIL;
+			}
 			deviceRentOutInfoVO.setPicsList(pics);
 		}
 		deviceRentOutInfoVO.setPriceName(valueUnitCorrelationService.showPriceName(deviceRentOutInfoDO.getId()));

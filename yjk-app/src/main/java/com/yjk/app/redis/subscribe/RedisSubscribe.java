@@ -9,10 +9,10 @@ import com.yjk.app.service.MemberService;
 
 import redis.clients.jedis.JedisPubSub;
 
-@Component
+/*@Component*/
 public class RedisSubscribe extends JedisPubSub{
 
-	@Autowired
+/*	@Autowired
 	MemberService memberService;
 	
 	@Override
@@ -28,5 +28,5 @@ public class RedisSubscribe extends JedisPubSub{
 	public void onSubscribe(String channel, int subscribedChannels) {
 		System.out.println("\n\n\n\n已经开始订阅了\n\n\n");
 		super.onSubscribe(channel, subscribedChannels);
-	}
+	}*/
 }

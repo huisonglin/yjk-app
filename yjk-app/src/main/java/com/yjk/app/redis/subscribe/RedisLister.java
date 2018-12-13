@@ -10,10 +10,10 @@ import com.yjk.app.redis.lock.config.RedisPool;
 
 import redis.clients.jedis.Jedis;
 
-@Component
+/*@Component*/
 public class RedisLister {
 
-	Jedis jedis = RedisPool.getJedis();
+/*	Jedis jedis = RedisPool.getJedis();
 	
 	@Autowired
 	RedisSubscribe redisSubscribe;
@@ -21,5 +21,5 @@ public class RedisLister {
 	@Async
 	public void listerMessage() {	
 		jedis.subscribe(redisSubscribe, "redisChat");
-	}
+	}*/
 }

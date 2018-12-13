@@ -126,7 +126,7 @@ public class ApiMemberController {
 	
 	@Login
 	@RequestMapping("/feedBack")
-	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=5)
+	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=10)
 	public R feedBack(@RequestAttribute("memberId")Long memberId,String content) {
 		Assert.isBlank(content, "反馈内容不能为空");
 		return memberService.feedBack(memberId, content);
