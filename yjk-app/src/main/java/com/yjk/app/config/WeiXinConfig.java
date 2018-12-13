@@ -48,6 +48,10 @@ public class WeiXinConfig {
 	
 	@Value("${wx.xcx.page}")
 	private String xcxPage;
+	
+	@Value("${wx.xcx.fee}")
+	private String fee;
+	
 	@Value("${wx.refundUrl}")
 	private String refundUrl;
 	
@@ -57,6 +61,14 @@ public class WeiXinConfig {
 	
 	
 	
+
+	public String getFee() {
+		return fee;
+	}
+
+	public void setFee(String fee) {
+		this.fee = fee;
+	}
 
 	public String getXcxDecryptedShareInfo() {
 		return xcxDecryptedShareInfo;

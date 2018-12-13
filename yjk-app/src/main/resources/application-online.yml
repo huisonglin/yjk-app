@@ -16,15 +16,15 @@ spring:
       max-request-size: 300MB
   #time format
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy年MM月dd日
     time-zone: GMT+8
   #datasource
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     ds1:
-      url: jdbc:mysql://shuijie.mysqldb.chinacloudapi.cn:3306/yjk?useUnicode=true&characterEncoding=utf8
-      username: shuijie%wy
-      password: wy123456789?0.0
+      url: jdbc:mysql://gjhl.mysqldb.chinacloudapi.cn:3306/kzjx?useUnicode=true&characterEncoding=utf8
+      username: gjhl%zl
+      password: zhanglei@2018
       driverClassName: com.mysql.jdbc.Driver
       name: datasource1
       #连接池建立时创建的初始化连接数
@@ -54,9 +54,9 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true
     ds2:
-      url: jdbc:mysql://39.106.4.135:3306/yjk?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&useAffectedRows=true
-      username: root
-      password: 123456
+      url: jdbc:mysql://gjhl.mysqldb.chinacloudapi.cn:3306/kzjx?useUnicode=true&characterEncoding=utf8
+      username: gjhl%zl
+      password: zhanglei@2018
       driverClassName: com.mysql.jdbc.Driver
       name: datasource2
       initialSize: 5
@@ -80,7 +80,7 @@ spring:
     port: 6379
     password: /jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=
   activemq:
-    broker-url: tcp://139.219.5.19:61616
+    broker-url: tcp://139.219.12.141:61616
     user: admin
     password: admin
     in-memory: true
@@ -114,8 +114,9 @@ jwtvalidate:
         secret: gongchengjiiehulian2017
         # token有效时长，7天，单位秒
         expire: 2000000
-        header: token
-            
+        header: token  
+solr:
+  env: online          
 wx:
   mch_id: 1498445182
   apikey: 1145B1AFA2994480808B42793E486A81
@@ -134,8 +135,9 @@ wx:
     #获取支付参数的地址
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
-    xcxNotifyQueueName: np
-    page: /xcx/page
+    xcxNotifyQueueName: op
+    page: pages/index/index
+    fee: 1
     #获取openId的地址
     accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
     #解密用户身份信息的地址

@@ -1,6 +1,8 @@
 package com.yjk.app.service.impl;
 
 
+import java.util.Date;
+
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.PublishingTypeEnum;
+import com.yjk.app.config.SolrEnvironmentConfig;
 import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
@@ -31,10 +34,13 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 	DeviceRentalInNeedInfoMapper deviceRentalInNeedInfoMapper;
 	@Autowired
 	MemberMapper memberMapper;
+	@Autowired
+	SolrEnvironmentConfig solrEnvironmentConfig;
 	
 	@Async
 	public R putOnProject(Long id) throws Exception {
 		DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = deviceRentalInNeedInfoMapper.selectByPrimaryKey(id);
+		deviceRentalInNeedInfoDO.setNewstime(new Date());
 		ProjectItemInfo item = new ProjectItemInfo();
 		item.setId(deviceRentalInNeedInfoDO.getId().toString());
 		item.setInfo_position(deviceRentalInNeedInfoDO.getLongitude()+" "+deviceRentalInNeedInfoDO.getLatitude());
@@ -44,12 +50,14 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 		item.setSpecId(deviceRentalInNeedInfoDO.getSpecId());
 		item.setPopularity(PublishingTypeEnum.RENTAL_IN_NEED.getValue());
 		item.setAddress(deviceRentalInNeedInfoDO.getAdress());
+		item.setSubject(solrEnvironmentConfig.getEnvironment());
 		if(deviceRentalInNeedInfoDO.getPics() != null) {
 			item.setUrl(deviceRentalInNeedInfoDO.getPics().split("#")[0]);
 		}
 		SolrInputDocument doc = SolrUtil.SolrInputDocumentCoverter(item);
 		solrClient.add(doc);
 		solrClient.commit();
+		deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		return R.ok();
 	}
 	@Async
@@ -107,8 +115,17 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 		String url;
 		
 		
+		String subject;
 		
 		
+		
+		
+		public String getSubject() {
+			return subject;
+		}
+		public void setSubject(String subject) {
+			this.subject = subject;
+		}
 		public String getUrl() {
 			return url;
 		}

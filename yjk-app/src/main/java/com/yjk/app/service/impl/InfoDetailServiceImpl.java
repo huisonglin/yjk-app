@@ -62,7 +62,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 			deviceRentOutInfoDetailVO.setRemark(deviceRentOutInfoDO.getRemark());
 			deviceRentOutInfoDetailVO.setMemberId(deviceRentOutInfoDO.getMemberId());
 			deviceRentOutInfoDetailVO.setPrice(valueUnitCorrelationService.showPriceName(id));
-			return dealDetail(deviceRentOutInfoDetailVO);
+			return deviceRentOutInfoDetailVO;
 		}else if(PublishingTypeEnum.RENTAL_IN_NEED.getValue() == infoType) {//发布求租
 			DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = deviceRentalInNeedInfoMapper.selectByPrimaryKey(id);
 			if(deviceRentalInNeedInfoDO == null) {
@@ -71,7 +71,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 			DeviceRentalInNeedInfoDetailVO deviceRentalInNeedInfoDetailVO = new DeviceRentalInNeedInfoDetailVO();
 			PropertyUtils.copyProperties(deviceRentalInNeedInfoDetailVO, deviceRentalInNeedInfoDO);
 			deviceRentalInNeedInfoDetailVO.setPics(deviceRentalInNeedInfoDO.getPics());
-			return dealDetail(deviceRentalInNeedInfoDetailVO);
+			return deviceRentalInNeedInfoDetailVO;
 			
 		}
 		return null;
@@ -81,7 +81,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 	@Autowired
 	ValueOperations<String, String> valueOperations;
 	
-	private Object dealDetail(Object infoDetail) {
+	public void dealDetail(Object infoDetail) {
 		if(infoDetail instanceof DeviceRentOutInfoDetailVO) {
 			DeviceRentOutInfoDetailVO d = (DeviceRentOutInfoDetailVO)infoDetail;
 			String lastTime = valueOperations.get(Constants.LAST_LOGIN_TIME+d.getMemberId());
@@ -100,7 +100,6 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 				d.setActive(showTime+"活跃");
 			}
 		}
-		return infoDetail;
 	}
 
 

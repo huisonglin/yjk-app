@@ -22,6 +22,7 @@ public class ApiInfoDetailController {
 		Assert.isNull(id, "id不能为空");
 		Assert.isNull(infoType, "信息类型不能为空");
 		Object infoDetail = infoDetailService.infoDetail(id, infoType);
+		infoDetailService.dealDetail(infoDetail);
 		return R.ok().put("info", infoDetail);
 	}
 }

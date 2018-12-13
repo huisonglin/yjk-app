@@ -115,7 +115,8 @@ jwtvalidate:
         # token有效时长，7天，单位秒
         expire: 2000000
         header: token
-            
+solr:
+  env: pro              
 wx:
   mch_id: 1499766942
   apikey: MueFW1stFzFxnXghpVGY0B7DT8EFg66B
@@ -135,7 +136,8 @@ wx:
     accessPayParamUrl: ${wx.xcx.baseUrl}/weixin/xcx/unifiedorder
     tradeType: JSAPI
     xcxNotifyQueueName: np
-    page: /xcx/page
+    page: pages/index/index
+    fee: 0.01
     #获取openId的地址
     accessOpenIdUrl: ${wx.xcx.baseUrl}/weixin/xcx/generateOpenId
     #解密用户身份信息的地址

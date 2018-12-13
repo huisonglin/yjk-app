@@ -86,7 +86,9 @@ public class ApiMemberController {
 		return r;
 	}
 	
+	
 	@RequestMapping("/loginByXcx")
+	@LimitedAccessByIP(key="loginByXcx",EachInterva=5)
 	public R loginByXcx(String code,String iv,String encryptedData) throws Exception {
 		Assert.isBlank(code, "code不能为空");
 		Assert.isBlank(iv, "iv不能为空");
@@ -124,7 +126,7 @@ public class ApiMemberController {
 	
 	@Login
 	@RequestMapping("/feedBack")
-	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=5)
+	@LimitedAccessByIP(key = "addOrUpdateNeedInfo" ,EachInterva=10)
 	public R feedBack(@RequestAttribute("memberId")Long memberId,String content) {
 		Assert.isBlank(content, "反馈内容不能为空");
 		return memberService.feedBack(memberId, content);

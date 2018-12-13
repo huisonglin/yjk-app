@@ -34,7 +34,7 @@ public class ApiDeviceRentOutInfoController {
 	 */
 	@Login
 	@RequestMapping("/addOrUpdateRentOutInfo")
-	@LimitedAccessByIP(key = "addOrUpdateRentOutInfo" ,EachInterva=5)
+	@LimitedAccessByIP(key = "addOrUpdateRentOutInfo" ,EachInterva=10)
 	public R addOrUpdateRentOutInfo(DeviceRentOutInfoDTO deviceRentOutInfoDTO,@RequestAttribute("memberId")Long memberId) throws Exception {
 		
 		Assert.isBlank(deviceRentOutInfoDTO.getPics(), "图片不能为空");
