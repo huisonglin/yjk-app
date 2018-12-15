@@ -7,7 +7,6 @@ public class StringConverterDouble implements Converter<String, Double>{
 
 	@Override
 	public Double convert(String source) {
-		System.out.println(source);
 		if(StringUtils.isBlank(source)) {
 			return null;
 		}

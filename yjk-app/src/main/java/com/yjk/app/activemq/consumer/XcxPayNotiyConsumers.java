@@ -42,7 +42,7 @@ public class XcxPayNotiyConsumers {
 		XcxPayNotifyInfoVO xcxPayNotifyInfoVO = JSONUtil.parse(message, XcxPayNotifyInfoVO.class);
 		Example example = new Example(OrderDO.class);
 		example.selectProperties("id","status","orderNo","memberId");
-		Criteria criteria = example.createCriteria();
+ 		Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("orderNo", xcxPayNotifyInfoVO.getOut_trade_no());
 		List<OrderDO> orders = orderMapper.selectByExample(example);
 		if(orders != null && orders.size() > 0) {

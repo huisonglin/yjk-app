@@ -6,13 +6,16 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import com.yjk.app.common.Constants;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.entity.DeviceDO;
 import com.yjk.app.entity.DeviceRentOutInfoDO;
@@ -29,6 +32,9 @@ public class DeviceServiceImpl implements DeviceService{
 
 	@Autowired
 	private DeviceMapper deviceMapper;
+	
+	@Autowired
+	ValueOperations<String, String> valueOperations;
 	
 	
 	/**
@@ -91,8 +97,10 @@ public class DeviceServiceImpl implements DeviceService{
 		return R.ok().put("info", deviceVO);
 	}
 	
-	public List<MyListVO> myList(Long memberId) {
-		List<MyListVO> myList = deviceMapper.myList(memberId);
+	public List<MyListVO> myList(MyListDTO dto) {
+		String  identify = valueOperations.get(Constants.IDENTIFY+dto.getMemberId());
+		dto.setIdentify(identify);
+		List<MyListVO> myList = deviceMapper.myList(dto);
 		for (MyListVO myListVO : myList) {
 			if(StringUtils.isNotBlank(myListVO.getPics())) {
 				myListVO.setPics(myListVO.getPics().split("#")[0]+QiNiuConfig.XCX_THUMBNAIL);

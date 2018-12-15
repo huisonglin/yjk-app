@@ -1,6 +1,7 @@
 package com.yjk.app.service;
 
 import com.yjk.app.dto.BindMobileDTO;
+import com.yjk.app.dto.CallAppealDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
@@ -41,4 +42,8 @@ public interface MemberService {
 	 R feedBack(Long memberId,String content);
 	 
 	 R getShareInfo(ShareInfoDTO shareInfoDTO,String memberId)throws Exception ;
+	 
+	 R toShare(Long memberId);
+	 
+	 R callAppeal(CallAppealDTO dto);
 }

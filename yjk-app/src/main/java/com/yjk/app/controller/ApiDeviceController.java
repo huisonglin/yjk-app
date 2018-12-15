@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yjk.app.annotation.Login;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.service.DeviceService;
 import com.yjk.app.util.R;
@@ -83,8 +84,9 @@ public class ApiDeviceController {
 	 */
 	@Login
 	@RequestMapping("/myList")
-	public R myList(@RequestAttribute("memberId")Long memberId) {
-		return R.ok().put("info", deviceService.myList(memberId));
+	public R myList(@RequestAttribute("memberId")Long memberId,MyListDTO dto) {
+		dto.setMemberId(memberId);
+		return R.ok().put("info", deviceService.myList(dto));
 	}
 	
 	/**

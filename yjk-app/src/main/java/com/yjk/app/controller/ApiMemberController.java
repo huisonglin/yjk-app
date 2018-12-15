@@ -1,5 +1,7 @@
 package com.yjk.app.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yjk.app.annotation.LimitedAccessByIP;
 import com.yjk.app.annotation.Login;
 import com.yjk.app.dto.BindMobileDTO;
+import com.yjk.app.dto.CallAppealDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.LoginDTO;
 import com.yjk.app.dto.ModifyPasswordDTO;
@@ -138,5 +141,23 @@ public class ApiMemberController {
 		Assert.isBlank(shareInfoDTO.getEncryptedData(), "encryptedData不能为空");
 		Assert.isBlank(shareInfoDTO.getIv(), "iv不能为空");
 		return memberService.getShareInfo(shareInfoDTO, memberId);
+	}
+	
+	@Login
+	@RequestMapping("/callAppeal")
+	public R callAppeal(@RequestAttribute("memberId")Long memberId,CallAppealDTO dto) {
+
+		Assert.isBlank(dto.getFormId(), "formId不能为空");
+		Assert.isBlank(dto.getInfoId(), "信息ID不能为空");
+		Assert.isBlank(dto.getInfoType(), "信息类型不能为空");
+		Assert.isBlank(dto.getAppealContent(), "申诉内容不能为空");
+		dto.setMemberId(memberId);
+		return memberService.callAppeal(dto);
+	}
+	
+	@Login
+	@RequestMapping("/toShare")
+	public R toShare(@RequestAttribute("memberId")Long memberId) {
+		return memberService.toShare(memberId);
 	}
 }

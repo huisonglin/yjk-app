@@ -41,7 +41,7 @@ public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 		RefundTemplateInfoVO refundTemplateInfoVO = request.getRefundTemplateInfoVO();
 		String prepayId = valueOperations.get(Constants.PREPAY_ID+refundTemplateInfoVO.getOrderNo());
 
-		templateDTO.setTemplate_id("6THLfeVGYqjtHRlTYGtIsB_TL8g-e1JbxQIYTRPiM2Q");
+		templateDTO.setTemplate_id("aDOWlVPWMnGCWg-vbDeUjwTuzVIr4dtA5l52jXN321A");
 		templateDTO.setForm_id(prepayId);
 		templateDTO.setTouser(refundTemplateInfoVO.getOpenId());
 		templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径

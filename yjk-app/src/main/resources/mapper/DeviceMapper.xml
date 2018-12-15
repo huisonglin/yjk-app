@@ -12,6 +12,9 @@
 				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id from yjk_device_rent_out_info dr left join yjk_device de on dr.device_id=de.id
 			) as b
 			where b.member_id=#{memberId} and (b.status = 2)
+			<if test="identify != null and identify != ''">
+				and b.type = #{identify}
+			</if>
 		order by b.newstime desc
 	</select>
 </mapper>

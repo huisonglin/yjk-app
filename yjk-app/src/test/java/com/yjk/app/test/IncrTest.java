@@ -26,9 +26,9 @@ public class IncrTest {
 /*		for(int i= 0 ;i<100;i++) {
 			System.out.println(selfIncreasingIdService.generateId());
 		}*/
-		List<MyListVO> myList = deviceMapper.myList(105l);
+/*		List<MyListVO> myList = deviceMapper.myList(105l);
 		for (MyListVO myListVO : myList) {
 			System.out.println(myListVO);
-		}
+		}*/
 	}
 }

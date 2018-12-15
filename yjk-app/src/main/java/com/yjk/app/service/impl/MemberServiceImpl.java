@@ -24,6 +24,7 @@ import com.yjk.app.dao.FeedBackMapper;
 import com.yjk.app.dao.MemberInfoMapper;
 import com.yjk.app.dao.MemberMapper;
 import com.yjk.app.dto.BindMobileDTO;
+import com.yjk.app.dto.CallAppealDTO;
 import com.yjk.app.dto.DecryptUserInfoDTO;
 import com.yjk.app.dto.ForgotPasswordDTO;
 import com.yjk.app.dto.GenerateOpenIdDTO;
@@ -331,7 +332,7 @@ public class MemberServiceImpl implements MemberService{
 			member.setCorporageCertification(0);//0 未认证  1待审核 2已认证
 			member.setPersionCertification(0);//0未认证 1待审核  2已认证
 			member.setXcxOpenId(jsv.getOpenid());
-			member.setRemainCallCount(5);
+			member.setRemainCallCount(2);
 			memberMapper.insertSelective(member);
 			MemberInfoDO memberInfo = new MemberInfoDO();
 			memberInfo.setCreateTime(new Date());
@@ -511,6 +512,25 @@ public class MemberServiceImpl implements MemberService{
 			valueOperations.set(Constants.XCX_SHARE_INFO+memberId, shareInfoVO.getOpenGId());
 		}*/
 		MemberDO memberDO = memberMapper.selectByPrimaryKey(memberId);
+		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
+		memberMapper.updateByPrimaryKeySelective(memberDO);
+		return R.ok();
+	}
+	
+	/**
+	 * 用户分享
+	 * @param memberId
+	 * @return
+	 */
+	public R toShare(Long memberId) {
+		MemberDO memberDO = memberMapper.selectByPrimaryKey(memberId);
+		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
+		memberMapper.updateByPrimaryKeySelective(memberDO);
+		return R.ok();
+	}
+	
+	public R callAppeal(CallAppealDTO dto) {
+		MemberDO memberDO = memberMapper.selectByPrimaryKey(dto.getMemberId());
 		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
 		memberMapper.updateByPrimaryKeySelective(memberDO);
 		return R.ok();
