@@ -9,6 +9,8 @@ import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ import com.yjk.app.vo.QueryResultItemVO;
 @Service
 public class SearchServiceImpl implements SearchService{
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private SolrClient solrClient;
 	
@@ -118,7 +122,7 @@ public class SearchServiceImpl implements SearchService{
 	
     /**
      * 如果只是用于程序中的格式化数值然后输出，那么这个方法还是挺方便的。
-     * 应该是这样使用：System.out.println(String.format("%.2f", d));
+     * 应该是这样使用：logger.info(String.format("%.2f", d));
      * @param d
      * @return
      */

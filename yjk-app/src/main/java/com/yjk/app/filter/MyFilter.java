@@ -14,6 +14,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,14 +28,16 @@ import org.springframework.stereotype.Component;
 @WebFilter(urlPatterns = "/**")*/
 public class MyFilter implements Filter {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("过滤器：初始化...");
+        logger.info("过滤器：初始化...");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("过滤器：过滤前...");
+        logger.info("过滤器：过滤前...");
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         res.setContentType("application/json;charset=UTF-8");
@@ -46,11 +50,11 @@ public class MyFilter implements Filter {
             jsonObject.put("data", "accessToken错误或已失效！");
             res.getWriter().print(jsonObject);
         }
-        System.out.println("过滤器：过滤后...");
+        logger.info("过滤器：过滤后...");
     }
 
     @Override
     public void destroy() {
-        System.out.println("过滤器：销毁...");
+        logger.info("过滤器：销毁...");
     }
 }

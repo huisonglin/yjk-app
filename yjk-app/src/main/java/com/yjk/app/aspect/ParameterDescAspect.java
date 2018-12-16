@@ -16,7 +16,7 @@ import com.yjk.app.vo.ParameterDescVO;
 
 @Aspect
 @Configuration
-public class WXResultAspect {
+public class ParameterDescAspect {
 
 
 

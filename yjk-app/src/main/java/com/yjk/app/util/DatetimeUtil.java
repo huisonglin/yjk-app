@@ -1,5 +1,7 @@
 package com.yjk.app.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
@@ -11,6 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DatetimeUtil {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	 /**
 	  * 获取现在时间
@@ -30,7 +34,6 @@ public class DatetimeUtil {
 	        //方法三:LocalDateTime和ChronoUnit为1.8新增
 	        LocalDateTime midnight = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);
 	        long seconds = ChronoUnit.SECONDS.between(LocalDateTime.now(), midnight);
-	        System.out.println("当天剩余秒3：" + seconds);
 	        return seconds;
 	 }
 	 
@@ -321,10 +324,10 @@ public class DatetimeUtil {
 		 * @return
 		 */
 		public static String showTime(Date ctime, String format) {
-			//System.out.println("当前时间是："+new Timestamp(System.currentTimeMillis()));
+			//logger.info("当前时间是："+new Timestamp(System.currentTimeMillis()));
 			
 	 
-			//System.out.println("发布时间是："+df.format(ctime).toString());
+			//logger.info("发布时间是："+df.format(ctime).toString());
 			String r = "";
 			if(ctime==null)return r;
 			if(format==null)format="MM-dd HH:mm";

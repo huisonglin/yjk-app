@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,8 @@ import com.yjk.app.vo.ImageVO;
 @RequestMapping("/upload")
 public class ApiUploadController {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	public  static String detail = "-cc";
 	
 
@@ -42,7 +46,7 @@ public class ApiUploadController {
 			images.add(iv);
 		}
 		Long endTime = System.currentTimeMillis();
-		System.out.println("本次请求处理时间为："+new Long(endTime-startTime)+"ms");
+		logger.info("本次请求处理时间为："+new Long(endTime-startTime)+"ms");
 		R r = R.ok().put("info", images);
 		return r;
 	}

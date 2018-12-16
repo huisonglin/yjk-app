@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yjk.app.redis.lock.config.RedisPool;
 import com.yjk.app.redis.lock.util.RedisUtil;
 
@@ -13,6 +16,8 @@ import redis.clients.jedis.Jedis;
 
 public class RedisLock implements Lock {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	private ThreadLocal<String> local = new ThreadLocal<>();
 	
 	private String lockName;
@@ -68,12 +73,12 @@ public class RedisLock implements Lock {
 			jedis.close();
 		}
 		if (setReisLock) {
-			System.out.println(Thread.currentThread().getName()+"--"+uuid);
+			logger.info(Thread.currentThread().getName()+"--"+uuid);
 			local.set(uuid);
-			System.out.println("加锁成功");
+			logger.info("加锁成功");
 			return true;
 		} else {
-			System.out.println("尝试加锁失败");
+			logger.info("尝试加锁失败");
 		}
 		return false;
 	}
@@ -87,14 +92,14 @@ public class RedisLock implements Lock {
 	@Override
 	public void unlock() {
 		String uuid = local.get();
-		System.out.println(Thread.currentThread().getName()+"--"+uuid);
+		logger.info(Thread.currentThread().getName()+"--"+uuid);
 		Jedis jedis = RedisPool.getJedis();
 		boolean keyDel = RedisUtil.releaseDistributedLock(jedis, lockName, uuid);
 		jedis.close();
 		if (keyDel) {
-			System.out.println("解锁成功");
+			logger.info("解锁成功");
 		} else {
-			System.out.println("解锁失败");
+			logger.info("解锁失败");
 		}
 
 	}

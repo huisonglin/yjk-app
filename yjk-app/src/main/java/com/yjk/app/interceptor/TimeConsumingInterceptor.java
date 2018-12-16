@@ -3,6 +3,8 @@ package com.yjk.app.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Component
 public class TimeConsumingInterceptor extends HandlerInterceptorAdapter{
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	/* (non-Javadoc)
 	 * @see org.springframework.web.servlet.handler.HandlerInterceptorAdapter#preHandle(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object)
 	 */
@@ -31,7 +35,7 @@ public class TimeConsumingInterceptor extends HandlerInterceptorAdapter{
 		Long startTime = (Long) request.getAttribute("startTime");
 		request.removeAttribute("startTime");
 		Long endTime = System.currentTimeMillis();
-		System.out.println("本次请求处理时间为："+new Long(endTime-startTime)+"ms");
+		logger.info("本次请求处理时间为："+new Long(endTime-startTime)+"ms");
 		super.postHandle(request, response, handler, modelAndView);
 	}
 

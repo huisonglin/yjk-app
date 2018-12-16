@@ -37,10 +37,7 @@ public class UuidUtils {
 		String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
 		return uuid;
 	}
-	public static void main(String[] args) {
-		System.out.println(get32UUID());
-	}
-	
+
 	
 	/**
 	 * 验证邮箱

@@ -10,7 +10,13 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpUtil {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	private static String USER_AGENT = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.0.04506; customie8)";
 
 	// HTTP GET request
@@ -25,7 +31,7 @@ public class HttpUtil {
 		con.setRequestProperty("User-Agent", USER_AGENT);
 
 		// int responseCode = con.getResponseCode();
-		// System.out.println("Response Code : " + responseCode);
+		// logger.info("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
 		String inputLine;
@@ -67,8 +73,8 @@ public class HttpUtil {
 		wr.flush();
 		wr.close();
 		// int responseCode = con.getResponseCode();
-		// System.out.println("Post parameters : " + urlParameters);
-		// System.out.println("Response Code : " + responseCode);
+		// logger.info("Post parameters : " + urlParameters);
+		// logger.info("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
 		String inputLine;

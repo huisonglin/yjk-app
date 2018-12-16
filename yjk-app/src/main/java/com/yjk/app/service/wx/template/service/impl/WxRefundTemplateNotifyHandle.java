@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.activemq.command.ActiveMQQueue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jms.core.JmsTemplate;
@@ -23,6 +25,8 @@ import com.yjk.app.util.PayUtil;
 @NotificationType(type = 2)
 public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	JmsTemplate jmsTemplate;
 	
@@ -78,7 +82,7 @@ public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 		templateDTO.setData(data);
 		
 		templateDTO.setEmphasis_keyword("keyword1.DATA"); //该字段放大
-		System.out.println(JSON.toJSONString(templateDTO));
+		logger.info(JSON.toJSONString(templateDTO));
 		jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
 	}
 

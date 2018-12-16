@@ -4,6 +4,8 @@ package com.yjk.app.service.impl;
 import java.util.Date;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.ValueOperations;
@@ -28,6 +30,8 @@ import com.yjk.app.vo.DeviceRentalInNeedInfoDetailVO;
 @Service
 public class InfoDetailServiceImpl implements InfoDetailService{
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	DeviceRentalInNeedInfoMapper deviceRentalInNeedInfoMapper;
 	@Autowired
@@ -42,7 +46,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 	 */
 	@Cacheable(value = "infoDetail", key="#id")
 	public Object infoDetail(Long id,Integer infoType) throws Exception {
-		System.out.println("走了数据库....");
+		logger.info("走了数据库....");
 		if(PublishingTypeEnum.RENT_OUT.getValue() == infoType) { //发布出租
 			
 			DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(id);

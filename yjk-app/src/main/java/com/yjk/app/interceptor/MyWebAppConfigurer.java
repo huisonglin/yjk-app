@@ -30,7 +30,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 	@Autowired
 	LimitedAccessByIPInterceptor limitedAccessByIPInterceptor;
 	@Autowired
-	MyInterceptor myInterceptor;
+	ParameterDescInterceptor parameterDescInterceptor;
 
 	@Autowired
 	LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
@@ -41,7 +41,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加自定义拦截器
-    	registry.addInterceptor(myInterceptor).addPathPatterns("/**");
+    	registry.addInterceptor(parameterDescInterceptor).addPathPatterns("/**");
         registry.addInterceptor(timeConsumingInterceptor).addPathPatterns("/**");
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**");
         registry.addInterceptor(limitedAccessByTokenInterceptor).addPathPatterns("/**");

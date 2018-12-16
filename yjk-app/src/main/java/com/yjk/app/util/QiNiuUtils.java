@@ -30,9 +30,6 @@ public class QiNiuUtils {
 		    Response response = uploadManager.put(bytes, key, upToken);
 		    //解析上传成功的结果
 		    DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-		    System.out.println(putRet.toString());
-		    System.out.println(putRet.key);
-		    System.out.println(putRet.hash);
 		    return putRet.hash;
 		} catch (QiniuException ex) {
 			ex.printStackTrace();

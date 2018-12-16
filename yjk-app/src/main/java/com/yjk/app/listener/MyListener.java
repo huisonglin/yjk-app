@@ -4,6 +4,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 监听器
  *
@@ -13,13 +16,15 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class MyListener implements ServletContextListener {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("监听器：ServletContext初始化...");
+        logger.info("监听器：ServletContext初始化...");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("监听器：ServletContext销毁...");
+        logger.info("监听器：ServletContext销毁...");
     }
 }
