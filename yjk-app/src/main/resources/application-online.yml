@@ -7,7 +7,7 @@ server:
     uri-encoding: UTF-8
 logging:
   level:
-    com: debug
+    com: info
 spring:
   servlet:
     multipart:
