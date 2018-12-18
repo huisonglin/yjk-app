@@ -23,7 +23,6 @@ import com.yjk.app.exception.RRException;
 import com.yjk.app.service.InfoDetailService;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.util.DatetimeUtil;
-import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentOutInfoDetailVO;
 import com.yjk.app.vo.DeviceRentalInNeedInfoDetailVO;
 

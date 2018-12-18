@@ -3,7 +3,6 @@ package com.yjk.app.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -13,11 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.config.SolrEnvironmentConfig;
 import com.yjk.app.dto.SearchDTO;
-import com.yjk.app.service.InfoDetailService;
 import com.yjk.app.service.SearchService;
 import com.yjk.app.util.Page;
 import com.yjk.app.util.PageUtil;
@@ -28,7 +25,7 @@ import com.yjk.app.vo.QueryResultItemVO;
 @Service
 public class SearchServiceImpl implements SearchService{
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	/*private Logger logger = LoggerFactory.getLogger(getClass());*/
 	
 	@Autowired
 	private SolrClient solrClient;
@@ -97,7 +94,7 @@ public class SearchServiceImpl implements SearchService{
 			item.setItemDetail(infoDetail);*/
 			result.add(item);
 		}
-		
+			
         Page pageObj = PageUtil.createPage(pageSize, (int)results.getNumFound(), searchDTO.getPageNo());
 		PageUtils pageUtils = new PageUtils(result, pageObj.getTotalPage() == 0 ? 1 : pageObj.getTotalPage());
 		return R.ok().put("info", pageUtils);

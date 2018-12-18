@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yjk.app.annotation.LimitedAccessByIP;
 import com.yjk.app.annotation.LimitedAccessByToken;
 import com.yjk.app.annotation.Login;
 import com.yjk.app.annotation.LoginUser;

@@ -2,8 +2,6 @@ package com.yjk.app.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.yjk.app.annotation.Login;
 import com.yjk.app.annotation.Position;
 import com.yjk.app.dto.PositionDTO;
 

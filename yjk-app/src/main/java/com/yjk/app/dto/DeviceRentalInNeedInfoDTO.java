@@ -2,9 +2,6 @@ package com.yjk.app.dto;
 
 import java.util.Date;
 
-import javax.persistence.Id;
-
-import tk.mybatis.mapper.annotation.KeySql;
 
 public class DeviceRentalInNeedInfoDTO {
 

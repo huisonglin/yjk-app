@@ -1,13 +1,9 @@
 package com.yjk.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.yjk.app.annotation.Position;
-import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.dto.PositionDTO;
 import com.yjk.app.dto.SearchDTO;
 import com.yjk.app.service.SearchService;
