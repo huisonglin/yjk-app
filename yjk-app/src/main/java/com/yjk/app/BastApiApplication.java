@@ -1,4 +1,4 @@
-package com.yjk;
+package com.yjk.app;
 
 
 import org.springframework.boot.SpringApplication;
