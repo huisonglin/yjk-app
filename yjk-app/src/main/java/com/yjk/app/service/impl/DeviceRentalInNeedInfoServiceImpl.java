@@ -15,6 +15,7 @@ import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentalInNeedInfoService;
 import com.yjk.app.service.PutOnProjectInfoService;
+import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentalInNeedInfoVO;
 
@@ -29,6 +30,9 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 	
 	@Autowired
 	PutOnProjectInfoService putOnProjectInfoService;
+	
+	@Autowired
+	ValueUnitCorrelationService valueUnitCorrelationService;
 	
 	/**
 	 * 添加或者修改发布信息
@@ -52,6 +56,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 			deviceRentalInNeedInfoDO.setUpdateTime(new Date());
 			deviceRentalInNeedInfoMapper.updateByPrimaryKeySelective(deviceRentalInNeedInfoDO);
 		}
+		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentalInNeedInfoDTO.getPrice(), rentalInNeedInfoId);
 		putOnProjectInfoService.putOnProject(rentalInNeedInfoId);
 		return R.ok().put("info", rentalInNeedInfoId);
 	}

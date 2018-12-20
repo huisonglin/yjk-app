@@ -34,8 +34,8 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private String monthlyPayment;
 	//设备退场结清尾款
 	private String exitPayment;
-/*	//单价
-	private String price;*/
+	//单价
+	private String price;
 	//联系人姓名
 	private String contactName;
 	//联系人手机号
@@ -144,12 +144,12 @@ public class DeviceRentalInNeedInfoDetailVO {
 	public void setExitPayment(String exitPayment) {
 		this.exitPayment = exitPayment;
 	}
-/*	public String getPrice() {
+	public String getPrice() {
 		return price;
 	}
 	public void setPrice(String price) {
 		this.price = price;
-	}*/
+	}
 	public String getContactName() {
 		return contactName;
 	}
