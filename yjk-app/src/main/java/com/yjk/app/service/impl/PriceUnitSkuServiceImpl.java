@@ -35,7 +35,8 @@ public class PriceUnitSkuServiceImpl implements PriceUnitSkuService{
 			PriceUnitVO v = new PriceUnitVO();
 			v.setId(priceUnitSkuDO.getId());
 			v.setFuelManager(priceUnitSkuDO.getFuelManager());
-			v.setUnitName(priceUnitSkuDO.getUnitName());
+			StringBuilder builder = new StringBuilder(priceUnitSkuDO.getUnitName()).append("(").append(priceUnitSkuDO.getFuelManager()).append(")");
+			v.setUnitName(builder.toString());
 			vos.add(v);
 		}
 		return R.ok().put("info", vos);

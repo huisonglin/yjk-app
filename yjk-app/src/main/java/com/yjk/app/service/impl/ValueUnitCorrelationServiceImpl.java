@@ -71,7 +71,8 @@ public class ValueUnitCorrelationServiceImpl implements ValueUnitCorrelationServ
 			vo.setPrice(valueUnitCorrelationDO.getPrice());
 			Long priceUnitSkuId = valueUnitCorrelationDO.getPriceUnitSkuId();
 			PriceUnitSkuDO priceUnitSkuDO = priceUnitSkuMapper.selectByPrimaryKey(priceUnitSkuId);
-			vo.setUnitName(priceUnitSkuDO.getUnitName());
+			StringBuilder builder = new StringBuilder(priceUnitSkuDO.getUnitName()).append("(").append(priceUnitSkuDO.getFuelManager()).append(")");
+			vo.setUnitName(builder.toString());
 			vos.add(vo);
 		}
 		return vos;

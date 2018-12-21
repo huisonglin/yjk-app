@@ -355,6 +355,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	
 	/**
 	 * 小程序绑定手机号接口
 	 * @return
