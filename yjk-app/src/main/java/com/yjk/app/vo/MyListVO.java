@@ -23,6 +23,19 @@ public class MyListVO {
 	private Long memberId;
 	
 	private String status;
+	
+	private String contactMobile;
+	
+
+	
+	
+	public String getContactMobile() {
+		return contactMobile;
+	}
+
+	public void setContactMobile(String contactMobile) {
+		this.contactMobile = contactMobile;
+	}
 
 	public Long getId() {
 		return id;

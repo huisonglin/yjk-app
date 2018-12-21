@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjk.app.dao.DeviceMapper">
 	<select id="myList"  resultType="com.yjk.app.vo.MyListVO">
-		select b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status
+		select b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status,b.contact_mobile
 			from 
 			(
-				select id,name,pics,adress as address,newstime,2 as type,status,member_id from yjk_device_rental_in_need_info
+				select id,name,pics,adress as address,newstime,2 as type,status,member_id,contact_mobile from yjk_device_rental_in_need_info
 				UNION ALL
-				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id from yjk_device_rent_out_info dr left join yjk_device de on dr.device_id=de.id
+				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id,dr.contact_mobile from yjk_device_rent_out_info dr left join yjk_device de on dr.device_id=de.id
 			) as b
 			where b.member_id=#{memberId} and (b.status = 2)
 			<if test="identify != null and identify != ''">
