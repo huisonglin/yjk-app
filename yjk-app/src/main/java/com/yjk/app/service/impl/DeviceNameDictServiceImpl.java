@@ -8,16 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import com.yjk.app.dao.ModelMapper;
-import com.yjk.app.dao.SpecMapper;
-import com.yjk.app.dao.TwoStagemodelMapper;
-import com.yjk.app.entity.ModelDO;
-import com.yjk.app.entity.SpecDO;
-import com.yjk.app.entity.TwoStagemodelDO;
 import com.yjk.app.service.DeviceNameDictService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.SpecVO;
+import com.yjk.common.dao.ModelMapper;
+import com.yjk.common.dao.SpecMapper;
+import com.yjk.common.dao.TwoStagemodelMapper;
+import com.yjk.common.entity.ModelDO;
+import com.yjk.common.entity.SpecDO;
+import com.yjk.common.entity.TwoStagemodelDO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;

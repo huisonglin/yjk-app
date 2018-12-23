@@ -19,7 +19,7 @@ public class ApiSearchController {
 /*	<delete><query>*:*</query></delete>
 	<commit/>*/
 	
-	@RequestMapping("/search")
+	@RequestMapping("/app/search")
 	public R search(SearchDTO searchDTO  ,@Position PositionDTO positionDTO) throws Exception {
 		Assert.isNull(searchDTO.getPageNo(),"请输入页码");
 		if(searchDTO.getPageNo() == null || searchDTO.getPageNo() < 1) {

@@ -15,7 +15,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
 @RestController
-@RequestMapping("/device")
+@RequestMapping("/app/device")
 public class ApiDeviceController {
 
 	@Autowired

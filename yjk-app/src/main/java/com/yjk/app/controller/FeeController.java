@@ -10,13 +10,13 @@ import com.yjk.app.annotation.Login;
 import com.yjk.app.annotation.LoginUser;
 import com.yjk.app.dto.DialingDTO;
 import com.yjk.app.dto.DialingRefundDTO;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.FeeService;
 import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
+import com.yjk.common.entity.MemberDO;
 
 @RestController
-@RequestMapping("/fee")
+@RequestMapping("/app/fee")
 public class FeeController {
 
 	@Autowired

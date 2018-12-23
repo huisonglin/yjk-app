@@ -9,8 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yjk.app.common.SelfIncreasingIdService;
-import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.vo.MyListVO;
+import com.yjk.common.dao.DeviceMapper;
 
 @RunWith(SpringRunner.class)  
 @SpringBootTest  

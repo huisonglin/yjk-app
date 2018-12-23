@@ -2,15 +2,9 @@ package com.yjk.app.util;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.solr.common.SolrInputDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.yjk.app.entity.DeviceDO;
 
 
 public class SolrUtil {

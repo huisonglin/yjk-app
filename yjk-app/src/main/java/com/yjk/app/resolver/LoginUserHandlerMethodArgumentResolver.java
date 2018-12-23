@@ -9,9 +9,9 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.yjk.app.annotation.LoginUser;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.interceptor.AuthorizationInterceptor;
 import com.yjk.app.service.MemberService;
+import com.yjk.common.entity.MemberDO;
 
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver{

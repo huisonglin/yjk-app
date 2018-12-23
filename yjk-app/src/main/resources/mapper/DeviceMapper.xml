@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yjk.app.dao.DeviceMapper">
+<mapper namespace="com.yjk.common.dao.DeviceMapper">
 	<select id="myList"  resultType="com.yjk.app.vo.MyListVO">
 		select b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status,b.contact_mobile
 			from 

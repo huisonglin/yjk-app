@@ -3,8 +3,6 @@ package com.yjk.app.redis.subscribe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.yjk.app.dao.MemberMapper;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.MemberService;
 
 import redis.clients.jedis.JedisPubSub;

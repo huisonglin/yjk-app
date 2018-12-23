@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 import com.yjk.app.common.Constants;
 import com.yjk.app.common.OrderStatusEnum;
 import com.yjk.app.common.TemplateEnum;
-import com.yjk.app.dao.MemberMapper;
-import com.yjk.app.dao.OrderMapper;
-import com.yjk.app.entity.MemberDO;
-import com.yjk.app.entity.OrderDO;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.JSONUtil;
 import com.yjk.app.vo.XcxPayNotifyInfoVO;
+import com.yjk.common.dao.MemberMapper;
+import com.yjk.common.dao.OrderMapper;
+import com.yjk.common.entity.MemberDO;
+import com.yjk.common.entity.OrderDO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;

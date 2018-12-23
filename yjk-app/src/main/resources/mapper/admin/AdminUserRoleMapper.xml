@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjk.common.dao.admin.AdminUserRoleMapper" >
+  
+  <sql id="Base_Column_List" >
+    ur.id id, 
+    ur.user_id userId, 
+    ur.role_id roleId, 
+    DATE_FORMAT(ur.create_time, '%Y-%m-%d %H:%i') createTime,
+	DATE_FORMAT(ur.update_time, '%Y-%m-%d %H:%i') updateTime
+  </sql>
+  
+  <select id="selectByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.AdminUserRoleVO">
+     select 
+     <include refid="Base_Column_List" />
+     from tb_admin_user_role ur
+     where ur.user_id = #{userId}
+  </select>
+  
+  <select id="selectByRoleId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.AdminUserRoleVO">
+     select 
+     <include refid="Base_Column_List" />
+     from tb_admin_user_role ur
+     where ur.role_id = #{roleId}
+  </select>
+  
+  <delete id="delByUserId" parameterType="java.lang.Long">
+      delete from tb_admin_user_role
+      where user_id = #{userId}
+  </delete>
+  
+  <insert id="insertBatch" parameterType="java.util.List">
+     insert into tb_admin_user_role (user_id, role_id, create_time, update_time) 
+     values  
+     <foreach collection="list" item="item" index="index" separator="," >  
+          (#{item.userId}, #{item.roleId}, #{item.createTime}, #{item.updateTime})  
+     </foreach>  
+  </insert>
+</mapper>

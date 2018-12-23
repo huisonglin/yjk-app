@@ -16,13 +16,13 @@ import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.dto.ShareInfoDTO;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.MemberService;
 import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
+import com.yjk.common.entity.MemberDO;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/app/member")
 public class ApiMemberController {
 
 	@Autowired

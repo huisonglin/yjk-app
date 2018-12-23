@@ -9,15 +9,15 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.config.SolrEnvironmentConfig;
-import com.yjk.app.dao.DeviceMapper;
-import com.yjk.app.dao.DeviceRentOutInfoMapper;
-import com.yjk.app.dao.MemberMapper;
-import com.yjk.app.entity.DeviceDO;
-import com.yjk.app.entity.DeviceRentOutInfoDO;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
+import com.yjk.common.dao.DeviceMapper;
+import com.yjk.common.dao.DeviceRentOutInfoMapper;
+import com.yjk.common.dao.MemberMapper;
+import com.yjk.common.entity.DeviceDO;
+import com.yjk.common.entity.DeviceRentOutInfoDO;
+
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 

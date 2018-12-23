@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ApiIndexController {
 
-	@RequestMapping("toUpload")
+	@RequestMapping("/app/toUpload")
 	public String toUpload() {
 		return "uploadMany";
 	}

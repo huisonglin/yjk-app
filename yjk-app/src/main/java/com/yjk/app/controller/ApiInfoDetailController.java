@@ -11,7 +11,7 @@ import com.yjk.app.validator.Assert;
 
 
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/app/info")
 public class ApiInfoDetailController {
 
 	@Autowired

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjk.common.dao.admin.AdminRoleMapper" >
+  
+  <sql id="Base_Column_List" >
+    r.role_id roleId, 
+    r.role_name roleName, 
+    r.status status, 
+    r.remark remark, 
+    DATE_FORMAT(r.create_time, '%Y-%m-%d %H:%i') createTime,
+	DATE_FORMAT(r.update_time, '%Y-%m-%d %H:%i') updateTime
+  </sql>
+  
+  <select id="selectAllRolesByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminRoleVO">
+      select 
+	  <include refid="Base_Column_List" />
+	  from tb_admin_role r
+	  where 1 = 1
+	  and r.status = #{status}
+  </select>
+  
+  <select id="selectRolesCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+      select count(r.role_id)
+	  from tb_admin_role r
+	  where 1 = 1
+	  <if test="roleName != null ">
+		AND r.role_name LIKE CONCAT('%',#{roleName},'%')
+	  </if>
+	  order by r.create_time DESC
+  </select>
+  
+  <select id="selectRolesList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminRoleVO">
+      select 
+	  <include refid="Base_Column_List" />
+	  from tb_admin_role r
+	  where 1 = 1
+	  <if test="roleName != null ">
+		AND r.role_name LIKE CONCAT('%',#{roleName},'%')
+	  </if>
+	  order by r.create_time DESC
+	  LIMIT #{pageStart}, #{pageEnd}
+  </select>
+  
+  <update id="updateStatusById" parameterType="java.util.Map">
+     update tb_admin_role r
+     set r.status = #{status}
+     where r.role_id = #{roleId}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminRoleVO" parameterType="java.lang.Long" >
+    select 
+    	<include refid="Base_Column_List" />
+    from tb_admin_role r
+    where r.role_id = #{roleId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_admin_role
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yjk.common.entity.admin.AdminRole" >
+    insert into tb_admin_role (role_id, role_name, status, 
+      remark, create_time, update_time
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+      
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="roleId">
+           SELECT LAST_INSERT_ID() AS roleId    
+   	</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yjk.common.entity.admin.AdminRole" >
+    insert into tb_admin_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="roleId">
+           SELECT LAST_INSERT_ID() AS roleId    
+   	</selectKey>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjk.common.entity.admin.AdminRole" >
+    update tb_admin_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yjk.common.entity.admin.AdminRole" >
+    update tb_admin_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=BIGINT}
+  </update>
+</mapper>

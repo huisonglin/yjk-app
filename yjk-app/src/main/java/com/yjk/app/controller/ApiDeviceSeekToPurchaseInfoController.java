@@ -14,7 +14,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
 @RestController
-@RequestMapping("/device/seek")
+@RequestMapping("/app/device/seek")
 public class ApiDeviceSeekToPurchaseInfoController {
 
 	@Autowired

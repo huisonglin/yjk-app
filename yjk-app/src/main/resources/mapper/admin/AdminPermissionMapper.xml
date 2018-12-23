@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjk.common.entity.admin.AdminPermission" >
+
+  <sql id="Base_Column_List" >
+    p.per_id perId, 
+    p.per_name perName, 
+    p.permission permission, 
+    p.per_type perType, 
+    p.menu_level menuLevel, 
+    p.url url, 
+    p.status status, 
+    p.parent_id parentId, 
+    p.order_num orderNum,
+    DATE_FORMAT(p.create_time, '%Y-%m-%d %H:%i') createTime,
+    DATE_FORMAT(p.update_time, '%Y-%m-%d %H:%i') updateTime
+  </sql>
+  
+  <select id="selectAllMenuByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminPermissionVO">
+    select 
+    	<include refid="Base_Column_List" />
+    from tb_admin_permission p
+    where p.status = #{status}
+    and p.per_type = 1
+  </select>
+  
+  <select id="selectAllMenuAndButtonByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminPermissionVO">
+    select 
+    	<include refid="Base_Column_List" />
+    from tb_admin_permission p
+    where p.status = #{status}
+    and (p.per_type = 1 or p.per_type = 2)
+  </select>
+  
+  <select id="selectPerCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(p.per_id)
+    from tb_admin_permission p
+    LEFT JOIN tb_admin_permission pp
+    ON p.parent_id = pp.per_id
+    where 1 = 1
+    <if test="perName != null ">
+		AND p.per_name LIKE CONCAT('%',#{perName},'%')
+	</if>
+	order by p.create_time DESC
+  </select>
+  
+  <select id="selectPerList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminPermissionVO">
+     select 
+    	<include refid="Base_Column_List" />
+    	,
+    	pp.per_name parentPerName
+    from tb_admin_permission p
+    LEFT JOIN tb_admin_permission pp
+    ON p.parent_id = pp.per_id
+    where 1 = 1
+    <if test="perName != null ">
+		AND p.per_name LIKE CONCAT('%',#{perName},'%')
+	</if>
+	order by p.create_time DESC
+	LIMIT #{pageStart}, #{pageEnd}
+  </select>
+  
+  <update id="updateStatusById" parameterType="java.util.Map">
+     update tb_admin_permission p
+     set p.status = #{status}
+     where p.per_id = #{perId}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminPermissionVO" parameterType="java.lang.Long" >
+    select 
+    	<include refid="Base_Column_List" />
+        ,
+    	pp.per_name parentPerName
+    from tb_admin_permission p
+    LEFT JOIN tb_admin_permission pp
+    ON p.parent_id = pp.per_id
+    where p.per_id = #{perId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_admin_permission
+    where per_id = #{perId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yjk.common.entity.admin.AdminPermission" >
+    insert into tb_admin_permission (per_id, per_name, permission, 
+      per_type, menu_level, url, 
+      status, parent_id, order_num,
+      create_time, update_time)
+    values (#{perId,jdbcType=BIGINT}, #{perName,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, 
+      #{perType,jdbcType=CHAR}, #{menuLevel,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{orderNum,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yjk.common.entity.admin.AdminPermission" >
+    insert into tb_admin_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="perId != null" >
+        per_id,
+      </if>
+      <if test="perName != null" >
+        per_name,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="perType != null" >
+        per_type,
+      </if>
+      <if test="menuLevel != null" >
+        menu_level,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="orderNum != null">
+      	order_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="perId != null" >
+        #{perId,jdbcType=BIGINT},
+      </if>
+      <if test="perName != null" >
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="perType != null" >
+        #{perType,jdbcType=CHAR},
+      </if>
+      <if test="menuLevel != null" >
+        #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null">
+      	#{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjk.common.entity.admin.AdminPermission" >
+    update tb_admin_permission
+    <set >
+      <if test="perName != null" >
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="perType != null" >
+        per_type = #{perType,jdbcType=CHAR},
+      </if>
+      <if test="menuLevel != null" >
+        menu_level = #{menuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where per_id = #{perId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yjk.common.entity.admin.AdminPermission" >
+    update tb_admin_permission
+    set per_name = #{perName,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      per_type = #{perType,jdbcType=CHAR},
+      menu_level = #{menuLevel,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIGINT},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where per_id = #{perId,jdbcType=BIGINT}
+  </update>
+</mapper>

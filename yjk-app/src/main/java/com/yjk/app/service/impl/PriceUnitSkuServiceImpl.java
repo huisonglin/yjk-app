@@ -5,12 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.yjk.app.dao.PriceUnitSkuMapper;
-import com.yjk.app.entity.PriceUnitSkuDO;
 import com.yjk.app.service.PriceUnitSkuService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.PriceUnitVO;
+import com.yjk.common.dao.PriceUnitSkuMapper;
+import com.yjk.common.entity.PriceUnitSkuDO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;

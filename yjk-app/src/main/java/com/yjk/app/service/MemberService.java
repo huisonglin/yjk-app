@@ -8,8 +8,8 @@ import com.yjk.app.dto.ModifyPasswordDTO;
 import com.yjk.app.dto.PhoneNumberDTO;
 import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.dto.ShareInfoDTO;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.util.R;
+import com.yjk.common.entity.MemberDO;
 
 public interface MemberService {
 

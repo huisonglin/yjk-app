@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.QiNiuConfig;
-import com.yjk.app.dao.DeviceMapper;
-import com.yjk.app.dao.DeviceRentOutInfoMapper;
-import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dto.DeviceDTO;
 import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.dto.RefreshPositionAndPublishDTO;
-import com.yjk.app.entity.DeviceDO;
-import com.yjk.app.entity.DeviceRentOutInfoDO;
-import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
 import com.yjk.app.service.DeviceService;
 import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceVO;
 import com.yjk.app.vo.MyListVO;
+import com.yjk.common.dao.DeviceMapper;
+import com.yjk.common.dao.DeviceRentOutInfoMapper;
+import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
+import com.yjk.common.entity.DeviceDO;
+import com.yjk.common.entity.DeviceRentOutInfoDO;
+import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
 
 @Service
 public class DeviceServiceImpl implements DeviceService{

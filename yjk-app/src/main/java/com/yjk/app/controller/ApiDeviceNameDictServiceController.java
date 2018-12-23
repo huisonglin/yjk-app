@@ -11,7 +11,7 @@ import com.yjk.app.validator.Assert;
 
 
 @RestController
-@RequestMapping("deviceName/dict")
+@RequestMapping("/app/deviceName/dict")
 public class ApiDeviceNameDictServiceController {
 
 	@Autowired

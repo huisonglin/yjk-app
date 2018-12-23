@@ -4,10 +4,9 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.yjk.app.dao.DeviceMapper;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
+import com.yjk.common.dao.DeviceMapper;
 
 @Service
 public class PutOnSaleInfoServiceImpl {

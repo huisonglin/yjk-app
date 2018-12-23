@@ -80,7 +80,7 @@ spring:
     port: 6379
     password: /jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=
   activemq:
-    broker-url: tcp://139.219.12.141:61616
+    broker-url: tcp://10.0.1.5:61616
     user: admin
     password: admin
     in-memory: true
@@ -94,7 +94,7 @@ mybatis:
    configuration:
     mapUnderscoreToCamelCase: true
    mapperLocations: classpath:mapper/*.xml
-   typeAliasesPackage: com.yjk.app.entity
+   typeAliasesPackage: com.yjk.common.entity
    
 mapper:
   mappers:
@@ -116,7 +116,8 @@ jwtvalidate:
         expire: 2000000
         header: token  
 solr:
-  env: online          
+  env: online   
+  url: http://10.0.1.10:8080/solr       
 wx:
   mch_id: 1498445182
   apikey: 1145B1AFA2994480808B42793E486A81

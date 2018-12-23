@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
-import com.yjk.app.dao.DeviceSeekToPurchaseInfoMapper;
 import com.yjk.app.dto.ReleasePurchaseInfoDTO;
-import com.yjk.app.entity.DeviceSeekToPurchaseInfoDO;
 import com.yjk.app.service.DeviceSeekToPurchaseInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.ReleasePurchaseInfoVO;
+import com.yjk.common.dao.DeviceSeekToPurchaseInfoMapper;
+import com.yjk.common.entity.DeviceSeekToPurchaseInfoDO;
 
 @Service
 public class DeviceSeekToPurchaseInfoServiceImpl implements DeviceSeekToPurchaseInfoService{

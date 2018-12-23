@@ -8,7 +8,7 @@ import com.yjk.app.service.PriceUnitSkuService;
 import com.yjk.app.util.R;
 
 @RestController
-@RequestMapping("/price/unit")
+@RequestMapping("/app/price/unit")
 public class PriceUnitSkuServiceController {
 
 	@Autowired

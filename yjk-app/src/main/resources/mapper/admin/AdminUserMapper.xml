@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yjk.common.dao.admin.AdminUserMapper">
+  <sql id="Base_Column_List" >
+    u.user_id userId, 
+    u.login_name loginName, 
+    u.password password, 
+    u.nick_name nickName, 
+    u.status status, 
+    u.remark remark, 
+    DATE_FORMAT(u.create_time, '%Y-%m-%d %H:%i') createTime,
+	DATE_FORMAT(u.update_time, '%Y-%m-%d %H:%i') updateTime
+  </sql>
+  
+  <select id="getFirstMenuByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.UserPermissionMenuVO">
+	    SELECT 
+	            DISTINCT
+				p.per_id perId,
+				p.per_name perName,
+				p.permission permission,
+				p.url url,
+				p.parent_id parentId,
+				p.parent_per_name parentPerName
+		FROM 
+		tb_admin_user u,
+		tb_admin_user_role ur,
+		tb_admin_role r,
+		tb_admin_role_permission rp,
+		(
+		  SELECT 
+			p.per_id,
+			p.per_name per_name,
+			p.permission,
+			p.url,
+			p.parent_id,
+			pp.per_name parent_per_name,
+			p.per_type,
+		    p.menu_level,
+		    p.order_num
+		  FROM tb_admin_permission p
+		  LEFT JOIN tb_admin_permission pp
+		  ON p.parent_id = pp.per_id
+		) p
+		WHERE u.user_id = ur.user_id
+		AND ur.role_id = r.role_id
+		AND r.role_id = rp.role_id
+		AND rp.per_id = p.per_id
+		AND p.per_type = 1
+		AND p.menu_level = 1
+		AND u.user_id = #{userId}
+	    order by p.order_num desc
+  </select>
+  
+  <select id="getElseMenuByUserId" parameterType="java.util.Map" resultType="com.yjk.manager.vo.UserPermissionMenuVO">
+       SELECT 
+            DISTINCT
+			p.per_id perId,
+			p.per_name perName,
+			p.permission permission,
+			p.url url,
+			p.parent_id parentId,
+			p.parent_per_name parentPerName
+		FROM 
+		tb_admin_user u,
+		tb_admin_user_role ur,
+		tb_admin_role r,
+		tb_admin_role_permission rp,
+		(
+		  SELECT 
+			p.per_id,
+			p.per_name per_name,
+			p.permission,
+			p.url,
+			p.parent_id,
+			pp.per_name parent_per_name,
+			p.per_type,
+		    p.menu_level,
+		    p.order_num
+		  FROM tb_admin_permission p
+		  LEFT JOIN tb_admin_permission pp
+		  ON p.parent_id = pp.per_id
+		) p
+		WHERE u.user_id = ur.user_id
+		AND ur.role_id = r.role_id
+		AND r.role_id = rp.role_id
+		AND rp.per_id = p.per_id
+		AND p.per_type = 1
+		AND p.menu_level = 2
+		AND u.user_id = #{userId}
+		AND p.parent_id = #{perParentId}
+		order by p.order_num desc
+  </select>
+  
+  <select id="selectPermissionByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.UserPermissionVO">
+    SELECT 
+           DISTINCT
+           p.per_name perName,
+           p.permission permission,
+           p.url url
+	FROM 
+	tb_admin_user u,
+	tb_admin_user_role ur,
+	tb_admin_role r,
+	tb_admin_role_permission rp,
+	tb_admin_permission p
+	WHERE u.user_id = ur.user_id
+	AND ur.role_id = r.role_id
+	AND r.role_id = rp.role_id
+	AND rp.per_id = p.per_id
+	AND TRIM(p.permission) <![CDATA[<>]]> ''
+	AND u.user_id = #{userId}
+  </select>
+  
+  <select id="getUsersCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select count(u.user_id) from tb_admin_user u
+		where 1 = 1
+		<if test="nickName != null ">
+			AND u.nick_name LIKE CONCAT('%',#{nickName},'%')
+		</if>
+		order by u.create_time DESC
+  </select>
+	
+  <select id="getUsersList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminUserVO">
+		select 
+		<include refid="Base_Column_List" />
+        from tb_admin_user u
+        where 1 = 1
+        <if test="nickName != null ">
+			AND u.nick_name LIKE CONCAT('%',#{nickName},'%')
+		</if>
+        order by u.create_time DESC
+        LIMIT #{pageStart}, #{pageEnd}
+  </select>
+  
+  <select id="getUserByLoginName" parameterType="java.lang.String" resultType="com.yjk.manager.vo.AdminUserVO">
+        select 
+		<include refid="Base_Column_List" />
+        from tb_admin_user u
+        where u.login_name = #{loginName}
+  </select>
+  
+  <update id="updateStatusById" parameterType="java.util.Map">
+       update tb_admin_user u set u.status = #{status} where u.user_id = #{userId}
+  </update>
+  
+  <update id="updatePasswordById" parameterType="java.util.Map">
+	    update tb_admin_user u set u.password = #{password}
+	    where u.user_id = #{userId}
+  </update>
+  
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminUserVO" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_admin_user u
+    where u.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_admin_user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.yjk.common.entity.admin.AdminUser" >
+    insert into tb_admin_user (user_id, login_name, password, 
+      nick_name, status, remark, 
+      create_time, update_time)
+    values (#{userId,jdbcType=BIGINT}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=CHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="userId">
+           SELECT LAST_INSERT_ID() AS userId    
+   	</selectKey>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yjk.common.entity.admin.AdminUser" >
+    insert into tb_admin_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    
+    <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="userId">
+           SELECT LAST_INSERT_ID() AS userId    
+   	</selectKey>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.yjk.common.entity.admin.AdminUser" >
+    update tb_admin_user
+    <set >
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yjk.common.entity.admin.AdminUser" >
+    update tb_admin_user
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=CHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

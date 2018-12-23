@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.config.QiNiuConfig;
-import com.yjk.app.dao.DeviceMapper;
-import com.yjk.app.dao.DeviceRentOutInfoMapper;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
-import com.yjk.app.entity.DeviceDO;
-import com.yjk.app.entity.DeviceRentOutInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentOutInfoVO;
+import com.yjk.common.dao.DeviceMapper;
+import com.yjk.common.dao.DeviceRentOutInfoMapper;
+import com.yjk.common.entity.DeviceDO;
+import com.yjk.common.entity.DeviceRentOutInfoDO;
 
 @Service
 public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{

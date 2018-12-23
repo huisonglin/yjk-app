@@ -9,15 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.config.QiNiuConfig;
-import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.app.dto.DeviceRentalInNeedInfoDTO;
-import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentalInNeedInfoService;
 import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceRentalInNeedInfoVO;
+import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
+import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
 
 @Service
 public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfoService{

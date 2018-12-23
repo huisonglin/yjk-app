@@ -11,14 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.config.SolrEnvironmentConfig;
-import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
-import com.yjk.app.dao.MemberMapper;
-import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
-import com.yjk.app.entity.MemberDO;
 import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.util.SolrUtil;
+import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
+import com.yjk.common.dao.MemberMapper;
+import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
 
 /**
  * 发布工程

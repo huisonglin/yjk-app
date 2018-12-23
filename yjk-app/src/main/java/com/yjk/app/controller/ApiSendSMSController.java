@@ -10,7 +10,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
 @RestController
-@RequestMapping("/send")
+@RequestMapping("/app/send")
 public class ApiSendSMSController {
 
 	@Autowired

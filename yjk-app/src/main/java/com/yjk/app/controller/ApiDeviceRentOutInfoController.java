@@ -13,7 +13,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
 @RestController
-@RequestMapping("/deviceRentOut")
+@RequestMapping("/app/deviceRentOut")
 public class ApiDeviceRentOutInfoController {
 
 	@Autowired

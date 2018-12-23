@@ -19,7 +19,7 @@ import com.yjk.app.util.R;
 import com.yjk.app.vo.ImageVO;
 
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("/app/upload")
 public class ApiUploadController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());

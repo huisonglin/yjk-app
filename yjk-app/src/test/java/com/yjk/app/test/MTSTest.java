@@ -8,12 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ctc.wstx.util.StringUtil;
-import com.yjk.app.dao.ModelMapper;
-import com.yjk.app.dao.SpecMapper;
-import com.yjk.app.dao.TwoStagemodelMapper;
-import com.yjk.app.entity.ModelDO;
-import com.yjk.app.entity.SpecDO;
-import com.yjk.app.entity.TwoStagemodelDO;
+import com.yjk.common.dao.ModelMapper;
+import com.yjk.common.dao.SpecMapper;
+import com.yjk.common.dao.TwoStagemodelMapper;
 
 @RunWith(SpringRunner.class)  
 @SpringBootTest 

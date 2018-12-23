@@ -8,13 +8,12 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.yjk.app.dao.PriceUnitSkuMapper;
-import com.yjk.app.dao.ValueUnitCorrelationMapper;
-import com.yjk.app.entity.PriceUnitSkuDO;
-import com.yjk.app.entity.ValueUnitCorrelationDO;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.vo.ValueUnitNameVO;
+import com.yjk.common.dao.PriceUnitSkuMapper;
+import com.yjk.common.dao.ValueUnitCorrelationMapper;
+import com.yjk.common.entity.PriceUnitSkuDO;
+import com.yjk.common.entity.ValueUnitCorrelationDO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;

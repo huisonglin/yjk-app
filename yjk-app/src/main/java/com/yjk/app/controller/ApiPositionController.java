@@ -9,7 +9,7 @@ import com.yjk.app.dto.PositionDTO;
 public class ApiPositionController {
 
 
-	@RequestMapping("postion")
+	@RequestMapping("/app/postion")
 	public PositionDTO postion(@Position PositionDTO positionDTO) {
 		return positionDTO;
 	}

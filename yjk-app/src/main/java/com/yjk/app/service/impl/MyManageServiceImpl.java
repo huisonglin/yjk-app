@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yjk.app.dao.DeviceMapper;
-import com.yjk.app.dao.DeviceRentalInNeedInfoMapper;
-import com.yjk.app.entity.DeviceDO;
-import com.yjk.app.entity.DeviceRentalInNeedInfoDO;
 import com.yjk.app.util.R;
+import com.yjk.common.dao.DeviceMapper;
+import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
+import com.yjk.common.entity.DeviceDO;
+import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
 
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
