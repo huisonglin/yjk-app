@@ -1,24 +1,24 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@include file="/common/taglibs.jsp"%>
+<!-- <%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/common/taglibs.jsp"%> -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="${ctx }/static/css/style.css">
-	<link rel="stylesheet" type="text/css" href="${ctx }/static/css/page.css"></link>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/page.css"></link>
 	
 	<!--[if lt IE 9]>
 	<script src="${ctx }/static/js/html5.js"></script>
 	<![endif]-->
-	<script src="${ctx }/static/js/jquery.js"></script>
-	<script type="text/javascript" src="${ctx}/static/js/jquery.myPagination.js" charset="UTF-8"></script>
+	<script src="/static/js/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.myPagination.js" charset="UTF-8"></script>
 </head>
 <body>
 
 	<div class="page_title">
 		<h2 class="fl">用户列表</h2>
 		<shiro:hasPermission name="user:add">
-			<a href="${ctx }/user/toAdd" target="mainContent" class="fr top_rt_btn add_icon">添加用户</a>
+			<a href="/user/toAdd" target="mainContent" class="fr top_rt_btn add_icon">添加用户</a>
 		</shiro:hasPermission>
 	</div>
 
@@ -47,7 +47,7 @@
     $(document).ready(function (){
     	$("#i_content", window.parent.document).scrollTop(0);
     	
-    	var msg = '${msg}';
+    	var msg = '[[${msg}]]';
     	if("" != msg){
     		alert(msg);
     	}
@@ -68,7 +68,7 @@
 			ajax : {
 				on:true, //开启状态
 				callback:'ajaxCallBack', //回调函数，注，此 ajaxCallBack 函数，必须定义在 $(function() {}); 外面
-				url:'${ctx}/user/list',//访问服务器地址
+				url:'/user/list',//访问服务器地址
 				dataType:'json', //返回类型
 				contentType:"application/json",      
 				param : {
@@ -110,7 +110,7 @@
 			tr += "<td class='listtable'>";
 			
 			//自己不能修改自己
-			if(obj.userId == '${loginUser.id}'){
+			if(obj.userId == '[[${loginUser.id}]]'){
 				tr += "<shiro:hasPermission name='user:edit'><a class='btn_modify' href='javascript:void(0);' onclick='edit(" +obj.userId+ ");'>修改</a>&nbsp;&nbsp;</shiro:hasPermission>";
 				tr += "<shiro:hasPermission name='user:init'><a class='btn_admin' href='javascript:void(0);' onclick='resetPassword(" +obj.userId+ ");'>重置密码</a>&nbsp;&nbsp;</shiro:hasPermission>";
 			}else{
@@ -130,7 +130,7 @@
 	}
 	
 	function edit(id){
-    	var url = "${ctx }/user/toEdit?userId=" + id;
+    	var url = "/user/toEdit?userId=" + id;
     	window.location.href=url;
     }
 
@@ -138,7 +138,7 @@
 		if(confirm("你确定要删除此用户吗？")){
 			$.ajax({
                 type: "get" , //异步请求的类型(请求方式若为post,只需改变这个参数为post即可！)
-                url: "${ctx }/user/del" , //请求哪个服务器
+                url: "/user/del" , //请求哪个服务器
                 dataType: "json" , //响应数据格式(默认为:html)
                 data: {'userId': id} , //传递的参数
                 cache:false,
@@ -162,7 +162,7 @@
 		if(confirm("你确定要启用/禁用此用户吗？")){
 			$.ajax({
 	            type: "get" , //异步请求的类型(请求方式若为post,只需改变这个参数为post即可！)
-	            url: "${ctx }/user/updateStatusById" , //请求哪个服务器
+	            url: "/user/updateStatusById" , //请求哪个服务器
 	            dataType: "json" , //响应数据格式(默认为:html)
 	            data: {'status': newStatus, "userId": id} , //传递的参数
 	            cache:false,
@@ -186,7 +186,7 @@
 		if(confirm("你确定要重置此用户密码吗？")){
 			$.ajax({
 	            type: "get" , //异步请求的类型(请求方式若为post,只需改变这个参数为post即可！)
-	            url: "${ctx }/user/resetPasswordById" , //请求哪个服务器
+	            url: "/user/resetPasswordById" , //请求哪个服务器
 	            dataType: "json" , //响应数据格式(默认为:html)
 	            data: {"userId": id} , //传递的参数
 	            cache:false,

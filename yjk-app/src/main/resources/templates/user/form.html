@@ -1,21 +1,21 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@include file="/common/taglibs.jsp"%>
+<!-- <%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/common/taglibs.jsp"%> -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="${ctx }/static/css/style.css">
-	<link rel="stylesheet" href="${ctx }/static/css/zTree/zTreeStyle.css" type="text/css">
-	<link rel="stylesheet" type="text/css" href="${ctx }/static/js/formValidator4.0.1/validator.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/zTree/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/static/js/formValidator4.0.1/validator.css" />
 	<!--[if lt IE 9]>
-		<script src="${ctx }/static/js/html5.js"></script>
+		<script src="/static/js/html5.js"></script>
 	<![endif]-->
-	<script src="${ctx }/static/js/jquery.js"></script>
-    <script type="text/javascript" src="${ctx }/static/js/jquery.ztree.core-3.5.js"></script>
-	<script type="text/javascript" src="${ctx }/static/js/jquery.ztree.excheck-3.5.js"></script>
-	<script type="text/javascript" src="${ctx }/static/js/formValidator4.0.1/formValidator-4.0.1.min.js"></script>
-    <script type="text/javascript" src="${ctx }/static/js/formValidator4.0.1/formValidatorRegex.js"></script>
+	<script src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ztree.core-3.5.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.ztree.excheck-3.5.js"></script>
+	<script type="text/javascript" src="/static/js/formValidator4.0.1/formValidator-4.0.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/formValidator4.0.1/formValidatorRegex.js"></script>
 	
     <script type="text/javascript">
 		<!--
@@ -72,28 +72,28 @@
 		</h2>
 	</div>
 	
-	<form id="userForm" action="${ctx }/user/addOrUpdate" method="post">
+	<form id="userForm" action="/user/addOrUpdate" method="post">
 	   <!-- hiden -->
-	    <input type="hidden" id="userId" name="userId" value="${user.userId }"/>
+	    <input type="hidden" id="userId" name="userId" th:value="${user.userId }"/>
 	    <input type="hidden" id="userRolesStr" name="userRolesStr" />
 	    <c:if test="${not empty user.userId }">
-	       <input type="hidden" id="status" name="status" value="${user.status }"/>
+	       <input type="hidden" id="status" name="status" th:value="${user.status }"/>
 	    </c:if>
 	    
 		<ul class="ulColumn2">
 			<li>
 			    <span class="item_name" style="width: 120px;">用户昵称：</span> 
-			    <input type="text" class="textbox textbox_225" id="nickName" name="nickName" value="${user.nickName }" /> 
+			    <input type="text" class="textbox textbox_225" id="nickName" name="nickName" th:value="${user.nickName }" /> 
 			    <span id="nickNameTip" class="item_name"></span>
 			</li>
 			<li>
 			    <span class="item_name" style="width: 120px;">登录账号：</span> 
-			    <input type="text" class="textbox textbox_225" id="loginName" name="loginName" value="${user.loginName }" />
+			    <input type="text" class="textbox textbox_225" id="loginName" name="loginName" th:value="${user.loginName }" />
 			    <span id="loginNameTip" class="item_name"></span>
 			</li>
 			<c:choose>
                <c:when test="${not empty user.userId }">
-                   <input id="password" name="password" type="hidden" value="${user.password }" />
+                   <input id="password" name="password" type="hidden" th:value="${user.password }" />
                </c:when>
                <c:otherwise>
                    <li>
@@ -128,7 +128,7 @@
 		    </li>
 		    <li>
 			    <span class="item_name" style="width: 120px;">说明：</span> 
-			    <textarea id="remark" name="remark" rows="2" cols="2" class="textbox" style="width:200px;height:100px;">${user.remark }</textarea>
+			    <textarea id="remark" name="remark" rows="2" cols="2" class="textbox" style="width:200px;height:100px;" th:text="${user.remark }"></textarea>
 			    <span id="remarkTip" class="item_name"></span>
 			</li>
 			<li>
@@ -166,7 +166,7 @@
 		});
     	
 		$('#back').click(function(){
-		     window.location.href="${ctx }/user/toList";
+		     window.location.href="/user/toList";
 		});
 		
 		$.formValidator.initConfig({
@@ -190,7 +190,7 @@
 					        type : "post",
 					        dataType:"json",
 					        async : true,
-					        url : "${ctx }/user/loginNameIsUsed",
+					        url : "/user/loginNameIsUsed",
 					        data:{"loginName":$("#loginName").val()}, 
 					        success : function(data){
 					            if(data && 'isUsed' == data.result){

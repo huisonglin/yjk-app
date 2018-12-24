@@ -131,6 +131,7 @@ public class LoginController extends BaseController{
     	List<UserPermissionMenuVO> firstMenuList = userService.getFirstMenuByUserId(Long.valueOf(user.id));
     	
     	List<UserPermissionMenuVO> userMenuList = getAllMenu(firstMenuList, user, request);
+    	request.setAttribute("name", user.getNickName());
     	request.setAttribute("menus", userMenuList);
     	return "desktop";
     	
