@@ -33,7 +33,7 @@ import com.yjk.manager.vo.UserPermissionMenuVO;
  * 真正登录的POST请求由Filter完成.
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -177,11 +177,4 @@ public class LoginController {
     	return "redirect:/login";
     }
     
-    /**
-     * 取出Shiro中的当前用户
-     */
-    private ShiroUser getCurrentUserInfo() {
-    	ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-        return user;
-    }
 }
