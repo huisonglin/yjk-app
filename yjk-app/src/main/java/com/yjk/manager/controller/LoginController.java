@@ -51,6 +51,10 @@ public class LoginController extends BaseController{
         return "login/login";
     }
 	
+	@RequestMapping(value = "/app", method = RequestMethod.GET)   
+	public String app() {
+		return "index";
+	}
 	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)   
 	public String index() {

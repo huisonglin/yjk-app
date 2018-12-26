@@ -6,11 +6,11 @@
       rp.id id, 
       rp.role_id roleId,
 	  rp.per_id perId,
-	  DATE_FORMAT(rp.create_time, '%Y-%m-%d %H:%i') createTime,
-	  DATE_FORMAT(rp.update_time, '%Y-%m-%d %H:%i') updateTime
+	  rp.create_time createTime,
+	  rp.update_time updateTime
   </sql>
   
-  <select id="selectByRoleId" parameterType="java.lang.Long" resultType="com.yjk.common.entity.admin.AdminRolePermission">
+  <select id="selectByRoleId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.AdminRolePermissionVO">
       select 
       <include refid="Base_Column_List" />
       from tb_admin_role_permission rp

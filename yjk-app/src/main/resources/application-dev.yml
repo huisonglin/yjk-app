@@ -5,10 +5,17 @@ server:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
+  jsp-servlet:
+    init-parameters:
+      development: true
 logging:
   level:
     com: info
 spring:
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
   servlet:
     multipart:
       enabled: true

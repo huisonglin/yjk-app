@@ -8,8 +8,8 @@
     u.nick_name nickName, 
     u.status status, 
     u.remark remark, 
-    DATE_FORMAT(u.create_time, '%Y-%m-%d %H:%i') createTime,
-	DATE_FORMAT(u.update_time, '%Y-%m-%d %H:%i') updateTime
+    u.create_time createTime,
+	u.update_time updateTime
   </sql>
   
   <select id="getFirstMenuByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.UserPermissionMenuVO">

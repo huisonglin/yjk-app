@@ -1,15 +1,20 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/common/taglibs.jsp"%>
+<%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="com.yjk.manager.shiro.ShiroDbRealm.ShiroUser"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="shortcut  icon" type="image/x-icon" href="/static/images/favicon.ico" media="screen" />
+<link rel="shortcut  icon" type="image/x-icon" href="${ctx }/static/images/favicon.ico" media="screen" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>最快租机械后台管理系统</title>
-<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<title>阳光好车后台管理系统</title>
+<link rel="stylesheet" type="text/css" href="${ctx }/static/css/style.css">
 <!--[if lt IE 9]>
 <script src="${ctx }/static/js/html5.js"></script>
 <![endif]-->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="${ctx }/static/js/jquery.js"></script>
+<script src="${ctx }/static/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script>
 	(function($) {
 		$(window).load(function() {
@@ -54,7 +59,7 @@
 	*/
 	
 	function changePassword(){
- 	   var openUrl = "/user/toChangePasswordPage";//弹出窗口的url
+ 	   var openUrl = "${ctx }/user/toChangePasswordPage";//弹出窗口的url
  	   var iWidth=600; //弹出窗口的宽度;
  	   var iHeight=300; //弹出窗口的高度;
  	   var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
@@ -67,25 +72,27 @@
 	<!--header-->
 	<header>
 	<h1>
-		<img src="/static/images/admin_logo.png" />
+		<img src="${ctx }/static/images/admin_logo.png" />
 	</h1>
 	<ul class="rt_nav">
 		<!-- 
 		<li><a href="javascript:void(0);" class="website_icon">站点首页</a></li>
 		-->
 		<li>
-			<a href="javascript:void(0);" class="admin_icon" th:text="${name}">
+			<a href="javascript:void(0);" class="admin_icon">
+			   <% ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal(); %>
+		       <%=user.nickName %>
 			</a>
 		</li>
 		<li><a href="javascript:void(0);" onclick="changePassword();" class="set_icon">修改密码</a></li>
-		<li><a href="/logout" class="quit_icon">安全退出</a></li>
+		<li><a href="${ctx }/logout" class="quit_icon">安全退出</a></li>
 	</ul>
 	</header>
 
 	<!--aside nav-->
 	<aside class="lt_aside_nav content mCustomScrollbar">
 	<h2>
-		<a href="/welcome" target="mainContent">起始页</a>
+		<a href="${ctx }/welcome" target="mainContent">起始页</a>
 	</h2>
 	<ul id="leftNav">
 	    <!-- 
@@ -104,7 +111,7 @@
 			</dl>
 		</li>
 		-->
-<!-- 		<c:forEach items="${menus }" var="parent">
+		<c:forEach items="${menus }" var="parent">
 		     <li>
 				<dl>
 					<dt>${parent.perName }</dt>
@@ -114,27 +121,18 @@
 						</dd>
 					</c:forEach>
 				</dl>
-			</li> -->
+			</li>
 		</c:forEach>
-		
-		<li th:each="parent:${menus}">
-			<dl>
-				<dt th:text="${parent.perName}">系统管理</dt>
-				<dd th:each="child:${parent.childs }">
-					<a th:href="${child.url }" target="mainContent" th:text="${child.perName }">用户管理</a>
-				</dd >
-			</dl>
-		</li>
 		 
 		<li>
-			<p class="btm_infor">©2019 最快租机械 版权所有</p>
+			<p class="btm_infor">© 2016-2017 snncar 版权所有</p>
 		</li>
 	</ul>
 	</aside>
 
 	<section class="rt_wrap">
 		<div id="i_content" class="rt_content" style="height:695px; overflow-y:scroll;">
-		    <iframe id="mainContent" name="mainContent"  src="/welcome" frameborder="0"  scrolling="no" width="100%" height="4000px"></iframe>
+		    <iframe id="mainContent" name="mainContent"  src="${ctx }/welcome" frameborder="0"  scrolling="no" width="100%" height="4000px"></iframe>
 		</div>
 	</section>
 </body>

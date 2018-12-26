@@ -16,15 +16,9 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import com.yjk.manager.shiro.FormAuthenticationCaptchaFilter;
 import com.yjk.manager.shiro.ShiroDbRealm;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-
 @Configuration
 public class ShiroConfig {
 
-	@Bean
-	public ShiroDialect shiroDialect() {
-		return new ShiroDialect();
-	} 
 	
     @Bean
     public ShiroDbRealm shiroDbRealm() {

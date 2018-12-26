@@ -7,8 +7,8 @@
     r.role_name roleName, 
     r.status status, 
     r.remark remark, 
-    DATE_FORMAT(r.create_time, '%Y-%m-%d %H:%i') createTime,
-	DATE_FORMAT(r.update_time, '%Y-%m-%d %H:%i') updateTime
+    r.create_time createTime,
+	r.update_time updateTime
   </sql>
   
   <select id="selectAllRolesByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminRoleVO">

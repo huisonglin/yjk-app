@@ -1,18 +1,18 @@
-<!-- <%@ page contentType="text/html;charset=UTF-8"%>
-<%@include file="/common/taglibs.jsp"%> -->
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@include file="/common/taglibs.jsp"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/static/js/formValidator4.0.1/validator.css" />
+	<link rel="stylesheet" type="text/css" href="${ctx }/static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="${ctx }/static/js/formValidator4.0.1/validator.css" />
 	<!--[if lt IE 9]>
 		<script src="${ctx }/static/js/html5.js"></script>
 	<![endif]-->
-	<script src="/static/js/jquery.js"></script>
-	<script type="text/javascript" src="/static/js/formValidator4.0.1/formValidator-4.0.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/formValidator4.0.1/formValidatorRegex.js"></script>
+	<script src="${ctx }/static/js/jquery.js"></script>
+	<script type="text/javascript" src="${ctx }/static/js/formValidator4.0.1/formValidator-4.0.1.min.js"></script>
+    <script type="text/javascript" src="${ctx }/static/js/formValidator4.0.1/formValidatorRegex.js"></script>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 		</h2>
 	</div>
 	
-	<form id="userForm" action="/user/changePasswordByUserId" method="post">
+	<form id="userForm" action="${ctx }/user/changePasswordByUserId" method="post">
 		<ul class="ulColumn2">
 			<li>
 			    <span class="item_name" style="width: 120px;">原密码：</span> 
@@ -49,7 +49,7 @@
 
 <script type="text/javascript">
     $(function () {
-    	var msg = '[[${msg}]]';
+    	var msg = '${msg}';
     	if("" != msg){
     		alert(msg);
     		window.close();

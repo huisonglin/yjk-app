@@ -6,8 +6,8 @@
     ur.id id, 
     ur.user_id userId, 
     ur.role_id roleId, 
-    DATE_FORMAT(ur.create_time, '%Y-%m-%d %H:%i') createTime,
-	DATE_FORMAT(ur.update_time, '%Y-%m-%d %H:%i') updateTime
+    ur.create_time createTime,
+	ur.update_time updateTime
   </sql>
   
   <select id="selectByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.AdminUserRoleVO">
