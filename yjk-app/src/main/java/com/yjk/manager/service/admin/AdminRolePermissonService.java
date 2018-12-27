@@ -1,4 +1,4 @@
-package com.yjk.manager.service;
+package com.yjk.manager.service.admin;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.common.dao.admin.AdminRolePermissionMapper;
-import com.yjk.manager.vo.AdminRolePermissionVO;
+import com.yjk.manager.vo.admin.AdminRolePermissionVO;
 
 @Service
 public class AdminRolePermissonService {

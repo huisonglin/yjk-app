@@ -1,4 +1,4 @@
-package com.yjk.manager.controller;
+package com.yjk.manager.controller.admin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yjk.manager.service.AdminUserService;
+import com.yjk.manager.service.admin.AdminUserService;
 import com.yjk.manager.shiro.CaptchaException;
 import com.yjk.manager.shiro.ShiroDbRealm.ShiroUser;
 import com.yjk.manager.shiro.UserFreezeException;
 import com.yjk.manager.shiro.UsernamePasswordCaptchaToken;
 import com.yjk.manager.utils.MD5;
-import com.yjk.manager.vo.UserPermissionMenuVO;
+import com.yjk.manager.vo.admin.UserPermissionMenuVO;
 
 
 

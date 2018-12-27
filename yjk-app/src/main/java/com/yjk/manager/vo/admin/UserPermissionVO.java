@@ -1,4 +1,4 @@
-package com.yjk.manager.vo;
+package com.yjk.manager.vo.admin;
 
 /******
  * 某一用户所具有的权限VO

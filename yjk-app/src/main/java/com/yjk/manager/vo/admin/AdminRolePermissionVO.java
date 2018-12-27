@@ -1,12 +1,12 @@
-package com.yjk.manager.vo;
+package com.yjk.manager.vo.admin;
 
-public class AdminUserRoleVO {
+public class AdminRolePermissionVO {
 	
     private Long id;
 
-    private Long userId;
-
     private Long roleId;
+
+    private Long perId;
 
     private String createTime;
 
@@ -20,20 +20,20 @@ public class AdminUserRoleVO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public Long getRoleId() {
         return roleId;
     }
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Long getPerId() {
+        return perId;
+    }
+
+    public void setPerId(Long perId) {
+        this.perId = perId;
     }
 
     public String getCreateTime() {

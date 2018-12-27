@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yjk.common.entity.admin.AdminRole;
-import com.yjk.manager.vo.AdminRoleVO;
+import com.yjk.manager.vo.admin.AdminRoleVO;
 
 public interface AdminRoleMapper {
 	

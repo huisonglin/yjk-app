@@ -16,7 +16,7 @@
     p.update_time updateTime
   </sql>
   
-  <select id="selectAllMenuByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminPermissionVO">
+  <select id="selectAllMenuByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.admin.AdminPermissionVO">
     select 
     	<include refid="Base_Column_List" />
     from tb_admin_permission p
@@ -24,7 +24,7 @@
     and p.per_type = 1
   </select>
   
-  <select id="selectAllMenuAndButtonByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminPermissionVO">
+  <select id="selectAllMenuAndButtonByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.admin.AdminPermissionVO">
     select 
     	<include refid="Base_Column_List" />
     from tb_admin_permission p
@@ -44,7 +44,7 @@
 	order by p.create_time DESC
   </select>
   
-  <select id="selectPerList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminPermissionVO">
+  <select id="selectPerList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.admin.AdminPermissionVO">
      select 
     	<include refid="Base_Column_List" />
     	,
@@ -66,7 +66,7 @@
      where p.per_id = #{perId}
   </update>
   
-  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminPermissionVO" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.admin.AdminPermissionVO" parameterType="java.lang.Long" >
     select 
     	<include refid="Base_Column_List" />
         ,

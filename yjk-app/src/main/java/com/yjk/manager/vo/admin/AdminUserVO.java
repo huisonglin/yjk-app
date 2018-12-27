@@ -1,4 +1,4 @@
-package com.yjk.manager.vo;
+package com.yjk.manager.vo.admin;
 
 public class AdminUserVO {
 

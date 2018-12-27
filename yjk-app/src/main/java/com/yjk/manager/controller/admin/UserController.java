@@ -1,4 +1,4 @@
-package com.yjk.manager.controller;
+package com.yjk.manager.controller.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,15 +25,15 @@ import com.yjk.common.entity.admin.AdminUser;
 import com.yjk.manager.common.Constants;
 import com.yjk.manager.common.RoleStatus;
 import com.yjk.manager.common.UserStatus;
-import com.yjk.manager.service.AdminRoleService;
-import com.yjk.manager.service.AdminUserRoleService;
-import com.yjk.manager.service.AdminUserService;
+import com.yjk.manager.service.admin.AdminRoleService;
+import com.yjk.manager.service.admin.AdminUserRoleService;
+import com.yjk.manager.service.admin.AdminUserService;
 import com.yjk.manager.shiro.ShiroDbRealm.ShiroUser;
 import com.yjk.manager.utils.MD5;
-import com.yjk.manager.vo.AdminRoleVO;
-import com.yjk.manager.vo.AdminUserRoleVO;
-import com.yjk.manager.vo.AdminUserVO;
-import com.yjk.manager.vo.ZTreeVO;
+import com.yjk.manager.vo.admin.AdminRoleVO;
+import com.yjk.manager.vo.admin.AdminUserRoleVO;
+import com.yjk.manager.vo.admin.AdminUserVO;
+import com.yjk.manager.vo.admin.ZTreeVO;
 
 
 @Controller

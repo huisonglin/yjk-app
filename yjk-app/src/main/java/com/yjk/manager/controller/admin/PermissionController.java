@@ -1,4 +1,4 @@
-package com.yjk.manager.controller;
+package com.yjk.manager.controller.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,11 +23,11 @@ import com.yjk.common.entity.admin.AdminPermission;
 import com.yjk.manager.common.PermissionLevel;
 import com.yjk.manager.common.PermissionStatus;
 import com.yjk.manager.common.PermissionType;
-import com.yjk.manager.service.AdminPermissionService;
-import com.yjk.manager.service.AdminRolePermissonService;
-import com.yjk.manager.vo.AdminPermissionVO;
-import com.yjk.manager.vo.AdminRolePermissionVO;
-import com.yjk.manager.vo.ZTreeVO;
+import com.yjk.manager.service.admin.AdminPermissionService;
+import com.yjk.manager.service.admin.AdminRolePermissonService;
+import com.yjk.manager.vo.admin.AdminPermissionVO;
+import com.yjk.manager.vo.admin.AdminRolePermissionVO;
+import com.yjk.manager.vo.admin.ZTreeVO;
 
 
 @Controller

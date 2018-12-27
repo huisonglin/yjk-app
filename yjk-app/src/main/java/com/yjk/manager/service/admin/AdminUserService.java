@@ -1,4 +1,4 @@
-package com.yjk.manager.service;
+package com.yjk.manager.service.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +19,9 @@ import com.yjk.common.entity.admin.AdminUserRole;
 import com.yjk.manager.common.Constants;
 import com.yjk.manager.utils.Page;
 import com.yjk.manager.utils.PageUtil;
-import com.yjk.manager.vo.AdminUserVO;
-import com.yjk.manager.vo.UserPermissionMenuVO;
-import com.yjk.manager.vo.UserPermissionVO;
+import com.yjk.manager.vo.admin.AdminUserVO;
+import com.yjk.manager.vo.admin.UserPermissionMenuVO;
+import com.yjk.manager.vo.admin.UserPermissionVO;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.yjk.manager.service;
+package com.yjk.manager.service.admin;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.common.dao.admin.AdminUserRoleMapper;
-import com.yjk.manager.vo.AdminUserRoleVO;
+import com.yjk.manager.vo.admin.AdminUserRoleVO;
 
 
 @Service

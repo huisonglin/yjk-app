@@ -1,4 +1,4 @@
-package com.yjk.manager.vo;
+package com.yjk.manager.vo.admin;
 
 import java.util.ArrayList;
 import java.util.List;

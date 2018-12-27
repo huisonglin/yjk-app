@@ -21,9 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yjk.manager.common.Constants;
 import com.yjk.manager.common.UserStatus;
-import com.yjk.manager.service.AdminUserService;
-import com.yjk.manager.vo.AdminUserVO;
-import com.yjk.manager.vo.UserPermissionVO;
+import com.yjk.manager.service.admin.AdminUserService;
+import com.yjk.manager.vo.admin.AdminUserVO;
+import com.yjk.manager.vo.admin.UserPermissionVO;
 
 /**
  * 自实现用户与权限查询.

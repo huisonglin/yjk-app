@@ -1,4 +1,4 @@
-package com.yjk.manager.controller;
+package com.yjk.manager.controller.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,15 +22,15 @@ import com.alibaba.fastjson.JSON;
 import com.yjk.common.entity.admin.AdminRole;
 import com.yjk.manager.common.PermissionStatus;
 import com.yjk.manager.common.RoleStatus;
-import com.yjk.manager.service.AdminPermissionService;
-import com.yjk.manager.service.AdminRolePermissonService;
-import com.yjk.manager.service.AdminRoleService;
-import com.yjk.manager.service.AdminUserRoleService;
-import com.yjk.manager.vo.AdminPermissionVO;
-import com.yjk.manager.vo.AdminRolePermissionVO;
-import com.yjk.manager.vo.AdminRoleVO;
-import com.yjk.manager.vo.AdminUserRoleVO;
-import com.yjk.manager.vo.ZTreeVO;
+import com.yjk.manager.service.admin.AdminPermissionService;
+import com.yjk.manager.service.admin.AdminRolePermissonService;
+import com.yjk.manager.service.admin.AdminRoleService;
+import com.yjk.manager.service.admin.AdminUserRoleService;
+import com.yjk.manager.vo.admin.AdminPermissionVO;
+import com.yjk.manager.vo.admin.AdminRolePermissionVO;
+import com.yjk.manager.vo.admin.AdminRoleVO;
+import com.yjk.manager.vo.admin.AdminUserRoleVO;
+import com.yjk.manager.vo.admin.ZTreeVO;
 
 
 @Controller

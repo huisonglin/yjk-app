@@ -10,7 +10,7 @@
 	  rp.update_time updateTime
   </sql>
   
-  <select id="selectByRoleId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.AdminRolePermissionVO">
+  <select id="selectByRoleId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.admin.AdminRolePermissionVO">
       select 
       <include refid="Base_Column_List" />
       from tb_admin_role_permission rp

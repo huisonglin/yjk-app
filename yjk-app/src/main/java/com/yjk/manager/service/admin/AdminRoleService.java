@@ -1,4 +1,4 @@
-package com.yjk.manager.service;
+package com.yjk.manager.service.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +20,7 @@ import com.yjk.common.entity.admin.AdminRolePermission;
 import com.yjk.manager.common.Constants;
 import com.yjk.manager.utils.Page;
 import com.yjk.manager.utils.PageUtil;
-import com.yjk.manager.vo.AdminRoleVO;
+import com.yjk.manager.vo.admin.AdminRoleVO;
 
 @Service
 public class AdminRoleService {

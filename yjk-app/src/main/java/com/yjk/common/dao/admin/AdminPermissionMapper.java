@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yjk.common.entity.admin.AdminPermission;
-import com.yjk.manager.vo.AdminPermissionVO;
+import com.yjk.manager.vo.admin.AdminPermissionVO;
 
 
 public interface AdminPermissionMapper {

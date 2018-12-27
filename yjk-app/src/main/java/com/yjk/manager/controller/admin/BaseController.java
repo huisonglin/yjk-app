@@ -1,4 +1,4 @@
-package com.yjk.manager.controller;
+package com.yjk.manager.controller.admin;
 
 import org.apache.shiro.SecurityUtils;
 

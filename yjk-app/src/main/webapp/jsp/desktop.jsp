@@ -131,7 +131,7 @@
 	</aside>
 
 	<section class="rt_wrap">
-		<div id="i_content" class="rt_content" style="height:695px; overflow-y:scroll;">
+		<div id="i_content" class="rt_content" style="height:100%; overflow-y:scroll;">
 		    <iframe id="mainContent" name="mainContent"  src="${ctx }/welcome" frameborder="0"  scrolling="no" width="100%" height="4000px"></iframe>
 		</div>
 	</section>

@@ -12,7 +12,7 @@
 	u.update_time updateTime
   </sql>
   
-  <select id="getFirstMenuByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.UserPermissionMenuVO">
+  <select id="getFirstMenuByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.admin.UserPermissionMenuVO">
 	    SELECT 
 	            DISTINCT
 				p.per_id perId,
@@ -51,7 +51,7 @@
 	    order by p.order_num desc
   </select>
   
-  <select id="getElseMenuByUserId" parameterType="java.util.Map" resultType="com.yjk.manager.vo.UserPermissionMenuVO">
+  <select id="getElseMenuByUserId" parameterType="java.util.Map" resultType="com.yjk.manager.vo.admin.UserPermissionMenuVO">
        SELECT 
             DISTINCT
 			p.per_id perId,
@@ -91,7 +91,7 @@
 		order by p.order_num desc
   </select>
   
-  <select id="selectPermissionByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.UserPermissionVO">
+  <select id="selectPermissionByUserId" parameterType="java.lang.Long" resultType="com.yjk.manager.vo.admin.UserPermissionVO">
     SELECT 
            DISTINCT
            p.per_name perName,
@@ -120,7 +120,7 @@
 		order by u.create_time DESC
   </select>
 	
-  <select id="getUsersList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminUserVO">
+  <select id="getUsersList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.admin.AdminUserVO">
 		select 
 		<include refid="Base_Column_List" />
         from tb_admin_user u
@@ -132,7 +132,7 @@
         LIMIT #{pageStart}, #{pageEnd}
   </select>
   
-  <select id="getUserByLoginName" parameterType="java.lang.String" resultType="com.yjk.manager.vo.AdminUserVO">
+  <select id="getUserByLoginName" parameterType="java.lang.String" resultType="com.yjk.manager.vo.admin.AdminUserVO">
         select 
 		<include refid="Base_Column_List" />
         from tb_admin_user u
@@ -148,7 +148,7 @@
 	    where u.user_id = #{userId}
   </update>
   
-  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminUserVO" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.admin.AdminUserVO" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from tb_admin_user u

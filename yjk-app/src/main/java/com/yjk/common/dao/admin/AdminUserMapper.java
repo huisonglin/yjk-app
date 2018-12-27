@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.yjk.common.entity.admin.AdminUser;
-import com.yjk.manager.vo.AdminUserVO;
-import com.yjk.manager.vo.UserPermissionMenuVO;
-import com.yjk.manager.vo.UserPermissionVO;
+import com.yjk.manager.vo.admin.AdminUserVO;
+import com.yjk.manager.vo.admin.UserPermissionMenuVO;
+import com.yjk.manager.vo.admin.UserPermissionVO;
 
 
 public interface AdminUserMapper {

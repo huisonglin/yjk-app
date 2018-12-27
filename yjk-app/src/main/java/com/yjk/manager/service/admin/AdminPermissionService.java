@@ -1,4 +1,4 @@
-package com.yjk.manager.service;
+package com.yjk.manager.service.admin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.yjk.common.entity.admin.AdminPermission;
 import com.yjk.manager.common.Constants;
 import com.yjk.manager.utils.Page;
 import com.yjk.manager.utils.PageUtil;
-import com.yjk.manager.vo.AdminPermissionVO;
+import com.yjk.manager.vo.admin.AdminPermissionVO;
 
 @Service
 public class AdminPermissionService {

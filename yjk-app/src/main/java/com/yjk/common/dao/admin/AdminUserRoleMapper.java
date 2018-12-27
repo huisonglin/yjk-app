@@ -3,7 +3,7 @@ package com.yjk.common.dao.admin;
 import java.util.List;
 
 import com.yjk.common.entity.admin.AdminUserRole;
-import com.yjk.manager.vo.AdminUserRoleVO;
+import com.yjk.manager.vo.admin.AdminUserRoleVO;
 
 
 public interface AdminUserRoleMapper {

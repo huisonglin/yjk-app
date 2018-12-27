@@ -11,7 +11,7 @@
 	r.update_time updateTime
   </sql>
   
-  <select id="selectAllRolesByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.AdminRoleVO">
+  <select id="selectAllRolesByStatus" parameterType="java.lang.Integer" resultType="com.yjk.manager.vo.admin.AdminRoleVO">
       select 
 	  <include refid="Base_Column_List" />
 	  from tb_admin_role r
@@ -29,7 +29,7 @@
 	  order by r.create_time DESC
   </select>
   
-  <select id="selectRolesList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.AdminRoleVO">
+  <select id="selectRolesList" parameterType="java.util.Map" resultType="com.yjk.manager.vo.admin.AdminRoleVO">
       select 
 	  <include refid="Base_Column_List" />
 	  from tb_admin_role r
@@ -47,7 +47,7 @@
      where r.role_id = #{roleId}
   </update>
   
-  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.AdminRoleVO" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultType="com.yjk.manager.vo.admin.AdminRoleVO" parameterType="java.lang.Long" >
     select 
     	<include refid="Base_Column_List" />
     from tb_admin_role r
