@@ -120,7 +120,7 @@ public class FeeServiceImpl implements FeeService{
 			XcxUnifiedorderDTO xcxUnifiedorderDTO = new XcxUnifiedorderDTO();
 			xcxUnifiedorderDTO.setOpenid(dialingDTO.getOpenId());
 			xcxUnifiedorderDTO.setBody("拨打电话");
-			xcxUnifiedorderDTO.setDetail("快租机械,总有你的");
+			xcxUnifiedorderDTO.setDetail("最快租机械,找我准没错");
 			xcxUnifiedorderDTO.setNonce_str(UuidUtils.get32UUID());
 			
 			xcxUnifiedorderDTO.setOut_trade_no(orderNo);
@@ -170,7 +170,7 @@ public class FeeServiceImpl implements FeeService{
 				//发送模板信息
 				RefundTemplateInfoVO refundTemplateInfoVO = new RefundTemplateInfoVO();
 				refundTemplateInfoVO.setGoodzName("拨打电话");
-				refundTemplateInfoVO.setKindlyReminder("快租机械,总有你的");
+				refundTemplateInfoVO.setKindlyReminder("最快租机械,找我准没错");
 				refundTemplateInfoVO.setOpenId(dialingRefundDTO.getOpenId());
 				refundTemplateInfoVO.setOrderNo(orderDO.getOrderNo());
 				refundTemplateInfoVO.setReason("信息缺乏真实性");
