@@ -2,13 +2,17 @@
 server:
   port: 8086
   servlet:
-    context-path: /app
+    context-path: /
   tomcat:
     uri-encoding: UTF-8
 logging:
   level:
     com: info
 spring:
+  mvc:
+    view:
+      prefix: /jsp/
+      suffix: .jsp
   servlet:
     multipart:
       enabled: true
@@ -93,7 +97,7 @@ spring:
 mybatis:
    configuration:
     mapUnderscoreToCamelCase: true
-   mapperLocations: classpath:mapper/*.xml
+   mapperLocations: classpath:mapper/**/*.xml
    typeAliasesPackage: com.yjk.common.entity
    
 mapper:

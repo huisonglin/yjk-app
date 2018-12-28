@@ -47,8 +47,15 @@ public class DeviceRentalInNeedInfoDetailVO {
 	
 	private Long memberId;
 	
+	private Date newstime;
 	
 	
+	public Date getNewstime() {
+		return newstime;
+	}
+	public void setNewstime(Date newstime) {
+		this.newstime = newstime;
+	}
 	public Long getMemberId() {
 		return memberId;
 	}

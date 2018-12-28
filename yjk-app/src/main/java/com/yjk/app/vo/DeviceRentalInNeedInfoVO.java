@@ -1,6 +1,7 @@
 package com.yjk.app.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,6 +21,10 @@ public class DeviceRentalInNeedInfoVO{
 	private String[] picList;
 	//名称
 	private String name;
+	
+	private String price;
+	
+	private List<ValueUnitNameVO> priceName;
 	//经度
 	private Double longitude;
 	//纬度
@@ -55,6 +60,20 @@ public class DeviceRentalInNeedInfoVO{
 	private String contactMobile;
 	
 	
+	
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	
+	public List<ValueUnitNameVO> getPriceName() {
+		return priceName;
+	}
+	public void setPriceName(List<ValueUnitNameVO> priceName) {
+		this.priceName = priceName;
+	}
 	public String[] getPicList() {
 		return picList;
 	}

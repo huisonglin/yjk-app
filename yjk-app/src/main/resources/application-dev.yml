@@ -5,9 +5,9 @@ server:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
-  jsp-servlet:
-    init-parameters:
-      development: true
+#  jsp-servlet:
+#    init-parameters:
+#      development: true
 logging:
   level:
     com: info

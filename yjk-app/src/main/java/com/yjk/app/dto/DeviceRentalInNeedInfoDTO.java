@@ -49,7 +49,7 @@ public class DeviceRentalInNeedInfoDTO {
 	private String contactName;
 	
 	private String contactMobile;
-	
+	//单价
 	private String price;
 	
 	

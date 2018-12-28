@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>阳光好车后台管理系统</title>
+	<title>最快租机械后台管理系统</title>
 </head>
 <body>
 <section class="rt_wrap content mCustomScrollbar">

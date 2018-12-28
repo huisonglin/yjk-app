@@ -8,7 +8,7 @@
 <head>
 <link rel="shortcut  icon" type="image/x-icon" href="${ctx }/static/images/favicon.ico" media="screen" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>阳光好车后台管理系统</title>
+<title>最快租机械后台管理系统</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/static/css/style.css">
 <!--[if lt IE 9]>
 <script src="${ctx }/static/js/html5.js"></script>
@@ -125,7 +125,7 @@
 		</c:forEach>
 		 
 		<li>
-			<p class="btm_infor">© 2016-2017 snncar 版权所有</p>
+			<p class="btm_infor">© 2018-2019 快租机械 版权所有</p>
 		</li>
 	</ul>
 	</aside>

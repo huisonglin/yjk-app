@@ -65,6 +65,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 			deviceRentOutInfoDetailVO.setRemark(deviceRentOutInfoDO.getRemark());
 			deviceRentOutInfoDetailVO.setMemberId(deviceRentOutInfoDO.getMemberId());
 			deviceRentOutInfoDetailVO.setPrice(valueUnitCorrelationService.showPriceName(id));
+			deviceRentOutInfoDetailVO.setNewstime(deviceRentOutInfoDO.getNewstime());
 			return deviceRentOutInfoDetailVO;
 		}else if(PublishingTypeEnum.RENTAL_IN_NEED.getValue() == infoType) {//发布求租
 			DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = deviceRentalInNeedInfoMapper.selectByPrimaryKey(id);
@@ -74,8 +75,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 			DeviceRentalInNeedInfoDetailVO deviceRentalInNeedInfoDetailVO = new DeviceRentalInNeedInfoDetailVO();
 			PropertyUtils.copyProperties(deviceRentalInNeedInfoDetailVO, deviceRentalInNeedInfoDO);
 			deviceRentalInNeedInfoDetailVO.setPics(deviceRentalInNeedInfoDO.getPics());
-			return deviceRentalInNeedInfoDetailVO;
-			
+			return deviceRentalInNeedInfoDetailVO;			
 		}
 		return null;
 		
