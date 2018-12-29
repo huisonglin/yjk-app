@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import com.yjk.app.service.wx.template.annotation.NotificationType;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
@@ -19,6 +20,7 @@ public class TemplateMessageStragegy{
 	@Resource(name = "beansWithAnnotationMap")
 	Map<String, Object> beansWithAnnotationMap;
 	
+	@Async
 	public void excute(NotifyRequest request) throws Exception {
 		WxTemplateNotify wxTemplateNotify=null;
 		//Map<String, Object> beansWithAnnotationMap = this.applicationContext.getBeansWithAnnotation(NotificationType.class); 

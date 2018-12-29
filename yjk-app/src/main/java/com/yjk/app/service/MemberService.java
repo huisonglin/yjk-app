@@ -45,5 +45,5 @@ public interface MemberService {
 	 
 	 R toShare(Long memberId);
 	 
-	 R callAppeal(CallAppealDTO dto);
+	 R callAppeal(CallAppealDTO dto) throws Exception;
 }

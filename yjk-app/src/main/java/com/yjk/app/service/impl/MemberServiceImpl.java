@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yjk.app.annotation.DistributedLock;
 import com.yjk.app.common.Constants;
+import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.dto.BindMobileDTO;
 import com.yjk.app.dto.CallAppealDTO;
 import com.yjk.app.dto.DecryptUserInfoDTO;
@@ -32,6 +33,8 @@ import com.yjk.app.dto.RegisterDTO;
 import com.yjk.app.dto.ShareInfoDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.MemberService;
+import com.yjk.app.service.wx.template.request.NotifyRequest;
+import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.JwtUtils;
 import com.yjk.app.util.PayUtil;
 import com.yjk.app.util.R;
@@ -42,7 +45,9 @@ import com.yjk.app.vo.DecryptUserInfoVO;
 import com.yjk.app.vo.Jscode2SessionVO;
 import com.yjk.app.vo.LoginVO;
 import com.yjk.app.vo.PhoneNumberVO;
+import com.yjk.app.vo.ReceiveComplainVO;
 import com.yjk.app.vo.ShareInfoVO;
+import com.yjk.app.vo.WxComplainVO;
 import com.yjk.common.dao.FeedBackMapper;
 import com.yjk.common.dao.MemberInfoMapper;
 import com.yjk.common.dao.MemberMapper;
@@ -530,10 +535,27 @@ public class MemberServiceImpl implements MemberService{
 		return R.ok();
 	}
 	
-	public R callAppeal(CallAppealDTO dto) {
+	@Autowired
+	TemplateMessageStragegy templateMessageStragegy;
+	
+	public R callAppeal(CallAppealDTO dto) throws Exception {
 		MemberDO memberDO = memberMapper.selectByPrimaryKey(dto.getMemberId());
 		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
 		memberMapper.updateByPrimaryKeySelective(memberDO);
+		valueOperations.set(Constants.FORM_ID+dto.getMemberId(), dto.getFormId());
+		NotifyRequest notifyRequest = new NotifyRequest();
+		WxComplainVO wxComplainVO = new WxComplainVO();
+		wxComplainVO.setMemberId(dto.getMemberId());
+		wxComplainVO.setComplainContent(dto.getAppealContent());
+		wxComplainVO.setComplainResult("返还一次拨打机会");
+		wxComplainVO.setRemark("工作人员会尽快核实该条信息，请您耐心等待，感谢您的举报");
+		notifyRequest.setWxComplainVO(wxComplainVO);
+		notifyRequest.setType(TemplateEnum.COMPLAIN.getValue());
+		templateMessageStragegy.excute(notifyRequest);
+		
+		
+		
+		ReceiveComplainVO receiveComplainVO = new ReceiveComplainVO();
 		return R.ok();
 	}
 	

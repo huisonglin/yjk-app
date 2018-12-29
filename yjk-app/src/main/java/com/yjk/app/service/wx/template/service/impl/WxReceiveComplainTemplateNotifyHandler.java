@@ -1,5 +1,6 @@
 package com.yjk.app.service.wx.template.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +18,12 @@ import com.yjk.app.service.wx.template.annotation.NotificationType;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.service.WxTemplateNotify;
 import com.yjk.app.util.PayUtil;
-import com.yjk.app.vo.WxComplainVO;
+import com.yjk.app.vo.ReceiveComplainVO;
 import com.yjk.common.dao.MemberMapper;
 import com.yjk.common.entity.MemberDO;
 
-@NotificationType(type = 3)
-public class WxComplainTemplateNotifyHandler implements WxTemplateNotify{
+@NotificationType(type = 4)
+public class WxReceiveComplainTemplateNotifyHandler implements WxTemplateNotify{
 
 	@Autowired
 	JmsTemplate jmsTemplate;
@@ -43,30 +44,31 @@ public class WxComplainTemplateNotifyHandler implements WxTemplateNotify{
 	public void doSendTemplateMessage(NotifyRequest request) throws Exception {
 		try {
 			TemplateDTO templateDTO = new TemplateDTO();
-			WxComplainVO wxComplainVO = request.getWxComplainVO();
-			String formId = valueOperations.get(Constants.FORM_ID+wxComplainVO.getMemberId());
-			templateDTO.setTemplate_id("eVBr3BBMcC5tVVHyTHaLihKtSFsiF_DGuw5FvopIRQM");
+			ReceiveComplainVO receiveComplainVO = request.getReceiveComplainVO();
+			String formId = valueOperations.get(Constants.FORM_ID+receiveComplainVO.getMemberId());
+			templateDTO.setTemplate_id("EFj3q2pjuoPEN4yo1mERKGO9cXkJMNr1d43rYbFhGjI");
 			templateDTO.setForm_id(formId);
 			
-			MemberDO memberDO = memberMapper.selectByPrimaryKey(wxComplainVO.getMemberId());
+			MemberDO memberDO = memberMapper.selectByPrimaryKey(receiveComplainVO.getMemberId());
 			templateDTO.setTouser(memberDO.getXcxOpenId());
 			templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径
 			templateDTO.setAccess_token(payUtil.xcxAccessToken());
 			Map<String, Map<String, String>> data = new HashMap<>();
 			
-			//投诉内容
-			Map<String, String> keyword1vlaue = new HashMap<>(); //金额
-			keyword1vlaue.put("value", wxComplainVO.getComplainContent());
+			//投诉时间
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Map<String, String> keyword1vlaue = new HashMap<>(); 
+			keyword1vlaue.put("value", sdf.format(receiveComplainVO.getComplainTime()));
 			data.put("keyword1",keyword1vlaue);
 			
-			//投诉结果
+			//投诉原因
 			Map<String, String> keyword2vlaue = new HashMap<>(); 
-			keyword2vlaue.put("value", wxComplainVO.getComplainResult());
+			keyword2vlaue.put("value", receiveComplainVO.getReason());
 			data.put("keyword2", keyword2vlaue);
 			
-			//温馨提示
-			Map<String, String> keyword3vlaue = new HashMap<>(); //订单号
-			keyword3vlaue.put("value", wxComplainVO.getRemark());
+			//提醒
+			Map<String, String> keyword3vlaue = new HashMap<>(); 
+			keyword3vlaue.put("value", receiveComplainVO.getReason());
 			data.put("keyword3", keyword3vlaue);
 			
 			templateDTO.setData(data);
