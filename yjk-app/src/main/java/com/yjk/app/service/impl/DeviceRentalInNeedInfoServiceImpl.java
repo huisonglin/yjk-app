@@ -79,6 +79,8 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 			}
 			vo.setPicList(picList);
 		}
+		vo.setPriceName(valueUnitCorrelationService.showPriceName(id));
+		vo.setPrice(valueUnitCorrelationService.showPrice(id));
 		return R.ok().put("info", vo);
 	}
 	

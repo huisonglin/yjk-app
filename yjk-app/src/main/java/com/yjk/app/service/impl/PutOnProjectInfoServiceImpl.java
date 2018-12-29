@@ -50,6 +50,7 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 		item.setPopularity(PublishingTypeEnum.RENTAL_IN_NEED.getValue());
 		item.setAddress(deviceRentalInNeedInfoDO.getAdress());
 		item.setSubject(solrEnvironmentConfig.getEnvironment());
+		item.setLast_modified(deviceRentalInNeedInfoDO.getNewstime());
 		if(deviceRentalInNeedInfoDO.getPics() != null) {
 			item.setUrl(deviceRentalInNeedInfoDO.getPics().split("#")[0]);
 		}
@@ -115,10 +116,18 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 		
 		
 		String subject;
+		//发布日期
+		Date last_modified;
 		
 		
 		
 		
+		public Date getLast_modified() {
+			return last_modified;
+		}
+		public void setLast_modified(Date last_modified) {
+			this.last_modified = last_modified;
+		}
 		public String getSubject() {
 			return subject;
 		}

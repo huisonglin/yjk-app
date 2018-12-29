@@ -37,9 +37,17 @@ public class DeviceRentOutInfoDetailVO {
 	private String distance;
 	
 	private String active;
+	//发布时间
+	private Date newstime;
 	
 	
 	
+	public Date getNewstime() {
+		return newstime;
+	}
+	public void setNewstime(Date newstime) {
+		this.newstime = newstime;
+	}
 	public Long getMemberId() {
 		return memberId;
 	}

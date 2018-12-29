@@ -47,7 +47,11 @@ public class SearchServiceImpl implements SearchService{
 		params.set("pt", searchDTO.getPositionDTO().getLongitude()+" "+searchDTO.getPositionDTO().getLatitude()); //当前经纬度
 		params.set("sfield", "info_position"); //经纬度的字段
 		params.set("d", searchDTO.getDistance().toString()); //就近 d km的所有数据
-		params.set("sort", "geodist() asc");  //根据距离排序：由近到远
+		if(searchDTO.getModeId() == null) {
+			params.set("sort", "geodist() asc");  //根据距离排序：由近到远
+		}else {
+			params.set("sort", "last_modified desc");  //根据发布时间降序
+		}
 		params.set("start", (searchDTO.getPageNo()-1)*pageSize);  //记录开始位置
 		params.set("rows", pageSize);  //查询的行数
 		params.set("fl", "*,_dist_:geodist(),score");//查询的结果中添加距离和score
