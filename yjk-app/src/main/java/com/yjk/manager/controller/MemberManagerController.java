@@ -15,12 +15,14 @@ public class MemberManagerController {
 	@Autowired
 	MemberManagerService memberManagerService;
 
+	@RequiresPermissions(value = "member:list")
 	@RequestMapping(value = "/toList", produces="text/html;charset=UTF-8")
 	public String toList() {
 		return "member/list";
 	}
 	
 	@ResponseBody
+	@RequiresPermissions(value = "member:list")
 	@RequestMapping(value = "/list", produces="text/html;charset=UTF-8")
 	public String list(String page,SearchUserDTO dto) {
 		return memberManagerService.userList(page, dto);

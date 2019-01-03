@@ -29,12 +29,14 @@ public class ReleaseManagerController extends BaseController{
 	@Autowired
 	DeviceRentalInNeedInfoService deviceRentalInNeedInfoService;
 	
+	@RequiresPermissions(value = "release:list")
 	@RequestMapping(value = "/toList", produces="text/html;charset=UTF-8")
 	public String toList() {
 		return "release/list";
 	}
 	
 	@ResponseBody
+	@RequiresPermissions(value = "release:list")
 	@RequestMapping(value = "/list", produces="text/html;charset=UTF-8")
 	public String list(String page,SearchReleaseDTO dto) {
 		return releaseManagerService.releaseList(page,dto);

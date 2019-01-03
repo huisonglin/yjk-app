@@ -30,12 +30,14 @@ public class OrderManagerController {
 	@Autowired
 	FeeService feeService;
 	
+	@RequiresPermissions(value = "order:list")
 	@RequestMapping(value = "/toList", produces="text/html;charset=UTF-8")
 	public String toList() {
 		return "order/list";
 	}
 	
 	@ResponseBody
+	@RequiresPermissions(value = "order:list")
 	@RequestMapping(value = "/list", produces="text/html;charset=UTF-8")
 	public String list(String page,OrderSearchDTO dto) {
 		return OrderManagerService.orderList(page, dto);
