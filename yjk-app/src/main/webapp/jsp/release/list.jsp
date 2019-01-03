@@ -24,6 +24,16 @@
 
 	<section class="mtb"> 
 	   <input type="text" class="textbox textbox_225" placeholder="输入设备名称/发布人昵称/地址。。。。" id="keyword" name="keyword" /> 
+  	    <select class="select" id="infoStatus" name=""infoStatus"" style="width:180px;">
+          <option value=''>---请选择展示状态---</option>
+            <option value='1'>已下架</option>
+          	<option value='2'>已上架</option>
+      </select>
+      <select class="select" id="infoType" name="infoType" style="width:180px;">
+          <option value=''>---请选择发布类型---</option>
+          	<option value='1'>出租</option>
+          	<option value='2'>求租</option>
+      </select>
 	   <input type="button" value="查询" class="group_btn" id="searchBtn" /> 
     </section>
     
@@ -79,7 +89,9 @@
 					on : true,
 					page : 1,
 					pageCountId : 'pageCount', //后台不需要处理此参数
-					keyword : $("#keyword").val()
+					keyword : $("#keyword").val(),
+					infoType : $("#infoType").val(),
+					infoStatus : $("#infoStatus").val()
 				}
 			   //参数列表，其中on 必须开启，page 参数必须存在，其他的都是自定义参数，如果是多条件查询，可以序列化表单，然后增加 page参数
 			}
@@ -132,10 +144,10 @@
 /* 			tr += "<shiro:hasPermission name='per:edit'><a class='btn_modify' href='javascript:void(0);' onclick='edit(" +obj.perId+ ");'>修改</a>&nbsp;&nbsp;</shiro:hasPermission>";
 			tr += "<shiro:hasPermission name='per:del'><a class='btn_delete' href='javascript:void(0);' onclick='del(" +obj.perId+ ");'>删除</a>&nbsp;&nbsp;</shiro:hasPermission>"; */
 			if(1 == obj.status){
-				tr += "<shiro:hasPermission name='per:status'><a class='btn_qy' href='javascript:void(0);' onclick='changeStatus("+obj.status+", " +obj.id+ ","+obj.type+");'>上架</a>&nbsp;&nbsp;</shiro:hasPermission>";
+				tr += "<shiro:hasPermission name='release:status'><a class='btn_qy' href='javascript:void(0);' onclick='changeStatus("+obj.status+", " +obj.id+ ","+obj.type+");'>上架</a>&nbsp;&nbsp;</shiro:hasPermission>";
 			}else{
-				tr += "<shiro:hasPermission name='per:status'><a class='btn_delete' href='javascript:void(0);' onclick='changeStatus("+obj.status+"," +obj.id+ ","+obj.type+");'>下架</a>&nbsp;&nbsp;</shiro:hasPermission>";
-			}
+				tr += "<shiro:hasPermission name='release:status'><a class='btn_delete' href='javascript:void(0);' onclick='changeStatus("+obj.status+"," +obj.id+ ","+obj.type+");'>下架</a>&nbsp;&nbsp;</shiro:hasPermission>";
+			} 
 			tr += "</td>";
 			tr += "</tr>";
 		return tr;

@@ -4,4 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjk.common.dao.MemberMapper">
 
+	<select id="userList" resultType="com.yjk.manager.vo.MemberManagerVO">
+	select m.id,m.nick_name,m.head_image,IFNULL(m.moble,'未绑定') as moble,IFNULL(m.remain_call_count,0) as remain_call_count,create_time,IFNULL(sr.rentCount,0) as rentCount,IFNULL(sn.rentalCount,0) as rentalCount from yjk_member m LEFT JOIN
+	(
+		select r.member_id,count(*) as rentCount from yjk_device_rent_out_info r where r.`status` = '2'GROUP BY r.member_id
+		) sr on m.id = sr.member_id LEFT JOIN
+		(
+		select n.member_id,count(*) as rentalCount from yjk_device_rental_in_need_info n where `status` = '2' GROUP BY n.member_id
+	) sn on m.id = sn.member_id 
+	where 1=1
+	<if test="keyword != null and keyword != ''">
+		and (m.nick_name like '%${keyword}%' or m.moble like '%${keyword}%')
+	</if>
+	ORDER BY m.create_time desc
+	</select>
 </mapper>

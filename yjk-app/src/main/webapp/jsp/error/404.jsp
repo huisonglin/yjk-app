@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>404</title>
 </head>
-<body>
-         文件未找到！
+<body style="text-align: center">
+        <img src = "/static/images/404.jpg"></img>
 </body>
 </html>

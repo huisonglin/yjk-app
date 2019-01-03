@@ -40,6 +40,7 @@ public class PutOnProjectInfoServiceImpl implements PutOnProjectInfoService {
 	public R putOnProject(Long id) throws Exception {
 		DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = deviceRentalInNeedInfoMapper.selectByPrimaryKey(id);
 		deviceRentalInNeedInfoDO.setNewstime(new Date());
+		deviceRentalInNeedInfoDO.setStatus(2);
 		ProjectItemInfo item = new ProjectItemInfo();
 		item.setId(deviceRentalInNeedInfoDO.getId().toString());
 		item.setInfo_position(deviceRentalInNeedInfoDO.getLongitude()+" "+deviceRentalInNeedInfoDO.getLatitude());

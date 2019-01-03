@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjk.common.dao.FeedBackMapper">
+
+	<select id="feedBackList" resultType="com.yjk.manager.vo.AdminFeedbackVO">
+		select f.id,m.id as memberId,m.nick_name,m.head_image,f.content,f.create_time from yjk_feedback f LEFT JOIN yjk_member m on m.id=f.member_id
+		order by f.create_time desc
+	</select>
+</mapper>

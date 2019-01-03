@@ -10,7 +10,7 @@ server:
 #      development: true
 logging:
   level:
-    com: info
+    com: debug
 spring:
   mvc:
     view:

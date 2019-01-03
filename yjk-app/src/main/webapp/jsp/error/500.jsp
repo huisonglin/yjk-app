@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>500</title>
 </head>
-<body>
-         服务器错误，请联系管理员！
+<body style="text-align: center">
+ <img src = "/static/images/500.jpg"></img>
 </body>
 </html>

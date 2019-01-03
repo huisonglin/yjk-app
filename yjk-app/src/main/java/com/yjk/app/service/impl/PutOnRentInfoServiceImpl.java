@@ -55,6 +55,7 @@ public class PutOnRentInfoServiceImpl implements PutOnRentInfoService{
 	public R putOnRent(Long deviceRentOutInfoId) throws Exception {
 		DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(deviceRentOutInfoId);
 		DeviceDO device = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getDeviceId());
+		deviceRentOutInfoDO.setStatus(2);
 		deviceRentOutInfoDO.setNewstime(new Date());
 		rentItemInfo rentItemInfo = new rentItemInfo();
 		rentItemInfo.setId(deviceRentOutInfoId.toString());

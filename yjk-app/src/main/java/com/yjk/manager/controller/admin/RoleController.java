@@ -26,6 +26,7 @@ import com.yjk.manager.service.admin.AdminPermissionService;
 import com.yjk.manager.service.admin.AdminRolePermissonService;
 import com.yjk.manager.service.admin.AdminRoleService;
 import com.yjk.manager.service.admin.AdminUserRoleService;
+import com.yjk.manager.shiro.ShiroDbRealm;
 import com.yjk.manager.vo.admin.AdminPermissionVO;
 import com.yjk.manager.vo.admin.AdminRolePermissionVO;
 import com.yjk.manager.vo.admin.AdminRoleVO;
@@ -35,7 +36,7 @@ import com.yjk.manager.vo.admin.ZTreeVO;
 
 @Controller
 @RequestMapping("/role")
-public class RoleController {
+public class RoleController extends BaseController{
 	
 	
 	@Autowired
@@ -105,6 +106,9 @@ public class RoleController {
 		return "role/form";
 	}
 	
+	@Autowired
+	ShiroDbRealm shiroDbRealm;
+	
 	@RequiresPermissions(value={"role:add","role:edit"},logical=Logical.OR)
 	@RequestMapping("/addOrUpdate")
 	public String addOrUpdate(AdminRole role, String rolePersStr, RedirectAttributes redirectAttributes){
@@ -124,6 +128,8 @@ public class RoleController {
 			}else{
 				redirectAttributes.addFlashAttribute("msg", "新增/修改操作失败，请重试！");
 			}
+			
+			shiroDbRealm.clearAllCachedAuthorizationInfo();
 		return "redirect:/role/toList";
 	}
 	

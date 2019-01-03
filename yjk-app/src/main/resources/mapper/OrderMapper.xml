@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjk.common.dao.OrderMapper">
+
+	<select id="orderList" resultType="com.yjk.manager.vo.OrderVO">
+		select o.id,m.id as member_id,m.head_image,m.nick_name,o.money,o.order_no,o.transaction_id,
+		CASE WHEN
+		o.`status` = '2' then '已支付'  
+		else
+		'已退款' end as status,o.`status`,o.pay_time,o.refund_time from yjk_order o 
+		LEFT JOIN yjk_member m on o.member_id = m.id where o.`status` != 1
+		<if test="keyword != null and keyword != ''">
+		and (m.nick_name like '%${keyword}%' or o.order_no like '%${keyword}%' or o.transaction_id like '%${keyword}%')
+		</if>
+		 ORDER BY pay_time desc
+	</select>
+</mapper>

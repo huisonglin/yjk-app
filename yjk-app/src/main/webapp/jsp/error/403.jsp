@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>403</title>
 </head>
-<body>
-         无此操作权限，请联系管理员！
+<body style="text-align: center">
+         <img src = "/static/images/403.jpg"></img>
 </body>
 </html>

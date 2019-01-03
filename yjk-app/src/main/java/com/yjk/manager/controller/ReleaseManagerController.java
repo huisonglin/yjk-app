@@ -3,6 +3,7 @@ package com.yjk.manager.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,7 @@ public class ReleaseManagerController extends BaseController{
 	 * @throws Exception 
 	 */
 	@ResponseBody
+	@RequiresPermissions(value = "release:status")
 	@RequestMapping("changeStatus")
 	public String changeStatus(Long id,Integer type,Integer status) throws Exception{
 		
