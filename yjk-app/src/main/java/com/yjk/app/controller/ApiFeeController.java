@@ -17,7 +17,7 @@ import com.yjk.common.entity.MemberDO;
 
 @RestController
 @RequestMapping("/app/fee")
-public class FeeController {
+public class ApiFeeController {
 
 	@Autowired
 	FeeService feeService;

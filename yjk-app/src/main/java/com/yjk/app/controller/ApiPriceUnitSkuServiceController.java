@@ -9,7 +9,7 @@ import com.yjk.app.util.R;
 
 @RestController
 @RequestMapping("/app/price/unit")
-public class PriceUnitSkuServiceController {
+public class ApiPriceUnitSkuServiceController {
 
 	@Autowired
 	PriceUnitSkuService priceUnitSkuService;

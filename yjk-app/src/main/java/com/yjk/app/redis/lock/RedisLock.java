@@ -68,7 +68,7 @@ public class RedisLock implements Lock {
 		try {
 			setReisLock = RedisUtil.tryGetDistributedLock(jedis, lockName, uuid, lockTime);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
 			jedis.close();
 		}
