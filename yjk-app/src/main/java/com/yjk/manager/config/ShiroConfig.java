@@ -2,6 +2,7 @@ package com.yjk.manager.config;
 
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,8 @@ import com.yjk.manager.shiro.ShiroDbRealm;
 @Configuration
 public class ShiroConfig {
 
-	
+	@Autowired
+	EhCacheManager ehCacheManager;
     @Bean
     public ShiroDbRealm shiroDbRealm() {
     	ShiroDbRealm shiroDbRealm = new ShiroDbRealm();
@@ -35,7 +37,7 @@ public class ShiroConfig {
 	SecurityManager securityManager(ShiroDbRealm shiroDbRealm) {
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(shiroDbRealm);
-		manager.setCacheManager(new EhCacheManager());
+		manager.setCacheManager(ehCacheManager);
 		return manager;
 	}
 	
