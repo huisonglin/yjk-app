@@ -89,6 +89,14 @@ public class ApiDeviceController {
 		return R.ok().put("info", deviceService.myList(dto));
 	}
 	
+	@Login
+	@RequestMapping("/deviceList")
+	public R deviceList(@RequestAttribute("memberId")Long memberId,MyListDTO dto){
+		Assert.isNull(dto.getPageNo(), "页码不能为空");
+		dto.setMemberId(memberId);
+		return deviceService.deviceList(dto);
+	}
+	
 	/**
 	 * 刷新位置并发布
 	 * @param dto

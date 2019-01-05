@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yjk.manager.service.MemberManagerService;
 import com.yjk.manager.service.admin.AdminUserService;
 import com.yjk.manager.shiro.CaptchaException;
 import com.yjk.manager.shiro.ShiroDbRealm.ShiroUser;
 import com.yjk.manager.shiro.UserFreezeException;
 import com.yjk.manager.shiro.UsernamePasswordCaptchaToken;
 import com.yjk.manager.utils.MD5;
+import com.yjk.manager.vo.StatisticsVO;
 import com.yjk.manager.vo.admin.UserPermissionMenuVO;
 
 
@@ -141,31 +143,16 @@ public class LoginController extends BaseController{
     	
     }
     
+    @Autowired
+    MemberManagerService memberManagerService;
     /******
      * 欢迎页面
      * @return
      */
     @RequestMapping("/welcome")
     public String welcome(HttpServletRequest request) {
-/*    	//待审核车辆
-    	Integer dshCarCount = carBaseService.selectCarCountBySelective(null, CarStatus.DAISHENHE.getValue());
-    	//待分配卖车信息
-    	Integer dfpSellerInfoCount = sellerInfoService.selectCountBySelective(null, SellerInfoStatus.INFO_ED.getValue());
-    	//待分配买车信息
-    	Integer dfpBuyerInfoCount = buyerInfoService.selectCountBySelective(null, BuyerInfoStatus.INFO_ED.getValue());
-    	//在售车辆总数
-    	Integer zsCarCount = carBaseService.selectCarCountBySelective(null, CarStatus.YISHANGJIA.getValue());
-    	//已成交车辆总数
-    	Integer ycjCarCount = carBaseService.selectCarCountBySelective(null, CarStatus.YIMAICHU.getValue());
-    	//门店数
-    	Integer storeCount = storeService.selectCountBySelective(StoreStatus.ON.getValue());
-    	
-    	request.setAttribute("dshCarCount", dshCarCount);
-    	request.setAttribute("dfpSellerInfoCount", dfpSellerInfoCount);
-    	request.setAttribute("dfpBuyerInfoCount", dfpBuyerInfoCount);
-    	request.setAttribute("zsCarCount", zsCarCount);
-    	request.setAttribute("ycjCarCount", ycjCarCount);
-    	request.setAttribute("storeCount", storeCount);*/
+    	StatisticsVO statisticsVO = memberManagerService.statistics();
+    	request.setAttribute("statisticsVO", statisticsVO);
     	return "welcome";
     }
     

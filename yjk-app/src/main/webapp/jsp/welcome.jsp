@@ -13,38 +13,38 @@
     <div style="height: 100%; overflow: hidden;">
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #578ebe;">
-          <h2 class="m-top-none">${dshCarCount }<span>辆</span></h2>
-          <h5>待审核车辆</h5>
+          <h2 class="m-top-none">${statisticsVO.registrationCountToDay }<span>人</span></h2>
+          <h5>今日新增人数</h5>
         </div>
       </div>
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #e35b5a;">
-          <h2 class="m-top-none">${dfpSellerInfoCount }<span>条</span></h2>
-          <h5>待分配卖车信息</h5>
+          <h2 class="m-top-none">${statisticsVO.releasesRentCountToDay }<span>条</span></h2>
+          <h5>今日发布出租条数</h5>
         </div>
       </div>
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #44b6ae;">
-          <h2 class="m-top-none">${dfpBuyerInfoCount }<span>条</span></h2>
-          <h5>待分配买车信息</h5>
+          <h2 class="m-top-none">${statisticsVO.releasesRetalCountToDay }<span>条</span></h2>
+          <h5>今日发布求租条数</h5>
         </div>
       </div>
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #8775a7; margin-right: 10px;">
-          <h2 class="m-top-none">${zsCarCount }<span>辆</span></h2>
-          <h5>在售车辆总数</h5>
+          <h2 class="m-top-none">${statisticsVO.registrationsCountHistory }<span>人</span></h2>
+          <h5>累计注册人数</h5>
         </div>
       </div>
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #4f5c65; margin-bottom: 0px;">
-          <h2 class="m-top-none">${ycjCarCount }<span>辆</span></h2>
-          <h5>已成交车辆总数</h5>
+          <h2 class="m-top-none">${statisticsVO.releasesRentCountHistory }<span>条</span></h2>
+          <h5>累计发布出租条数</h5>
         </div>
       </div>
       <div class="dashboard-stats">
         <div class="dashboard-stats-item" style="background-color: #14aae4; margin-bottom: 0px;">
-          <h2 class="m-top-none">${storeCount }<span>家</span></h2>
-          <h5>门店数</h5>
+          <h2 class="m-top-none">${statisticsVO.releasesRetalCountHistory }<span>条</span></h2>
+          <h5>累计发布求租条数</h5>
         </div>
       </div>
     </div>

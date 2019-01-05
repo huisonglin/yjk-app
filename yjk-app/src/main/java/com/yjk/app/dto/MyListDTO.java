@@ -5,6 +5,18 @@ public class MyListDTO {
 	private Long memberId;
 	
 	private String identify;
+	
+	private Integer pageNo;
+	
+	
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
 
 	public Long getMemberId() {
 		return memberId;

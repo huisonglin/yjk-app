@@ -9,6 +9,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceDTO;
@@ -107,6 +109,16 @@ public class DeviceServiceImpl implements DeviceService{
 			}
 		}
 		return myList;
+	}
+	
+	public R deviceList(MyListDTO dto){
+		int pageSize = Constants.pageSize;
+		String  identify = valueOperations.get(Constants.IDENTIFY+dto.getMemberId());
+		dto.setIdentify(identify);
+		PageHelper.startPage(dto.getPageNo(), pageSize);
+		List<MyListVO> myList = deviceMapper.myList(dto);
+		PageInfo<MyListVO> pageInfo=new PageInfo<>(myList);
+		return R.ok().put("info", pageInfo);
 	}
 	
 	

@@ -30,14 +30,14 @@ public class SearchServiceImpl implements SearchService{
 	@Autowired
 	private SolrClient solrClient;
 	
-	public static Integer pageSize = 25;
+	public static Integer pageSize = 50;
 	
 /*	@Autowired
 	InfoDetailService infoDetailService;*/
 	
 	@Autowired
 	SolrEnvironmentConfig solrEnvironmentConfig;
-	
+
 	@Override
 	public R search(SearchDTO searchDTO) throws Exception {
 		SolrQuery params = new SolrQuery();

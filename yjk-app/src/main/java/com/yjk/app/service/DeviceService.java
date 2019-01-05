@@ -22,5 +22,7 @@ public interface DeviceService {
 	List<MyListVO> myList(MyListDTO myListDTO);
 	
 	public R refreshPositionAndPublish(RefreshPositionAndPublishDTO dto) throws Exception ;
+	
+	public R deviceList(MyListDTO dto);
 
 }

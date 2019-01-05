@@ -15,6 +15,7 @@ import com.yjk.manager.dto.SearchUserDTO;
 import com.yjk.manager.utils.Page;
 import com.yjk.manager.utils.PageUtil;
 import com.yjk.manager.vo.MemberManagerVO;
+import com.yjk.manager.vo.StatisticsVO;
 
 import net.sf.json.JSONObject;
 
@@ -40,5 +41,9 @@ public class MemberManagerService {
             jsonMap.put("result", releaseList);     
         result = JSONObject.fromObject(jsonMap);
         return result.toString();
+	}
+	
+	public StatisticsVO statistics() {
+		return memberMapper.statistics();
 	}
 }
