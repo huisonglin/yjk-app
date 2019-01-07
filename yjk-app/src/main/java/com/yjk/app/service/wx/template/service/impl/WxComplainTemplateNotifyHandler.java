@@ -7,8 +7,6 @@ import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSON;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
