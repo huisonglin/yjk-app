@@ -2,7 +2,7 @@ package com.yjk.app.common;
 
 public enum OrderStatusEnum {
 
-	UNPAID("未支付",1), PAYMENT("退款",2), REFUND("已退款",3);
+	UNPAID("未支付",1), PAYMENT("已支付",2), REFUND("已退款",3);
 	
 	String name;
 	

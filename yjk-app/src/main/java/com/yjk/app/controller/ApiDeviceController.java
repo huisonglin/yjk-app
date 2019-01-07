@@ -89,6 +89,12 @@ public class ApiDeviceController {
 		return R.ok().put("info", deviceService.myList(dto));
 	}
 	
+	/**
+	 * 我的发布列表带分页
+	 * @param memberId
+	 * @param dto
+	 * @return
+	 */
 	@Login
 	@RequestMapping("/deviceList")
 	public R deviceList(@RequestAttribute("memberId")Long memberId,MyListDTO dto){
