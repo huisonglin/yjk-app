@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.yjk.app.service.PriceUnitSkuService;
 import com.yjk.app.util.R;
@@ -21,9 +22,8 @@ public class PriceUnitSkuServiceImpl implements PriceUnitSkuService{
 	@Autowired
 	PriceUnitSkuMapper priceUnitSkuMapper;
 	
-	
-	public R priceUnitSku() {
-		
+	@Cacheable(value = "sku")
+	public R priceUnitSku() {		
 		Example example = new Example(PriceUnitSkuDO.class);
 		example.setOrderByClause("sort desc");
 		Criteria criteria = example.createCriteria();

@@ -1,8 +1,8 @@
 package com.yjk.manager.common;
 
 /******
- * 角色状态(管理后台+门店后台)
- * @author ATH
+ * 角色状态
+ * @author Mr hui
  *
  */
 public enum RoleStatus {

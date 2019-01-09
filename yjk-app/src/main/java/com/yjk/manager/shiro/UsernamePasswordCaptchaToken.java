@@ -4,7 +4,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 
 /******
  * 扩展Shiro默认的用户认证的Bean - UsernamePasswordToken
- * @author ATH
+ * @author Mr hui
  *
  */
 public class UsernamePasswordCaptchaToken extends UsernamePasswordToken {

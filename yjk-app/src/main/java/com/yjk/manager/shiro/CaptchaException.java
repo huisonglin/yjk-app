@@ -4,7 +4,7 @@ import org.apache.shiro.authc.AuthenticationException;
 
 /******
  * Shiro登录认证，验证码错误异常
- * @author ATH
+ * @author Mr hui
  *
  */
 public class CaptchaException extends AuthenticationException {

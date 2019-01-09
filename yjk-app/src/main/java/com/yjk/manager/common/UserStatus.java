@@ -1,8 +1,8 @@
 package com.yjk.manager.common;
 
 /******
- * 用户状态(管理后台+门店后台)
- * @author ATH
+ * 用户状态
+ * @author Mr hui
  *
  */
 public enum UserStatus {

@@ -4,7 +4,7 @@ import org.apache.shiro.authc.AuthenticationException;
 
 /******
  * Shiro登录认证，用户已冻结异常
- * @author ATH
+ * @author Mr hui
  *
  */
 public class UserFreezeException extends AuthenticationException {

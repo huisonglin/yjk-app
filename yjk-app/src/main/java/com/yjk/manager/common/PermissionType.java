@@ -2,7 +2,7 @@ package com.yjk.manager.common;
 
 /******
  * 权限类型
- * @author ATH
+ * @author Mr hui
  *
  */
 public enum PermissionType {

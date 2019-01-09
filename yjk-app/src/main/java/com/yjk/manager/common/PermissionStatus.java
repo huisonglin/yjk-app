@@ -1,8 +1,8 @@
 package com.yjk.manager.common;
 
 /******
- * 权限状态(管理后台+门店后台)
- * @author ATH
+ * 权限状态
+ * @author Mr hui
  *
  */
 public enum PermissionStatus {
