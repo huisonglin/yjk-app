@@ -2,6 +2,9 @@ package com.yjk.app.common;
 
 public class Constants {
 	
+	//用户设备搜索记录
+	public static final String SEARCH_RECORD = "serach_record_";
+			
 	public static final String LAST_LOGIN_TIME = "last_login_time_";
 	
 	public static final String XCX_SHARE_INFO = "xcx_share_info_";

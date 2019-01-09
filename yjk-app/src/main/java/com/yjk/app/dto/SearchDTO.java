@@ -13,7 +13,9 @@ public class SearchDTO {
 	private Long twoStageModeId;
 	//规格ID
 	private Long specId;
-	//位置信息
+	//用户ID
+	private String memberId;
+	//位置信息 
 	private PositionDTO positionDTO;
 	
 	public Integer getPageNo() {
@@ -58,6 +60,12 @@ public class SearchDTO {
 	}
 	public void setPositionDTO(PositionDTO positionDTO) {
 		this.positionDTO = positionDTO;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	
 	
