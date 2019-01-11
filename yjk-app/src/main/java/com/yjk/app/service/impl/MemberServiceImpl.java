@@ -347,6 +347,9 @@ public class MemberServiceImpl implements MemberService{
 			memberDO = member;
 		}else {
 			memberDO = members.get(0);
+			if(memberDO.getStatus() == 0) {
+				throw new RRException("该用户已被禁用！");
+			}
 		}
 		//保存用户的session_key
 		valueOperations.set(Constants.XCX_SESSION_KEY+memberDO.getId().toString(), jsv.getSession_key());
