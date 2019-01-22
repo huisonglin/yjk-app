@@ -30,7 +30,7 @@ public class SearchServiceImpl implements SearchService{
 	@Autowired
 	private SolrClient solrClient;
 	
-	public static Integer pageSize = 50;
+	public static Integer pageSize = 5;
 	
 /*	@Autowired
 	InfoDetailService infoDetailService;*/

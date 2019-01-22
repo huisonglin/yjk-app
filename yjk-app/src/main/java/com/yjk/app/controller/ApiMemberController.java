@@ -54,14 +54,24 @@ public class ApiMemberController {
 	 */
 	@Login
 	@RequestMapping("/bindMobileByXcx")
+	@Deprecated
 	public R bindMobileByXcx(PhoneNumberDTO phoneNumberDTO,@RequestAttribute("memberId")Long userId) throws Exception{
 		Assert.isBlank(phoneNumberDTO.getEncryptedData(), "encryptedData不能为空");
 		Assert.isBlank(phoneNumberDTO.getIv(), "iv不能为空");
 		return memberService.bindMobileByXcx(phoneNumberDTO, userId);
 	}
 	
+	@RequestMapping("/loginByWxXcx")
+	public R loginByWxXcx(String code) throws Exception {
+		Assert.isBlank(code, "code不能为空");
+		R r = memberService.loginByWxXcx(code);
+		return r;
+	}
+	
+	
 	@Login
 	@RequestMapping("/modifyPassword")
+	@Deprecated
 	public R modifyPassword(ModifyPasswordDTO modifyPasswordDTO,@RequestAttribute("memberId") Long memberId) {
 		modifyPasswordDTO.setMemberId(memberId);
 		Assert.isNull(modifyPasswordDTO.getMemberId(), "用户ID不能为空");
@@ -72,6 +82,7 @@ public class ApiMemberController {
 	}
 	
 	@RequestMapping("/forgotPassword")
+	@Deprecated
 	public R forgotPassword(ForgotPasswordDTO forgotPasswordDTO) {
 		Assert.isBlank(forgotPasswordDTO.getMobile(), "手机号不能为空");
 		Assert.isBlank(forgotPasswordDTO.getNewPassword(), "新密码不能为空");
@@ -82,6 +93,7 @@ public class ApiMemberController {
 	
 	@Login
 	@RequestMapping("/editMemberInfo")
+	@Deprecated
 	public R editMemberInfo(MemberDO member,@RequestAttribute("memberId") Long id) {
 		member.setId(id);
 		R r = memberService.editMemberInfo(member);
@@ -90,7 +102,7 @@ public class ApiMemberController {
 	
 	
 	@RequestMapping("/loginByXcx")
-	@LimitedAccessByIP(key="loginByXcx",EachInterva=5)
+	@LimitedAccessByIP(key="loginByXcx",EachInterva=2)
 	public R loginByXcx(String code,String iv,String encryptedData) throws Exception {
 		Assert.isBlank(code, "code不能为空");
 		Assert.isBlank(iv, "iv不能为空");
@@ -99,6 +111,7 @@ public class ApiMemberController {
 	}
 	
 	@RequestMapping("/bindMobile")
+	@Deprecated
 	@LimitedAccessByIP(key="xcxMemberRegister",EachInterva=3)
 	public R bindMobile(BindMobileDTO bindMobileDTO) {
 		Assert.isBlank(bindMobileDTO.getMobile(), "手机号不能为空");
@@ -109,6 +122,7 @@ public class ApiMemberController {
 	
 	@Login
 	@RequestMapping("/memberInfo")
+	@Deprecated
 	public R memberInfo(@RequestAttribute("memberId") Long memberId) {
 		return memberService.memberInfo(memberId);
 	}

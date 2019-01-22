@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.yjk.app.annotation.Position;
 import com.yjk.app.common.Constants;
+import com.yjk.app.common.PublishingTypeEnum;
 import com.yjk.app.dto.PositionDTO;
 import com.yjk.app.dto.SearchDTO;
 import com.yjk.app.service.SearchService;
@@ -44,21 +45,21 @@ public class ApiSearchController {
 		Assert.isNull(searchDTO.getDistance(), "检索范围不能为空");
 		searchDTO.setPositionDTO(positionDTO);
 		String memberId = getMemberId(request);
-		dealSearchDTO(searchDTO, memberId);
-		searchDTO.setMemberId(memberId);
-		
+		dealSearchDTO(searchDTO, memberId,searchDTO.getType());
 		R search = searchService.search(searchDTO);
 		return search;
 	}
 
-	private void dealSearchDTO(SearchDTO searchDTO, String memberId) {
+	private void dealSearchDTO(SearchDTO searchDTO, String memberId, Integer type) {
 		if(memberId != null) {
+			StringBuilder searchKey = new StringBuilder(Constants.SEARCH_RECORD);
+			searchKey.append("_").append(type).append("_").append(memberId);
 			if(searchDTO.getModeId() != null) {
 				StringBuilder builder = new StringBuilder(searchDTO.getModeId().toString());
 				builder.append("-").append(searchDTO.getTwoStageModeId()).append("-").append(searchDTO.getSpecId());
-				valueOperations.set(Constants.SEARCH_RECORD+memberId, builder.toString());
+				valueOperations.set(searchKey.toString(), builder.toString());
 			}else {
-				String searchRecord = valueOperations.get(Constants.SEARCH_RECORD+memberId);
+				String searchRecord = valueOperations.get(searchKey.toString());
 				if(searchRecord != null) {
 					String[] record = searchRecord.split("-");
 					if(record != null && record.length > 2) {

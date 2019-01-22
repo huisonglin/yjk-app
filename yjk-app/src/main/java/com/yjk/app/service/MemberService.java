@@ -46,4 +46,6 @@ public interface MemberService {
 	 R toShare(Long memberId);
 	 
 	 R callAppeal(CallAppealDTO dto) throws Exception;
+	 
+	 R loginByWxXcx(String code) throws Exception;
 }

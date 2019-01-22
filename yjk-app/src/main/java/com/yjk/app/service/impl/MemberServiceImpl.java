@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.management.modelmbean.ModelMBeanNotificationBroadcaster;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -195,7 +196,7 @@ public class MemberServiceImpl implements MemberService{
 	 * 生成用户呢城
 	 */
 	public String generateNickName() {
-		String nickName = "yjk_"+RandomMethod.getRandomStr(5+new Random().nextInt(2));
+		String nickName = "zkzxj_"+RandomMethod.getRandomStr(5+new Random().nextInt(2));
 		Example example = new Example(MemberDO.class);
 		example.createCriteria().andEqualTo("nickName",nickName);
 		List<MemberDO> members = memberMapper.selectByExample(example);
@@ -346,6 +347,49 @@ public class MemberServiceImpl implements MemberService{
 			memberInfoMapper.insertSelective(memberInfo);
 			memberDO = member;
 		}else {
+			memberDO = members.get(0);
+			if(memberDO.getStatus() == 0) {
+				throw new RRException("该用户已被禁用！");
+			}
+		}
+		//保存用户的session_key
+		valueOperations.set(Constants.XCX_SESSION_KEY+memberDO.getId().toString(), jsv.getSession_key());
+		valueOperations.set(Constants.LAST_LOGIN_TIME+memberDO.getId(), System.currentTimeMillis()+"");
+		LoginVO loginVO = new LoginVO();
+		loginVO.setToken(jwtUtils.generateToken(memberDO.getId().toString()));
+		loginVO.setHeadImage(memberDO.getHeadImage());
+		loginVO.setNickName(memberDO.getNickName());
+		loginVO.setMobile(memberDO.getMoble());
+		return R.ok().put("info", loginVO);
+	}
+	
+	public R loginByWxXcx(String code) throws Exception {
+		Jscode2SessionVO jsv = getOpenIdAndSeesinKeyByCode(code);
+		Example example = new Example(MemberDO.class);
+		example.createCriteria().andEqualTo("xcxOpenId",jsv.getOpenid());
+		List<MemberDO> members = memberMapper.selectByExample(example);
+		MemberDO memberDO = new MemberDO();
+		if(CollectionUtils.isEmpty(members)) { //首次登陆
+			MemberDO member = new MemberDO();
+			member.setStatus(1);
+			member.setType(1);//普通用户
+			member.setCreateTime(new Date());
+			member.setUpdateTime(new Date());
+			member.setCreditScore(0);
+			member.setNickName(generateNickName());
+			member.setInviteCode(generateInviteCode());
+			member.setCorporageCertification(0);//0 未认证  1待审核 2已认证
+			member.setPersionCertification(0);//0未认证 1待审核  2已认证
+			member.setXcxOpenId(jsv.getOpenid());
+			member.setRemainCallCount(2);
+			memberMapper.insertSelective(member);
+			MemberInfoDO memberInfo = new MemberInfoDO();
+			memberInfo.setCreateTime(new Date());
+			memberInfo.setUpdateTime(new Date());
+			memberInfo.setMemberId(member.getId());
+			memberInfoMapper.insertSelective(memberInfo);
+			memberDO = member;
+		}else {//老用户
 			memberDO = members.get(0);
 			if(memberDO.getStatus() == 0) {
 				throw new RRException("该用户已被禁用！");
