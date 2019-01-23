@@ -12,4 +12,6 @@ public interface DeviceNameDictService {
 	public R getTwoStageModelByModelId(Long modelId);
 	
 	public R getSpecByTwoStageModelId(Long twoStageModel);
+	
+	public R getSubTypes(Long modelId);
 }

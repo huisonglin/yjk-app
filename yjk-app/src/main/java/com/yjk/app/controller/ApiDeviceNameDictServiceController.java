@@ -34,4 +34,10 @@ public class ApiDeviceNameDictServiceController {
 		return deviceNameDictService.getSpecByTwoStageModelId(twoStageModelId);
 	}
 	
+	@RequestMapping("/getSubTypes")
+	public R getSubTypes(Long modelId) {
+		Assert.isNull(modelId, "机型ID不能为空");
+		return deviceNameDictService.getSubTypes(modelId);
+	}
+	
 }

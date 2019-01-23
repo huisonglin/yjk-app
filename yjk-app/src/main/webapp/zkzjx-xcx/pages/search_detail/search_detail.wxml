@@ -1,2 +1,13 @@
 <!--pages/search_detail/search_detail.wxml-->
-<text>pages/search_detail/search_detail.wxml</text>
+  <van-tree-select
+    items="{{ items }}"
+    main-active-index="{{ mainActiveIndex }}"
+    active-id="{{ activeId }}"
+    bind:click-item="onClickItem"
+    bind:click-nav="onClickNav"
+    content-item-class="content-item-class"
+  ></van-tree-select>
+
+<!-- <view class = "releaseBtn">
+  <van-button size="large" type="primary" bind:click="finish"  round>确认保存</van-button>
+</view> -->

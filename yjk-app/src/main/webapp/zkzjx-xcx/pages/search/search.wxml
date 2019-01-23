@@ -28,33 +28,17 @@
 </van-cell-group></view>
 </van-panel>
 
-<van-panel title="请选择机械"  >
+<van-panel title="请选择机械" use-footer-slot >
 <view class = "device_type">
-<van-button plain bind:click="seaarchDeviceType" type="primary" size="small">朴素按</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素按</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素按钮钮</van-button>
-<van-button plain type="primary" size="small">朴按钮</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素钮</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
-<van-button plain type="primary" size="small">朴素</van-button>
-<van-button plain type="primary" size="small">朴素按钮</van-button>
+  <view wx:for = "{{modelItems}}">
+    <van-button plain type="primary" data-id="{{item.id}}" data-name="{{item.name}}" bind:click = "intoSelect" size="small">{{item.name}}</van-button>
+  </view>
 </view>
+  <view slot="footer" wx:if = "{{modelName != '' && twoStageModelName != '' && sepcName != ''}}">
+    <van-button size="small">您当前选择的是:{{modelName}}/{{twoStageModelName}}/{{sepcName}}</van-button>
+  </view>
 </van-panel>
 
-
-<view class="van-ellipsis">这是一段宽度限制 250px 的文字，后面的内容会省略</view>
-
-<view class="van-multi-ellipsis--l3">这是一段最多显示三行的文字，后面的内容会省略这是一段最多显示三行的文字，后面的内容会省略这是一段最多显示三行的文字，后面的内容会省略这是一段最多显示三行的文字，后面的内容会省略</view>
 
 
 

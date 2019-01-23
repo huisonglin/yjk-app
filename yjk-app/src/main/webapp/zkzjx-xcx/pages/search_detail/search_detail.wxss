@@ -1,1 +1,7 @@
 /* pages/search_detail/search_detail.wxss */
+.content-item-class{
+  color: green
+}
+.main-item-class{
+  color: greenyellow;
+}
