@@ -1,0 +1,29 @@
+<van-notice-bar
+  mode="closeable"
+  text="足协杯战线连续第2年上演广州德比战，上赛季半决赛上恒大以两回合5-3的总比分淘汰富力。"
+/>
+<view class="bar">
+<van-nav-bar
+  bind:click-left="onClickLeft"
+  bind:click-right="onClickRight"
+  bind:click-right="onClickRight"
+>
+<!-- closeable 模式，在右侧显示关闭按钮 -->
+
+<van-icon name="user-o" slot="left" size="1.3rem" color="green" info = "1"/>
+<van-icon name="search" slot="right" size="1.3rem" color="green"/>
+</van-nav-bar>
+</view>
+
+<swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">
+    <view wx:for="{{arrayItems}}" wx:for-item="itmes" wx:for-index="idx">
+      <swiper-item class="swiper-item" wx:for="{{itmes}}" wx:for-item="item" >
+      <image  class="slide-image {{picPosition == index + (pageSize * idx)?'active':''}}" data-distance="{{item.distance}}" 
+        data-id="{{item.id}}"  data-type="{{item.type}}" mode="aspectFill" src="{{item.pic}}" ></image>
+      </swiper-item>
+    </view>
+</swiper>
+<view class = "releaseBtn">
+  <van-button size="large" type="primary"  round>我要发布</van-button>
+</view>
+<van-toast id="van-toast" />

@@ -1,0 +1,17 @@
+<!--pages/search/search.wxml-->
+
+<view class = "distance">
+  <van-slider
+    value="{{currentValue}}"
+    custom-class="slider"
+    bar-height="6px"
+    active-color="green"
+    use-button-slot
+    bind:drag="onDrag"
+  >
+  <view class="custom-button" slot="button">
+    {{currentValue * 10}}KM
+  </view>
+  </van-slider>
+</view>
+
