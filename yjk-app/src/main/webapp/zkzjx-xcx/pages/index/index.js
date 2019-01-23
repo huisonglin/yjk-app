@@ -12,7 +12,9 @@ Page({
     picPosition: 0,
     picLenth:5,
     currentPage: 1,
-    pageSize : 5
+    pageSize : 5,
+    latitude: null,
+    longitude: null,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -22,30 +24,39 @@ Page({
   },
   onLoad: function () {
     var that = this;
-    var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
-    that.data.currentPage = 1;
-      wx.request({
-        url: url_microService+'/app/search',
-        data: {
-          pageNo: '1',
-          longitude: '118.8',
-          latitude:'33.7',
-          distance:'1000',
-          type: '1'
-        },
-        header: {},
-        method: 'GET',
-        dataType: 'json',
-        responseType: 'text',
-        success: function(res) {
-          console.log(res)
-          that.setData({
-            ["arrayItems[" + currentPage + "]"]: res.data.info.rows
-          })
-        },
-        fail: function(res) {},
-        complete: function(res) {},
-      })
+    wx.getLocation({
+      success: function(res) {
+        that.setData({
+          latitude:res.latitude,
+          longitude: res.longitude
+        })
+        var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
+        that.data.currentPage = 1;
+        wx.request({
+          url: url_microService + '/app/search',
+          data: {
+            pageNo: '1',
+            longitude: res.longitude,
+            latitude: res.latitude,
+            distance: '1000',
+            type: '1'
+          },
+          header: {},
+          method: 'GET',
+          dataType: 'json',
+          responseType: 'text',
+          success: function (res) {
+            console.log(res)
+            that.setData({
+              ["arrayItems[" + currentPage + "]"]: res.data.info.rows
+            })
+          },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      },
+    })
+
   },
 
   onReady(){
@@ -79,8 +90,8 @@ Page({
               url: url_microService + '/app/search',
               data: {
                 pageNo: currentPage,
-                longitude: '118.8',
-                latitude: '33.7',
+                longitude: that.data.longitude,
+                latitude: that.data.latitude,
                 distance: '1000',
                 type: '1'
               },

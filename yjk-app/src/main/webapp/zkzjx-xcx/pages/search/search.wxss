@@ -12,6 +12,9 @@
   border-radius: 100px;
   background-color: green;
 }
+.device_type{
+  overflow: hidden;
+}
 .device_type van-button{
   display: block;
   margin:0.3rem;
