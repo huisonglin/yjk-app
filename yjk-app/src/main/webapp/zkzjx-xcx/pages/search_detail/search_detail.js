@@ -1,22 +1,13 @@
-// pages/search/search.js
+// pages/search_detail/search_detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentValue: 60
+
   },
-  onDrag(event) {
-    this.setData({
-      currentValue: event.detail.value
-    });
-  },
-  seaarchDeviceType: function(){
-    wx.navigateTo({
-      url: '../search_detail/search_detail'
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

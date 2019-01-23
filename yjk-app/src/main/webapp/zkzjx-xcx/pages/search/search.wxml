@@ -1,6 +1,6 @@
 <!--pages/search/search.wxml-->
-
-<view class = "distance">
+<van-panel title="请选择范围"  status="单位KM">
+  <view class = "distance">
   <van-slider
     value="{{currentValue}}"
     custom-class="slider"
@@ -14,4 +14,42 @@
   </view>
   </van-slider>
 </view>
+</van-panel>
+
+<van-panel title="请选择地址"  >
+<view><van-cell-group>
+  <van-field
+    value="安徽省合肥市永安存"
+    clearable
+    use-button-slot
+  >
+    <van-button slot="button" size="small" type="primary">选择地址></van-button>
+  </van-field>
+</van-cell-group></view>
+</van-panel>
+
+<van-panel title="请选择机械"  >
+<view class = "device_type">
+<van-button plain bind:click="seaarchDeviceType" type="primary" size="small">朴素按</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素按</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素按钮钮</van-button>
+<van-button plain type="primary" size="small">朴按钮</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素钮</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+<van-button plain type="primary" size="small">朴素</van-button>
+<van-button plain type="primary" size="small">朴素按钮</van-button>
+</view>
+</van-panel>
+
+
 
