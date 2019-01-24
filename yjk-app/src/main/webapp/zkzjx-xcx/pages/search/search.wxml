@@ -1,5 +1,5 @@
 <!--pages/search/search.wxml-->
-<van-panel title="请选择范围"  status="单位KM">
+<van-panel title="请选择范围"  status="单位km">
   <view class = "distance">
   <van-slider
     value="{{currentValue}}"
@@ -17,15 +17,7 @@
 </van-panel>
 
 <van-panel title="请选择地址"  >
-<view><van-cell-group>
-  <van-field
-    value="安徽省合肥市永安存"
-    clearable
-    use-button-slot
-  >
-    <van-button slot="button" size="small" type="primary">选择地址></van-button>
-  </van-field>
-</van-cell-group></view>
+<van-cell title="安徽省合肥市蜀山区" icon="location-o" is-link />
 </van-panel>
 
 <van-panel title="请选择机械" use-footer-slot >
@@ -35,7 +27,13 @@
   </view>
 </view>
   <view slot="footer" wx:if = "{{modelName != '' && twoStageModelName != '' && sepcName != ''}}">
-    <van-button size="small">您当前选择的是:{{modelName}}/{{twoStageModelName}}/{{sepcName}}</van-button>
+    <van-cell-group>
+  <van-field
+    placeholder="您当前选择的是:{{modelName}}/{{twoStageModelName}}/{{sepcName}}"
+    border="true"
+    disabled
+    />
+  </van-cell-group>
   </view>
 </van-panel>
 

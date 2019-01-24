@@ -81,7 +81,6 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 		criteria.andEqualTo("modelId", modelId);
 		List<TwoStagemodelDO> twoStagemodelList = twoStagemodelMapper.selectByExample(example);
 		for (TwoStagemodelDO twoStagemodelDO : twoStagemodelList) {
-			
 			SelectSubTypeVO sv = new SelectSubTypeVO();
 			sv.setText(twoStagemodelDO.getName());
 			Example specExample = new Example(SpecDO.class);
