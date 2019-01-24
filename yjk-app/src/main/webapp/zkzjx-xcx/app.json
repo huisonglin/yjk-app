@@ -1,7 +1,8 @@
 {
   "pages":[
+        "pages/index/index",
     "pages/price_sku/price_sku",
-    "pages/index/index",
+
     "pages/search/search",
     "pages/logs/logs",
     "pages/search_detail/search_detail"

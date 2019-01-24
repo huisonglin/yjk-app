@@ -6,14 +6,7 @@ import java.util.concurrent.Callable;
 
 import org.springframework.cache.Cache;
 
-/** 
-* @author : 刘尊亮
-* @date 创建时间：2019年1月11日 上午11:44:56 
-* @version 1.0 
-* @parameter  
-* @since  
-* @return  
-*/
+
 /**
  * @author Administrator
  *

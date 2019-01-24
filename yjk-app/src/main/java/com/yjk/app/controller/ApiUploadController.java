@@ -24,8 +24,6 @@ public class ApiUploadController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public  static String detail = "-cc";
-	
 
 	@ResponseBody
 	@RequestMapping("/data")
