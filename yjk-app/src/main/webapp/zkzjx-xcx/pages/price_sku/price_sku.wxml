@@ -1,0 +1,62 @@
+<!--pages/price_sku/price_sku.wxml-->
+
+<view>
+<van-panel title="请选择价格:"  use-footer-slot>
+  <view class="price_items_content">
+      <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
+      <view class="priceItem" wx:for="{{ priceItmes }}">
+        <van-checkbox
+          
+          wx:key="index"
+          name="{{ item.unitName }}"
+          checked-color="green"
+        >
+          <van-tag round type="success">{{ item.unitName }}</van-tag>
+        </van-checkbox>
+      </view>
+      </van-checkbox-group>
+  </view>
+        <view slot="footer">
+
+<van-cell-group>
+    <van-field
+    value="15"
+    input-align="right"
+    placeholder="请输入用户名"
+    border="false"
+    icon="cross"
+    bind:click-icon="close"
+    use-button-slot
+    >
+    <view  slot="button" >元/月（工地油）</view>
+    </van-field>
+</van-cell-group> 
+
+<van-cell-group>
+    <van-field
+    value="15"
+    input-align="right"
+    placeholder="请输入用户名"
+    border="false"
+    left-icon="cross"
+    use-button-slot
+    >
+    <view  slot="button" >元/月（工地油）</view>
+    </van-field>
+</van-cell-group> 
+
+        </view>
+</van-panel>
+</view>
+<!-- <van-cell-group>
+  <van-field
+    value="sss"
+    center
+    clearable
+    placeholder="请输入价格"
+    border="true"
+    use-button-slot
+  >
+    <van-tag slot="button" round type="danger">元/小时</van-tag>
+  </van-field>
+</van-cell-group> -->

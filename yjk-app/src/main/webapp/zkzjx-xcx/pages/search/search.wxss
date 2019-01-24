@@ -1,16 +1,24 @@
 /* pages/search/search.wxss */
 .slider {
-  margin: 0 15px 30px;
+  margin: 15px 0px 15px;
 }
 
 .custom-button {
-  width: 35px;
+  width: 26px;
   color: #fff;
   font-size: 10px;
-  line-height: 24px;
+  line-height: 18px;
   text-align: center;
   border-radius: 100px;
-  background-color: green;
+  background-color: #f44;
+  }
+  .device_type{
+    overflow: hidden;
+    }
+    .device_type van-button{
+      display: block;
+        margin:0.3rem;
+        
 }
 .device_type{
   overflow: hidden;
@@ -19,4 +27,8 @@
   display: block;
   margin:0.3rem;
   float:left
+}
+.releaseBtn{
+  width: 80%;
+  margin: auto;
 }

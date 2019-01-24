@@ -1,4 +1,3 @@
-// pages/search/search.js
 const url_microService = require('../../config/config').url_microService; //（与config.js相对路径）
 Page({
 
@@ -6,25 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentValue: 60,
-    modelItems: [],
-    modelName:'',
-    twoStageModelName:'',
-    sepcName:'',
-    address: '',
-    addressDetail: '',
-    latitude:'',
-    longitude: ''
+    list: ['a', 'b', 'c'],
+    result: [],
+    priceItmes:[]
   },
-  onDrag(event) {
+
+  onChange(event) {
     this.setData({
-      currentValue: event.detail.value
+      result: event.detail
     });
   },
-  seaarchDeviceType: function(){
-    wx.navigateTo({
-      url: '../search_detail/search_detail'
-    })
+  close:function(e){
+    console.log(e)
   },
   /**
    * 生命周期函数--监听页面加载
@@ -32,8 +24,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.request({
-      url: url_microService + '/app/deviceName/dict/getModelList',
-      data: {},
+      url: url_microService + '/app/price/unit/sku',
+      data: {
+        modelId: options.modelId,
+      },
       header: {},
       method: 'GET',
       dataType: 'json',
@@ -41,38 +35,14 @@ Page({
       success: function (res) {
         console.log(res)
         that.setData({
-          modelItems:res.data.info
+          priceItmes:res.data.info
         })
       },
       fail: function (res) { },
       complete: function (res) { },
     })
   },
-  intoSelect: function(e){
-    console.log(e.currentTarget.dataset.name)
-    this.setData({
-      twoStageModelName: '',
-      sepcName: '',
-      modelName: e.currentTarget.dataset.name
-    })
-    wx.navigateTo({
-      url: '../search_detail/search_detail?modelId='+e.currentTarget.dataset.id
-    })
-  },
-  chooseAddress: function(e){
-    var that = this
-    wx.chooseLocation({
-      success: function(res) {
-        console.log(res)
-        that.setData({
-          address:res.name,
-          addressDetail:res.address,
-          longitude:res.longitude,
-          latitude:res.latitude
-        })
-      },
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

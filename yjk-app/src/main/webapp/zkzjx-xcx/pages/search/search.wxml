@@ -1,26 +1,26 @@
 <!--pages/search/search.wxml-->
-<van-panel title="请选择范围"  status="单位km">
+<van-panel title="请选择范围:"  status="单位km">
   <view class = "distance">
   <van-slider
     value="{{currentValue}}"
     custom-class="slider"
-    bar-height="6px"
-    active-color="green"
     use-button-slot
+    active-color="#f44"
+    bind:drag="onDrag"
     bind:drag="onDrag"
   >
   <view class="custom-button" slot="button">
-    {{currentValue * 10}}KM
+    {{currentValue * 10}}
   </view>
   </van-slider>
 </view>
 </van-panel>
 
-<van-panel title="请选择地址"  >
-<van-cell title="安徽省合肥市蜀山区" icon="location-o" is-link />
+<van-panel title="请选择地址:"  >
+<van-cell title="{{addressDetail}}:{{address}}" icon="location-o" is-link bind:click="chooseAddress"/>
 </van-panel>
 
-<van-panel title="请选择机械" use-footer-slot >
+<van-panel title="请选择机械:" use-footer-slot >
 <view class = "device_type">
   <view wx:for = "{{modelItems}}">
     <van-button plain type="primary" data-id="{{item.id}}" data-name="{{item.name}}" bind:click = "intoSelect" size="small">{{item.name}}</van-button>
@@ -36,6 +36,10 @@
   </van-cell-group>
   </view>
 </van-panel>
+
+<view class = "releaseBtn">
+  <van-button size="large" type="primary"  round>确认保存</van-button>
+</view>
 
 
 
