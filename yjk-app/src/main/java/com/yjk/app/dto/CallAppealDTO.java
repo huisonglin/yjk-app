@@ -8,8 +8,6 @@ public class CallAppealDTO {
 	
 	private String infoId;
 	
-	private String formId;
-	
 	private String infoType;
 	
 	
@@ -46,13 +44,6 @@ public class CallAppealDTO {
 		this.infoId = infoId;
 	}
 
-	public String getFormId() {
-		return formId;
-	}
-
-	public void setFormId(String formId) {
-		this.formId = formId;
-	}
 	
 	
 }

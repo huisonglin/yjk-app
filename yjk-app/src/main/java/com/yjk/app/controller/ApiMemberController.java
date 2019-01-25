@@ -159,8 +159,6 @@ public class ApiMemberController {
 	@Login
 	@RequestMapping("/callAppeal")
 	public R callAppeal(@RequestAttribute("memberId")Long memberId,CallAppealDTO dto) throws Exception {
-
-		Assert.isBlank(dto.getFormId(), "formId不能为空");
 		Assert.isBlank(dto.getInfoId(), "信息ID不能为空");
 		Assert.isBlank(dto.getInfoType(), "信息类型不能为空");
 		Assert.isBlank(dto.getAppealContent(), "申诉内容不能为空");

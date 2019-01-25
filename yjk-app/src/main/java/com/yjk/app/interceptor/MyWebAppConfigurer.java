@@ -37,6 +37,8 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 	LoginUserHandlerMethodArgumentResolver loginUserHandlerMethodArgumentResolver;
 	@Autowired
 	PositionHandlerMethodArgumentResolver positionHandlerMethodArgumentResolver;
+	@Autowired
+	XcxFormIdInterceptor xcxFormIdInterceptor;
 	
 	
     @Override
@@ -47,6 +49,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**");
         registry.addInterceptor(limitedAccessByTokenInterceptor).addPathPatterns("/**");
         registry.addInterceptor(limitedAccessByIPInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(xcxFormIdInterceptor).addPathPatterns("/**");
         
     }
     

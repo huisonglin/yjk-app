@@ -11,6 +11,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.activemq.consumer.JmsUtil;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dto.TemplateDTO;
@@ -26,7 +27,7 @@ import com.yjk.common.entity.MemberDO;
 public class WxReceiveComplainTemplateNotifyHandler implements WxTemplateNotify{
 
 	@Autowired
-	JmsTemplate jmsTemplate;
+	JmsUtil JmsUtil;
 	
 	@Autowired
 	PayUtil payUtil;
@@ -50,6 +51,7 @@ public class WxReceiveComplainTemplateNotifyHandler implements WxTemplateNotify{
 			templateDTO.setForm_id(formId);
 			
 			MemberDO memberDO = memberMapper.selectByPrimaryKey(receiveComplainVO.getMemberId());
+			templateDTO.setMemberId(receiveComplainVO.getMemberId());
 			templateDTO.setTouser(memberDO.getXcxOpenId());
 			templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径
 			templateDTO.setAccess_token(payUtil.xcxAccessToken());
@@ -73,7 +75,7 @@ public class WxReceiveComplainTemplateNotifyHandler implements WxTemplateNotify{
 			
 			templateDTO.setData(data);
 			
-			jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
+			JmsUtil.sendTemplateMsg(new ActiveMQQueue("xcxTmeplateNotify"),templateDTO);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

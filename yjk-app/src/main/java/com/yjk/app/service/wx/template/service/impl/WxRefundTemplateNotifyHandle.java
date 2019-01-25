@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jms.core.JmsTemplate;
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.activemq.consumer.JmsUtil;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dto.RefundTemplateInfoVO;
@@ -28,7 +29,7 @@ public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	JmsTemplate jmsTemplate;
+	JmsUtil jmsUtil;
 	
 	@Autowired
 	WeiXinConfig weiXinConfig;
@@ -83,7 +84,7 @@ public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 		
 		templateDTO.setEmphasis_keyword("keyword1.DATA"); //该字段放大
 		logger.info(JSON.toJSONString(templateDTO));
-		jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
+		jmsUtil.sendTemplateMsg(new ActiveMQQueue("xcxTmeplateNotify"),templateDTO);
 	}
 
 }

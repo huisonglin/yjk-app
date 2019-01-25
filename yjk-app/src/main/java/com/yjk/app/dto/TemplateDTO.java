@@ -5,7 +5,9 @@ package com.yjk.app.dto;
 import java.util.Map;
 
 public class TemplateDTO {
-
+	
+		//必填 用于获取formId
+		private Long memberId;
 	    private String touser;
 	    private String template_id;
 	    private String page;
@@ -16,6 +18,12 @@ public class TemplateDTO {
 	    
 	    
 	    
+		public Long getMemberId() {
+			return memberId;
+		}
+		public void setMemberId(Long memberId) {
+			this.memberId = memberId;
+		}
 		public Map<String, Map<String, String>> getData() {
 			return data;
 		}
