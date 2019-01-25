@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yjk.manager.service.ReleaseManagerService;
@@ -13,10 +14,11 @@ import com.yjk.manager.service.ReleaseManagerService;
 public class ManagerTest {
 
 	@Autowired
-	ReleaseManagerService releaseManagerService;
+	ListOperations<String, Object> listOperations;
 	
 	@Test
 	public void teset() {
-	/*	System.out.println(releaseManagerService.releaseList("1"));*/
+		String leftPop = (String)listOperations.leftPop("11111");
+		System.out.println(leftPop);
 	}
 }

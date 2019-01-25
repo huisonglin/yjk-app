@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.jms.core.JmsTemplate;
 
 import com.alibaba.fastjson.JSON;
+import com.yjk.app.activemq.consumer.JmsUtil;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.WeiXinConfig;
 import com.yjk.app.dto.TemplateDTO;
@@ -33,7 +34,7 @@ import com.yjk.app.vo.XcxPayNotifyInfoVO;
 public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 
 	@Autowired
-	JmsTemplate jmsTemplate;
+	JmsUtil jmsUtil;
 	
 	@Autowired
 	PayUtil payUtil;
@@ -97,7 +98,7 @@ public class WxPayTemplateNotifyHandle implements WxTemplateNotify{
 		templateDTO.setData(data);
 		
 		templateDTO.setEmphasis_keyword("keyword1.DATA"); //该字段放大
-		jmsTemplate.convertAndSend(new ActiveMQQueue("xcxTmeplateNotify"),JSON.toJSONString(templateDTO));
+		jmsUtil.sendTemplateMsg(new ActiveMQQueue("xcxTmeplateNotify"),templateDTO);
 	}
 
 

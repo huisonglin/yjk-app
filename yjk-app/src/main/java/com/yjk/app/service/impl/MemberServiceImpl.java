@@ -589,7 +589,6 @@ public class MemberServiceImpl implements MemberService{
 		MemberDO memberDO = memberMapper.selectByPrimaryKey(dto.getMemberId());
 		memberDO.setRemainCallCount(memberDO.getRemainCallCount()+1);
 		memberMapper.updateByPrimaryKeySelective(memberDO);
-		valueOperations.set(Constants.FORM_ID+dto.getMemberId(), dto.getFormId());
 		NotifyRequest notifyRequest = new NotifyRequest();
 		WxComplainVO wxComplainVO = new WxComplainVO();
 		wxComplainVO.setMemberId(dto.getMemberId());
