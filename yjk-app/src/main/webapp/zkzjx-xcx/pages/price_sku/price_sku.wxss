@@ -1,8 +1,16 @@
 /* pages/price_sku/price_sku.wxss */
 .priceItem{
   float: left;
-  padding: 0.2rem;
 }
 .price_items_content{
   overflow: hidden
+}
+.remark{
+  color:black;
+}
+.remark .row{
+  float: left;
+}
+.ml10{
+  margin-left: 2rem
 }

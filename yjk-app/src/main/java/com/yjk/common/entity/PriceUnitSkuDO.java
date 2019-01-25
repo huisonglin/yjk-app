@@ -33,9 +33,20 @@ public class PriceUnitSkuDO {
   
 	 //更新时间
    private  Date updateTime;
+   
+   //燃油负责方 1车主油 2 工地油
+   private Integer  type;
+   
+   
   
    
-   public  Long  getId(){
+   public Integer getType() {
+	return type;
+}
+public void setType(Integer type) {
+	this.type = type;
+}
+public  Long  getId(){
    		return  this.id;
    };
    public  void  setId(Long id){

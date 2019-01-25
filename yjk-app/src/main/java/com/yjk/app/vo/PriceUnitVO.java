@@ -10,9 +10,21 @@ public class PriceUnitVO {
   
 	 //燃油负责方
    private  String fuelManager;
+   
+   // 1車主油 2工地油
+   private Integer type;
 
    
+   
 	
+	public Integer getType() {
+	return type;
+	}
+
+public void setType(Integer type) {
+	this.type = type;
+}
+
 	public Long getId() {
 	return id;
 }

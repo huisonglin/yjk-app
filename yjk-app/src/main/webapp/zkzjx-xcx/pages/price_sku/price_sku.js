@@ -7,16 +7,69 @@ Page({
   data: {
     list: ['a', 'b', 'c'],
     result: [],
-    priceItmes:[]
+    priceItmes:[],
+    priceUnitItems:[]
   },
 
   onChange(event) {
+    var name='';
+    var id='';
     this.setData({
-      result: event.detail
+      priceUnitItems:[]
+    })
+    console.log(event)
+    var names = event.detail;
+    var priceUnitItems = this.data.priceUnitItems;
+      for (var i = 0; i < names.length; i++) {
+        var ni = names[i].split("-");
+        this.setData({
+          ["priceUnitItems[" + i + "].id"]: ni[1],
+          ["priceUnitItems[" + i + "].name"]: ni[0]
+        })
+      }
+    
+    this.setData({
+      result: event.detail,
     });
+
   },
-  close:function(e){
-    console.log(e)
+  getValue:function(e){
+    console.log(this.data.priceUnitItems)
+    var priceUnitItems = this.data.priceUnitItems;
+    for (var i = 0; i < priceUnitItems.length;i++){
+      if (priceUnitItems[i].id == e.currentTarget.dataset.id){
+        priceUnitItems[i].value = e.detail;
+      }
+    }
+    this.setData({
+      priceUnitItems: priceUnitItems
+    })
+  },
+  cancel:function(e){
+    console.log(this.data.result)
+    console.log(e.currentTarget.dataset.id)
+    var pui = this.data.priceUnitItems;
+    var result = this.data.result;
+    for (var i = 0; i < pui.length;i++){
+      console.log(pui[i].id + "---" + e.currentTarget.dataset.id)
+      if (pui[i].id == e.currentTarget.dataset.id){
+        console.log(true)
+        pui.splice(i,1)
+        this.setData({
+          priceUnitItems: pui
+        })
+      }
+    }
+      for(var i=0;i<result.length;i++){
+        console.log(result[i] + "iiii" + e.currentTarget.dataset.name + "-" + e.currentTarget.dataset.id)
+        if (result[i] == e.currentTarget.dataset.name + "-" + e.currentTarget.dataset.id){
+          console.log(true)
+          result.splice(i,1);
+          this.setData({
+            result:result
+          })
+        }
+    }
   },
   /**
    * 生命周期函数--监听页面加载

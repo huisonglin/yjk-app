@@ -1,53 +1,62 @@
 <!--pages/price_sku/price_sku.wxml-->
 
 <view>
-<van-panel title="请选择价格:"  use-footer-slot>
+<van-panel title="车主油:"  >
   <view class="price_items_content">
       <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
       <view class="priceItem" wx:for="{{ priceItmes }}">
         <van-checkbox
-          
+          wx:if="{{item.type==1}}"
           wx:key="index"
-          name="{{ item.unitName }}"
-          checked-color="green"
+          name="{{ item.unitName }}-{{item.id}}"
+          checked-color="blue"
         >
           <van-tag round type="success">{{ item.unitName }}</van-tag>
         </van-checkbox>
       </view>
       </van-checkbox-group>
   </view>
-        <view slot="footer">
 
-<van-cell-group>
-    <van-field
-    value="15"
-    input-align="right"
-    placeholder="请输入用户名"
-    border="false"
-    icon="cross"
-    bind:click-icon="close"
-    use-button-slot
-    >
-    <view  slot="button" >元/月（工地油）</view>
-    </van-field>
-</van-cell-group> 
+</van-panel>
+<van-panel title="工地油:"  >
+  <view class="price_items_content">
+      <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
+      <view class="priceItem" wx:for="{{ priceItmes }}">
+        <van-checkbox
+          wx:if="{{item.type==2}}"
+          wx:key="index"
+          name="{{ item.unitName}}-{{item.id}}"
+          checked-color="blue"
+        >
+          <van-tag round type="danger">{{ item.unitName }}</van-tag>
+        </van-checkbox>
+      </view>
+      </van-checkbox-group>
+  </view>
 
-<van-cell-group>
-    <van-field
-    value="15"
-    input-align="right"
-    placeholder="请输入用户名"
-    border="false"
-    left-icon="cross"
-    use-button-slot
-    >
-    <view  slot="button" >元/月（工地油）</view>
-    </van-field>
-</van-cell-group> 
-
-        </view>
 </van-panel>
 </view>
+
+
+
+
+<view >
+<van-cell-group wx:for="{{priceUnitItems}}">
+    <van-field
+    value=""
+    input-align="right"
+    placeholder="请输入价格"
+    border="false"
+    bind:change="getValue"
+    use-button-slot
+    data-id="{{item.id}}"
+    >
+<van-row slot="button">
+  <view class="remark" >  <view class="row">{{item.name}}</view>  <view class="row ml10"><van-icon data-name="{{item.name}}" data-id="{{item.id}}" name="close" bind:click = "cancel"/></view></view>
+</van-row>
+    </van-field>
+</van-cell-group> 
+    </view>
 <!-- <van-cell-group>
   <van-field
     value="sss"
