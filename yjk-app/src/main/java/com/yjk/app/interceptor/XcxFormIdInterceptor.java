@@ -3,6 +3,7 @@ package com.yjk.app.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class XcxFormIdInterceptor extends HandlerInterceptorAdapter{
 		logger.info("开始获取用户的小程序的form_id");
 		String formId = request.getParameter("formId");
 		String userId = (String)request.getAttribute(AuthorizationInterceptor.MemberId);
-		if (formId != null && userId != null) {
+		if (StringUtils.isNotBlank(formId) && StringUtils.isNotBlank(userId)) {
 			listOperations.leftPush(FORM_ID+userId, formId);
 		}
 		return true;
