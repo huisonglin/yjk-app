@@ -36,13 +36,14 @@ public class JmsUtil {
 	ListOperations<String, Object> listOperations;
 	
 	public void sendTemplateMsg(Destination destination ,TemplateDTO templateDTO) {
-		if (templateDTO.getForm_id() != null) {
+		if (StringUtils.isBlank(templateDTO.getForm_id())) {
 			String formId = (String)listOperations.leftPop(XcxFormIdInterceptor.FORM_ID+templateDTO.getMemberId());
 			if (StringUtils.isNotBlank(formId)) {
 				templateDTO.setForm_id(formId);
 				jmsTemplate.convertAndSend(destination, JSON.toJSONString(templateDTO));
 			}
-
+		}else {
+			jmsTemplate.convertAndSend(destination, JSON.toJSONString(templateDTO));
 		}
 
 	}
