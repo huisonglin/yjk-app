@@ -50,6 +50,5 @@ public class JmsUtil {
 		}else {
 			jmsTemplate.convertAndSend(destination, JSON.toJSONString(templateDTO));
 		}
-
 	}
 }
