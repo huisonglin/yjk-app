@@ -14,12 +14,27 @@ Page({
   onChange(event) {
     var name='';
     var id='';
-    this.setData({
-      priceUnitItems:[]
-    })
     console.log(event)
     var names = event.detail;
-    var priceUnitItems = this.data.priceUnitItems;
+    var priceUnits = this.data.priceUnitItems;
+    var p = this.data.priceUnitItems;
+    if (priceUnits.length > names.length){//移除操作
+    console.log("jl")
+      for(var i=0;i<names.length;i++){
+        for (var j = 0; j < priceUnits.length;j++){
+          console.log(names[i])
+          console.log(priceUnits[j].name + "-" + priceUnits[j].id)
+          if (names[i] == priceUnits[j].name + "-" + priceUnits[j].id){
+            console.log(j)
+            p.splice[j,1];
+            console.log(priceUnits)
+          }
+        }
+      }
+      this.setData({
+        priceUnitItems: p
+      })
+    }else{//新增操作
       for (var i = 0; i < names.length; i++) {
         var ni = names[i].split("-");
         this.setData({
@@ -27,7 +42,9 @@ Page({
           ["priceUnitItems[" + i + "].name"]: ni[0]
         })
       }
-    
+    }
+
+
     this.setData({
       result: event.detail,
     });
@@ -55,6 +72,8 @@ Page({
       if (pui[i].id == e.currentTarget.dataset.id){
         console.log(true)
         pui.splice(i,1)
+        console.log(pui)
+        console.log("111111111111111")
         this.setData({
           priceUnitItems: pui
         })

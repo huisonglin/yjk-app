@@ -10,6 +10,7 @@
           wx:key="index"
           name="{{ item.unitName }}-{{item.id}}"
           checked-color="blue"
+          value="1ddd" 
         >
           <van-tag round type="success">{{ item.unitName }}</van-tag>
         </van-checkbox>
