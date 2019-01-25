@@ -6,14 +6,21 @@ import java.util.Map;
 
 public class TemplateDTO {
 	
-		//必填 用于获取formId
+		//必填 memberId 和 from_id不能全为空
 		private Long memberId;
+		
 	    private String touser;
+	    
 	    private String template_id;
+	    
 	    private String page;
+	    
 	    private String form_id;
+	    
 	    private String emphasis_keyword;
+	    
 	    private String access_token;
+	    
 	    private Map<String, Map<String, String>> data;
 	    
 	    
