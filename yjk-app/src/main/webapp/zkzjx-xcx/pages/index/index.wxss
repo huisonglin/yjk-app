@@ -86,8 +86,9 @@ page{
   display:block;
 }
 .releaseBtn{
-  width: 80%;
-  margin: auto;
+  position:fixed;
+  bottom:0;
+  width:100%;
 }
 .bar{
   margin-top:1rem;

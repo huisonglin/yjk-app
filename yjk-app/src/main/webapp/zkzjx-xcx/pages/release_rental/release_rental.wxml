@@ -1,0 +1,146 @@
+<view class="content">
+<!-- 机械名称 -->
+<van-cell  title = "机械名称" required is-link bind:click="toggleBottomPopup" value="{{deviceName==''?'请选择':deviceName}}"/>
+  <van-popup
+    show="{{ show.bottom }}"
+    position="bottom"
+
+    custom-class="bottom"
+    bind:close="toggleBottomPopup"
+  >
+      <view wx:for = "{{modelItems}}" class="item">
+      <van-button plain type="primary" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" bind:click = "selectType" size="small">
+       {{item.name}}</van-button>
+  </view>
+  </van-popup>
+<!-- 联系电话 -->
+  <van-cell-group>
+  <van-field
+    value="{{ contactMobile }}"
+    required
+    clearable
+    label="联系电话"
+    bind:change="getMobile"
+    placeholder="请输入联系电话"
+    bind:click-icon="onClickIcon"
+    use-button-slot
+  >
+    <van-button slot="button" size="small" open-type="getPhoneNumber" type="primary" bindgetphonenumber="bindMobile" >一键获取</van-button>
+  </van-field>
+<!-- 施工位置 -->
+  <van-cell  title="{{address == ''?'施工位置':addressDetail}}" value="{{address == ''?'请选择':''}}"  icon="{{address == ''?'':'location-o'}}" required is-link bind:click="chooseAddress"/>
+<!-- 联系人 -->
+  <van-cell-group>
+  <van-field
+    value="{{ username }}"
+    clearable
+    bind:change="getName"
+    label="联系人"
+    placeholder="请输入联系人姓名"
+  />
+</van-cell-group>
+<!-- 单价 -->
+</van-cell-group>
+<van-panel  >
+<van-cell  title = "单价" is-link bind:click="choosePrice" value="{{priceUnitItems == ''?'请选择':'已选择'}}"/>
+</van-panel>
+<van-cell   wx:for = "{{priceUnitItems}}" title="{{item.value}}/{{item.name}}"/>
+
+<!-- 施工现场图片 -->
+        <view class="name clearfix">
+            <view class="name_top">
+                <view class="name_top_left">
+                    <text>施工现场图片</text>
+                    <text class="color">(不少于1张)</text>
+                </view>
+                <view class="name_top_right">({{count}}/9）</view>
+            </view>
+            <view class="add clearfix">
+                <view class="position" wx:for="{{imgs}}">
+                    <image class="imgshow" src="{{item}}"></image>
+                    <view catchtap="deleteImg" class="delete-btn" data-index="{{index}}">
+                        <image src="../../images/woyaochuzu2.png"></image>
+                    </view>
+                </view>
+                <image catchtap="chooseImage" class="{{active}}" src="http://img.huisonglin.top/kzjx/woyaoqiuzu3.png"></image>
+            </view>
+        </view>
+
+
+<!-- 最迟进场时间 -->
+<view>
+  <picker
+    mode="date"
+    value="{{date}}"
+    start="1990-09"
+    end="2020-01"
+    bindchange="bindDateChange"
+  >
+  <van-cell  title = "最迟进场时间"  is-link value="{{inTime == ''?'请选择':inTime}}"/>
+  </picker>
+</view>
+
+  <van-field
+    clearable
+    bind:change="getTerm"
+    label="工期"
+    placeholder="请输入工期"
+    use-button-slot
+  >
+  <view  slot="button">天</view>
+  </van-field>
+
+    <van-field
+    clearable
+    bind:change="getEquipmentArrivalPayment"
+    label="设备进场付款"
+    placeholder="请输入金额"
+    use-button-slot
+  >
+  <view  slot="button">元</view>
+  </van-field>
+
+<van-cell  title = "按月进度付款" value="{{monthlyPayment == ''?'请选择':monthlyPayment}}" is-link bind:click="chooseProgress"/>
+<van-action-sheet
+  show="{{ shows }}"
+  actions="{{ actions }}"
+  bind:close="onClose"
+  bind:select="onSelect"
+/>
+
+<van-cell  title = "设备退场结清尾款" value="{{exitPayment == ''?'请选择':exitPayment}}" is-link bind:click="chooseExit"/>
+<van-action-sheet
+  show="{{ exitShows }}"
+  actions="{{ exitActions }}"
+  bind:close="exitOnClose"
+  bind:select="exitOnSelect"
+/>
+
+
+
+
+
+<!-- <van-panel   use-footer-slot>
+  <van-cell  title = "标签" />
+  <view slot="footer" class="remarkContent">
+        <van-checkbox-group value="{{ remarkResult }}" bind:change="onChange" max="3">
+      <view  wx:for="{{ remarkItems }}" class="remarkItem">
+        <van-checkbox
+          wx:key="index"
+          name="{{item.value}}"
+          checked-color="blue"
+        >
+          <van-tag round type="success">{{item.value}}</van-tag>
+        </van-checkbox>
+      </view>
+      </van-checkbox-group>
+  </view>
+</van-panel> -->
+</view>
+<view class = "commit">
+  <van-button size="large" type="primary" bind:click="toRelasae"  >我要发布</van-button>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-notify id="custom-selector" />
+

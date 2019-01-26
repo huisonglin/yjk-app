@@ -21,8 +21,8 @@ App({
           dataType: 'json',
           responseType: 'text',
           success: function(res) {
-            console.log(res)
             wx.setStorageSync("simpleInfo", res.data.info)
+            //that.globalData.simpleInfo = res.data.info
           },
           fail: function(res) {},
           complete: function(res) {},

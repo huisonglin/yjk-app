@@ -61,11 +61,12 @@ Page({
     })
   },
 
-  finish: function(e){
+  confirm: function(e){
 
     wx.navigateBack({
       delta: 1
     })
 
   }
+
 });

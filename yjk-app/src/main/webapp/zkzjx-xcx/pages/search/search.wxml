@@ -1,4 +1,5 @@
 <!--pages/search/search.wxml-->
+<view class="content">
 <van-panel title="请选择范围:"  status="单位km">
   <view class = "distance">
   <van-slider
@@ -17,7 +18,7 @@
 </van-panel>
 
 <van-panel title="请选择地址:"  >
-<van-cell title="{{addressDetail}}:{{address}}" icon="location-o" is-link bind:click="chooseAddress"/>
+<van-cell title="{{addressDetail}} {{address}}" icon="location-o" is-link bind:click="chooseAddress"/>
 </van-panel>
 
 <van-panel title="请选择机械:" use-footer-slot >
@@ -36,9 +37,10 @@
   </van-cell-group>
   </view>
 </van-panel>
+</view>
 
-<view class = "releaseBtn">
-  <van-button size="large" type="primary"  round>确认保存</van-button>
+<view class = "commit">
+  <van-button size="large" type="primary" bind:click="toRelasae"  >确认并保存</van-button>
 </view>
 
 

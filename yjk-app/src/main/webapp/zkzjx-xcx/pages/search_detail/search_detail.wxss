@@ -5,3 +5,8 @@
 .main-item-class{
   color: greenyellow;
 }
+.commit{
+  position:fixed;
+  bottom:0;
+  width:100%;
+}

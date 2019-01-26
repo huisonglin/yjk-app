@@ -28,7 +28,11 @@
   margin:0.3rem;
   float:left
 }
-.releaseBtn{
-  width: 80%;
-  margin: auto;
+.commit{
+  position:fixed;
+  bottom:0;
+  width:100%;
+}
+.content{
+  padding-bottom: 4rem;
 }

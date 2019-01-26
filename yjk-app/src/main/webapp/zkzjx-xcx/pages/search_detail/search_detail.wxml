@@ -8,6 +8,6 @@
     content-item-class="content-item-class"
   ></van-tree-select>
 
-<!-- <view class = "releaseBtn">
-  <van-button size="large" type="primary" bind:click="finish"  round>确认保存</van-button>
-</view> -->
+<view class = "commit">
+  <van-button size="large" type="primary" bind:click="confirm"  >确定并返回</van-button>
+</view>
