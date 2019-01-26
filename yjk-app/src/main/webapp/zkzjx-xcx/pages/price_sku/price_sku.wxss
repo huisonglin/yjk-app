@@ -1,6 +1,7 @@
 /* pages/price_sku/price_sku.wxss */
-.priceItem{
-  float: left;
+.model{
+  float: left
+
 }
 .price_items_content{
   overflow: hidden
@@ -13,4 +14,9 @@
 }
 .ml10{
   margin-left: 2rem
+}
+.commit{
+  position:fixed;
+  bottom:0;
+  width:100%;
 }

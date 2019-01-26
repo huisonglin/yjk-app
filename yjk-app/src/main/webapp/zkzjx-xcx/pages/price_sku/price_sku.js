@@ -14,7 +14,9 @@ Page({
   onChange(event) {
     var name='';
     var id='';
-    console.log(event)
+    this.setData({
+      priceUnitItems:[]
+    })
     var names = event.detail;
     var priceUnits = this.data.priceUnitItems;
     var p = this.data.priceUnitItems;
@@ -63,6 +65,7 @@ Page({
     })
   },
   cancel:function(e){
+
     console.log(this.data.result)
     console.log(e.currentTarget.dataset.id)
     var pui = this.data.priceUnitItems;
@@ -74,6 +77,9 @@ Page({
         pui.splice(i,1)
         console.log(pui)
         console.log("111111111111111")
+        this.setData({
+          priceUnitItems: []
+        })
         this.setData({
           priceUnitItems: pui
         })
@@ -89,6 +95,32 @@ Page({
           })
         }
     }
+  },
+  getPriceInfo:function(){
+    var prices = this.data.priceUnitItems;
+    var priceInfo = '';
+    if(prices.length == 1){
+      priceInfo += (prices[0].value + "-" + prices[0].id)
+    }else if(prices.length > 1){
+      for (var i = 0; i < prices.length-1; i++) {
+        priceInfo += (prices[i].value + "-" + prices[i].id+"#")
+      }
+      priceInfo += (prices[prices.length - 1].value + "-" + prices[prices.length - 1].id)
+    }else{
+      console.log("空")
+    }
+    console.log(priceInfo)
+    var pages = getCurrentPages(); // 获取页面栈
+    var prevPage = pages[pages.length - 2]; // 上一个页面
+
+    prevPage.setData({
+      priceUnitItems: this.data.priceUnitItems,
+      price: priceInfo
+    })
+    wx.navigateBack({
+        delta: '1'
+    })
+
   },
   /**
    * 生命周期函数--监听页面加载

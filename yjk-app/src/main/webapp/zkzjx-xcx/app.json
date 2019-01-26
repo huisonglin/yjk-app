@@ -1,7 +1,13 @@
 {
   "pages":[
-      "pages/price_sku/price_sku",
           "pages/index/index",
+    "pages/release_rental/release_rental",
+
+      "pages/price_sku/price_sku",
+
+      "pages/release_rent/release_rent",
+  
+
 
 
     "pages/search/search",
@@ -18,7 +24,7 @@
   },
     "permission": {
       "scope.userLocation": {
-        "desc": "你的位置信息将用于小程序位置接口的效果展�?"
+        "desc": "你的位置信息将用于小程序位置接口的效果展"
       }
     },
   "usingComponents": {

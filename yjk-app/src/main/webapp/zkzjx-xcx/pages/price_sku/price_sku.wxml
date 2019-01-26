@@ -1,9 +1,11 @@
 <!--pages/price_sku/price_sku.wxml-->
 
-<view>
-<van-panel title="车主油:"  >
+<view >
+<view  >
+<van-panel>
   <view class="price_items_content">
-      <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
+  <view class="model">
+        <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
       <view class="priceItem" wx:for="{{ priceItmes }}">
         <van-checkbox
           wx:if="{{item.type==1}}"
@@ -17,8 +19,27 @@
       </view>
       </van-checkbox-group>
   </view>
+  <view class="model">
+              <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
+      <view class="priceItem" wx:for="{{ priceItmes }}">
+        <van-checkbox
+          wx:if="{{item.type==2}}"
+          wx:key="index"
+          name="{{ item.unitName}}-{{item.id}}"
+          checked-color="blue"
+        >
+          <van-tag round type="danger">{{ item.unitName }}</van-tag>
+        </van-checkbox>
+      </view>
+      </van-checkbox-group>
+  </view>
+
+
+  </view>
 
 </van-panel>
+  </view>
+<!-- <view class="model">
 <van-panel title="工地油:"  >
   <view class="price_items_content">
       <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
@@ -36,6 +57,7 @@
   </view>
 
 </van-panel>
+</view> -->
 </view>
 
 
@@ -70,3 +92,6 @@
     <van-tag slot="button" round type="danger">元/小时</van-tag>
   </van-field>
 </van-cell-group> -->
+<view class = "commit">
+  <van-button size="large" type="primary" bind:click="getPriceInfo"  >确定</van-button>
+</view>

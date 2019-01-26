@@ -16,13 +16,21 @@ public class StringConverterDate implements Converter<String, Date>{
 		if("请选择".equals(source)) {
 			return null;
 		}
+		Date target = null;
 		if(source != null && !"".equals(source)) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				Date target = sdf.parse(source);
+				target = sdf.parse(source);
 				return target;
 			} catch (ParseException e) {
-				e.printStackTrace();
+				SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM");
+				try {
+				target = sdf2.parse(source);
+				return target;
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		if("undefined".equals(source)) {

@@ -58,7 +58,13 @@ Page({
     })
 
   },
-
+  toRelasae:function(e){
+    wx.navigateTo({
+     // url: '../release_rent/release_rent',
+      
+      url: '../release_rental/release_rental',
+    })
+  },
   onReady(){
 
   },

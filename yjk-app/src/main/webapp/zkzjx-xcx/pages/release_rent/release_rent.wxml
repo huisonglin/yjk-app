@@ -1,0 +1,99 @@
+<view class="content">
+        <view class="name clearfix">
+            <view class="name_top">
+                <view class="name_top_left">
+                    <text>机械图片</text>
+                    <text class="color">(不少于1张)</text>
+                </view>
+                <view class="name_top_right">({{count}}/9）</view>
+            </view>
+            <view class="add clearfix">
+                <view class="position" wx:for="{{imgs}}">
+                    <image class="imgshow" src="{{item}}"></image>
+                    <view catchtap="deleteImg" class="delete-btn" data-index="{{index}}">
+                        <image src="../../images/woyaochuzu2.png"></image>
+                    </view>
+                </view>
+                <image catchtap="chooseImage" class="{{active}}" src="http://img.huisonglin.top/kzjx/woyaoqiuzu3.png"></image>
+            </view>
+        </view>
+<van-cell  title = "机械名称" required is-link bind:click="toggleBottomPopup" value="{{deviceName}}"/>
+  <van-popup
+    show="{{ show.bottom }}"
+    position="bottom"
+
+    custom-class="bottom"
+    bind:close="toggleBottomPopup"
+  >
+      <view wx:for = "{{modelItems}}" class="item">
+      <van-button plain type="primary" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" bind:click = "selectType" size="small">
+       {{item.name}}</van-button>
+  </view>
+  </van-popup>
+<van-cell  title="{{addressDetail == ''?'机械位置':addressDetail}}"  icon="{{addressDetail == ''?'机械位置':'location-o'}}" required is-link bind:click="chooseAddress"/>
+<van-cell-group>
+  <van-field
+    value="{{ username }}"
+    required
+    clearable
+    label="联系电话"
+    bind:change="getMobile"
+    icon="question-o"
+    placeholder="请输入联系电话"
+    bind:click-icon="onClickIcon"
+  />
+
+</van-cell-group>
+<van-panel  >
+<van-cell  title = "单价" is-link bind:click="choosePrice"/>
+</van-panel>
+<van-cell   wx:for = "{{priceUnitItems}}" title="{{item.value}}/{{item.name}}"/>
+
+
+<van-cell-group>
+  <van-field
+    value="{{ username }}"
+    clearable
+    bind:change="getName"
+    label="联系人"
+    placeholder="请输入联系人姓名"
+  />
+</van-cell-group>
+
+<view>
+  <picker
+    mode="date"
+    value="{{date}}"
+    start="1990-09"
+    end="2020-01"
+    fields="month"
+    bindchange="bindDateChange"
+  >
+  <van-cell  title = "出厂日期"  is-link value="{{manufacture}}"/>
+  </picker>
+</view>
+
+<van-panel   use-footer-slot>
+  <van-cell  title = "标签" />
+  <view slot="footer" class="remarkContent">
+        <van-checkbox-group value="{{ remarkResult }}" bind:change="onChange" max="3">
+      <view  wx:for="{{ remarkItems }}" class="remarkItem">
+        <van-checkbox
+          wx:key="index"
+          name="{{item.value}}"
+          checked-color="blue"
+        >
+          <van-tag round type="success">{{item.value}}</van-tag>
+        </van-checkbox>
+      </view>
+      </van-checkbox-group>
+  </view>
+</van-panel>
+</view>
+<view class = "commit">
+  <van-button size="large" type="primary" bind:click="toRelasae"  >我要发布</van-button>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-notify id="custom-selector" />
+
