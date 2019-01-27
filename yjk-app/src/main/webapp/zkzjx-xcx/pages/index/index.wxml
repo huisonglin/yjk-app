@@ -3,16 +3,21 @@
   text="热烈庆祝 最快租机械2.0版本上线 带给用户更流畅的使用体验以及更舒适的操作界面，并修改之前一发现bug,发布信息有效真是更有豪礼相送"
 /> 
 <view class="bar">
-<van-nav-bar
+<!-- <van-nav-bar
   bind:click-left="onClickLeft"
   bind:click-right="onClickRight"
   bind:click-right="onClickRight"
 >
 <!-- closeable 模式，在右侧显示关闭按钮 -->
 
-<van-icon name="user-o" slot="left" size="1.3rem" color="green" info = "1"/>
+<!-- <van-icon name="user-o" slot="left" size="1.3rem" color="green" info = "1"/>
 <van-icon name="search" slot="right" size="1.3rem" color="green"/>
-</van-nav-bar>
+</van-nav-bar> --> 
+<van-tabs type="card" active='{{tabActive}}' color="green" bind:click = "selectTab">
+  <van-tab title="个人中心"></van-tab>
+  <van-tab title="身份切换"></van-tab>
+  <van-tab title="筛选机械"></van-tab>
+</van-tabs>
 </view>
 
 <swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">

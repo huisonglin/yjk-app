@@ -15,6 +15,24 @@ Page({
     pageSize : 5,
     latitude: null,
     longitude: null,
+    tabActive:'-1'
+  },
+
+  //selectTabp
+  selectTab:function(e){
+    console.log(e)
+
+      if(e.detail.index == '0'){
+
+      }else if(e.detail.index == '1'){
+        wx.navigateTo({
+          url: '/pages/switch_idetify/switch_idetify',
+        })
+      }else if(e.detail.index == '2'){
+        wx.navigateTo({
+          url: '/pages/search/search',
+        })
+      }
   },
   //事件处理函数
   bindViewTap: function() {
@@ -60,9 +78,9 @@ Page({
   },
   toRelasae:function(e){
     wx.navigateTo({
-     // url: '../release_rent/release_rent',
+      url: '../release_rent/release_rent',
       
-      url: '../release_rental/release_rental',
+     // url: '../release_rental/release_rental',
     })
   },
   onReady(){

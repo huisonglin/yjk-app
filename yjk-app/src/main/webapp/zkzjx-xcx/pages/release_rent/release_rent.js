@@ -160,7 +160,33 @@ Page({
       complete: function(res) {},
     })
   },
-
+  //授权绑定手机号
+  bindMobile: function (e) {
+    var that = this;
+    var token = userInfo.token;
+    var encryptedData = e.detail.encryptedData;
+    var iv = e.detail.iv;
+    wx.request({
+      url: url_microService + 'app/member/bindMobileByXcx',
+      data: {
+        token: token,
+        encryptedData: encryptedData,
+        iv: iv
+      },
+      header: {},
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          contactMobile: res.data.info.phoneNumber
+        })
+      },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
   //获取联系人姓名
   getName(e) {
     console.log(e)

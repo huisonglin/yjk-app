@@ -1,0 +1,6 @@
+<view class="switchingIdentity">
+    <image src="{{shenfen}}"></image>
+    <text>您当前的身份是“ {{mingzi}} ”</text>
+    <view bindtap="qiehuan" class="qiehuan" data-identityL="{{identityL}}">切换为“{{mingziFan}}"身份</view>
+    <view bindtap="back" class="back">返回</view>
+</view>

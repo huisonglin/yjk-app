@@ -1,11 +1,14 @@
 {
   "pages":[
-          "pages/index/index",
+              "pages/index/index",
+              "pages/switch_idetify/switch_idetify",
+          "pages/release_rent/release_rent",
+
     "pages/release_rental/release_rental",
 
       "pages/price_sku/price_sku",
 
-      "pages/release_rent/release_rent",
+
   
 
 

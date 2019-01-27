@@ -17,7 +17,7 @@
                 <image catchtap="chooseImage" class="{{active}}" src="http://img.huisonglin.top/kzjx/woyaoqiuzu3.png"></image>
             </view>
         </view>
-<van-cell  title = "机械名称" required is-link bind:click="toggleBottomPopup" value="{{deviceName}}"/>
+<van-cell  title = "机械名称" required is-link bind:click="toggleBottomPopup" value="{{deviceName == ''?'请选择':deviceName}}"/>
   <van-popup
     show="{{ show.bottom }}"
     position="bottom"
@@ -30,22 +30,22 @@
        {{item.name}}</van-button>
   </view>
   </van-popup>
-<van-cell  title="{{addressDetail == ''?'机械位置':addressDetail}}"  icon="{{addressDetail == ''?'机械位置':'location-o'}}" required is-link bind:click="chooseAddress"/>
+<van-cell  title="{{address == ''?'机械位置':addressDetail}}" value="{{address == ''?'请选择':''}}" icon="{{address == ''?'机械位置':'location-o'}}" required is-link bind:click="chooseAddress"/>
 <van-cell-group>
   <van-field
-    value="{{ username }}"
+    value="{{ contactMobile }}"
     required
     clearable
     label="联系电话"
     bind:change="getMobile"
-    icon="question-o"
     placeholder="请输入联系电话"
-    bind:click-icon="onClickIcon"
-  />
-
+    use-button-slot
+  >
+    <van-button slot="button" size="small" open-type="getPhoneNumber" type="primary" bindgetphonenumber="bindMobile" >一键获取</van-button>
+    </van-field>
 </van-cell-group>
 <van-panel  >
-<van-cell  title = "单价" is-link bind:click="choosePrice"/>
+<van-cell  title = "单价" is-link bind:click="choosePrice" value="{{priceUnitItems == ''?'请选择':'已选择'}}"/>
 </van-panel>
 <van-cell   wx:for = "{{priceUnitItems}}" title="{{item.value}}/{{item.name}}"/>
 
@@ -69,7 +69,7 @@
     fields="month"
     bindchange="bindDateChange"
   >
-  <van-cell  title = "出厂日期"  is-link value="{{manufacture}}"/>
+  <van-cell  title = "出厂日期"  is-link value="{{manufacture}}" value = "{{manufacture == ''?'请选择':manufacture}}"/>
   </picker>
 </view>
 
