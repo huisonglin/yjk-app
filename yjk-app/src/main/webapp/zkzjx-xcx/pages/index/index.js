@@ -13,9 +13,15 @@ Page({
     picLenth:5,
     currentPage: 1,
     pageSize : 5,
-    latitude: null,
-    longitude: null,
-    tabActive:'-1'
+    latitude: '',
+    longitude: '',
+    distance: '1000',
+    type:'1',
+    modeId:'',
+    twoStageModeId:'',
+    specId:'',
+    tabActive:'-1',
+    isRefresh: 0
   },
 
   //selectTabp
@@ -50,12 +56,21 @@ Page({
         })
         var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
         that.data.currentPage = 1;
+        that.setData({
+          arrayItems:[],
+          picPosition: 0,
+          picLenth: 5,
+          currentPage: 1,
+        })
         app.agriknow.getRequest('/app/search', {
           pageNo: '1',
-          longitude: res.longitude,
-          latitude: res.latitude,
-          distance: '1000',
-          type: '1'
+          longitude: that.data.longitude,
+          latitude: that.data.latitude,
+          distance: that.data.distance,
+          type: that.data.type,
+          modeId: that.data.modeId,
+          twoStageModeId: that.data.twoStageModeId,
+          specId: that.data.specId
         }).then(res => {
           if (res.code == 0) {
             console.log(res)
@@ -97,8 +112,14 @@ Page({
       url: '../release_rental/release_rental',
     })
   },
-  onReady(){
-
+  onShow(e){
+    if(this.data.isRefresh == 1){
+      this.setData({
+        isRefresh: 0
+      })
+      console.log('开始刷新')
+      this.onLoad()
+    }
   },
   switchPic: function(e){
     var that = this;
@@ -128,8 +149,11 @@ Page({
               pageNo: currentPage,
               longitude: that.data.longitude,
               latitude: that.data.latitude,
-              distance: '1000',
-              type: '1'
+              distance: that.data.distance,
+              type: that.data.type,
+              modeId: that.data.modeId,
+              twoStageModeId:that.data.twoStageModeId,
+              specId:that.data.specId
             }).then(res => {
               if (res.code == 0) {
                 console.log(res)

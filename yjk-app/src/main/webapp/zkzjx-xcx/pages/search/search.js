@@ -15,17 +15,25 @@ Page({
     address: '',
     addressDetail: '',
     latitude:'',
-    longitude: ''
+    longitude: '',
+    show: {
+      middle: false,
+      top: false,
+      bottom: false,
+      right: false,
+      right2: false
+    },
+    items:[],
+    mainActiveIndex: 0,
+    modelId:'',
+    activeId: '',
+    twoStageModelId:'',
+    specId:''
   },
   onDrag(event) {
     this.setData({
       currentValue: event.detail.value
     });
-  },
-  seaarchDeviceType: function(){
-    wx.navigateTo({
-      url: '../search_detail/search_detail'
-    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -57,16 +65,69 @@ Page({
     //   complete: function (res) { },
     // })
   },
-  intoSelect: function(e){
-    console.log(e.currentTarget.dataset.name)
+  toggle(type) {
     this.setData({
-      twoStageModelName: '',
-      sepcName: '',
-      modelName: e.currentTarget.dataset.name
+      [`show.${type}`]: !this.data.show[type]
+    });
+  },
+  closePopup:function(){
+    this.toggle('bottom');
+  },
+  intoSelect: function(e){
+    this.toggle('bottom');
+    var that = this;
+    wx.request({
+      url: url_microService + '/app/deviceName/dict/getSubTypes',
+      data: {
+        modelId: e.currentTarget.dataset.id,
+        
+      },
+      header: {},
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          items: res.data.info,
+          modelName: e.currentTarget.dataset.name,
+          modelId: e.currentTarget.dataset.id,
+        })
+
+      },
+      fail: function (res) { },
+      complete: function (res) { },
     })
-    wx.navigateTo({
-      url: '../search_detail/search_detail?modelId='+e.currentTarget.dataset.id
-    })
+
+    
+    // console.log(e.currentTarget.dataset.name)
+    // this.setData({
+    //   twoStageModelName: '',
+    //   sepcName: '',
+    //   modelName: e.currentTarget.dataset.name
+    // })
+    // wx.navigateTo({
+    //   url: '../search_detail/search_detail?modelId='+e.currentTarget.dataset.id
+    // })
+  },
+  onClickNav({ detail }) {
+    console.log(detail)
+    this.setData({
+      mainActiveIndex: detail.index || 0
+    });
+  },
+
+  onClickItem({ detail }) {
+    console.log(detail)
+    var ts = detail.id.split("-");
+    console.log(ts)
+    this.setData({
+      activeId: detail.id,
+      specId:ts[0],
+      sepcName: detail.text,
+      twoStageModelName: ts[1],
+      twoStageModelId: ts[2]
+    });
   },
   chooseAddress: function(e){
     var that = this
@@ -81,6 +142,43 @@ Page({
         })
       },
     })
+  },
+  //开始搜索
+  toSearch:function(){
+    var currentValue = this.data.currentValue*10;
+    console.log(currentValue)
+    var latitude = this.data.latitude;
+    console.log(latitude)
+    var longitude = this.data.longitude;
+    console.log(latitude);
+    var modeId = this.data.modelId;
+    console.log(modeId)
+    var twoStageModeId = this.data.twoStageModelId;
+    console.log(twoStageModeId)
+    var specId = this.data.specId;
+    console.log(specId)
+
+    var pages = getCurrentPages(); // 获取页面栈
+    var prevPage = pages[pages.length - 2]; // 上一个页面
+    var that = this;
+    if (longitude != null && latitude != null){
+      prevPage.setData({
+        longitude: longitude,
+        latitude: latitude,
+      })
+    }
+    prevPage.setData({
+      distance: currentValue,
+      modeId: modeId,
+      twoStageModeId: twoStageModeId,
+      specId: specId,
+      isRefresh:1
+    })
+    wx.navigateBack({
+      delta: 1,
+    })
+
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

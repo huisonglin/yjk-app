@@ -90,7 +90,7 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 			List<SpecDO> specList = specMapper.selectByExample(specExample);
 			for (SpecDO specDO : specList) {
 				SelectSpecVO lv = new SelectSpecVO();
-				lv.setId(specDO.getId() + "-" + twoStagemodelDO.getName());
+				lv.setId(specDO.getId() + "-" + twoStagemodelDO.getName() + "-" + twoStagemodelDO.getId());
 				lv.setText(specDO.getName());
 				lvs.add(lv);
 			}
