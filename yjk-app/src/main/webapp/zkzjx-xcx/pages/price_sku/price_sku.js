@@ -1,4 +1,5 @@
 const url_microService = require('../../config/config').url_microService; //（与config.js相对路径）
+const app = getApp()
 Page({
 
   /**
@@ -127,24 +128,32 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: url_microService + '/app/price/unit/sku',
-      data: {
-        modelId: options.modelId,
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          priceItmes:res.data.info
-        })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+    app.agriknow.getRequest('/app/price/unit/sku',{
+      modelId: options.modelId
+    }).then(res => {
+      console.log(res)
+      that.setData({
+        priceItmes: res.info
+      })
     })
+    // wx.request({
+    //   url: url_microService + '/app/price/unit/sku',
+    //   data: {
+    //     modelId: options.modelId,
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       priceItmes:res.data.info
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
 
   /**

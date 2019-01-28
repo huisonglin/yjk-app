@@ -6,7 +6,28 @@ Page({
    * 页面的初始数据
    */
   data: {
+    formIdArray:[]
+  },
+  saveFormId: function (v) {
+    console.log(v.detail.formId)
 
+      this.data.formIdArray.push(v.detail.formId);
+
+
+  },
+  inputAccount: function (v) {
+    this.data.account = v.detail.value
+  },
+  inputPsw: function (v) {
+    this.data.password = v.detail.value
+  },
+  login: function (v) {
+
+    console.log(v)
+    this.saveFormId(v);
+    console.log("formIds:" + this.data.formIdArray)
+    console.log("账号:" + this.data.account)
+    console.log("密码:" + this.data.password)
   },
 
   /**

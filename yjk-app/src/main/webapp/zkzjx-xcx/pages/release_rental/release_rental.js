@@ -87,6 +87,7 @@ Page({
 
   //发布信息
   toRelasae(e) {
+    console.log(e)
     var that = this;
     console.log(userInfo)
     var token = userInfo.token
@@ -229,26 +230,36 @@ Page({
     var token = userInfo.token;
     var encryptedData = e.detail.encryptedData;
     var iv = e.detail.iv;
-    wx.request({
-      url: url_microService + 'app/member/bindMobileByXcx',
-      data: {
-        token: token,
-        encryptedData: encryptedData,
-        iv: iv
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        console.log(res)
-        that.setData({
-          contactMobile: res.data.info.phoneNumber
-        })
-      },
-      fail: function(res) {},
-      complete: function(res) {},
+    app.agriknow.getRequest('app/member/bindMobileByXcx', {
+      token: token,
+      encryptedData: encryptedData,
+      iv: iv
+    }).then(res => {
+      console.log(res)
+      that.setData({
+        contactMobile: res.info.phoneNumber
+      })
     })
+    // wx.request({
+    //   url: url_microService + 'app/member/bindMobileByXcx',
+    //   data: {
+    //     token: token,
+    //     encryptedData: encryptedData,
+    //     iv: iv
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function(res) {
+    //     console.log(res)
+    //     that.setData({
+    //       contactMobile: res.data.info.phoneNumber
+    //     })
+    //   },
+    //   fail: function(res) {},
+    //   complete: function(res) {},
+    // })
   },
   //设备退场结清尾款
   chooseExit:function(e){
@@ -316,23 +327,29 @@ Page({
       deviceName: '',
     })
     var that = this;
-    wx.request({
-      url: url_microService + '/app/deviceName/dict/getModelList',
-      data: {
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          modelItems: res.data.info
-        })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+    app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
+      console.log(res)
+      that.setData({
+        modelItems: res.info
+      })
     })
+    // wx.request({
+    //   url: url_microService + '/app/deviceName/dict/getModelList',
+    //   data: {
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       modelItems: res.data.info
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
   selectType: function (e) {
     if (e.currentTarget.dataset.type != '1' && e.currentTarget.dataset.type != '2') {

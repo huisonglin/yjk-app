@@ -1,1 +1,15 @@
 /* pages/request_demo/request_demo.wxss */
+.form_class {
+  width: 100%;
+}
+.form_button {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+ 
+.form_button::after {
+  border: 0px;
+
+}

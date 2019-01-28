@@ -192,7 +192,7 @@ Page({
       if(res.code == 0){
         console.log(res)
         that.setData({
-          contactMobile: res.data.info.phoneNumber
+          contactMobile: res.info.phoneNumber
         })
       }
     })
@@ -247,23 +247,31 @@ Page({
       deviceName: '',
     })
     var that = this;
-    wx.request({
-      url: url_microService + '/app/deviceName/dict/getModelList',
-      data: {
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
+    app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
+      if(res.code == 0){
         console.log(res)
         that.setData({
-          modelItems: res.data.info
+          modelItems: res.info
         })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+      }
     })
+    // wx.request({
+    //   url: url_microService + '/app/deviceName/dict/getModelList',
+    //   data: {
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       modelItems: res.data.info
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
   selectType:function(e){
     if (e.currentTarget.dataset.type != '1' && e.currentTarget.dataset.type != '2'){
@@ -280,6 +288,7 @@ Page({
     var that = this;
     console.log(e);
     if (e.currentTarget.dataset.type == '1'){
+      
       wx.request({
         url: url_microService + '/app/deviceName/dict/getSpecByTwoStageModelId',
         data: {

@@ -1,7 +1,9 @@
 {
   "pages":[
-                  "pages/index/index",
-    "pages/request_demo/request_demo",
+                      "pages/index/index",
+        "pages/request_demo/request_demo",
+
+
 
               "pages/switch_idetify/switch_idetify",
           "pages/release_rent/release_rent",

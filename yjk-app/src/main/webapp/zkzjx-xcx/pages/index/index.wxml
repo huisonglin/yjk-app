@@ -23,8 +23,12 @@
 <swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">
     <view wx:for="{{arrayItems}}" wx:for-item="itmes" wx:for-index="idx">
       <swiper-item class="swiper-item" wx:for="{{itmes}}" wx:for-item="item" >
+      <view class = "box">
       <image  class="slide-image {{picPosition == index + (pageSize * idx)?'active':''}}" data-distance="{{item.distance}}" 
         data-id="{{item.id}}"  data-type="{{item.type}}" mode="aspectFill" src="{{item.pic}}" ></image>
+        <view class = "filter">
+        </view>
+      </view>
       </swiper-item>
     </view>
 </swiper>

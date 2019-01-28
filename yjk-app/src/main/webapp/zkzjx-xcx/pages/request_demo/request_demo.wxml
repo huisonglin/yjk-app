@@ -1,4 +1,21 @@
-<!--pages/request_demo/request_demo.wxml-->
-<text>pages/request_demo/request_demo.wxml</text>
-<van-notify id="van-notify" />
-<van-toast id="van-toast" />
+<view class='root_layout'>
+  <view class='account_number'>
+    <text>账号：</text>
+    <form bindsubmit="saveFormId" report-submit="ture" class='form_class'>
+      <button formType="submit" class='form_button'>
+        <input bindinput='inputAccount' placeholder-style="color:#bbbbbb" placeholder='请输入账号'></input>
+      </button>
+    </form>
+  </view>
+  <view class='account_number'>
+    <text>密码：</text>
+    <form bindsubmit="saveFormId" report-submit="ture" class='form_class'>
+      <button formType="submit" class='form_button'>
+        <input bindinput='inputPsw' password='ture' placeholder-style="color:#bbbbbb" placeholder='请输入密码'></input>
+      </button>
+    </form>
+  </view>
+  <form bindsubmit="login" report-submit="ture">
+    <button formType="submit">登录</button>
+  </form>
+  </view>

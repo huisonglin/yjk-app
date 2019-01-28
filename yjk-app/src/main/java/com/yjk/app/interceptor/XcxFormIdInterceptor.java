@@ -29,12 +29,13 @@ public class XcxFormIdInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("开始获取用户的小程序的form_id");
+		logger.info("获取用户的小程序的form_id---------start");
 		String formId = request.getParameter("formId");
 		String userId = (String)request.getAttribute(AuthorizationInterceptor.MemberId);
 		if (StringUtils.isNotBlank(formId) && StringUtils.isNotBlank(userId)) {
 			listOperations.leftPush(FORM_ID+userId, formId);
 		}
+		logger.info("获取用户的小程序的form_id---------end");
 		return true;
 	}
 

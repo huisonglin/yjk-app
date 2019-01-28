@@ -95,3 +95,5 @@
 <view class = "commit">
   <van-button size="large" type="primary" bind:click="getPriceInfo"  >确定</van-button>
 </view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
