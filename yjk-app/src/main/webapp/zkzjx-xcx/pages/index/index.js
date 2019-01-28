@@ -50,28 +50,42 @@ Page({
         })
         var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
         that.data.currentPage = 1;
-        wx.request({
-          url: url_microService + '/app/search',
-          data: {
-            pageNo: '1',
-            longitude: res.longitude,
-            latitude: res.latitude,
-            distance: '1000',
-            type: '1'
-          },
-          header: {},
-          method: 'GET',
-          dataType: 'json',
-          responseType: 'text',
-          success: function (res) {
+        app.agriknow.getRequest('/app/search', {
+          pageNo: '1',
+          longitude: res.longitude,
+          latitude: res.latitude,
+          distance: '1000',
+          type: '1'
+        }).then(res => {
+          if (res.code == 0) {
             console.log(res)
             that.setData({
-              ["arrayItems[" + currentPage + "]"]: res.data.info.rows
+              ["arrayItems[" + currentPage + "]"]: res.info.rows
             })
-          },
-          fail: function (res) { },
-          complete: function (res) { },
+          }
         })
+        // wx.request({
+        //   url: url_microService + '/app/search',
+        //   data: {
+        //     pageNo: '1',
+        //     longitude: res.longitude,
+        //     latitude: res.latitude,
+        //     distance: '1000',
+        //     type: '1'
+        //   },
+        //   header: {},
+        //   method: 'GET',
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   success: function (res) {
+        //     console.log(res)
+        //     that.setData({
+        //       ["arrayItems[" + currentPage + "]"]: res.data.info.rows
+        //     })
+        //   },
+        //   fail: function (res) { },
+        //   complete: function (res) { },
+        // })
       },
     })
 
@@ -110,33 +124,52 @@ Page({
             var currentPage = that.data.currentPage; // 获取当前页码
             currentPage += 1; // 加载当前页面的下一页数据
             that.data.currentPage = currentPage;
-            wx.request({
-              url: url_microService + '/app/search',
-              data: {
-                pageNo: currentPage,
-                longitude: that.data.longitude,
-                latitude: that.data.latitude,
-                distance: '1000',
-                type: '1'
-              },
-              header: {},
-              method: 'GET',
-              dataType: 'json',
-              responseType: 'text',
-              success: function (res) {
+            app.agriknow.getRequest("/app/search", {
+              pageNo: currentPage,
+              longitude: that.data.longitude,
+              latitude: that.data.latitude,
+              distance: '1000',
+              type: '1'
+            }).then(res => {
+              if (res.code == 0) {
                 console.log(res)
                 console.log("分页了")
-                var row = res.data.info.rows;
+                var row = res.info.rows;
                 console.log(that.arrayItems)
                 that.setData({
-                  ["arrayItems[" + (currentPage - 1) + "]"]: res.data.info.rows,
+                  ["arrayItems[" + (currentPage - 1) + "]"]: res.info.rows,
                   picLenth: that.data.picLenth + that.data.pageSize
                 })
                 Toast.clear()
-              },
-              fail: function (res) { },
-              complete: function (res) { },
+              }
             })
+            // wx.request({
+            //   url: url_microService + '/app/search',
+            //   data: {
+            //     pageNo: currentPage,
+            //     longitude: that.data.longitude,
+            //     latitude: that.data.latitude,
+            //     distance: '1000',
+            //     type: '1'
+            //   },
+            //   header: {},
+            //   method: 'GET',
+            //   dataType: 'json',
+            //   responseType: 'text',
+            //   success: function (res) {
+            //     console.log(res)
+            //     console.log("分页了")
+            //     var row = res.data.info.rows;
+            //     console.log(that.arrayItems)
+            //     that.setData({
+            //       ["arrayItems[" + (currentPage - 1) + "]"]: res.data.info.rows,
+            //       picLenth: that.data.picLenth + that.data.pageSize
+            //     })
+            //     Toast.clear()
+            //   },
+            //   fail: function (res) { },
+            //   complete: function (res) { },
+            // })
             clearInterval(timer);
           }, 600);
 

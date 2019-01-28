@@ -43,6 +43,9 @@
   <van-button size="large" type="primary" bind:click="toRelasae"  >确认并保存</van-button>
 </view>
 
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
+
 
 
 

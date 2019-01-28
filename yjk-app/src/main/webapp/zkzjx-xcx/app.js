@@ -1,6 +1,8 @@
 //app.js
 const url_microService = require('/config/config').url_microService; //（与config.js相对路径）
+import agriknow from './common/agriknow.js'
 App({
+  agriknow: new agriknow(),
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []

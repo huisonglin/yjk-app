@@ -110,55 +110,73 @@ Page({
         remark += (this.data.remarkResult[i]+",")
       }
     }
-    console.log(remark)
-    Toast.loading({
-      duration: 0,       // 持续展示 toast
-      mask: true,
-      message: "发布中..."
-    });
-    wx.request({
-      url: url_microService +'/app/deviceRentOut/addOrUpdateRentOutInfo',
-      data: {
-        token:token,
-        pics: pics,
-        deviceName: deviceName,
-        modeId: modeId,
-        twoStageModeId: twoStageModeId,
-        specId: specId,
-        address: address,
-        addressDetail: addressDetail,
-        latitude: latitude,
-        longitude: longitude,
-        contactMobile: contactMobile,
-        contactName: contactName,
-        manufacture: manufacture,
-        remark: remark,
-        price: price
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function(res) {
-        if(res.data.code == 0){
-          Toast.clear()
-          Notify({
-            text: '发布成功',
-            duration: 1000,
-            selector: '#custom-selector',
-            backgroundColor: '#1989fa'
-          });
-          wx.navigateTo({
-            url: '../index/index',
-          })
-        }else{
-          Toast.clear()
-          Notify(res.data.msg);
-        }
-      },
-      fail: function(res) {},
-      complete: function(res) {},
+    app.agriknow.getRequest('/app/deviceRentOut/addOrUpdateRentOutInfo', {
+      token: token,
+      pics: pics,
+      deviceName: deviceName,
+      modeId: modeId,
+      twoStageModeId: twoStageModeId,
+      specId: specId,
+      address: address,
+      addressDetail: addressDetail,
+      latitude: latitude,
+      longitude: longitude,
+      contactMobile: contactMobile,
+      contactName: contactName,
+      manufacture: manufacture,
+      remark: remark,
+      price: price
+    }).then(res => {
+      if(res.code == 0){
+        wx.navigateTo({
+          url: '../index/index',
+        })
+      }
+
     })
+    // wx.request({
+    //   url: url_microService +'/app/deviceRentOut/addOrUpdateRentOutInfo',
+    //   data: {
+    //     token:token,
+    //     pics: pics,
+    //     deviceName: deviceName,
+    //     modeId: modeId,
+    //     twoStageModeId: twoStageModeId,
+    //     specId: specId,
+    //     address: address,
+    //     addressDetail: addressDetail,
+    //     latitude: latitude,
+    //     longitude: longitude,
+    //     contactMobile: contactMobile,
+    //     contactName: contactName,
+    //     manufacture: manufacture,
+    //     remark: remark,
+    //     price: price
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function(res) {
+    //     if(res.data.code == 0){
+    //       Toast.clear()
+    //       Notify({
+    //         text: '发布成功',
+    //         duration: 1000,
+    //         selector: '#custom-selector',
+    //         backgroundColor: '#1989fa'
+    //       });
+    //       wx.navigateTo({
+    //         url: '../index/index',
+    //       })
+    //     }else{
+    //       Toast.clear()
+    //       Notify(res.data.msg);
+    //     }
+    //   },
+    //   fail: function(res) {},
+    //   complete: function(res) {},
+    // })
   },
   //授权绑定手机号
   bindMobile: function (e) {
@@ -166,26 +184,38 @@ Page({
     var token = userInfo.token;
     var encryptedData = e.detail.encryptedData;
     var iv = e.detail.iv;
-    wx.request({
-      url: url_microService + 'app/member/bindMobileByXcx',
-      data: {
-        token: token,
-        encryptedData: encryptedData,
-        iv: iv
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
+    app.agriknow.getRequest('app/member/bindMobileByXcx', {
+      token: token,
+      encryptedData: encryptedData,
+      iv: iv
+    }).then(res => {
+      if(res.code == 0){
         console.log(res)
         that.setData({
           contactMobile: res.data.info.phoneNumber
         })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+      }
     })
+    // wx.request({
+    //   url: url_microService + 'app/member/bindMobileByXcx',
+    //   data: {
+    //     token: token,
+    //     encryptedData: encryptedData,
+    //     iv: iv
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       contactMobile: res.data.info.phoneNumber
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
   //获取联系人姓名
   getName(e) {

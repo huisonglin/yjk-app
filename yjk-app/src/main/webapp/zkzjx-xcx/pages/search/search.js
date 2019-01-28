@@ -1,4 +1,5 @@
 // pages/search/search.js
+const app = getApp();
 const url_microService = require('../../config/config').url_microService; //（与config.js相对路径）
 Page({
 
@@ -31,22 +32,30 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    wx.request({
-      url: url_microService + '/app/deviceName/dict/getModelList',
-      data: {},
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
+    app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
+      if(res.code == 0){
         console.log(res)
         that.setData({
-          modelItems:res.data.info
+          modelItems: res.info
         })
-      },
-      fail: function (res) { },
-      complete: function (res) { },
-    })
+      }
+    } )
+    // wx.request({
+    //   url: url_microService + '/app/deviceName/dict/getModelList',
+    //   data: {},
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       modelItems:res.data.info
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
   },
   intoSelect: function(e){
     console.log(e.currentTarget.dataset.name)

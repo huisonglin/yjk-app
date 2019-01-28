@@ -1,0 +1,4 @@
+<!--pages/request_demo/request_demo.wxml-->
+<text>pages/request_demo/request_demo.wxml</text>
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
