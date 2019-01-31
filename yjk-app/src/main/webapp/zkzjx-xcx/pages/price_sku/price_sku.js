@@ -1,5 +1,6 @@
 const url_microService = require('../../config/config').url_microService; //（与config.js相对路径）
 const app = getApp()
+import Notify from '../../dist/notify/notify';
 Page({
 
   /**
@@ -54,6 +55,7 @@ Page({
 
   },
   getValue:function(e){
+    console.log(e)
     console.log(this.data.priceUnitItems)
     var priceUnitItems = this.data.priceUnitItems;
     for (var i = 0; i < priceUnitItems.length;i++){
@@ -100,6 +102,12 @@ Page({
   getPriceInfo:function(){
     var prices = this.data.priceUnitItems;
     var priceInfo = '';
+    for (var i = 0; i < prices.length; i++){
+      if (prices[i].value == null){
+        Notify("请将价格填写完整");
+        return;
+      }
+    }
     if(prices.length == 1){
       priceInfo += (prices[0].value + "-" + prices[0].id)
     }else if(prices.length > 1){

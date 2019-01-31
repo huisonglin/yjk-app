@@ -91,7 +91,7 @@
 </van-panel>
 </view>
 <view class = "commit">
-  <van-button size="large" type="primary" bind:click="toRelasae"  >我要发布</van-button>
+  <van-button size="large" type="primary" bind:click="toRelasae" bind:click="toRelasae" >我要发布</van-button>
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

@@ -39,6 +39,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      currentValue: wx.getStorageSync('distance'),
+      modeId: wx.getStorageSync('modeId'),
+      twoStageModeId: wx.getStorageSync('twoStageModeId'),
+      specId: wx.getStorageSync('specId'),
+      modelName: wx.getStorageSync('modelName'),
+      twoStageModelName: wx.getStorageSync('twoStageModelName'),
+      sepcName: wx.getStorageSync('sepcName'),
+    })
+    console.log(wx.getStorageSync('distance'))
     var that = this;
     app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
       if(res.code == 0){
@@ -85,6 +95,7 @@ Page({
         modelName: e.currentTarget.dataset.name,
         modelId: e.currentTarget.dataset.id,
       })
+      wx.setStorageSync('modelName', e.currentTarget.dataset.name)
     })
     // wx.request({
     //   url: url_microService + '/app/deviceName/dict/getSubTypes',
@@ -138,6 +149,8 @@ Page({
       twoStageModelName: ts[1],
       twoStageModelId: ts[2]
     });
+    wx.setStorageSync('sepcName', detail.text)
+    wx.setStorageSync('twoStageModelName', ts[1])
   },
   chooseAddress: function(e){
     var that = this
@@ -176,6 +189,8 @@ Page({
         longitude: longitude,
         latitude: latitude,
       })
+      wx.setStorageSync('longitude', longitude)
+      wx.setStorageSync('latitude', latitude)
     }
     prevPage.setData({
       distance: currentValue,
@@ -184,6 +199,10 @@ Page({
       specId: specId,
       isRefresh:1
     })
+    wx.setStorageSync('distance', currentValue/10);
+    wx.setStorageSync('modeId', modeId);
+    wx.setStorageSync('twoStageModeId', twoStageModeId);
+    wx.setStorageSync('specId', specId)
     wx.navigateBack({
       delta: 1,
     })

@@ -48,6 +48,15 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    that.setData({
+      longitude: wx.getStorageSync('longitude'),
+      latitude: wx.getStorageSync('latitude'),
+      distance: wx.getStorageSync('distance'),
+      type: that.data.type,
+      modeId: wx.getStorageSync('modeId'),
+      twoStageModeId: wx.getStorageSync('twoStageModeId'),
+      specId: wx.getStorageSync('specId')
+    })
     wx.getLocation({
       success: function(res) {
         that.setData({

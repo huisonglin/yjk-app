@@ -1,7 +1,9 @@
 {
   "pages":[
+          
                       "pages/index/index",
         "pages/request_demo/request_demo",
+        "pages/price_sku/price_sku",
 
 
 
@@ -10,7 +12,6 @@
 
     "pages/release_rental/release_rental",
 
-      "pages/price_sku/price_sku",
 
 
   

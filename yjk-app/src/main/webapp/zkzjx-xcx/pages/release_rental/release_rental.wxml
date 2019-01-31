@@ -137,13 +137,9 @@
   </view>
 </van-panel> -->
 </view>
-<form bindsubmit="toRelasae" report-submit>
 <view class = "commit">
-
-  <van-button size="large"  open-type = "form-type" type="primary"  >我要发布</van-button>
-  <button form-type="submit">Submit</button>
+  <van-button size="large"  open-type = "form-type" type="primary" bind:click="toRelasae" >我要发布</van-button>
 </view>
-</form>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />
 <van-notify id="custom-selector" />
