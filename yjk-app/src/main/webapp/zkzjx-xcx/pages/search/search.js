@@ -76,28 +76,38 @@ Page({
   intoSelect: function(e){
     this.toggle('bottom');
     var that = this;
-    wx.request({
-      url: url_microService + '/app/deviceName/dict/getSubTypes',
-      data: {
+    app.agriknow.getRequest('/app/deviceName/dict/getSubTypes', {
+      modelId: e.currentTarget.dataset.id,
+    }).then(res => {
+      console.log(res)
+      that.setData({
+        items: res.info,
+        modelName: e.currentTarget.dataset.name,
         modelId: e.currentTarget.dataset.id,
-        
-      },
-      header: {},
-      method: 'GET',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
-        console.log(res)
-        that.setData({
-          items: res.data.info,
-          modelName: e.currentTarget.dataset.name,
-          modelId: e.currentTarget.dataset.id,
-        })
-
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+      })
     })
+    // wx.request({
+    //   url: url_microService + '/app/deviceName/dict/getSubTypes',
+    //   data: {
+    //     modelId: e.currentTarget.dataset.id,
+        
+    //   },
+    //   header: {},
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res)
+    //     that.setData({
+    //       items: res.data.info,
+    //       modelName: e.currentTarget.dataset.name,
+    //       modelId: e.currentTarget.dataset.id,
+    //     })
+
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
 
     
     // console.log(e.currentTarget.dataset.name)
