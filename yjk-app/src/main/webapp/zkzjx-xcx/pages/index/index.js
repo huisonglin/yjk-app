@@ -55,14 +55,10 @@ Page({
       type: that.data.type,
       modeId: wx.getStorageSync('modeId'),
       twoStageModeId: wx.getStorageSync('twoStageModeId'),
-      specId: wx.getStorageSync('specId')
+      specId: wx.getStorageSync('specId'),
+      latitude: wx.getStorageSync('latitude') == null ? wx.getStorageSync('latitude'):'31.82043',
+      longitude: wx.getStorageSync('longitude') == null ? wx.getStorageSync('longitude') : '117.22715',
     })
-    wx.getLocation({
-      success: function(res) {
-        that.setData({
-          latitude:res.latitude,
-          longitude: res.longitude
-        })
         var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
         that.data.currentPage = 1;
         that.setData({
@@ -88,36 +84,10 @@ Page({
             })
           }
         })
-        // wx.request({
-        //   url: url_microService + '/app/search',
-        //   data: {
-        //     pageNo: '1',
-        //     longitude: res.longitude,
-        //     latitude: res.latitude,
-        //     distance: '1000',
-        //     type: '1'
-        //   },
-        //   header: {},
-        //   method: 'GET',
-        //   dataType: 'json',
-        //   responseType: 'text',
-        //   success: function (res) {
-        //     console.log(res)
-        //     that.setData({
-        //       ["arrayItems[" + currentPage + "]"]: res.data.info.rows
-        //     })
-        //   },
-        //   fail: function (res) { },
-        //   complete: function (res) { },
-        // })
-      },
-    })
 
   },
   toRelasae:function(e){
     wx.navigateTo({
-      //url: '../release_rent/release_rent',
-      
       url: '../release_rental/release_rental',
     })
   },
@@ -139,9 +109,6 @@ Page({
       } else {//正常轮转时，记录正确页码索引
         this.setData({ picPosition: e.detail.current });
       }
-      // console.log(this.data.picPosition)
-      // console.log((this.data.picPosition + 5) % 10)
-      // console.log(this.data.picLenth - 5)
       console.log(e.detail.current)
       console.log((this.data.picPosition + 5) % this.data.pageSize == 0)
       if ( (this.data.picPosition + 1) % this.data.pageSize == 0 && this.data.picLenth - 1 == this.data.picPosition){
@@ -176,33 +143,6 @@ Page({
                 Toast.clear()
               }
             })
-            // wx.request({
-            //   url: url_microService + '/app/search',
-            //   data: {
-            //     pageNo: currentPage,
-            //     longitude: that.data.longitude,
-            //     latitude: that.data.latitude,
-            //     distance: '1000',
-            //     type: '1'
-            //   },
-            //   header: {},
-            //   method: 'GET',
-            //   dataType: 'json',
-            //   responseType: 'text',
-            //   success: function (res) {
-            //     console.log(res)
-            //     console.log("分页了")
-            //     var row = res.data.info.rows;
-            //     console.log(that.arrayItems)
-            //     that.setData({
-            //       ["arrayItems[" + (currentPage - 1) + "]"]: res.data.info.rows,
-            //       picLenth: that.data.picLenth + that.data.pageSize
-            //     })
-            //     Toast.clear()
-            //   },
-            //   fail: function (res) { },
-            //   complete: function (res) { },
-            // })
             clearInterval(timer);
           }, 600);
 
