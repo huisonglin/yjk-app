@@ -1,34 +1,49 @@
-/* pages/switchingIdentity/switchingIdentity.wxss */
-.switchingIdentity{
-  margin: auto;
-  width: 94%;
+/* pages/identitySelection/identitySelection.wxss */
+page{
+  height: 100vh;
+}
+.bg{
+  height: inherit;
+  position: relative;
+  color: #53ccc3;
+}
+.bg>image{
+  height: inherit;
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+} 
+.bg_view{
+  width: 100%;
+  height: inherit;
+  position: absolute;
+  z-index: 100;
+  /* font-weight: bold; */
+  font-size: 42rpx;
   text-align: center;
-  font-size: 34rpx;
 }
-.switchingIdentity image{
+.bg_view>image{
   display: block;
-  margin:150rpx auto 50rpx auto;
 }
-.switchingIdentity text{
+.bg_view>text{
   display: block;
-  font-size: 38rpx;
-  color: #53ccc3;
-  font-weight: 500;
-  padding: 30rpx 0;
+  margin: 30rpx 0;
 }
-.qiehuan{
-  width: 80%;
-  margin:55rpx auto;
-  padding: 30rpx 0;
-  border-radius: 10rpx;
-  background-color: #53ccc3;
-  color: white;
-}
-.back{
+.bg_view>view{
   border: 1px solid #53ccc3;
-  color: #53ccc3;
-  width: 80%;
-  margin:25rpx  auto;
-  padding: 30rpx 0;
-  border-radius: 10rpx;
+  width: 75%;
+  text-align: center;
+  margin:30rpx auto;
+  padding: 20rpx 0;
+  border-radius: 60rpx;
+}
+.active{
+  color: white;
+  background-color: #53ccc3;
+}
+.logo{
+  width: 250rpx;
+  height: 250rpx;
+  display: block;
+  margin:180rpx auto;
 }

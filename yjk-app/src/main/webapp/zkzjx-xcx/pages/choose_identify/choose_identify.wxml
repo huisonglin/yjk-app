@@ -1,0 +1,11 @@
+<!--pages/switchingIdentity/switchingIdentity.wxml-->
+
+<view class='switchingIdentity'>
+  <image src='http://img.huisonglin.top/kzjx/shenfen.png'></image>
+  <text>您当前的身份是“ {{currentIdentifyName}} ”</text>
+
+  <view class='qiehuan' data-identify='{{identity}}' bindtap='swithcIdentify'>切换为“{{toWitchIdnetifyName}}"身份</view>
+  <view class='back' bindtap='back'>返回</view>
+</view>
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />

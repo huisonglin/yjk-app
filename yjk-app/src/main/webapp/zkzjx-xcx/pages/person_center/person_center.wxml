@@ -1,0 +1,29 @@
+<!--pages/person/person.wxml-->
+<view class='person'>
+  <view class='person_top'>
+    <image src='http://img.huisonglin.top/kzjx/zhongxin1.png'></image>
+    <view class='person_top_text'>
+      <image src='{{userInfo.avatarUrl}}'></image>
+      <view>{{userInfo.nickName}}</view>
+    </view>
+  </view>
+<van-cell
+  title="我的发布"
+  icon="http://img.huisonglin.top/kzjx/zhongxin4.png"
+  is-link
+/>
+
+<van-cell
+  title="联系我们"
+  icon="http://img.huisonglin.top/kzjx/zhongxin6.png"
+  is-link
+  url="/pages/person_center/contact_we/contact_we"
+/>
+
+<van-cell
+  title="关于我们"
+  icon="http://img.huisonglin.top/kzjx/zhongxin7.png"
+  is-link
+  url="/pages/person_center/about_we/about_we"
+/>
+</view>

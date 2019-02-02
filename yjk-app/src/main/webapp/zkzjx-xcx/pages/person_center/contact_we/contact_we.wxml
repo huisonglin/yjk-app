@@ -1,0 +1,19 @@
+<!--pages/person/contact/contact.wxml-->
+<view class='contact'>
+  <view class='contact_top'>
+    <image src='http://img.huisonglin.top/kzjx/logo2.png' class='logo'></image>
+  </view>
+  <view class='contact_foot'>
+    <view class='contact_foot_1' bindtap='call'>
+      <text >客服电话</text>
+      <image src='http://img.huisonglin.top/kzjx/dianhua.png' ></image>
+    </view>
+    <view class='contact_foot_2'>
+      <text>意见反馈：</text>
+      <textarea placeholder='您的意见对我们很重要，请留下联系方式我们会及时联系您，并有礼物相送！' auto-focus bindinput='bindinformation' ></textarea>
+      <button class='fasong' bindtap='submit'>提交</button>
+    </view>
+  </view>
+</view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />

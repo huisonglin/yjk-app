@@ -2,6 +2,10 @@
   "pages":[
           
                       "pages/index/index",
+                      "pages/person_center/about_we/about_we",
+                      "pages/person_center/contact_we/contact_we",
+                      "pages/person_center/person_center",
+                      "pages/choose_identify/choose_identify",
         "pages/request_demo/request_demo",
         "pages/price_sku/price_sku",
 

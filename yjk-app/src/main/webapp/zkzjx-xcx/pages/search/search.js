@@ -41,8 +41,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       currentValue: wx.getStorageSync('distance'),
-      modeId: wx.getStorageSync('modeId'),
-      twoStageModeId: wx.getStorageSync('twoStageModeId'),
+      modelId: wx.getStorageSync('modeId'),
+      twoStageModelId: wx.getStorageSync('twoStageModeId'),
       specId: wx.getStorageSync('specId'),
       modelName: wx.getStorageSync('modelName'),
       twoStageModelName: wx.getStorageSync('twoStageModelName'),
