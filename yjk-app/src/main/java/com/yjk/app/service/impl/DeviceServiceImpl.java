@@ -113,10 +113,13 @@ public class DeviceServiceImpl implements DeviceService{
 	
 	public R deviceList(MyListDTO dto){
 		int pageSize = Constants.pageSize;
-		String  identify = valueOperations.get(Constants.IDENTIFY+dto.getMemberId());
-		dto.setIdentify(identify);
 		PageHelper.startPage(dto.getPageNo(), pageSize);
 		List<MyListVO> myList = deviceMapper.myList(dto);
+		for (MyListVO myListVO : myList) {
+			if(StringUtils.isNotBlank(myListVO.getPics())) {
+				myListVO.setPics(myListVO.getPics().split("#")[0]+QiNiuConfig.XCX_THUMBNAIL);
+			}
+		}
 		PageInfo<MyListVO> pageInfo=new PageInfo<>(myList);
 		return R.ok().put("info", pageInfo);
 	}

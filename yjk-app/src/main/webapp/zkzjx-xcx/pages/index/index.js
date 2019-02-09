@@ -117,10 +117,15 @@ Page({
 
   },
   toRelasae:function(e){
+    var identify = wx.getStorageSync('identity')
+    var url = '';
+    if(identify == 1){
+      url = '../release_rent/release_rent'
+    }else{
+      url = '../release_rental/release_rental';
+    }
     wx.navigateTo({
-      //url: '../release_rent/release_rent',
-      
-      url: '../release_rental/release_rental',
+      url: url,
     })
   },
   onShow(e){

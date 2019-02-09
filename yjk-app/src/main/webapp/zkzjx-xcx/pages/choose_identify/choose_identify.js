@@ -19,17 +19,17 @@ Page({
     var that = this;
     // 1为我要出租，2为我要求租
     var identity = wx.getStorageSync('identity')
-    if (identity == "1") {
+    if (identity == "2") {
       that.setData({
         currentIdentifyName: "我要出租",
         toWitchIdnetifyName: "我要求租",
-        identity: 2
+        identity: 1
       })
     } else {
       that.setData({
         currentIdentifyName: "我要求租",
         toWitchIdnetifyName: "我要出租",
-        identity: 1
+        identity: 2
       })
     }
   },

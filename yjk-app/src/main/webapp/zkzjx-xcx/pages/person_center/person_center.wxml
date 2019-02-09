@@ -11,6 +11,7 @@
   title="我的发布"
   icon="http://img.huisonglin.top/kzjx/zhongxin4.png"
   is-link
+  url = "/pages/person_center/my_release/my_release
 />
 
 <van-cell
