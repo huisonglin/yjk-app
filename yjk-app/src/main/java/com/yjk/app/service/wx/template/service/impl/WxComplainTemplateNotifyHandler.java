@@ -20,6 +20,11 @@ import com.yjk.app.vo.WxComplainVO;
 import com.yjk.common.dao.MemberMapper;
 import com.yjk.common.entity.MemberDO;
 
+/**
+ * PAY("支付",1),REFUND("退款",2),COMPLAIN("投诉",3),RECEIVE_COMPLAIN("收到投诉",4);
+ * @author Administrator
+ *
+ */
 @NotificationType(type = 3)
 public class WxComplainTemplateNotifyHandler implements WxTemplateNotify{
 

@@ -22,7 +22,11 @@ import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.service.WxTemplateNotify;
 import com.yjk.app.util.PayUtil;
 
-
+/**
+ * PAY("支付",1),REFUND("退款",2),COMPLAIN("投诉",3),RECEIVE_COMPLAIN("收到投诉",4);
+ * @author Administrator
+ *
+ */
 @NotificationType(type = 2)
 public class WxRefundTemplateNotifyHandle implements WxTemplateNotify{
 

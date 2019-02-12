@@ -67,13 +67,13 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             
         }       
        Claims claims = jwtUtils.getClaimByToken(token);
-       String  info = jwtUtils.getClaimByToken(token).getSubject();
+       String  info = claims.getSubject();
        if(claims == null || jwtUtils.isTokenExpired(claims.getExpiration())){
     	   if(info.contains("#")) {
     		   String[] sat =info.split("#");
     		   valueOperations.set(Constants.TERMINAL+"_"+sat[0], null);
     	   }
-    	   throw new RRException("token失效，请重新登录",HttpStatus.UNAUTHORIZED.value());
+    	  // throw new RRException("token失效，请重新登录",HttpStatus.UNAUTHORIZED.value());
        } 
  
        if(info.contains("#")) { //APP登录
