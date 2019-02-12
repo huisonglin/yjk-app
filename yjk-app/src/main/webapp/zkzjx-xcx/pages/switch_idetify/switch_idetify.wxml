@@ -1,6 +1,12 @@
-<view class="switchingIdentity">
-    <image src="{{shenfen}}"></image>
-    <text>您当前的身份是“ {{mingzi}} ”</text>
-    <view bindtap="qiehuan" class="qiehuan" data-identityL="{{identityL}}">切换为“{{mingziFan}}"身份</view>
-    <view bindtap="back" class="back">返回</view>
+<!--pages/identitySelection/identitySelection.wxml-->
+<view class='bg'>
+  <image src='http://img.huisonglin.top/kzjx/bj.png'></image>
+  <view class='bg_view'>
+    <image src='http://img.huisonglin.top/kzjx/logo1.png' class='logo'></image>
+    <text>身份选择</text> 
+    <view class='{{identity=="1"?"active":""}}'  bindtap='rent' data-identity='1'>我要出租</view>
+    <view class='{{identity=="2"?"active":""}}' bindtap='rental' data-identity='2'>我要求租</view>
+  </view>
 </view>
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />

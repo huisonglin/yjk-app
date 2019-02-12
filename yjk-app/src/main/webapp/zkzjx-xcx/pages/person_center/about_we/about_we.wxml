@@ -1,0 +1,21 @@
+<!--pages/aboutUs/aboutUs.wxml-->
+
+<view class='aboutus'>
+  <image src='http://img.huisonglin.top/kzjx/diwen.png' class='diwen' mode="widthFix"></image>
+
+  <view class='aboutus_text'>
+    <image src="http://img.huisonglin.top/kzjx/logo1.png" class='logo'></image>
+    <text>
+          《最快租机械》是安徽工机互联网络技术有限公司开发的一款基于使用者地理位置快速查询附近信息的小程序，使施工方和机械方能够快速发现附近的闲置机械、求租信息。
+     </text>
+    <text>
+           使用攻略：
+           需要求租（出租）机械，随时随地打开小程序，选择登陆身份，设定筛选条件，系统根据活跃时间和位置自动推送合适的信息，通过拨打电话直接联系对方。
+     </text>
+    <text>
+           使用声明：
+           本平台不保证发布信息的完全真实性，但我们会对每一条信息进行人工审核，最大限度减少虚假信息的产生，因此而造成的损失本平台不承担任何法律责任。
+愿我们的努力能给您带来更方便快捷的体验！
+     </text>
+  </view>
+</view>

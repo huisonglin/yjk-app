@@ -1,0 +1,36 @@
+/* pages/aboutUs/aboutUs.wxss */
+
+.aboutus_text {
+  font-size: 32rpx;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  margin: auto;
+  width: 92%;
+  left: 0;
+  right: 0;
+}
+
+.aboutus {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.diwen {
+  position: absolute;
+  width: 90%;
+  /* height: 80%; */
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 10%;
+  z-index: 10;
+}
+
+.logo {
+  width: 250rpx;
+  height: 250rpx;
+  display: block;
+  margin: 40rpx auto;
+}

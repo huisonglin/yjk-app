@@ -15,7 +15,7 @@ Page({
     pageSize : 5,
     latitude: '',
     longitude: '',
-    distance: '1000',
+    distance: '',
     type:'1',
     modeId:'',
     twoStageModeId:'',
@@ -28,13 +28,15 @@ Page({
   selectTab:function(e){
     console.log(e)
 
-      if(e.detail.index == '0'){
-
-      }else if(e.detail.index == '1'){
+      if(e.detail.index == '0'){ //个人中心
         wx.navigateTo({
-          url: '/pages/switch_idetify/switch_idetify',
+          url: "/pages/person_center/person_center",
         })
-      }else if(e.detail.index == '2'){
+      }else if(e.detail.index == '1'){//身份切换
+        wx.navigateTo({
+          url: '/pages/choose_identify/choose_identify',
+        })
+      }else if(e.detail.index == '2'){//筛选机械
         wx.navigateTo({
           url: '/pages/search/search',
         })
@@ -51,8 +53,8 @@ Page({
     that.setData({
       longitude: wx.getStorageSync('longitude'),
       latitude: wx.getStorageSync('latitude'),
-      distance: wx.getStorageSync('distance'),
-      type: that.data.type,
+      distance: wx.getStorageSync('distance') == '' ? 600 : wx.getStorageSync('distance'),
+      type: wx.getStorageSync('identity'),
       modeId: wx.getStorageSync('modeId'),
       twoStageModeId: wx.getStorageSync('twoStageModeId'),
       specId: wx.getStorageSync('specId'),
@@ -87,8 +89,15 @@ Page({
 
   },
   toRelasae:function(e){
+    var identify = wx.getStorageSync('identity')
+    var url = '';
+    if(identify == 1){
+      url = '../release_rent/release_rent'
+    }else{
+      url = '../release_rental/release_rental';
+    }
     wx.navigateTo({
-      url: '../release_rental/release_rental',
+      url: url,
     })
   },
   onShow(e){

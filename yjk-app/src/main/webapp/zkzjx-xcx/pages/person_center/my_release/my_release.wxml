@@ -1,0 +1,47 @@
+<van-tabs  bind:click="onClick">
+  <van-tab title="发布出租">
+<view wx:for = "{{rentItemsArray}}" wx:for-item="items" wx:for-index="arrayIndex">
+<view wx:for="{{items}}"  wx:for-item="itemName" wx:for-index="subArrayIndex">
+ <van-card
+    lazy-load="true"
+    price="发布时间 {{itemName.newstime}}"
+    currency=""
+    desc="设备地址：{{itemName.address}}"
+    title="{{itemName.deviceName}}"
+    thumb="{{ itemName.pics }}"
+  >
+    <view slot="footer">
+      <van-button round size="mini" ata-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "cancelShow">下架该信息</van-button>
+      <van-button round size="mini" data-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "refreshPotion">刷新位置并发布</van-button>
+      <van-button round size="mini">看看谁更适合我</van-button>
+      <van-button round size="mini">分享更快租</van-button>
+    </view>
+  </van-card>
+</view>
+</view>
+  </van-tab>
+  <van-tab title="发布求租">
+   <view wx:for = "{{rentalItemsArray}}" wx:for-item="items">
+<view wx:for="{{items}}"  wx:for-item="itemName">
+ <van-card
+    lazy-load="true"
+    price="发布时间 {{itemName.newstime}}"
+    currency=""
+    desc="设备地址：{{itemName.address}}"
+    title="{{itemName.deviceName}}"
+    thumb="{{ itemName.pics == null?'../../images/h1.png':itemName.pics}}"
+  >
+    <view slot="footer">
+      <van-button round size="mini">下架该信息</van-button>
+      <van-button round size="mini">刷新位置并发布</van-button>
+      <van-button round size="mini">看看谁更适合我</van-button>
+      <van-button round size="mini">分享更快租</van-button>
+    </view>
+  </van-card>
+</view>
+</view>
+  </van-tab>
+</van-tabs>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-dialog id="van-dialog" />
