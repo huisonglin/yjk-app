@@ -24,7 +24,7 @@ Page({
       right2: false
     },
     items:[],
-    mainActiveIndex: 0,
+    mainActiveIndex: '',
     modelId:'',
     activeId: '',
     twoStageModelId:'',
@@ -39,17 +39,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      currentValue: wx.getStorageSync('distance'),
+    var that = this;
+    console.log(wx.getStorageSync('twoStageModeId') + '------' + wx.getStorageSync('modeId'))
+    that.setData({
+      currentValue: wx.getStorageSync('distance') == null ? 60:wx.getStorageSync('distance'),
       modelId: wx.getStorageSync('modeId'),
       twoStageModelId: wx.getStorageSync('twoStageModeId'),
       specId: wx.getStorageSync('specId'),
       modelName: wx.getStorageSync('modelName'),
       twoStageModelName: wx.getStorageSync('twoStageModelName'),
       sepcName: wx.getStorageSync('sepcName'),
+      longitude: wx.getStorageSync('longitude'),
+      latitude: wx.getStorageSync('latitude'),
+      address: wx.getStorageSync('address'),
+      addressDetail: wx.getStorageSync('addressDetail'),    
     })
-    console.log(wx.getStorageSync('distance'))
-    var that = this;
     app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
       if(res.code == 0){
         console.log(res)
@@ -58,22 +62,6 @@ Page({
         })
       }
     } )
-    // wx.request({
-    //   url: url_microService + '/app/deviceName/dict/getModelList',
-    //   data: {},
-    //   header: {},
-    //   method: 'GET',
-    //   dataType: 'json',
-    //   responseType: 'text',
-    //   success: function (res) {
-    //     console.log(res)
-    //     that.setData({
-    //       modelItems:res.data.info
-    //     })
-    //   },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
   },
   toggle(type) {
     this.setData({
@@ -97,39 +85,6 @@ Page({
       })
       wx.setStorageSync('modelName', e.currentTarget.dataset.name)
     })
-    // wx.request({
-    //   url: url_microService + '/app/deviceName/dict/getSubTypes',
-    //   data: {
-    //     modelId: e.currentTarget.dataset.id,
-        
-    //   },
-    //   header: {},
-    //   method: 'GET',
-    //   dataType: 'json',
-    //   responseType: 'text',
-    //   success: function (res) {
-    //     console.log(res)
-    //     that.setData({
-    //       items: res.data.info,
-    //       modelName: e.currentTarget.dataset.name,
-    //       modelId: e.currentTarget.dataset.id,
-    //     })
-
-    //   },
-    //   fail: function (res) { },
-    //   complete: function (res) { },
-    // })
-
-    
-    // console.log(e.currentTarget.dataset.name)
-    // this.setData({
-    //   twoStageModelName: '',
-    //   sepcName: '',
-    //   modelName: e.currentTarget.dataset.name
-    // })
-    // wx.navigateTo({
-    //   url: '../search_detail/search_detail?modelId='+e.currentTarget.dataset.id
-    // })
   },
   onClickNav({ detail }) {
     console.log(detail)
@@ -163,27 +118,33 @@ Page({
           longitude:res.longitude,
           latitude:res.latitude
         })
+        wx.setStorageSync('address', res.name)
+        wx.setStorageSync('addressDetail', res.address)
       },
     })
   },
   //开始搜索
   toSearch:function(){
-    var currentValue = this.data.currentValue*10;
+    var that = this;
+    var currentValue = that.data.currentValue*10;
     console.log(currentValue)
-    var latitude = this.data.latitude;
+    var latitude = that.data.latitude;
     console.log(latitude)
-    var longitude = this.data.longitude;
-    console.log(latitude);
-    var modeId = this.data.modelId;
+    var longitude = that.data.longitude;
+    console.log(longitude);
+    var modeId = that.data.modelId;
     console.log(modeId)
-    var twoStageModeId = this.data.twoStageModelId;
+    var twoStageModeId = that.data.twoStageModelId;
     console.log(twoStageModeId)
-    var specId = this.data.specId;
+    var specId = that.data.specId;
     console.log(specId)
-
+    wx.setStorageSync('distance', currentValue / 10);
+    wx.setStorageSync('modeId', modeId);
+    wx.setStorageSync('twoStageModeId', twoStageModeId);
+    wx.setStorageSync('specId', specId)
     var pages = getCurrentPages(); // 获取页面栈
     var prevPage = pages[pages.length - 2]; // 上一个页面
-    var that = this;
+ 
     if (longitude != null && latitude != null){
       prevPage.setData({
         longitude: longitude,
@@ -199,10 +160,7 @@ Page({
       specId: specId,
       isRefresh:1
     })
-    wx.setStorageSync('distance', currentValue/10);
-    wx.setStorageSync('modeId', modeId);
-    wx.setStorageSync('twoStageModeId', twoStageModeId);
-    wx.setStorageSync('specId', specId)
+
     wx.navigateBack({
       delta: 1,
     })

@@ -26,6 +26,7 @@ import com.yjk.app.vo.UnifiedorderAttachVO;
 import com.yjk.app.vo.XcxPayNotifyInfoVO;
 
 /**
+ * PAY("支付",1),REFUND("退款",2),COMPLAIN("投诉",3),RECEIVE_COMPLAIN("收到投诉",4);
  * 付费通知模板
  * @author huisonglin
  *

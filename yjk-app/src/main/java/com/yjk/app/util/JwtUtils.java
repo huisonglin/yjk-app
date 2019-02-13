@@ -1,6 +1,7 @@
 package com.yjk.app.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
@@ -44,13 +45,15 @@ public class JwtUtils {
                 .compact();
     }
     public Claims getClaimByToken(String token) throws Exception {
+    	
         try {
             return Jwts.parser()
                     .setSigningKey(secret)
+                    .setAllowedClockSkewSeconds(10000000000L)
                     .parseClaimsJws(token)
                     .getBody();
         }catch (Exception e){
-            logger.debug("validate is token error ", e);
+            e.printStackTrace();
             return null;
         }
     }
