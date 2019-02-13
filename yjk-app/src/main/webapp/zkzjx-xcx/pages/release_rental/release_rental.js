@@ -192,15 +192,14 @@ Page({
       success: function (res) {
         if (res.data.code == 0) {
           Toast.clear()
-          Notify({
-            text: '发布成功',
-            duration: 1000,
-            selector: '#custom-selector',
-            backgroundColor: '#1989fa'
-          });
-          wx.navigateTo({
-            url: '../index/index',
-          })
+          console.log(res);
+          Toast.success('发布成功');
+          const timer = setInterval(() => {
+            wx.navigateBack({
+              delta: 1,
+            })
+            clearInterval(timer);
+          }, 1000)
         } else {
           Toast.clear()
           Notify(res.data.msg);

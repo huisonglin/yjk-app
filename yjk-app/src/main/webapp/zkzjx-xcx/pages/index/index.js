@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 import Toast from '../../dist/toast/toast';
+import Notify from '../../dist/notify/notify';
 const url_microService = require('../../config/config').url_microService; //（与config.js相对路径）
 const app = getApp()
 
@@ -9,6 +10,7 @@ Page({
     arrayItems:[],
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    totalCount:0,
     picPosition: 0,
     picLenth:5,
     currentPage: 1,
@@ -24,6 +26,15 @@ Page({
     isRefresh: 0
   },
 
+  toDetail:function(e){
+    console.log(e)
+    var distance = e.currentTarget.dataset.distance;
+    var id = e.currentTarget.dataset.id;
+    console.log(distance)
+    wx.navigateTo({
+      url: '/pages/rent_detail/rent_detail?distance=' + distance+'&id='+id,
+    })
+  },
   //selectTabp
   selectTab:function(e){
     console.log(e)
@@ -86,7 +97,8 @@ Page({
           if (res.code == 0) {
             console.log(res)
             that.setData({
-              ["arrayItems[" + currentPage + "]"]: res.info.rows
+              ["arrayItems[" + currentPage + "]"]: res.info.rows,
+              totalCount:res.info.totalCount
             })
           }
         })
@@ -118,6 +130,7 @@ Page({
   },
   toRelasae:function(e){
     var identify = wx.getStorageSync('identity')
+    console.log("c"+identify)
     var url = '';
     if(identify == 1){
       url = '../release_rent/release_rent'
@@ -213,6 +226,8 @@ Page({
             clearInterval(timer);
           }, 600);
 
+      } else if (this.data.picPosition == that.data.totalCount - 1){
+        Notify("已经到底了~~")
       }
     }
   },

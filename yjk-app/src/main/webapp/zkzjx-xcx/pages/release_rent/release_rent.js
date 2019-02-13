@@ -128,9 +128,17 @@ Page({
       price: price
     }).then(res => {
       if(res.code == 0){
-        wx.navigateTo({
-          url: '../index/index',
-        })
+        // wx.navigateTo({
+        //   url: '../index/index',
+        // })
+        console.log(res);
+        Toast.success('发布成功');
+        const timer = setInterval(() => {
+          wx.navigateBack({
+            delta: 1,
+          })
+          clearInterval(timer);
+        }, 1000)
       }
 
     })

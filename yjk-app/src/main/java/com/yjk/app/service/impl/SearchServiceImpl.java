@@ -100,7 +100,7 @@ public class SearchServiceImpl implements SearchService{
 		}
 			
         Page pageObj = PageUtil.createPage(pageSize, (int)results.getNumFound(), searchDTO.getPageNo());
-		PageUtils pageUtils = new PageUtils(result, pageObj.getTotalPage() == 0 ? 1 : pageObj.getTotalPage());
+		PageUtils pageUtils = new PageUtils(result, pageObj.getTotalPage() == 0 ? 1 : pageObj.getTotalPage(),(int)results.getNumFound());
 		return R.ok().put("info", pageUtils);
 	}
 

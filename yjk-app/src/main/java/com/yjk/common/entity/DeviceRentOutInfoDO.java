@@ -241,4 +241,14 @@ public class DeviceRentOutInfoDO implements Serializable {
 	public Date getUpdateTime() {
 		return updateTime;
 	}
+	@Override
+	public String toString() {
+		return "DeviceRentOutInfoDO [id=" + id + ", memberId=" + memberId + ", deviceId=" + deviceId + ", address="
+				+ address + ", addressDetail=" + addressDetail + ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", type=" + type + ", voice=" + voice + ", status=" + status + ", remark=" + remark
+				+ ", contactMobile=" + contactMobile + ", contactName=" + contactName + ", liveness=" + liveness
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + ", newstime=" + newstime + "]";
+	}
+	
+	
 }

@@ -95,8 +95,6 @@ page{
 .box{
    position: relative;
    width: 100%;
-
-
    transform-origin: top;
    background-repeat: no-repeat;
    background-size: cover;
