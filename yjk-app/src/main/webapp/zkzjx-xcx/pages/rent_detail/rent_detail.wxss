@@ -1,0 +1,45 @@
+/* pages/rent_detail/rent_detail.wxss */
+.pic image{
+  width: 100%;
+}
+.callPhone{
+  position:fixed;
+  bottom:0;
+  width:100%;
+}
+.fenxiang,.jubao{
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+  width: 75%;
+  height: 56vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 20vh;
+  border-radius: 10rpx;
+}
+.fenxiang>image{
+  display: block;
+  width: 290rpx;
+  height: 250rpx;
+  margin: 40rpx auto;
+}
+.zhifu, .fenxiang_btn {
+  text-align: center;
+  width: 80%;
+  margin: 20rpx auto;
+  color: white;
+  font-size: 34rpx;
+  border-radius: 10rpx;
+}
+
+.zhifu {
+  background-color: #df545b;
+}
+.fenxiang_btn {
+  background-color: #feaa62;
+}
+.call{
+  background-color: #53ccc3!important;
+}

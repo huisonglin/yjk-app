@@ -7,6 +7,8 @@ public class PageUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
 	// 总页数
 	private int total;
+	//总条数
+	private int totalCount;
 	// 列表数据
 	private List<?> rows;
 
@@ -26,6 +28,12 @@ public class PageUtils implements Serializable {
 		this.rows = list;
 		this.total = total;
 	}
+	
+	public PageUtils(List<?> list, int total,int totalCount) {
+		this.rows = list;
+		this.total = total;
+		this.totalCount = totalCount;
+	}
 
 	public int getTotal() {
 		return total;
@@ -42,4 +50,13 @@ public class PageUtils implements Serializable {
 	public void setRows(List<?> rows) {
 		this.rows = rows;
 	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	
 }

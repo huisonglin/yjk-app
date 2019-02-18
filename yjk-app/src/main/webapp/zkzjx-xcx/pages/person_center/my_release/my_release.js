@@ -17,6 +17,7 @@ Page({
     index:0
   },
   cancelShow:function(e){
+    var that = this;
     Dialog.confirm({
       message: '确定要下架该条发布信息吗?'
     }).then(() => {
@@ -25,13 +26,41 @@ Page({
       var subArrayIndex = e.currentTarget.dataset.subarrayindex;
       var token = userInfo.token;
       var infoId = e.currentTarget.dataset.infoid;
-      app.agriknow.getRequest("/app/deviceRentOut/cacelRentOutInfo", {
-        token: token,
-        id: infoId
-      }).then(res => {
-        console.log(res)
-        Toast.success('下架成功');
-      })
+      var infoType = e.currentTarget.dataset.infotype;
+      console.log("infoType = " + infoType)
+      console.log("arrayIndex = " + arrayIndex)
+      if(infoType == 1){//出租
+        app.agriknow.getRequest("/app/deviceRentOut/cacelRentOutInfo", {
+          token: token,
+          id: infoId
+        }).then(res => {
+          console.log(res)
+          Toast.success('下架成功');
+          var items = that.data.rentItemsArray[arrayIndex];
+          console.log(items)
+          items.splice(subArrayIndex, 1)
+          that.setData({
+            ["rentItemsArray[" + arrayIndex + "]"]: items
+          })
+        })
+      }else if(infoType == 2){
+        app.agriknow.getRequest("/app/rentalInNeedInfo/cacelNeedInfo", {
+          token: token,
+          id: infoId
+        }).then(res => {
+          console.log(res)
+          Toast.success('下架成功');
+          console.log(that.data.rentalItemsArray)
+          console.log(arrayIndex)
+          var items = that.data.rentalItemsArray[arrayIndex];
+          console.log(items)
+          items.splice(subArrayIndex, 1)
+          that.setData({
+            ["rentalItemsArray[" + arrayIndex + "]"]: items
+          })
+        })
+      }
+
     }).catch(() => {
       // on cancel
     });
@@ -68,9 +97,16 @@ Page({
           latitude: res.latitude,
           longitude: res.longitude
         }).then(e => {
-          that.setData({
-            ["rentItemsArray[" + arrayIndex + "][" + subArrayIndex + "].address"]: res.name
-          })
+          if(infotype == 1){
+            that.setData({
+              ["rentItemsArray[" + arrayIndex + "][" + subArrayIndex + "].address"]: res.name
+            })
+          }else if(infotype == 2){
+            that.setData({
+              ["rentalItemsArray[" + arrayIndex + "][" + subArrayIndex + "].address"]: res.name
+            })
+          }
+
           Toast.success('刷新位置成功');
         })
       },

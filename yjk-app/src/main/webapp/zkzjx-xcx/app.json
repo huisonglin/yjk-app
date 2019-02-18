@@ -1,33 +1,20 @@
 {
   "pages":[
-            
-                      "pages/index/index",
-                    "pages/person_center/my_release/my_release",
-                      "pages/person_center/about_we/about_we",
-                      "pages/person_center/contact_we/contact_we",
-                      "pages/person_center/person_center",
-                      "pages/choose_identify/choose_identify",
+        "pages/index/index",
+        "pages/rent_detail/rent_detail",
+        "pages/person_center/my_release/my_release",
+        "pages/person_center/about_we/about_we",
+        "pages/person_center/contact_we/contact_we",
+        "pages/person_center/person_center",
+        "pages/choose_identify/choose_identify",
         "pages/request_demo/request_demo",
         "pages/price_sku/price_sku",
-
-
-
-              "pages/switch_idetify/switch_idetify",
-          "pages/release_rent/release_rent",
-
-    "pages/release_rental/release_rental",
-
-
-
-  
-
-
-
-    "pages/search/search",
-    "pages/logs/logs",
-    "pages/search_detail/search_detail"
-
-
+        "pages/switch_idetify/switch_idetify",
+        "pages/release_rent/release_rent",
+        "pages/release_rental/release_rental",
+        "pages/search/search",
+        "pages/logs/logs",
+        "pages/search_detail/search_detail"
   ],
   "window":{
     "backgroundTextStyle":"light",

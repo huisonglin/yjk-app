@@ -1,0 +1,36 @@
+<!--pages/rent_detail/rent_detail.wxml-->
+<swiper>
+  <block wx:for="{{detailInfo.pics}}">
+    <swiper-item class = "pic">
+      <image src="{{item}}" />
+    </swiper-item>
+  </block>
+</swiper>
+<van-panel title="出租:{{detailInfo.deviceName}}" desc="{{detailInfo.addressDetail}}:{{detailInfo.address}}(距离我{{distance}})">
+
+</van-panel>
+<van-panel title="发布时间:{{detailInfo.newstime}}">
+
+</van-panel>
+<van-panel title="联系人:{{detailInfo.contactName == null?'无':detailInfo.contactName}}">
+
+</van-panel>
+<van-panel title="单价:{{detailInfo.newstime}}">
+
+</van-panel>
+<van-panel title="出厂日期:{{detailInfo.manufacture == null?'无':detailInfo.manufacture}}">
+
+</van-panel>
+<van-panel title="设备描述:{{detailInfo.remark == null?'无':detailInfo.remark}}">
+
+</van-panel>
+<view class = "callPhone">
+  <van-button size="large" type="primary" bind:click="remind"  >拨打电话</van-button>
+</view>
+    <view class="fenxiang" hidden="{{isSelectShow}}">
+        <image src="http://img.huisonglin.top/kzjx/jihui.png"></image>
+        <button bindtap="reward" class="zhifu">打赏1元获得直接拨打机会</button>
+        <button class="fenxiang_btn" data-adress="{{list.addressDetail}}" data-name="{{list.name}}" openType="share">分享到群获取拨打机会</button>
+        <button bindtap="call" class="fenxiang_btn call"> 直 接 拨 打 </button>
+    </view>
+
