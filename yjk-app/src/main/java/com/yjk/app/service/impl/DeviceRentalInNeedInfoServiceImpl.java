@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
+import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceRentalInNeedInfoDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentalInNeedInfoService;
 import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
+import com.yjk.app.service.wx.template.request.NotifyRequest;
+import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.R;
+import com.yjk.app.vo.AuditingResultVO;
 import com.yjk.app.vo.DeviceRentalInNeedInfoVO;
 import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
 import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
@@ -34,6 +38,8 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 	@Autowired
 	ValueUnitCorrelationService valueUnitCorrelationService;
 	
+	@Autowired
+	TemplateMessageStragegy templateMessageStragegy;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentalInNeedInfoDTO
@@ -58,6 +64,18 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		}
 		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentalInNeedInfoDTO.getPrice(), rentalInNeedInfoId);
 		putOnProjectInfoService.putOnProject(rentalInNeedInfoId);
+		
+		NotifyRequest notifyRequest = new NotifyRequest();
+		notifyRequest.setType(TemplateEnum.AUDITING_RESULT.getValue());
+		AuditingResultVO auditingResultVO = new AuditingResultVO();
+		auditingResultVO.setAuditingReulst("恭喜您,审核通过");
+		auditingResultVO.setAuditingTime(new Date());
+		auditingResultVO.setMemberId(deviceRentalInNeedInfoDTO.getMemberId());
+		auditingResultVO.setDeviceName("【求租】:"+deviceRentalInNeedInfoDTO.getName());
+		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
+		notifyRequest.setAuditingResultVO(auditingResultVO);
+		templateMessageStragegy.excute(notifyRequest);
+		
 		return R.ok().put("info", rentalInNeedInfoId);
 	}
 	

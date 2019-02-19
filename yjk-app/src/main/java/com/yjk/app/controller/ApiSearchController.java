@@ -49,6 +49,19 @@ public class ApiSearchController {
 		R search = searchService.search(searchDTO);
 		return search;
 	}
+	
+	/**
+	 *  看看谁更适合我
+	 * @param type
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/app/search/fitMe")
+	public R fitMe(Integer type ,Long id,SearchDTO searchDTO,@Position PositionDTO positionDTO) throws Exception{
+		searchDTO.setPositionDTO(positionDTO);
+		return searchService.fitMe(type, id,searchDTO);
+	}
 
 	private void dealSearchDTO(SearchDTO searchDTO, String memberId, Integer type) {
 		if(memberId != null) {

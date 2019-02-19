@@ -10,12 +10,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detailInfo:[],
-    distance:'',
-    isSelectShow:true,
+    detailInfo: [],
+    distance: '',
+    isSelectShow: true,
     show: false,
     tipShow: false,
-    remainCount:'',
+    remainCount: '',
+    tempPic:[],
     //是否采用衔接滑动  
     circular: true,
     //是否显示画板指示点  
@@ -38,6 +39,42 @@ Page({
     current: 0,
     isShowBtn:false
   },
+  pay:function(e){
+    console.log(e)
+    var that = this;
+    var token = userInfo.token;
+    var type = this.data.detailInfo.type;
+    var id = this.data.detailInfo.id;
+    app.agriknow.getRequest('/app/fee/dialing',{
+      token:token,
+      infoId:id,
+    }).then(res => {
+      console.log(res)
+      wx.requestPayment({
+        'timeStamp': res.data.timestamp,
+        'nonceStr': res.data.noncestr,
+        'package': res.data._package,
+        'signType': 'MD5',
+        'paySign': res.data.paySign,
+        'success': function (res) {
+          that.onClose();
+          console.log("支付成功了！！！！！！！！！！！！")
+          that.setData({
+            remainCount:(that.data.remainCount+1)
+          })
+          Notify({
+             text: '支付成功',
+             duration: 1000,
+             selector: '#custom-selector',
+             backgroundColor: '#1989fa'
+           });
+          
+        },
+        'fail': function (res) {
+        }
+      })
+    })
+  },
   imageLoad: function (e) {//获取图片真实宽度  
     var imgwidth = e.detail.width,
       imgheight = e.detail.height,
@@ -54,47 +91,7 @@ Page({
       imgheights: imgheights
     })
   },
-  pay: function (e) {
-    console.log(e)
-    var that = this;
-    var token = userInfo.token;
-    var type = this.data.detailInfo.type;
-    var id = this.data.detailInfo.id;
-    app.agriknow.getRequest('/app/fee/dialing', {
-      token: token,
-      infoId: id,
-    }).then(res => {
-      console.log(res)
-      wx.requestPayment({
-        'timeStamp': res.data.timestamp,
-        'nonceStr': res.data.noncestr,
-        'package': res.data._package,
-        'signType': 'MD5',
-        'paySign': res.data.paySign,
-        'success': function (res) {
-          that.onClose();
-          console.log("支付成功了！！！！！！！！！！！！")
-          that.setData({
-            remainCount: (that.data.remainCount + 1)
-          })
-          Notify({
-            text: '支付成功',
-            duration: 3000,
-            selector: '#custom-selector',
-            backgroundColor: '#1989fa'
-          });
-
-        },
-        'fail': function (res) {
-        }
-      })
-    })
-  },
-  bindchange: function (e) {
-    // console.log(e.detail.current)
-    this.setData({ current: e.detail.current })
-  },
-  closeFeedback:function(e){
+  closeFeedback: function (e) {
     this.onTipClose();
     Dialog.alert({
       message: '感谢您使用快租机械！'
@@ -102,14 +99,14 @@ Page({
       // on close
     });
   },
-  feedback:function(e){
+  feedback: function (e) {
     var that = this;
     var token = userInfo.token;
     var infoId = this.data.detailInfo.id;
     var infoType = this.data.detailInfo.type;
     var appealContent = e.currentTarget.dataset.info;
-    app.agriknow.getRequest('app/member/callAppeal',{
-      token:token,
+    app.agriknow.getRequest('app/member/callAppeal', {
+      token: token,
       infoId: infoId,
       infoType: infoType,
       appealContent: appealContent
@@ -126,20 +123,20 @@ Page({
   onClose() {
     this.setData({ show: false });
   },
-  onTipClose(){
+  onTipClose() {
     this.setData({ tipShow: false });
   },
-  reward:function(e){
+  reward: function (e) {
 
   },
-  call:function(e){
+  call: function (e) {
     var that = this;
     var token = userInfo.token;
     console.log(token)
-    app.agriknow.getRequest('/app/fee/dialingDesc',{
-      token:token
+    app.agriknow.getRequest('/app/fee/dialingDesc', {
+      token: token
     }).then(res => {
-      if(res.code == 0){
+      if (res.code == 0) {
         var mobile = that.data.detailInfo.contactMobile;
         console.log(mobile)
         wx.makePhoneCall({
@@ -147,58 +144,59 @@ Page({
           success(e) {
             that.refreshRemainCount();
             that.setData({
-              tipShow:true,
-              show:false
+              tipShow: true,
+              show: false
             })
           }
         })
       }
     })
   },
-  remind: function(e){
+  remind: function (e) {
     this.setData({ show: true });
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    userInfo = wx.getStorageSync("simpleInfo");
-    if (options != null && options.pass == 'person'){
+    userInfo = wx.getStorageSync("simpleInfo")
+    if (options != null && options.pass == 'person') {
       this.setData({
-        isShowBtn:true
+        isShowBtn: true
       })
     }
     var that = this;
     var distance = options.distance;
     var id = options.id;
-    app.agriknow.getRequest('/app/info/detail',{
-      id:id,
-      infoType:1
+    app.agriknow.getRequest('/app/info/detail', {
+      id: id,
+      infoType: 2
     }).then(res => {
       console.log(res)
+      if(res.info.pics == null){
+        that.data.tempPic[0] = '../../images/h2.png';
+        res.info.pics = that.data.tempPic
+      }
       that.setData({
-        detailInfo:res.info,
-        distance: distance == null?'':'(距离我'+distance+')'
+        detailInfo: res.info,
+        distance: distance == null ? '' : '(距离我' + distance + ')'
       })
     })
     that.refreshRemainCount();
 
   },
-  refreshRemainCount:function(e){
+  refreshRemainCount: function (e) {
     var that = this;
     var token = userInfo.token;
-    if(token != null){
-      app.agriknow.getRequest('app/member/remainingNumbercallCount', {
-        token: token
-      }).then(res => {
-        if (res.code == 0) {
-          that.setData({
-            remainCount: res.info
-          })
-        }
-      })
-    }
-
+    app.agriknow.getRequest('app/member/remainingNumbercallCount', {
+      token: token
+    }).then(res => {
+      if (res.code == 0) {
+        that.setData({
+          remainCount: res.info
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -249,7 +247,7 @@ Page({
     console.log(e)
     var that = this;
     var id = that.data.detailInfo.id;
-    var name = that.data.detailInfo.deviceName;
+    var name = that.data.detailInfo.name;
     var iamge = that.data.detailInfo.pics[0];
     var address = that.data.detailInfo.addressDetail;
     var token = userInfo.token;
@@ -261,9 +259,9 @@ Page({
     })
 
     return {
-      title: '【出租】' + name + '(' + address+')',
-      path: '/pages/index/index?share_query='+'/pages/rent_detail/rent_detail&id='+id,
-      imageUrl: iamge
+      title: '【求租】'+name + '(' + address + ')',
+      path: '/pages/index/index?share_query=' + '/pages/rental_detail/rental_detail&id=' + id,
+      imageUrl: iamge == null ? '../../gong.png' : iamge
     }
 
 

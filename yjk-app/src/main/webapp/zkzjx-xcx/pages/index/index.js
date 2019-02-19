@@ -12,9 +12,9 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     totalCount:0,
     picPosition: 0,
-    picLenth:5,
+    picLenth:50,
     currentPage: 1,
-    pageSize : 5,
+    pageSize : 50,
     latitude: '',
     longitude: '',
     distance: '',
@@ -23,16 +23,25 @@ Page({
     twoStageModeId:'',
     specId:'',
     tabActive:'-1',
-    isRefresh: 0
+    isRefresh: 0,
+    identity:''
   },
 
   toDetail:function(e){
     console.log(e)
     var distance = e.currentTarget.dataset.distance;
     var id = e.currentTarget.dataset.id;
+    var type = e.currentTarget.dataset.type;
+    var url = '';
+    if(type == 1){
+      url =  '/pages/rent_detail/rent_detail?distance=' + distance + '&id=' + id
+    }else if(type == 2){
+      url = '/pages/rental_detail/rental_detail?distance=' + distance + '&id=' + id
+    }
+
     console.log(distance)
     wx.navigateTo({
-      url: '/pages/rent_detail/rent_detail?distance=' + distance+'&id='+id,
+      url: url,
     })
   },
   //selectTabp
@@ -59,28 +68,54 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
+  onLoad: function (e) {
+    console.log(this.data.longitude+"+++++++++++++++++++++++")
+    var url = '/app/search';
+    var type = wx.getStorageSync('identity') == 1 ? 2 : 1
+    console.log(e)
+    if(e != null && e.share_query != null){
+      wx.navigateTo({
+        url: e.share_query + '?id=' + e.id
+      })
+    }
+    if(e != null && e.pass == 'fitMe'){
+      var id= e.id;
+      type = e.type;
+      //开始写逻辑了
+      url = '/app/search/fitMe?id='+id;
+    }
     var that = this;
+    var identity = wx.getStorageSync('identity');
     that.setData({
-      longitude: wx.getStorageSync('longitude'),
-      latitude: wx.getStorageSync('latitude'),
-      distance: wx.getStorageSync('distance') == '' ? 600 : wx.getStorageSync('distance'),
-      type: wx.getStorageSync('identity'),
-      modeId: wx.getStorageSync('modeId'),
-      twoStageModeId: wx.getStorageSync('twoStageModeId'),
-      specId: wx.getStorageSync('specId'),
-      latitude: wx.getStorageSync('latitude') == null ? wx.getStorageSync('latitude'):'31.82043',
-      longitude: wx.getStorageSync('longitude') == null ? wx.getStorageSync('longitude') : '117.22715',
+      // longitude: wx.getStorageSync('longitude' + identity),
+      // latitude: wx.getStorageSync('latitude' + identity),
+      distance: wx.getStorageSync('distance' + identity) == '' ? 600 : (wx.getStorageSync('distance' + identity)*10),
+      type: type,
+      modeId: wx.getStorageSync('modeId' + identity),
+      twoStageModeId: wx.getStorageSync('twoStageModeId' + identity),
+      specId: wx.getStorageSync('specId' + identity),
+      // latitude: wx.getStorageSync('latitude' + identity) == null ? wx.getStorageSync('latitude' + identity):'31.82043',
+      // longitude: wx.getStorageSync('longitude' + identity) == null ? wx.getStorageSync('longitude' + identity) : '117.22715',
     })
         var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
         that.data.currentPage = 1;
         that.setData({
           arrayItems:[],
           picPosition: 0,
-          picLenth: 5,
           currentPage: 1,
         })
-        app.agriknow.getRequest('/app/search', {
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success: function (res) {
+        console.log(that.data.longitude + "+++++++++++++++++++++++")
+        if (that.data.latitude == ''){
+          that.setData({
+            latitude: res.latitude,
+            longitude: res.longitude
+          })
+        }
+        console.log(that.data.longitude);
+        app.agriknow.getRequest(url, {
           pageNo: '1',
           longitude: that.data.longitude,
           latitude: that.data.latitude,
@@ -94,11 +129,15 @@ Page({
             console.log(res)
             that.setData({
               ["arrayItems[" + currentPage + "]"]: res.info.rows,
-              totalCount:res.info.totalCount
+              totalCount: res.info.totalCount,
+              pageSize: res.info.pageSize,
+              picLenth: res.info.pageSize
             })
+            console.log(that.data.arrayItems)
           }
         })
-
+      }
+    });
   },
   toRelasae:function(e){
     var identify = wx.getStorageSync('identity')

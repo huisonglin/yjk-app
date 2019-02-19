@@ -18,6 +18,16 @@ public class SearchDTO {
 	//位置信息 
 	private PositionDTO positionDTO;
 	
+	private Integer pageSize;
+	
+	
+	
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
 	public Integer getPageNo() {
 		return pageNo;
 	}

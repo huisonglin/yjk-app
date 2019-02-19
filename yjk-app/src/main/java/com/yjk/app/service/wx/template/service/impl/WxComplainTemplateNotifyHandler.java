@@ -48,9 +48,7 @@ public class WxComplainTemplateNotifyHandler implements WxTemplateNotify{
 		try {
 			TemplateDTO templateDTO = new TemplateDTO();
 			WxComplainVO wxComplainVO = request.getWxComplainVO();
-			String formId = valueOperations.get(Constants.FORM_ID+wxComplainVO.getMemberId());
 			templateDTO.setTemplate_id("eVBr3BBMcC5tVVHyTHaLihKtSFsiF_DGuw5FvopIRQM");
-			templateDTO.setForm_id(formId);
 			
 			MemberDO memberDO = memberMapper.selectByPrimaryKey(wxComplainVO.getMemberId());
 			templateDTO.setMemberId(wxComplainVO.getMemberId());

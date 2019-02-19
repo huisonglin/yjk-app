@@ -2,6 +2,7 @@
   "pages":[
         "pages/index/index",
         "pages/rent_detail/rent_detail",
+        "pages/rental_detail/rental_detail",
         "pages/person_center/my_release/my_release",
         "pages/person_center/about_we/about_we",
         "pages/person_center/contact_we/contact_we",
@@ -18,9 +19,9 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "navigationBarBackgroundColor": "#53ccc3"
   },
     "permission": {
       "scope.userLocation": {

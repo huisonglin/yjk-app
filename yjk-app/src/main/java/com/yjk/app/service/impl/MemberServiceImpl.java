@@ -363,6 +363,25 @@ public class MemberServiceImpl implements MemberService{
 		return R.ok().put("info", loginVO);
 	}
 	
+	//获取用户头像和呢称
+	public R obtainUserInfo(String iv,String encryptedData,Long memberId) throws Exception {
+		String sessionKey = valueOperations.get(Constants.XCX_SESSION_KEY+memberId.toString());
+		DecryptUserInfoDTO decryptUserInfoDTO = new DecryptUserInfoDTO(); 
+		decryptUserInfoDTO.setIv(iv);
+		decryptUserInfoDTO.setEncryptedData(encryptedData);
+		decryptUserInfoDTO.setSession_key(sessionKey);
+		DecryptUserInfoVO decryptUserInfo = payUtil.DecryptUserInfo(decryptUserInfoDTO);
+		MemberDO member = memberMapper.selectByPrimaryKey(memberId);
+		member.setNickName(decryptUserInfo.getNickName());
+		member.setHeadImage(decryptUserInfo.getAvatarUrl());
+		memberMapper.updateByPrimaryKeySelective(member);
+		LoginVO loginVO = new LoginVO();
+		loginVO.setToken(jwtUtils.generateToken(member.getId().toString()));
+		loginVO.setHeadImage(member.getHeadImage());
+		loginVO.setNickName(member.getNickName());
+		loginVO.setMobile(member.getMoble());
+		return  R.ok().put("info", loginVO);
+	}
 	public R loginByWxXcx(String code) throws Exception {
 		Jscode2SessionVO jsv = getOpenIdAndSeesinKeyByCode(code);
 		Example example = new Example(MemberDO.class);

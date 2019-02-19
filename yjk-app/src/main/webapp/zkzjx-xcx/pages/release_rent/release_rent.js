@@ -3,7 +3,7 @@ const url_microService = require('../../config/config').url_microService; //（�
 const app = getApp()
 import Toast from '../../dist/toast/toast';
 import Notify from '../../dist/notify/notify';
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 Page({
 
   /**
@@ -24,18 +24,7 @@ Page({
     specId: '',
     deviceName:'',
     contactName: '',
-    remarkItems: [{
-      value: "新车"
-    }, {
-      value: "新车老司机"
-    }, {
-      value: "司机技术全面"
-    }, {
-      value: "车到中年，宝刀未老"
-    }, {
-      value: "车一般，技术一般"
-    }],
-    remarkResult:[],
+    reamrk:'',
     show: {
       middle: false,
       top: false,
@@ -47,6 +36,13 @@ Page({
     price:''
   },
 
+  getRemark:function(e){
+    console.log(e)
+    var remark = e.detail;
+    this.setData({
+      remark: remark
+    })
+  },
   //发布信息
   toRelasae(e){
     var that = this;
@@ -102,14 +98,7 @@ Page({
     console.log(contactName)
     var manufacture = this.data.manufacture;
     console.log(manufacture)
-    var remark = '';
-    for(var i=0;i<this.data.remarkResult.length;i++){
-      if (i == (this.data.remarkResult.length -1) ){
-        remark += this.data.remarkResult[i]
-      }else{
-        remark += (this.data.remarkResult[i]+",")
-      }
-    }
+    var remark = this.data.remark;
     app.agriknow.getRequest('/app/deviceRentOut/addOrUpdateRentOutInfo', {
       token: token,
       pics: pics,
@@ -237,13 +226,6 @@ Page({
     console.log(e)
     this.setData({
       contactMobile:e.detail
-    })
-  },
-  //选择备注
-  onChange(e){
-    console.log(e)
-    this.setData({
-      remarkResult:e.detail
     })
   },
   //选择机械
@@ -429,6 +411,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    userInfo = wx.getStorageSync("simpleInfo")
     console.log(options)
   },
 

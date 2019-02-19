@@ -48,4 +48,6 @@ public interface MemberService {
 	 R callAppeal(CallAppealDTO dto) throws Exception;
 	 
 	 R loginByWxXcx(String code) throws Exception;
+	 
+	 R obtainUserInfo(String iv,String encryptedData,Long memberId) throws Exception;
 }

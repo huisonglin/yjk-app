@@ -11,6 +11,18 @@ public class PageUtils implements Serializable {
 	private int totalCount;
 	// 列表数据
 	private List<?> rows;
+	
+	private Integer pageSize;
+	
+	
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
 
 	/**
 	 * 分页

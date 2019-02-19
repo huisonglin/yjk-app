@@ -9,13 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yjk.app.common.SelfIncreasingIdService;
+import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
+import com.yjk.app.service.wx.template.request.NotifyRequest;
+import com.yjk.app.service.wx.template.strategy.TemplateMessageStragegy;
 import com.yjk.app.util.R;
+import com.yjk.app.vo.AuditingResultVO;
 import com.yjk.app.vo.DeviceRentOutInfoVO;
 import com.yjk.common.dao.DeviceMapper;
 import com.yjk.common.dao.DeviceRentOutInfoMapper;
@@ -34,7 +38,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	DeviceMapper deviceMapper;
 	@Autowired
 	ValueUnitCorrelationService valueUnitCorrelationService;
-	
+	@Autowired
+	TemplateMessageStragegy templateMessageStragegy;
 	
 	/**
 	 * 添加或者修改发布信息
@@ -77,9 +82,21 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		}
 		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentOutInfoDTO.getPrice(), deviceRentOutInfoDO.getId());
 		putOnRentInfoService.putOnRent(deviceRentOutInfoId);
+		
+		NotifyRequest notifyRequest = new NotifyRequest();
+		notifyRequest.setType(TemplateEnum.AUDITING_RESULT.getValue());
+		AuditingResultVO auditingResultVO = new AuditingResultVO();
+		auditingResultVO.setAuditingReulst("恭喜您,审核通过");
+		auditingResultVO.setAuditingTime(new Date());
+		auditingResultVO.setMemberId(deviceRentOutInfoDTO.getMemberId());
+		auditingResultVO.setDeviceName("【出租】:"+deviceRentOutInfoDTO.getDeviceName());
+		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
+		notifyRequest.setAuditingResultVO(auditingResultVO);
+		templateMessageStragegy.excute(notifyRequest);
 		return R.ok().put("info", deviceRentOutInfoId);
 	}
 	
+
 	/**
 	 * 编辑发布出售信息
 	 * @param id

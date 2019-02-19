@@ -1,5 +1,5 @@
 // pages/person_center/my_release/my_release.js
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 const app = getApp()
 import Toast from '../../../dist/toast/toast';
 import Notify from '../../../dist/notify/notify';
@@ -15,6 +15,15 @@ Page({
     rentCurrentPage:1,//发布出租的页面标识
     rentalCurrentPage:1,//发布求租的页面标识
     index:0
+  },
+
+  fitMe:function(e){
+    console.log(e)
+    var id = e.currentTarget.dataset.infoid;
+    var type = e.currentTarget.dataset.infotype;
+    wx.navigateTo({
+      url: '/pages/index/index?pass=fitMe&id='+id+'&type='+type,
+    })
   },
   cancelShow:function(e){
     var that = this;
@@ -119,6 +128,7 @@ Page({
     })
   },
   onLoad: function (options) {
+    userInfo = wx.getStorageSync("simpleInfo")
     var that = this;
     var token = userInfo.token;
     var currentPage = 0; // 因为数组下标是从0开始的，所以这里用了0
@@ -237,6 +247,30 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
+    console.log(e);
+    var address = e.target.dataset.address;
+    var id = e.target.dataset.id;
+    var image = e.target.dataset.image;
+    var infotype = e.target.dataset.infotype;
+    var title = e.target.dataset.title;
+    if(infotype == 1){
+      return {
+        title: '【出租】' + title+'('+address+')',
+        path: '/pages/index/index?share_query=' + '/pages/rent_detail/rent_detail&id='+id,
+        imageUrl: image
+      }
+    }else if(infotype == 2){
+      return {
+        title: '【求租】' + title + '(' + address + ')',
+        path: '/pages/index/index?share_query=' + '/pages/rental_detail/rental_detail&id=' + id,
+        imageUrl: image
+      }
+    }
+    //  return {
+    //    title: '【出租】',
+    //    path: '/pages/index/index?share_query=' + '/pages/rent_detail/rent_detail&id=',
+    //    imageUrl: 'iamge'
+    //  }
   }
 })

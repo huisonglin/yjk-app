@@ -87,6 +87,10 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 			Criteria specCriteria = specExample.createCriteria();
 			specCriteria.andEqualTo("twoStageModeId",twoStagemodelDO.getId());
 			List<SelectSpecVO> lvs = new ArrayList<>();
+			SelectSpecVO ingnor = new SelectSpecVO();
+			ingnor.setId("0" + "-" + twoStagemodelDO.getName() + "-" + twoStagemodelDO.getId());
+			ingnor.setText("不限");
+			lvs.add(ingnor);
 			List<SpecDO> specList = specMapper.selectByExample(specExample);
 			for (SpecDO specDO : specList) {
 				SelectSpecVO lv = new SelectSpecVO();

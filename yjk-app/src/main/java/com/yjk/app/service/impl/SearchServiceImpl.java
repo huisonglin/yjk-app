@@ -15,12 +15,20 @@ import org.springframework.stereotype.Service;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.config.SolrEnvironmentConfig;
 import com.yjk.app.dto.SearchDTO;
+import com.yjk.app.service.DeviceRentOutInfoService;
+import com.yjk.app.service.DeviceRentalInNeedInfoService;
 import com.yjk.app.service.SearchService;
 import com.yjk.app.util.Page;
 import com.yjk.app.util.PageUtil;
 import com.yjk.app.util.PageUtils;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.QueryResultItemVO;
+import com.yjk.common.dao.DeviceMapper;
+import com.yjk.common.dao.DeviceRentOutInfoMapper;
+import com.yjk.common.dao.DeviceRentalInNeedInfoMapper;
+import com.yjk.common.entity.DeviceDO;
+import com.yjk.common.entity.DeviceRentOutInfoDO;
+import com.yjk.common.entity.DeviceRentalInNeedInfoDO;
 
 @Service
 public class SearchServiceImpl implements SearchService{
@@ -37,9 +45,49 @@ public class SearchServiceImpl implements SearchService{
 	
 	@Autowired
 	SolrEnvironmentConfig solrEnvironmentConfig;
+	
+	@Autowired
+	DeviceRentOutInfoMapper deviceRentOutInfoMapper;
+	
+	@Autowired
+	DeviceRentalInNeedInfoMapper deviceRentalInNeedInfoMapper;
+	
+	@Autowired
+	DeviceMapper deviceMapper;
+	
+	/**
+	 * 看看谁更适合我
+	 * @param type
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public R fitMe(Integer type ,Long id,SearchDTO searchDTO) throws Exception {
+		type = (type == 1?2:1);	
+		if(type == 2) {
+			DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(id);
+			DeviceDO deviceDO = deviceMapper.selectByPrimaryKey(deviceRentOutInfoDO.getDeviceId());
+			
+			searchDTO.setModeId(deviceDO.getModeId());
+			searchDTO.setTwoStageModeId(deviceDO.getTwoStageModeId());
+			searchDTO.setSpecId(deviceDO.getSpecId());
+		}else if(type == 1) {
+			DeviceRentalInNeedInfoDO deviceRentalInNeedInfoDO = deviceRentalInNeedInfoMapper.selectByPrimaryKey(id);
+			searchDTO.setModeId(deviceRentalInNeedInfoDO.getModeId());
+			searchDTO.setTwoStageModeId(deviceRentalInNeedInfoDO.getTwoStageModeId());
+			searchDTO.setSpecId(deviceRentalInNeedInfoDO.getSpecId());
+		}
+		searchDTO.setDistance(1000.0);
+		searchDTO.setPageSize(Integer.MAX_VALUE);
+		searchDTO.setType(type);
+		return this.search(searchDTO);
+	}
 
 	@Override
 	public R search(SearchDTO searchDTO) throws Exception {
+		if(searchDTO.getPageSize() == null) {
+			searchDTO.setPageSize(pageSize);
+		}
 		SolrQuery params = new SolrQuery();
 		StringBuilder builder = appendParams(searchDTO);
 		params.set("q", builder.toString());
@@ -52,8 +100,8 @@ public class SearchServiceImpl implements SearchService{
 		}else {
 			params.set("sort", "last_modified desc");  //根据发布时间降序
 		}
-		params.set("start", (searchDTO.getPageNo()-1)*pageSize);  //记录开始位置
-		params.set("rows", pageSize);  //查询的行数
+		params.set("start", (searchDTO.getPageNo()-1)*searchDTO.getPageSize());  //记录开始位置
+		params.set("rows", searchDTO.getPageSize());  //查询的行数
 		params.set("fl", "*,_dist_:geodist(),score");//查询的结果中添加距离和score
 		QueryResponse queryResponse = solrClient.query(params);
 		SolrDocumentList results = queryResponse.getResults();
@@ -101,6 +149,7 @@ public class SearchServiceImpl implements SearchService{
 			
         Page pageObj = PageUtil.createPage(pageSize, (int)results.getNumFound(), searchDTO.getPageNo());
 		PageUtils pageUtils = new PageUtils(result, pageObj.getTotalPage() == 0 ? 1 : pageObj.getTotalPage(),(int)results.getNumFound());
+		pageUtils.setPageSize(pageSize);
 		return R.ok().put("info", pageUtils);
 	}
 
@@ -115,7 +164,7 @@ public class SearchServiceImpl implements SearchService{
 		if(searchDTO.getTwoStageModeId() != null) {
 			builder.append(" AND twoStageModeId:").append(searchDTO.getTwoStageModeId());
 		}
-		if(searchDTO.getSpecId() != null) {
+		if(searchDTO.getSpecId() != null && searchDTO.getSpecId() != 0l) {
 			builder.append(" AND specId:").append(searchDTO.getSpecId());
 		}
 		return builder;

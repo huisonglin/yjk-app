@@ -1,6 +1,9 @@
 // pages/person_center/person_center.js
-const app = getApp();
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
+const app = getApp()
+import Toast from '../../dist/toast/toast';
+import Notify from '../../dist/notify/notify';
+
 Page({
 
   /**
@@ -10,14 +13,33 @@ Page({
     userInfo:null
   },
 
+  bindGetUserInfo:function(e){
+    var that = this;
+    var token = userInfo.token;
+    var iv = e.detail.iv;
+    var encryptedData = e.detail.encryptedData;
+    app.agriknow.getRequest('/app/member/obtainUserInfo',{
+        token: token,
+        iv:iv,
+        encryptedData:encryptedData
+      }).then(res => {
+        if(res.code == 0){
+          console.log(res)
+          wx.setStorageSync('simpleInfo', res.info)
+        }
+        that.setData({
+          userInfo:res.info
+        })
+      })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     var that = this;
-
+    userInfo = wx.getStorageSync("simpleInfo")
     that.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: userInfo
     })
   },
 

@@ -7,6 +7,16 @@ page{
   height: 75vh;
   width: 100%;
 }
+.custom-class{
+  color:red
+}
+.blank{
+  text-align: center;
+  padding-top:6rem;
+}
+.blank image{
+  width: 70%;
+}
 .swiper-item{
   display: flex;
   flex-direction: column;

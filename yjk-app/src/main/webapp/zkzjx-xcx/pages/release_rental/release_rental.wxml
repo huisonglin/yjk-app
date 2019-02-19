@@ -9,7 +9,7 @@
     bind:close="toggleBottomPopup"
   >
       <view wx:for = "{{modelItems}}" class="item">
-      <van-button plain type="primary" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" bind:click = "selectType" size="small">
+      <van-button formType="submit" plain type="primary" data-id="{{item.id}}" data-type="{{item.type}}" data-name="{{item.name}}" bind:click = "selectType" size="small">
        {{item.name}}</van-button>
   </view>
   </van-popup>
@@ -25,7 +25,7 @@
     bind:click-icon="onClickIcon"
     use-button-slot
   >
-    <van-button slot="button" size="small" open-type="getPhoneNumber" type="primary" bindgetphonenumber="bindMobile" >一键获取</van-button>
+    <van-button formType="submit" slot="button" size="small" open-type="getPhoneNumber" type="primary" bindgetphonenumber="bindMobile" >一键获取</van-button>
   </van-field>
 <!-- 施工位置 -->
   <van-cell  title="{{address == ''?'施工位置':addressDetail}}" value="{{address == ''?'请选择':''}}"  icon="{{address == ''?'':'location-o'}}" required is-link bind:click="chooseAddress"/>
@@ -86,6 +86,7 @@
     label="工期"
     placeholder="请输入工期"
     use-button-slot
+    type="number"
   >
   <view  slot="button">天</view>
   </van-field>
@@ -96,6 +97,7 @@
     label="设备进场付款"
     placeholder="请输入金额"
     use-button-slot
+    type="number"
   >
   <view  slot="button">元</view>
   </van-field>
@@ -115,7 +117,15 @@
   bind:close="exitOnClose"
   bind:select="exitOnSelect"
 />
-
+<van-cell-group>
+  <van-field
+    label="备注"
+    type="textarea"
+    autosize="true"
+    bind:change="getRemark"
+    placeholder="请输入您想要说的话..."
+  />
+</van-cell-group>
 
 
 
@@ -138,7 +148,7 @@
 </van-panel> -->
 </view>
 <view class = "commit">
-  <van-button size="large"  open-type = "form-type" type="primary" bind:click="toRelasae" >我要发布</van-button>
+  <van-button formType="submit" size="large"  open-type = "form-type" type="primary" bind:click="toRelasae" >我要发布</van-button>
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

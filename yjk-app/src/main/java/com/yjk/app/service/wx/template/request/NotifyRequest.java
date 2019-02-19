@@ -1,5 +1,6 @@
 package com.yjk.app.service.wx.template.request;
 
+import com.yjk.app.vo.AuditingResultVO;
 import com.yjk.app.vo.ReceiveComplainVO;
 import com.yjk.app.vo.WxComplainVO;
 import com.yjk.app.vo.XcxPayNotifyInfoVO;
@@ -20,9 +21,19 @@ public class NotifyRequest {
 	
 	private ReceiveComplainVO receiveComplainVO;
 	
+	private AuditingResultVO auditingResultVO;
 	
 	
 	
+	
+
+	public AuditingResultVO getAuditingResultVO() {
+		return auditingResultVO;
+	}
+
+	public void setAuditingResultVO(AuditingResultVO auditingResultVO) {
+		this.auditingResultVO = auditingResultVO;
+	}
 
 	public ReceiveComplainVO getReceiveComplainVO() {
 		return receiveComplainVO;

@@ -13,13 +13,13 @@
 <!-- <van-icon name="user-o" slot="left" size="1.3rem" color="green" info = "1"/>
 <van-icon name="search" slot="right" size="1.3rem" color="green"/>
 </van-nav-bar> --> 
-<van-tabs type="card" active='{{tabActive}}' color="green" bind:click = "selectTab">
+<van-tabs type="card" active='{{tabActive}}' color="#df545b" bind:click = "selectTab">
   <van-tab title="个人中心"></van-tab>
   <van-tab title="身份切换"></van-tab>
   <van-tab title="筛选机械"></van-tab>
 </van-tabs>
 </view>
-
+<view wx:if='{{arrayItems[0] != ""}}' >
 <swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">
     <view wx:for="{{arrayItems}}" wx:for-item="itmes" wx:for-index="idx">
       <swiper-item class="swiper-item" wx:for="{{itmes}}"  wx:for-item="item" >
@@ -32,8 +32,12 @@
       </swiper-item>
     </view>
 </swiper>
+</view>
+<view wx:if='{{arrayItems[0] == ""}}' class = "blank">
+  <image src = 'http://img.huisonglin.top/kzjx/kong.png'></image>
+</view>
 <view class = "releaseBtn">
-  <van-button size="large" type="primary" bind:click="toRelasae"  >我要发布</van-button>
+  <van-button size="large" type="primary" formType="submit" bind:click="toRelasae"   >我要发布</van-button>
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

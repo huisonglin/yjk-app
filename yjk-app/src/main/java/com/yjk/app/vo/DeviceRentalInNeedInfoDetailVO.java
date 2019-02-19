@@ -1,6 +1,7 @@
 package com.yjk.app.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,8 +27,8 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private String term;
 	//进场时间
 	private Date inTime;
-/*	//备注
-	private String remark;*/
+	//备注
+	private String remark;
 	//设备进场付款
 	private String equipmentArrivalPayment;
 	//按月进度付款
@@ -36,6 +37,8 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private String exitPayment;
 	//单价
 	private String price;
+	
+	 private List<ValueUnitNameVO>  arrayPrice;
 	//联系人姓名
 	private String contactName;
 	//联系人手机号
@@ -48,8 +51,24 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private Long memberId;
 	
 	private Date newstime;
+	//信息类型 2求租
+	private Integer type = 2;
 	
 	
+	
+	
+	public List<ValueUnitNameVO> getArrayPrice() {
+		return arrayPrice;
+	}
+	public void setArrayPrice(List<ValueUnitNameVO> arrayPrice) {
+		this.arrayPrice = arrayPrice;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	public Date getNewstime() {
 		return newstime;
 	}
@@ -127,12 +146,12 @@ public class DeviceRentalInNeedInfoDetailVO {
 	public void setInTime(Date inTime) {
 		this.inTime = inTime;
 	}
-/*	public String getRemark() {
+	public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}*/
+	}
 	public String getEquipmentArrivalPayment() {
 		return equipmentArrivalPayment;
 	}

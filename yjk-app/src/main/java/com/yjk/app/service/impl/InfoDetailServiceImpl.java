@@ -46,7 +46,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 	@Cacheable(value = "infoDetail", key="#id")
 	public Object infoDetail(Long id,Integer infoType) throws Exception {
 		logger.info("走了数据库....");
-		if(PublishingTypeEnum.RENT_OUT.getValue() == infoType) { //发布出租
+		if(PublishingTypeEnum.RENT_OUT.getValue() == infoType) { //发布出租 
 			
 			DeviceRentOutInfoDO deviceRentOutInfoDO = deviceRentOutInfoMapper.selectByPrimaryKey(id);
 			if(deviceRentOutInfoDO == null) {
@@ -75,6 +75,7 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 			DeviceRentalInNeedInfoDetailVO deviceRentalInNeedInfoDetailVO = new DeviceRentalInNeedInfoDetailVO();
 			PropertyUtils.copyProperties(deviceRentalInNeedInfoDetailVO, deviceRentalInNeedInfoDO);
 			deviceRentalInNeedInfoDetailVO.setPics(deviceRentalInNeedInfoDO.getPics());
+			deviceRentalInNeedInfoDetailVO.setArrayPrice(valueUnitCorrelationService.showPriceName(id));
 			return deviceRentalInNeedInfoDetailVO;			
 		}
 		return null;

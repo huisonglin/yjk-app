@@ -39,9 +39,17 @@ public class DeviceRentOutInfoDetailVO {
 	private String active;
 	//发布时间
 	private Date newstime;
+	//信息类型 1出租
+	private Integer type = 1;
 	
 	
 	
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	public Date getNewstime() {
 		return newstime;
 	}

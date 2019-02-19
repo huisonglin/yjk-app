@@ -10,7 +10,7 @@
   line-height: 18px;
   text-align: center;
   border-radius: 100px;
-  background-color: #f44;
+  background-color: #e6747a;
   }
   .device_type{
     overflow: hidden;

@@ -3,7 +3,7 @@ const url_microService = require('../../config/config').url_microService; //（�
 const app = getApp()
 import Toast from '../../dist/toast/toast';
 import Notify from '../../dist/notify/notify';
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 Page({
 
   /**
@@ -24,18 +24,7 @@ Page({
     specId: '',
     deviceName: '',
     contactName: '',
-    remarkItems: [{
-      value: "新车"
-    }, {
-      value: "新车老司机"
-    }, {
-      value: "司机技术全面"
-    }, {
-      value: "车到中年，宝刀未老"
-    }, {
-      value: "车一般，技术一般"
-    }],
-    remarkResult: [],
+    remark:'',
     show: {
       middle: false,
       top: false,
@@ -84,7 +73,13 @@ Page({
     monthlyPayment:'',
     exitPayment:''
   },
-
+  getRemark: function (e) {
+    console.log(e)
+    var remark = e.detail;
+    this.setData({
+      remark: remark
+    })
+  },
   //发布信息
   toRelasae(e) {
     console.log(e)
@@ -158,6 +153,9 @@ Page({
     console.log(monthlyPayment)
     var exitPayment = this.data.exitPayment;
     console.log(exitPayment)
+
+    var remark = this.data.remark;
+    console.log(remark)
     Toast.loading({
       duration: 0,       // 持续展示 toast
       mask: true,
@@ -183,7 +181,8 @@ Page({
         equipmentArrivalPayment: equipmentArrivalPayment,
         exitPayment: exitPayment,
         monthlyPayment: monthlyPayment,
-        price: price
+        price: price,
+        remark:remark
       },
       header: {},
       method: 'GET',
@@ -497,6 +496,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    userInfo = wx.getStorageSync("simpleInfo");
     console.log(options)
   },
 

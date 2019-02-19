@@ -19,3 +19,32 @@
 .usermotto {
   margin-top: 200px;
 }
+.blank{
+  text-align: center;
+}
+.blank image{
+  width: 70%;
+  height: 15rem;
+  margin-top: 5rem;
+}
+.shareParent{
+  position: relative;
+}
+.share{
+  position: absolute;
+  right: 30px;
+  bottom:28px;
+}
+.share image{
+ width: 1.5rem;
+ height:1.5rem;
+}
+button::after{
+border:none;
+}
+
+input{
+outline:none;
+border:none;
+list-style: none;
+}

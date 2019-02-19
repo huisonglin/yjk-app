@@ -110,6 +110,13 @@ public class ApiMemberController {
 		return memberService.loginByXcx(code,iv,encryptedData);
 	}
 	
+	@Login
+	@RequestMapping("/obtainUserInfo")
+	public R obtainUserInfo(String iv,String encryptedData,@RequestAttribute("memberId") Long memberId) throws Exception{
+		Assert.isBlank(iv, "iv不能为空");
+		Assert.isBlank(encryptedData, "encryptedData不能为空");
+		return memberService.obtainUserInfo(iv,encryptedData,memberId);
+	}
 	@RequestMapping("/bindMobile")
 	@Deprecated
 	@LimitedAccessByIP(key="xcxMemberRegister",EachInterva=3)
@@ -170,5 +177,11 @@ public class ApiMemberController {
 	@RequestMapping("/toShare")
 	public R toShare(@RequestAttribute("memberId")Long memberId) {
 		return memberService.toShare(memberId);
+	}
+	
+	@Login
+	@RequestMapping("/pushFormId")
+	public R pushFormId() {
+		return R.ok();
 	}
 }

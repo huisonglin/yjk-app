@@ -1,16 +1,15 @@
 /* pages/rent_detail/rent_detail.wxss */
-
 .contain{
   padding-bottom: 5rem;
 }
-
 .swiper image {
   width: 100%;
   height: auto;
 }
 
-
-
+.pic image{
+  width: 100%;
+}
 .callPhone{
   position:fixed;
   bottom:0;

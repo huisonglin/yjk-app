@@ -28,7 +28,8 @@ Page({
     modelId:'',
     activeId: '',
     twoStageModelId:'',
-    specId:''
+    specId:'',
+    identity:''
   },
   onDrag(event) {
     this.setData({
@@ -40,19 +41,20 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(wx.getStorageSync('twoStageModeId') + '------' + wx.getStorageSync('modeId'))
+    var identity = wx.getStorageSync('identity');
+    console.log(wx.getStorageSync('twoStageModeId' + identity) + '------' + wx.getStorageSync('modeId' + identity))
     that.setData({
-      currentValue: wx.getStorageSync('distance') == null ? 60:wx.getStorageSync('distance'),
-      modelId: wx.getStorageSync('modeId'),
-      twoStageModelId: wx.getStorageSync('twoStageModeId'),
-      specId: wx.getStorageSync('specId'),
-      modelName: wx.getStorageSync('modelName'),
-      twoStageModelName: wx.getStorageSync('twoStageModelName'),
-      sepcName: wx.getStorageSync('sepcName'),
-      longitude: wx.getStorageSync('longitude'),
-      latitude: wx.getStorageSync('latitude'),
-      address: wx.getStorageSync('address'),
-      addressDetail: wx.getStorageSync('addressDetail'),    
+      currentValue: wx.getStorageSync('distance' + identity) == '' ? 60 : wx.getStorageSync('distance' + identity),
+      modelId: wx.getStorageSync('modeId' + identity),
+      twoStageModelId: wx.getStorageSync('twoStageModeId' + identity),
+      specId: wx.getStorageSync('specId' + identity),
+      modelName: wx.getStorageSync('modelName' + identity),
+      twoStageModelName: wx.getStorageSync('twoStageModelName' + identity),
+      sepcName: wx.getStorageSync('sepcName' + identity),
+      longitude: wx.getStorageSync('longitude' + identity),
+      latitude: wx.getStorageSync('latitude' + identity),
+      address: wx.getStorageSync('address' + identity),
+      addressDetail: wx.getStorageSync('addressDetail' + identity),    
     })
     app.agriknow.getRequest('/app/deviceName/dict/getModelList',null).then(res => {
       if(res.code == 0){
@@ -83,7 +85,8 @@ Page({
         modelName: e.currentTarget.dataset.name,
         modelId: e.currentTarget.dataset.id,
       })
-      wx.setStorageSync('modelName', e.currentTarget.dataset.name)
+      var identity = wx.getStorageSync('identity');
+      wx.setStorageSync('modelName' + identity, e.currentTarget.dataset.name)
     })
   },
   onClickNav({ detail }) {
@@ -104,8 +107,9 @@ Page({
       twoStageModelName: ts[1],
       twoStageModelId: ts[2]
     });
-    wx.setStorageSync('sepcName', detail.text)
-    wx.setStorageSync('twoStageModelName', ts[1])
+    var identity = wx.getStorageSync('identity');
+    wx.setStorageSync('sepcName' + identity, detail.text)
+    wx.setStorageSync('twoStageModelName' + identity, ts[1])
   },
   chooseAddress: function(e){
     var that = this
@@ -118,8 +122,9 @@ Page({
           longitude:res.longitude,
           latitude:res.latitude
         })
-        wx.setStorageSync('address', res.name)
-        wx.setStorageSync('addressDetail', res.address)
+        // var identity = wx.getStorageSync('identity');
+        // wx.setStorageSync('address' + identity, res.name)
+        // wx.setStorageSync('addressDetail' + identity, res.address)
       },
     })
   },
@@ -138,20 +143,24 @@ Page({
     console.log(twoStageModeId)
     var specId = that.data.specId;
     console.log(specId)
-    wx.setStorageSync('distance', currentValue / 10);
-    wx.setStorageSync('modeId', modeId);
-    wx.setStorageSync('twoStageModeId', twoStageModeId);
-    wx.setStorageSync('specId', specId)
+    var identity = wx.getStorageSync('identity');
+    wx.setStorageSync('distance' + identity, currentValue / 10);
+    wx.setStorageSync('modeId' + identity, modeId);
+    wx.setStorageSync('twoStageModeId' + identity, twoStageModeId);
+    wx.setStorageSync('specId' + identity, specId)
     var pages = getCurrentPages(); // 获取页面栈
     var prevPage = pages[pages.length - 2]; // 上一个页面
  
     if (longitude != null && latitude != null){
+      console.log(longitude+"------------------")
+      console.log(latitude)
       prevPage.setData({
         longitude: longitude,
         latitude: latitude,
       })
-      wx.setStorageSync('longitude', longitude)
-      wx.setStorageSync('latitude', latitude)
+      // var identity = wx.getStorageSync('identity');
+      // wx.setStorageSync('longitude' + identity, longitude)
+      // wx.setStorageSync('latitude' + identity, latitude)
     }
     prevPage.setData({
       distance: currentValue,

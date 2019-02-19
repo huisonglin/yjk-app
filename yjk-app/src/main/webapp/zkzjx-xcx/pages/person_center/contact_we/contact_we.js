@@ -1,5 +1,5 @@
 // pages/person_center/contact_we/contact_we.js
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 const app = getApp()
 import Toast from '../../../dist/toast/toast';
 import Notify from '../../../dist/notify/notify';
@@ -53,7 +53,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    userInfo = wx.getStorageSync("simpleInfo")
   },
 
   /**

@@ -1,25 +1,29 @@
 <!--pages/rent_detail/rent_detail.wxml-->
+<!-- <swiper>
 
-<!-- <swiper class = "swiper">
-  <block wx:for="{{detailInfo.pics}}">
-    <swiper-item >
-      <image src="{{item}}" mode="widthFix"/>
+  <block wx:if = '{{detailInfo.pics == null}}'>
+    <swiper-item class = "pic">
+      <image src="../../images/h1.png" />
     </swiper-item>
   </block>
+  <block wx:if = '{{detailInfo.pics != null}}'>
+    <swiper-item class = "pic" wx:for="{{detailInfo.pics}}">
+      <image src="{{item}}" />
+    </swiper-item>
+  </block>
+
 </swiper> -->
 <view class="contain">
 <view class='swiper'>
     <swiper indicator-dots="{{indicatorDots}}" vertical="{{vertical}}" autoplay="{{autoplay}}" duration="{{duration}}" interval='{{interval}}' bindchange="bindchange"  circular="{{circular}}" style="height:{{imgheights[current]}}rpx;">
-    <block wx:for='{{detailInfo.pics}}' wx:key="{{index}}">
+    <block wx:for='{{detailInfo.pics}}' wx:key="{{index}}" wx:if = '{{detailInfo.pics != null}}'>
       <swiper-item>
         <image src="{{item}}" data-id='{{index}}' class="slide-image" mode="widthFix" bindload="imageLoad"/>
       </swiper-item>
-      </block>
+    </block>
     </swiper>
   </view>
-
-
-<van-panel title="出租:{{detailInfo.deviceName}}" desc="{{detailInfo.addressDetail}}:{{detailInfo.address}}{{distance}}">
+<van-panel title="求租:{{detailInfo.name}}" desc="{{detailInfo.addressDetail}}:{{detailInfo.adress}}{{distance}}">
 
 </van-panel>
 <van-panel title="发布时间:{{detailInfo.newstime}}">
@@ -28,20 +32,37 @@
 <van-panel title="联系人:{{detailInfo.contactName == null?'无':detailInfo.contactName}}">
 
 </van-panel>
-<van-panel title="单价:{{detailInfo.price == null?'无':''}}">
-  <view wx:for='{{detailInfo.price}}'>
+<van-panel title="单价:{{detailInfo.arrayPrice == null?'无':''}}">
+  <view wx:for='{{detailInfo.arrayPrice}}'>
 
     <van-cell
     title="{{item.price}}{{item.unitName}}"
     />
   </view>
 </van-panel>
-<van-panel title="出厂日期:{{detailInfo.manufacture == null?'无':detailInfo.manufacture}}">
+<van-panel title="工期:{{detailInfo.term == null?'无':detailInfo.term+'天'}}">
 
 </van-panel>
-<van-panel title="设备描述:{{detailInfo.remark == null?'无':detailInfo.remark}}">
+<van-panel title="最迟入场时间:{{detailInfo.inTime == null?'无':detailInfo.inTime}}">
 
 </van-panel>
+<van-panel title="设备进场预付款:{{detailInfo.equipmentArrivalPayment == null?'无':detailInfo.equipmentArrivalPayment+'元'}}">
+
+</van-panel>
+
+<van-panel title="按月进度付款:{{detailInfo.monthlyPayment == null?'无':detailInfo.monthlyPayment}}">
+
+</van-panel>
+
+<van-panel title="设备退场结清尾款:{{detailInfo.exitPayment == null?'无':detailInfo.exitPayment}}">
+
+</van-panel>
+
+<van-panel title="工程描述:{{detailInfo.remark == null?'无':detailInfo.remark}}">
+
+</van-panel>
+
+
 
 <van-popup show="{{ show }}" bind:close="onClose">
   <view class = "window">

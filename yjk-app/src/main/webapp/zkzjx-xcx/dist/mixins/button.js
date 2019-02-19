@@ -1,6 +1,7 @@
 export var button = Behavior({
   properties: {
     id: String,
+    formType: String,
     sessionFrom: String,
     appParameter: String,
     sendMessageImg: String,

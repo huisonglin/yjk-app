@@ -3,8 +3,15 @@
   <view class='person_top'>
     <image src='http://img.huisonglin.top/kzjx/zhongxin1.png'></image>
     <view class='person_top_text'>
-      <image src='{{userInfo.avatarUrl}}'></image>
-      <view>{{userInfo.nickName}}</view>
+      <image src="{{userInfo.headImage == null?'http://img.huisonglin.top/h.png':userInfo.headImage}}"></image>
+
+            <view hidden='{{userInfo.headImage != null}}'><van-button  formType="submit" type="warning" round size="mini" bindgetuserinfo="bindGetUserInfo"  openType="getUserInfo">点击获取头像</van-button></view>
+
+      <view hidden="{{userInfo.headImage == null}}">
+        <view>{{userInfo.nickName}}</view>
+      </view>
+      <!-- <view>{{userInfo.nickName}}</view> -->
+
     </view>
   </view>
 <van-cell
@@ -28,3 +35,5 @@
   url="/pages/person_center/about_we/about_we"
 />
 </view>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />

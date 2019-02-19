@@ -133,13 +133,16 @@ wx:
   apikey: 1145B1AFA2994480808B42793E486A81
   refundUrl: ${wx.xcx.baseUrl}/weixin/refund
   certUrl: /home/gchl/apiclient_cert.p12
-  #certUrl: D:\BaiduNetdiskDownload\oldversionSandu\src\main\resources\apiclient_cert.p12
+  #certUrl: D:\yjk-app\yjk-app\src\main\resources\cert\apiclient_cert.p12
   xcx:
     #appid: wxe58b479e170a58a4
     #appSecret: 2b8ef2d84f12ebe6b8782877e894a84c
+#    accessToken: accessToken_pro
+#    appid: wxde59926deb607689
+#    appSecret: f7b774417e98b3d926d6d12e26db8a7d
     accessToken: accessToken_pro
-    appid: wxde59926deb607689
-    appSecret: f7b774417e98b3d926d6d12e26db8a7d
+    appid: wxe0d6df65658a1dff
+    appSecret: afa34cd753e891b08c26e0952a2b6bbc
     #服务器地址
     baseUrl: http://pay.huisonglin.top
     #baseUrl: http://127.0.0.1:8086

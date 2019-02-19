@@ -1,5 +1,5 @@
 const app = getApp();
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 Page({
 
   /**
@@ -46,7 +46,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    userInfo = wx.getStorageSync("simpleInfo")
   },
 
   /**
