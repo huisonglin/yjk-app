@@ -121,7 +121,7 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		infoMatchDTO.setModeId(deviceRentOutInfoDTO.getModeId());
 		infoMatchDTO.setTwoStageModeId(deviceRentOutInfoDTO.getTwoStageModeId());
 		infoMatchDTO.setSpecId(deviceRentOutInfoDTO.getSpecId());
-		infoMatchDTO.setType(2); //求租
+		infoMatchDTO.setType(1); //出租
 		infoMatchDTO.setSelfMemberId(deviceRentOutInfoDTO.getMemberId());
 		infoMatchingService.notifyNeedUser(infoMatchDTO);
 	}
