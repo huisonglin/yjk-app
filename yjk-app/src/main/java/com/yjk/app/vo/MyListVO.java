@@ -26,9 +26,19 @@ public class MyListVO {
 	
 	private String contactMobile;
 	
+	private String xcxOpenId;
+	
 
 	
 	
+	public String getXcxOpenId() {
+		return xcxOpenId;
+	}
+
+	public void setXcxOpenId(String xcxOpenId) {
+		this.xcxOpenId = xcxOpenId;
+	}
+
 	public String getContactMobile() {
 		return contactMobile;
 	}

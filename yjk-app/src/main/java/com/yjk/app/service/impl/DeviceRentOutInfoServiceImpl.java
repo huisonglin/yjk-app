@@ -12,8 +12,10 @@ import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceRentOutInfoDTO;
+import com.yjk.app.dto.InfoMatchDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentOutInfoService;
+import com.yjk.app.service.InfoMatchingService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
@@ -40,7 +42,8 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 	ValueUnitCorrelationService valueUnitCorrelationService;
 	@Autowired
 	TemplateMessageStragegy templateMessageStragegy;
-	
+	@Autowired
+	InfoMatchingService infoMatchingService;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentOutInfoDTO
@@ -93,7 +96,34 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
 		notifyRequest.setAuditingResultVO(auditingResultVO);
 		templateMessageStragegy.excute(notifyRequest);
+		
+		//把信息推送给合适的用户
+		SendSuitUser(deviceRentOutInfoDTO, deviceRentOutInfoDO, deviceRentOutInfoId);
+		
 		return R.ok().put("info", deviceRentOutInfoId);
+	}
+
+
+	/**
+	 * @param deviceRentOutInfoDTO
+	 * @param deviceRentOutInfoDO
+	 * @param deviceRentOutInfoId
+	 * @throws Exception
+	 */
+	private void SendSuitUser(DeviceRentOutInfoDTO deviceRentOutInfoDTO, DeviceRentOutInfoDO deviceRentOutInfoDO,
+			Long deviceRentOutInfoId) throws Exception {
+		InfoMatchDTO infoMatchDTO = new InfoMatchDTO();
+		infoMatchDTO.setAddress(deviceRentOutInfoDO.getAddressDetail());
+		infoMatchDTO.setDeviceName(deviceRentOutInfoDTO.getDeviceName());
+		infoMatchDTO.setInfoId(deviceRentOutInfoId);
+		infoMatchDTO.setLatitude(deviceRentOutInfoDTO.getLatitude());
+		infoMatchDTO.setLongitude(deviceRentOutInfoDTO.getLongitude());
+		infoMatchDTO.setModeId(deviceRentOutInfoDTO.getModeId());
+		infoMatchDTO.setTwoStageModeId(deviceRentOutInfoDTO.getTwoStageModeId());
+		infoMatchDTO.setSpecId(deviceRentOutInfoDTO.getSpecId());
+		infoMatchDTO.setType(2); //求租
+		infoMatchDTO.setSelfMemberId(deviceRentOutInfoDTO.getMemberId());
+		infoMatchingService.notifyNeedUser(infoMatchDTO);
 	}
 	
 

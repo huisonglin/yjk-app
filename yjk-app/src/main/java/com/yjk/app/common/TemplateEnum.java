@@ -4,7 +4,8 @@ public enum TemplateEnum {
 
 	
 
-	PAY("支付",1),REFUND("退款",2),COMPLAIN("投诉",3),RECEIVE_COMPLAIN("收到投诉",4),AUDITING_RESULT("信息审核结果通过",5);
+	PAY("支付",1),REFUND("退款",2),COMPLAIN("投诉",3),RECEIVE_COMPLAIN("收到投诉",4),AUDITING_RESULT("信息审核结果通过",5),
+	MATCH_SUCCESS("匹配成功通知",6);
 	
 	String name;
 	

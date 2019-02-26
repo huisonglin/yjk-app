@@ -11,8 +11,10 @@ import com.yjk.app.common.SelfIncreasingIdService;
 import com.yjk.app.common.TemplateEnum;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceRentalInNeedInfoDTO;
+import com.yjk.app.dto.InfoMatchDTO;
 import com.yjk.app.exception.RRException;
 import com.yjk.app.service.DeviceRentalInNeedInfoService;
+import com.yjk.app.service.InfoMatchingService;
 import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.ValueUnitCorrelationService;
 import com.yjk.app.service.wx.template.request.NotifyRequest;
@@ -40,6 +42,9 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 	
 	@Autowired
 	TemplateMessageStragegy templateMessageStragegy;
+	
+	@Autowired
+	InfoMatchingService infoMatchingService;
 	/**
 	 * 添加或者修改发布信息
 	 * @param deviceRentalInNeedInfoDTO
@@ -65,6 +70,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		valueUnitCorrelationService.saveValueUnitCorrelation(deviceRentalInNeedInfoDTO.getPrice(), rentalInNeedInfoId);
 		putOnProjectInfoService.putOnProject(rentalInNeedInfoId);
 		
+		//给发布者推送消息
 		NotifyRequest notifyRequest = new NotifyRequest();
 		notifyRequest.setType(TemplateEnum.AUDITING_RESULT.getValue());
 		AuditingResultVO auditingResultVO = new AuditingResultVO();
@@ -75,6 +81,20 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
 		notifyRequest.setAuditingResultVO(auditingResultVO);
 		templateMessageStragegy.excute(notifyRequest);
+		
+		//把信息推送给合适的用户
+		InfoMatchDTO infoMatchDTO = new InfoMatchDTO();
+		infoMatchDTO.setAddress(deviceRentalInNeedInfoDO.getAddressDetail());
+		infoMatchDTO.setDeviceName(deviceRentalInNeedInfoDO.getName());
+		infoMatchDTO.setInfoId(rentalInNeedInfoId);
+		infoMatchDTO.setLatitude(deviceRentalInNeedInfoDO.getLatitude());
+		infoMatchDTO.setLongitude(deviceRentalInNeedInfoDO.getLongitude());
+		infoMatchDTO.setModeId(deviceRentalInNeedInfoDO.getModeId());
+		infoMatchDTO.setTwoStageModeId(deviceRentalInNeedInfoDO.getTwoStageModeId());
+		infoMatchDTO.setSpecId(deviceRentalInNeedInfoDO.getSpecId());
+		infoMatchDTO.setType(2); //求租
+		infoMatchDTO.setSelfMemberId(deviceRentalInNeedInfoDO.getMemberId());
+		infoMatchingService.notifyNeedUser(infoMatchDTO);
 		
 		return R.ok().put("info", rentalInNeedInfoId);
 	}

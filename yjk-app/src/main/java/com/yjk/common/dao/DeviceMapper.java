@@ -2,6 +2,7 @@ package com.yjk.common.dao;
 
 import java.util.List;
 
+import com.yjk.app.dto.InfoMatchDTO;
 import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.vo.MyListVO;
 import com.yjk.common.entity.DeviceDO;
@@ -14,5 +15,7 @@ public interface DeviceMapper extends Mapper<DeviceDO>{
 
 	List<MyListVO> myList(MyListDTO mylistDTO);
 	
-	List<ReleaseListVO> releaseList(SearchReleaseDTO searchReleaseDTO);
+	List<MyListVO> suitUser(InfoMatchDTO infoMatchDTO);
+	
+	List<ReleaseListVO> releaseList(SearchReleaseDTO searchReleaseDTO); 
 }
