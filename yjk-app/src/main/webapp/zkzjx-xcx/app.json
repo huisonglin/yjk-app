@@ -19,13 +19,13 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "最快租机械",
     "navigationBarTextStyle":"black",
     "navigationBarBackgroundColor": "#53ccc3"
   },
     "permission": {
       "scope.userLocation": {
-        "desc": "你的位置信息将用于小程序位置接口的效果展"
+        "desc": "最快租机械需要获取您的位置，以便推送您机械信息及工程信息"
       }
     },
   "usingComponents": {

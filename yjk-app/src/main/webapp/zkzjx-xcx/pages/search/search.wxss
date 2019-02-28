@@ -1,6 +1,6 @@
 /* pages/search/search.wxss */
 .slider {
-  margin: 15px 0px 15px;
+  margin: 15px 50rpx;
 }
 
 .custom-button {

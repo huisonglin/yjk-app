@@ -28,7 +28,7 @@ Page({
   cancelShow:function(e){
     var that = this;
     Dialog.confirm({
-      message: '确定要下架该条发布信息吗?'
+      message: '确定要删除该条发布信息吗?'
     }).then(() => {
       console.log(e)
       var arrayIndex = e.currentTarget.dataset.arrayindex;
@@ -44,7 +44,7 @@ Page({
           id: infoId
         }).then(res => {
           console.log(res)
-          Toast.success('下架成功');
+          Toast.success('删除成功');
           var items = that.data.rentItemsArray[arrayIndex];
           console.log(items)
           items.splice(subArrayIndex, 1)
@@ -58,7 +58,7 @@ Page({
           id: infoId
         }).then(res => {
           console.log(res)
-          Toast.success('下架成功');
+          Toast.success('删除成功');
           console.log(that.data.rentalItemsArray)
           console.log(arrayIndex)
           var items = that.data.rentalItemsArray[arrayIndex];
@@ -264,7 +264,7 @@ Page({
       return {
         title: '【求租】' + title + '(' + address + ')',
         path: '/pages/index/index?share_query=' + '/pages/rental_detail/rental_detail&id=' + id,
-        imageUrl: image
+        imageUrl: image==null?'../../../images/gong.png':image
       }
     }
     //  return {

@@ -56,7 +56,7 @@ public class WXMatchSuccessNotifyHandler  implements WxTemplateNotify{
 			
 			templateDTO.setMemberId(matchSuccessVO.getMemberId());
 			templateDTO.setTouser(matchSuccessVO.getXcxOpenId());
-			templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径
+			templateDTO.setPage(matchSuccessVO.getPage()); //小程序的路径
 			templateDTO.setAccess_token(payUtil.xcxAccessToken());
 			Map<String, Map<String, String>> data = new HashMap<>();
 			

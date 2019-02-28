@@ -1,6 +1,6 @@
  <van-notice-bar
   mode="closeable"
-  text="热烈庆祝 最快租机械2.0版本上线 带给用户更流畅的使用体验以及更舒适的操作界面，并修改之前一发现bug,发布信息有效真是更有豪礼相送"
+  text="热烈祝贺 最快租机械2.0 正式上线,修复部分BUG，以及新增匹配信息实时推送等功能 拒绝卡屏我们是认真的"
 /> 
 <view class="bar">
 <!-- <van-nav-bar
@@ -22,12 +22,12 @@
 <view wx:if='{{arrayItems[0] != ""}}' >
 <swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">
     <view wx:for="{{arrayItems}}" wx:for-item="itmes" wx:for-index="idx">
-      <swiper-item class="swiper-item" wx:for="{{itmes}}"  wx:for-item="item" >
-      <image   class="slide-image {{picPosition == index + (pageSize * idx)?'active':''}}" bindtap="toDetail" data-distance="{{item.distance}}" 
-        data-id="{{item.id}}"  data-type="{{item.type}}" mode="aspectFill" src="{{item.pic == null?'../../images/h1.png':item.pic}}" ></image>
-      <view class="content {{picPosition == index + (pageSize * idx) ? 'block' : ''}}">
+      <swiper-item class="swiper-item" wx:for="{{itmes}}"  wx:for-item="item" bindtap="toDetail" data-distance="{{item.distance}}" 
+        data-id="{{item.id}}"  data-type="{{item.type}}">
+      <image   class="slide-image {{picPosition == index + (pageSize * idx)?'active':''}}"  mode="aspectFill" src="{{item.pic == null?'../../images/h1.png':item.pic}}" ></image>
+      <view class="content {{picPosition == index + (pageSize * idx) ? 'block filter' : ''}}">
          <view class='content_1'>{{item.name}}</view>
-         <view class='content_2'>{{item.address}}</view>
+         <view class='content_2'>{{item.address}}（{{item.distance}}）</view>
       </view>
       </swiper-item>
     </view>
@@ -37,7 +37,14 @@
   <image src = 'http://img.huisonglin.top/kzjx/kong.png'></image>
 </view>
 <view class = "releaseBtn">
-  <van-button size="large" type="primary" formType="submit" bind:click="toRelasae"   >我要发布</van-button>
+  <van-button size="large" type="primary" formType="submit" bind:click="toRelasae"   >
+  <block wx:if="{{identify == 1}}">
+  发布出租
+</block>
+    <block wx:if="{{identify == 2}}">
+  发布求租
+  </block>
+  </van-button>
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

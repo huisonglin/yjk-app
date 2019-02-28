@@ -71,13 +71,46 @@ Page({
     term:'',
     equipmentArrivalPayment:'',
     monthlyPayment:'',
-    exitPayment:''
+    exitPayment:'',
+    remarkItems: [{
+      value: "无需任何税费"
+    }, {
+        value: "需提供3%发票"
+    }, {
+        value: "需提供10%发票"
+    }, {
+        value: "运费自理"
+    }, {
+        value: "报销来回运费"
+    }, {
+        value: "只付进场运费"
+    }, {
+        value: "好吃好住"
+    }, {
+        value: "有住房"
+    }, {
+        value: "食宿自理"
+      }, {
+        value: "钱款可靠立此为据"
+      }, {
+        value: "现金现金"
+      }, {
+        value: "按约定付款"
+      }],
+    remarkResult: [],
   },
-  getRemark: function (e) {
+  // getRemark: function (e) {
+  //   console.log(e)
+  //   var remark = e.detail;
+  //   this.setData({
+  //     remark: remark
+  //   })
+  // },
+  //选择备注
+  onChange(e) {
     console.log(e)
-    var remark = e.detail;
     this.setData({
-      remark: remark
+      remarkResult: e.detail
     })
   },
   //发布信息
@@ -153,9 +186,14 @@ Page({
     console.log(monthlyPayment)
     var exitPayment = this.data.exitPayment;
     console.log(exitPayment)
-
-    var remark = this.data.remark;
-    console.log(remark)
+    var remark = '';
+    for (var i = 0; i < this.data.remarkResult.length; i++) {
+      if (i == (this.data.remarkResult.length - 1)) {
+        remark += this.data.remarkResult[i]
+      } else {
+        remark += (this.data.remarkResult[i] + "   ")
+      }
+    }
     Toast.loading({
       duration: 0,       // 持续展示 toast
       mask: true,
@@ -497,6 +535,9 @@ Page({
    */
   onLoad: function (options) {
     userInfo = wx.getStorageSync("simpleInfo");
+    this.setData({
+      contactMobile: userInfo.mobile
+    })
     console.log(options)
   },
 

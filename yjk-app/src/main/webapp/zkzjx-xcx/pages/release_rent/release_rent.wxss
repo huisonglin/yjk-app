@@ -262,7 +262,7 @@ page {
   }
   .remarkItem{
     float: left;
-    padding: 0.2rem 0;
+    margin: 0.5rem 0.3rem;
 
   }
   .bottom {
@@ -277,6 +277,7 @@ page {
   position:fixed;
   bottom:0;
   width:100%;
+  z-index: 99
 }
 .content{
   padding-bottom: 4rem;

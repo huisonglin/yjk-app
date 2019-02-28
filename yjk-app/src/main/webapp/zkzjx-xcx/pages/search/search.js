@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentValue: 60,
+    currentValue: 20,
     modelItems: [],
     modelName:'',
     twoStageModelName:'',
@@ -44,7 +44,7 @@ Page({
     var identity = wx.getStorageSync('identity');
     console.log(wx.getStorageSync('twoStageModeId' + identity) + '------' + wx.getStorageSync('modeId' + identity))
     that.setData({
-      currentValue: wx.getStorageSync('distance' + identity) == '' ? 60 : wx.getStorageSync('distance' + identity),
+      currentValue: wx.getStorageSync('distance' + identity) == '' ? 20 : wx.getStorageSync('distance' + identity),
       modelId: wx.getStorageSync('modeId' + identity),
       twoStageModelId: wx.getStorageSync('twoStageModeId' + identity),
       specId: wx.getStorageSync('specId' + identity),

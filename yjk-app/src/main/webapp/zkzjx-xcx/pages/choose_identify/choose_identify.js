@@ -1,6 +1,6 @@
 // pages/choose_identify/choose_identify.js
 const app = getApp();
-var userInfo = wx.getStorageSync("simpleInfo")
+var userInfo = null;
 Page({
 
   /**
@@ -16,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    userInfo = wx.getStorageSync("simpleInfo");
     var that = this;
     // 1为我要出租，2为我要求租
     var identity = wx.getStorageSync('identity')

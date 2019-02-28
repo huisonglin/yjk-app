@@ -3,6 +3,9 @@
   float: left
 
 }
+.priceItem{
+  padding:2rpx 0;
+}
 .price_items_content{
   overflow: hidden
 }

@@ -1,18 +1,18 @@
 <!--pages/price_sku/price_sku.wxml-->
-
+<van-panel title="请选择价格:" >
 <view >
 <view  >
 <van-panel>
   <view class="price_items_content">
   <view class="model">
         <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
-      <view class="priceItem" wx:for="{{ priceItmes }}">
+      <view class="priceItem" wx:for="{{ priceItmes }}" wx:if="{{item.type==1}}">
         <van-checkbox
-          wx:if="{{item.type==1}}"
+          
           wx:key="index"
           name="{{ item.unitName }}-{{item.id}}"
           checked-color="blue"
-          value="1ddd" 
+          
         >
           <van-tag round type="success">{{ item.unitName }}</van-tag>
         </van-checkbox>
@@ -21,9 +21,9 @@
   </view>
   <view class="model">
               <van-checkbox-group value="{{ result }}" bind:change="onChange" max="3">
-      <view class="priceItem" wx:for="{{ priceItmes }}">
+      <view class="priceItem" wx:for="{{ priceItmes }}" wx:if="{{item.type==2}}">
         <van-checkbox
-          wx:if="{{item.type==2}}"
+          
           wx:key="index"
           name="{{ item.unitName}}-{{item.id}}"
           checked-color="blue"
@@ -74,6 +74,7 @@
     use-button-slot
     data-id="{{item.id}}"
     type="number"
+    focus="true"
     >
 <van-row slot="button">
   <view class="remark" >  <view class="row">{{item.name}}</view>  <view class="row ml10"><van-icon data-name="{{item.name}}" data-id="{{item.id}}" name="close" bind:click = "cancel"/></view></view>
@@ -81,6 +82,7 @@
     </van-field>
 </van-cell-group> 
     </view>
+    </van-panel>
 <!-- <van-cell-group>
   <van-field
     value="sss"

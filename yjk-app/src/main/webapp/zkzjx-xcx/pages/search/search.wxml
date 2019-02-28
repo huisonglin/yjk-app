@@ -8,7 +8,6 @@
     use-button-slot
     active-color="#e6747a"
     bind:drag="onDrag"
-    bind:drag="onDrag"
   >
   <view class="custom-button" slot="button">
     {{currentValue * 10}}

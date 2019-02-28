@@ -33,16 +33,42 @@ Page({
       right2: false
     },
     contactMobile: '',
-    price:''
+    price:'',
+    remarkItems: [{
+      value: "新车"
+    }, {
+        value: "老司机"
+    }, {
+        value: "司机是牛人"
+    }, {
+        value: "车到中年宝刀未老"
+    }, {
+        value: "车一般般"
+      }, {
+        value: "司机一般"
+      }, {
+        value: "司机听话指哪打哪"
+      }, {
+        value: "现金优先"
+      }, {
+        value: "欠账勿扰"
+      }],
+    remarkResult: [],
   },
-
-  getRemark:function(e){
+  //选择备注
+  onChange(e) {
     console.log(e)
-    var remark = e.detail;
     this.setData({
-      remark: remark
+      remarkResult: e.detail
     })
   },
+  // getRemark:function(e){
+  //   console.log(e)
+  //   var remark = e.detail;
+  //   this.setData({
+  //     remark: remark
+  //   })
+  // },
   //发布信息
   toRelasae(e){
     var that = this;
@@ -97,8 +123,14 @@ Page({
     var contactName = this.data.contactName;
     console.log(contactName)
     var manufacture = this.data.manufacture;
-    console.log(manufacture)
-    var remark = this.data.remark;
+    var remark = '';
+    for (var i = 0; i < this.data.remarkResult.length; i++) {
+      if (i == (this.data.remarkResult.length - 1)) {
+        remark += this.data.remarkResult[i]
+      } else {
+        remark += (this.data.remarkResult[i] + "   ")
+      }
+    }
     app.agriknow.getRequest('/app/deviceRentOut/addOrUpdateRentOutInfo', {
       token: token,
       pics: pics,
@@ -412,6 +444,9 @@ Page({
    */
   onLoad: function (options) {
     userInfo = wx.getStorageSync("simpleInfo")
+    this.setData({
+      contactMobile:userInfo.mobile
+    })
     console.log(options)
   },
 

@@ -24,7 +24,7 @@ Page({
     specId:'',
     tabActive:'-1',
     isRefresh: 0,
-    identity:''
+    identify:''
   },
 
   toDetail:function(e){
@@ -69,7 +69,6 @@ Page({
     })
   },
   onLoad: function (e) {
-    console.log(this.data.longitude+"+++++++++++++++++++++++")
     var url = '/app/search';
     var type = wx.getStorageSync('identity') == 1 ? 2 : 1
     console.log(e)
@@ -85,10 +84,12 @@ Page({
       url = '/app/search/fitMe?id='+id;
     }
     var that = this;
-    var identity = wx.getStorageSync('identity');
+    var identity = wx.getStorageSync('identity') == '' ? 2 : wx.getStorageSync('identity');
+    wx.setStorageSync('identity', identity)
     that.setData({
       // longitude: wx.getStorageSync('longitude' + identity),
       // latitude: wx.getStorageSync('latitude' + identity),
+      identify: identity,
       distance: wx.getStorageSync('distance' + identity) == '' ? 600 : (wx.getStorageSync('distance' + identity)*10),
       type: type,
       modeId: wx.getStorageSync('modeId' + identity),
@@ -130,8 +131,39 @@ Page({
             that.setData({
               ["arrayItems[" + currentPage + "]"]: res.info.rows,
               totalCount: res.info.totalCount,
-              pageSize: res.info.pageSize,
-              picLenth: res.info.pageSize
+              pageSize: 50,
+              picLenth: 50
+            })
+            console.log(that.data.arrayItems)
+          }
+        })
+      },
+      fail:function(e){
+        console.log(that.data.longitude + "+++++++++++++++++++++++")
+
+          that.setData({
+            latitude: '31.82043',
+            longitude: '117.22715'
+          })
+
+        console.log(that.data.longitude);
+        app.agriknow.getRequest(url, {
+          pageNo: '1',
+          longitude: that.data.longitude,
+          latitude: that.data.latitude,
+          distance: that.data.distance,
+          type: that.data.type,
+          modeId: that.data.modeId,
+          twoStageModeId: that.data.twoStageModeId,
+          specId: that.data.specId
+        }).then(res => {
+          if (res.code == 0) {
+            console.log(res)
+            that.setData({
+              ["arrayItems[" + currentPage + "]"]: res.info.rows,
+              totalCount: res.info.totalCount,
+              pageSize: 50,
+              picLenth: 50
             })
             console.log(that.data.arrayItems)
           }
@@ -170,9 +202,15 @@ Page({
       } else {//正常轮转时，记录正确页码索引
         this.setData({ picPosition: e.detail.current });
       }
-      console.log(e.detail.current)
-      console.log((this.data.picPosition + 5) % this.data.pageSize == 0)
-      if ( (this.data.picPosition + 1) % this.data.pageSize == 0 && this.data.picLenth - 1 == this.data.picPosition){
+      console.log(this.data.picPosition)
+      console.log(this.data.pageSize)
+      console.log((this.data.picPosition + 1) % this.data.pageSize == 0)
+      console.log(this.data.picLenth)
+      console.log(this.data.picPosition)
+      console.log((this.data.picLenth - 1) == this.data.picPosition)
+
+
+      if ( (this.data.picPosition + 1) % this.data.pageSize == 0 && (this.data.picLenth - 1 )== this.data.picPosition){
           Toast.loading({
             duration: 0,       // 持续展示 toast
             mask: true,
@@ -225,5 +263,15 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  /**
+ * 用户点击右上角分享
+ */
+  onShareAppMessage: function () {
+    return{
+      title: "最快租机械",
+      path: "/pages/index/index",
+      imageUrl: 'http://img.huisonglin.top/FuCcvykQh5h7rD9odYLRgTIVXuO9',
+    }
   }
 })

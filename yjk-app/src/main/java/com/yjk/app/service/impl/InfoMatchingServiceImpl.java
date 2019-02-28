@@ -64,8 +64,8 @@ public class InfoMatchingServiceImpl implements InfoMatchingService{
 							String[] ll = position.split("-");
 							if(ll != null) {
 					        	PositionDTO pd = new PositionDTO();
-					        	pd.setLatitude(Double.parseDouble(ll[0]));
-					        	pd.setLongitude(Double.parseDouble(ll[1]));
+					        	pd.setLatitude(Double.parseDouble(ll[1]));
+					        	pd.setLongitude(Double.parseDouble(ll[0]));
 					            Point2D pointDD = new Point2D.Double(infoMatchDTO.getLongitude(), infoMatchDTO.getLatitude());
 					            Point2D pointXD = new Point2D.Double(pd.getLongitude(), pd.getLatitude());
 					        	Double distance = PositionUtil.getDistance(pointDD,pointXD)/1000;
@@ -79,7 +79,8 @@ public class InfoMatchingServiceImpl implements InfoMatchingService{
 					        		matchSuccessVO.setAddress(infoMatchDTO.getAddress());
 					        		matchSuccessVO.setDeviceName(infoMatchDTO.getDeviceName());
 					        		matchSuccessVO.setXcxOpenId(myListVO.getXcxOpenId());
-					        		matchSuccessVO.setRemark("尊敬的<最快租机械>用户我们检测的在距离您"+distance+"KM的地方，有用户发布的一条<"+(infoMatchDTO.getType()==1?"求租":"出租")+":"+infoMatchDTO.getDeviceName()+">"
+					        		matchSuccessVO.setPage((infoMatchDTO.getType() == 1?"/pages/index/index?share_query=/pages/rental_detail/rental_detail&id=" + infoMatchDTO.getInfoId():"/pages/index/index?share_query=/pages/rent_detail/rent_detail&id="+infoMatchDTO.getInfoId()));
+					        		matchSuccessVO.setRemark("尊敬的<最快租机械>用户我们检测的在距离您"+formatDouble(distance)+"km的地方，有用户发布的一条<"+(infoMatchDTO.getType()==1?"求租":"出租")+":"+infoMatchDTO.getDeviceName()+">"
 					        				+ ",若您感兴趣，请点击下方查看详情");
 					        		notifyRequest.setMatchSuccessVO(matchSuccessVO);
 					        		templateMessageStragegy.excute(notifyRequest);
@@ -90,4 +91,23 @@ public class InfoMatchingServiceImpl implements InfoMatchingService{
 			 }
 		 
 	 }
+	 
+	 
+	    /**
+	     * 如果只是用于程序中的格式化数值然后输出，那么这个方法还是挺方便的。
+	     * 应该是这样使用：logger.info(String.format("%.2f", d));
+	     * @param d
+	     * @return
+	     */
+	    public static String formatDouble(double d) {
+	        return String.format("%.2f", d);
+	    }
+	    
+	    
+//	    public static void main(String[] args) {
+//	           Point2D pointDD = new Point2D.Double(117.34076, 31.79937);
+//	            Point2D pointXD = new Point2D.Double(117.843361, 31.9043977);
+//	        	Double distance = PositionUtil.getDistance(pointDD,pointXD)/1000;
+//	        	System.out.println(String.format("%.2f", distance));
+//		}
 }
