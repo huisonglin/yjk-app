@@ -85,9 +85,17 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 	@Autowired
 	ValueOperations<String, String> valueOperations;
 	
-	public void dealDetail(Object infoDetail) {
+	public void dealDetail(Object infoDetail,Long memberId) {
 		if(infoDetail instanceof DeviceRentOutInfoDetailVO) {
+			
+
 			DeviceRentOutInfoDetailVO d = (DeviceRentOutInfoDetailVO)infoDetail;
+			String collection = valueOperations.get(Constants.COLLECTION+memberId+"_"+d.getId());
+			if("1".equals(collection)) {
+				d.setIsCollection("1");
+			}else {
+				d.setIsCollection("0");
+			}
 			String lastTime = valueOperations.get(Constants.LAST_LOGIN_TIME+d.getMemberId());
 			if(lastTime != null) {
 				Date date = new Date(Long.valueOf(lastTime));
@@ -97,6 +105,12 @@ public class InfoDetailServiceImpl implements InfoDetailService{
 		}
 		if(infoDetail instanceof DeviceRentalInNeedInfoDetailVO) {
 			DeviceRentalInNeedInfoDetailVO d = (DeviceRentalInNeedInfoDetailVO)infoDetail;
+			String collection = valueOperations.get(Constants.COLLECTION+memberId+"_"+d.getId());
+			if("1".equals(collection)) {
+				d.setIsCollection("1");
+			}else {
+				d.setIsCollection("0");
+			}
 			String lastTime = valueOperations.get(Constants.LAST_LOGIN_TIME+d.getMemberId());
 			if(lastTime != null) {
 				Date date = new Date(Long.valueOf(lastTime));

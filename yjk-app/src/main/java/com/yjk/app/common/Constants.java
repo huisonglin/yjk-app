@@ -2,6 +2,7 @@ package com.yjk.app.common;
 
 public class Constants {
 	
+	public static final String COLLECTION = "collection_id_";
 	//用户设备搜索记录
 	public static final String SEARCH_RECORD = "serach_record_";
 			

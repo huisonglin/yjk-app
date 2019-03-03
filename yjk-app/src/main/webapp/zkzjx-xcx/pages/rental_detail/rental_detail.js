@@ -248,7 +248,7 @@ Page({
     var that = this;
     var id = that.data.detailInfo.id;
     var name = that.data.detailInfo.name;
-    var iamge = that.data.detailInfo.pics[0];
+    var iamge = that.data.detailInfo.originalPic;
     var address = that.data.detailInfo.addressDetail;
     var token = userInfo.token;
     app.agriknow.getRequest('app/member/toShare', {
