@@ -22,6 +22,13 @@
 />
 
 <van-cell
+  title="我的收藏"
+  icon="http://img.huisonglin.top/kzjx/zhongxin4.png"
+  is-link
+  url = "/pages/person_center/my_collection/my_collection
+/>
+
+<van-cell
   title="联系我们"
   icon="http://img.huisonglin.top/kzjx/zhongxin6.png"
   is-link

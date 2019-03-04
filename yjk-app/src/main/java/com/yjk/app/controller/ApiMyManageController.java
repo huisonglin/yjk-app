@@ -23,8 +23,10 @@ public class ApiMyManageController {
 	@RequestMapping("/collectionOptions")
 	public R collection(@RequestAttribute("memberId")Long memberId,CollectionOptionsVO collectionOptionsVO ) {
 		collectionOptionsVO.setMemberId(memberId);
-		Assert.isNull(collectionOptionsVO.getInfoId(), "信息ID不能为空");
-		Assert.isNull(collectionOptionsVO.getInfoId(), "信息类型不能为空");
+		if(collectionOptionsVO.getCollectionId() == null) {
+			Assert.isNull(collectionOptionsVO.getInfoId(), "信息ID不能为空");
+			Assert.isNull(collectionOptionsVO.getInfoId(), "信息类型不能为空");
+		}
 		return deviceCollectionService.collectionOptions(collectionOptionsVO);
 	}
 	

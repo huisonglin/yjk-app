@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjk.common.dao.DeviceMapper">
+	<!-- 我的发布 -->
 	<select id="myList"  resultType="com.yjk.app.vo.MyListVO">
 		select b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status,b.contact_mobile
 			from 
@@ -17,7 +18,22 @@
 			</if>
 		order by b.newstime desc
 	</select>
-	
+	<!-- 我的收藏 -->
+		<select id="myCollection"  resultType="com.yjk.app.vo.MyCollectionVO">
+		select dc.id,b.id info_id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status,b.contact_mobile
+				from 
+				(
+					select id,name,pics,adress as address,newstime,2 as type,status,member_id,contact_mobile from yjk_device_rental_in_need_info
+					UNION ALL
+					select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id,dr.contact_mobile from yjk_device_rent_out_info dr left join yjk_device de on dr.device_id=de.id
+				) as b RIGHT JOIN yjk_device_collection dc on dc.info_id = b.id
+				where dc.member_id=#{memberId}
+			<if test="identify != null and identify != ''">
+				and b.type = #{identify}
+			</if>
+		order by dc.create_time desc
+	</select>
+	<!-- 适合我的 -->
 	<select id="suitUser" resultType="com.yjk.app.vo.MyListVO">
 			select b.member_id member_id,m.xcx_open_id
 			from 
@@ -38,7 +54,7 @@
 			</if>
 				GROUP BY b.member_id
 	</select>
-	
+	<!-- 发布管理-后台功能 -->
 	<select id="releaseList" resultType = "com.yjk.manager.vo.ReleaseListVO">
 		select s.*,m.nick_name FROM
 		(
