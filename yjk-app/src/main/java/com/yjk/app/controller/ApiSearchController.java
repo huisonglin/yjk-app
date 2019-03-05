@@ -64,22 +64,22 @@ public class ApiSearchController {
 	}
 
 	private void dealSearchDTO(SearchDTO searchDTO, String memberId, Integer type) {
-		if(memberId != null) {
+		if (memberId != null) {
 			StringBuilder searchKey = new StringBuilder(Constants.SEARCH_RECORD);
 			searchKey.append("_").append(type).append("_").append(memberId);
-			if(searchDTO.getModeId() != null) {
+			if (searchDTO.getModeId() != null) {
 				StringBuilder builder = new StringBuilder(searchDTO.getModeId().toString());
 				builder.append("-").append(searchDTO.getTwoStageModeId()).append("-").append(searchDTO.getSpecId());
 				valueOperations.set(searchKey.toString(), builder.toString());
 			}else {
 				String searchRecord = valueOperations.get(searchKey.toString());
-				if(searchRecord != null) {
+				if (searchRecord != null) {
 					String[] record = searchRecord.split("-");
-					if(record != null && record.length > 2) {
-						if(record[0] != null && !"null".equals(record[0])) {
+					if (record != null && record.length > 2) {
+						if (record[0] != null && !"null".equals(record[0])) {
 							searchDTO.setModeId(Long.valueOf(record[0]));
 						}
-						if(record[1] != null && !"null".equals(record[1])) {
+						if (record[1] != null && !"null".equals(record[1])) {
 							searchDTO.setTwoStageModeId(Long.valueOf(record[1]));
 						}
 						if(record[2] != null && !"null".equals(record[2])) {
