@@ -16,10 +16,8 @@ import com.yjk.app.service.wx.template.request.NotifyRequest;
 import com.yjk.app.service.wx.template.service.WxTemplateNotify;
 import com.yjk.app.util.DatetimeUtil;
 import com.yjk.app.util.PayUtil;
-import com.yjk.app.vo.AuditingResultVO;
 import com.yjk.app.vo.MatchSuccessVO;
 import com.yjk.common.dao.MemberMapper;
-import com.yjk.common.entity.MemberDO;
 
 /** 
 * @author : 刘尊亮
@@ -53,7 +51,6 @@ public class WXMatchSuccessNotifyHandler  implements WxTemplateNotify{
 			TemplateDTO templateDTO = new TemplateDTO();
 			 MatchSuccessVO matchSuccessVO = request.getMatchSuccessVO();
 			templateDTO.setTemplate_id("R_nO55ImI1_0YefMFR9fW5q7ciB34N4WqKvvbZ18ang");
-			
 			templateDTO.setMemberId(matchSuccessVO.getMemberId());
 			templateDTO.setTouser(matchSuccessVO.getXcxOpenId());
 			templateDTO.setPage(matchSuccessVO.getPage()); //小程序的路径
@@ -67,7 +64,6 @@ public class WXMatchSuccessNotifyHandler  implements WxTemplateNotify{
 			
 			//地点
 			Map<String, String> keyword2vlaue = new HashMap<>(); 
-		//	String time = DatetimeUtil.getStringDateShort(matchSuccessVO.getAuditingTime());
 			keyword2vlaue.put("value", matchSuccessVO.getAddress());
 			data.put("keyword2", keyword2vlaue);
 			

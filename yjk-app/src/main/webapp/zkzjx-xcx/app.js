@@ -10,29 +10,6 @@ App({
     wx.setStorageSync('logs', logs)
     // 登录
     var that = this;
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        wx.request({
-          url: url_microService +"app/member/loginByWxXcx",
-          data: {
-            code:res.code
-          },
-          header: {},
-          method: 'GET',
-          dataType: 'json',
-          responseType: 'text',
-          success: function(res) {
-            console.log(res+"------------------------------------------------------------------")
-            if(res.code == 0){
-              wx.setStorageSync("simpleInfo", res.data.info)
-            }
-          },
-          fail: function(res) {},
-          complete: function(res) {},
-        })
-      }
-    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -56,6 +33,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    simpleInfo: null
+    simpleInfo: null,
+    isFirstLogin:true
   }
 })

@@ -44,26 +44,26 @@ public class PositionUtil {
     }
     
 
-    public static void main(String[] args) {
-         // 北京 东单地铁站
-         Point2D pointDD = new Point2D.Double(116.425249, 39.914504);
-         // 北京 西单地铁站
-         Point2D pointXD = new Point2D.Double(116.382001, 39.913329);
-         System.out.println(getDistance(pointDD, pointXD));
-         System.out.println();
-  
-         // 北京 天安门
-         Point2D pointTAM = new Point2D.Double(116.403882, 39.915139);
-         // 广州 越秀公园
-         Point2D pointGZ = new Point2D.Double(113.272422,23.147387);
-         System.out.println(getDistance(pointTAM, pointGZ));
-         System.out.println();
-  
-         // 四川大学
-         Point2D pointSCDX = new Point2D.Double(104.090539,30.636951);
-         // 成都南站
-         Point2D pointCDNZ = new Point2D.Double(104.074238,30.612572);
-         System.out.println(getDistance(pointSCDX, pointCDNZ));
-         System.out.println();
-    }
+//    public static void main(String[] args) {
+//         // 北京 东单地铁站
+//         Point2D pointDD = new Point2D.Double(116.425249, 39.914504);
+//         // 北京 西单地铁站
+//         Point2D pointXD = new Point2D.Double(116.382001, 39.913329);
+//         System.out.println(getDistance(pointDD, pointXD));
+//         System.out.println();
+//  
+//         // 北京 天安门
+//         Point2D pointTAM = new Point2D.Double(116.403882, 39.915139);
+//         // 广州 越秀公园
+//         Point2D pointGZ = new Point2D.Double(113.272422,23.147387);
+//         System.out.println(getDistance(pointTAM, pointGZ));
+//         System.out.println();
+//  
+//         // 四川大学
+//         Point2D pointSCDX = new Point2D.Double(104.090539,30.636951);
+//         // 成都南站
+//         Point2D pointCDNZ = new Point2D.Double(104.074238,30.612572);
+//         System.out.println(getDistance(pointSCDX, pointCDNZ));
+//         System.out.println();
+//    }
 }
