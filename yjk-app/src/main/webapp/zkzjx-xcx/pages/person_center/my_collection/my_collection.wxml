@@ -2,9 +2,9 @@
   <van-tab title="出租信息">
   <view wx:if='{{rentItemsArray != ""}}'>
 <view wx:for = "{{rentItemsArray}}" wx:for-item="items" wx:for-index="arrayIndex">
-<view wx:for="{{items}}"  wx:for-item="itemName" wx:for-index="subArrayIndex" class="shareParent">
+<view wx:for="{{items}}"  wx:for-item="itemName"   wx:for-index="subArrayIndex" class="shareParent">
  <van-card
-    thumb-link="/pages/rent_detail/rent_detail?id={{itemName.infoId}}&pass=person"
+    thumb-link="/pages/rent_detail/rent_detail?id={{itemName.infoId}}"
     lazy-load="true"
     currency=""
     desc="设备地址：{{itemName.address}}"
@@ -29,7 +29,7 @@
 <view wx:for = "{{rentalItemsArray}}" wx:for-item="items" wx:for-index="arrayIndex">
 <view wx:for="{{items}}"  wx:for-item="itemName" wx:for-index="subArrayIndex" class="shareParent">
  <van-card
-    thumb-link="/pages/rental_detail/rental_detail?id={{itemName.infoId}}&pass=person"
+    thumb-link="/pages/rental_detail/rental_detail?id={{itemName.infoId}}"
     lazy-load="true"
     currency=""
     desc="设备地址：{{itemName.address}}"

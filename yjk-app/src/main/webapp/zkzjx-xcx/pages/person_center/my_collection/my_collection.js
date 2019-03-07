@@ -164,7 +164,7 @@ Page({
       })
     })
 
-    app.agriknow.getRequest("app/device/deviceList", {
+    app.agriknow.getRequest("app/device/myCollectionList", {
       token: token,
       pageNo: 1,
       identify: 2

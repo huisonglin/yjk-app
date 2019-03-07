@@ -83,7 +83,26 @@
 </van-popup>
 </view>
 <view class = "callPhone" hidden='{{isShowBtn}}'>
-  <van-button formType="submit" size="large" type="primary" bind:click="remind"  >拨打电话<block wx:if='{{remainCount != null}}'>(剩余{{remainCount}}次机会)</block></van-button>
+
+<view class="van-ellipsis title">注:联系我时请说是在“最快租机械”小程序上看到的{{isCollection}}</view>
+<van-goods-action>
+  <van-goods-action-icon
+    icon="http://img.huisonglin.top/fenxiang-ico.png"
+    text="{{isCollection == 0?'点击收藏':'已收藏'}}"
+    bind:click="collection"
+  />
+  <van-goods-action-icon
+    icon="http://img.huisonglin.top/shoucang-ico.png"
+    text="分享"
+    open-type="share"
+  />
+
+  <van-goods-action-button
+    text="拨打电话"
+    bind:click="remind"
+     type="primary"
+  />
+  </van-goods-action>
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

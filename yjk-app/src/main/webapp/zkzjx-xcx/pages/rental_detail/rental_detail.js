@@ -37,7 +37,27 @@ Page({
     imgwidth: 750,
     //默认  
     current: 0,
-    isShowBtn:false
+    isShowBtn:false,
+    isCollection: 0
+  },
+  collection: function (e) {
+    console.log(this.data.detailInfo)
+    var that = this;
+    var token = userInfo.token;
+    var type = this.data.detailInfo.type;
+    var id = this.data.detailInfo.id;
+    var isCollection = that.data.isCollection;
+    app.agriknow.getRequest("/app/myManage/collectionOptions", {
+      token: token,
+      infoId: id,
+      infoType: type,
+      status: isCollection == 0 ? 1 : 0
+    }).then(res => {
+      console.log(res)
+      that.setData({
+        isCollection: res.status
+      })
+    })
   },
   pay:function(e){
     console.log(e)
@@ -168,9 +188,11 @@ Page({
     var that = this;
     var distance = options.distance;
     var id = options.id;
+    var token = userInfo.token;
     app.agriknow.getRequest('/app/info/detail', {
       id: id,
-      infoType: 2
+      infoType: 2,
+      token:token
     }).then(res => {
       console.log(res)
       if(res.info.pics == null){
@@ -179,6 +201,7 @@ Page({
       }
       that.setData({
         detailInfo: res.info,
+        isCollection: res.info.isCollection,
         distance: distance == null ? '' : '(距离我' + distance + ')'
       })
     })

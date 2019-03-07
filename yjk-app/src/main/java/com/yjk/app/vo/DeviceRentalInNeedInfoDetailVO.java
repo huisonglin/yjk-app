@@ -88,7 +88,7 @@ public class DeviceRentalInNeedInfoDetailVO {
 		this.arrayPrice = arrayPrice;
 	}
 	public Integer getType() {
-		return type;
+		return 2;
 	}
 	public void setType(Integer type) {
 		this.type = type;

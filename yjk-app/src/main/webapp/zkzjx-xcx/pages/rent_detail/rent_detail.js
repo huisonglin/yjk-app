@@ -72,8 +72,6 @@ Page({
         isCollection: res.status
       })
     })
-
-
   },
   pay: function (e) {
     console.log(e)
