@@ -23,7 +23,7 @@
 
 <van-cell
   title="我的收藏"
-  icon="http://img.huisonglin.top/kzjx/zhongxin4.png"
+  icon="http://img.huisonglin.top/20190307151824.png"
   is-link
   url = "/pages/person_center/my_collection/my_collection
 />
@@ -38,6 +38,12 @@
 <van-cell
   title="关于我们"
   icon="http://img.huisonglin.top/kzjx/zhongxin7.png"
+  is-link
+  url="/pages/person_center/about_we/about_we"
+/>
+<van-cell
+  title="生成个性名片"
+  icon="http://img.huisonglin.top/20190307151833.png"
   is-link
   url="/pages/person_center/about_we/about_we"
 />
