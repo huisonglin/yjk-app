@@ -35,14 +35,15 @@
 	</select>
 	<!-- 适合我的 -->
 	<select id="suitUser" resultType="com.yjk.app.vo.MyListVO">
-			select b.member_id member_id,m.xcx_open_id
+			select b.member_id member_id,m.xcx_open_id,b.latitude,b.longitude
 			from 
 			(
-				select id,name,pics,adress as address,newstime,2 as type,status,member_id,contact_mobile,mode_id,two_stage_mode_id,spec_id	from yjk_device_rental_in_need_info
+				select id,name,pics,adress as address,newstime,2 as type,status,member_id,contact_mobile,mode_id,two_stage_mode_id,spec_id,latitude,longitude	from yjk_device_rental_in_need_info
 				UNION ALL
-				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id,dr.contact_mobile,mode_id,two_stage_mode_id,spec_id from yjk_device_rent_out_info dr left join yjk_device de on dr.device_id=de.id
+				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id,dr.contact_mobile,mode_id,two_stage_mode_id,spec_id,latitude,longitude from 			yjk_device_rent_out_info 			 dr left join yjk_device de on dr.device_id=de.id
 			) as b  LEFT JOIN yjk_member m on b.member_id = m.id 
-			where b.status = 2 and b.member_id != #{selfMemberId}
+			where b.status = 2 and b.member_id != #{selfMemberId}			
+			GROUP BY b.member_id
 			<if test="modeId != null and modeId != ''">
 				and b.mode_id=#{modeId}
 			</if>
@@ -52,7 +53,6 @@
 			<if test="type != null and type != ''">
 				and b.type=#{type}
 			</if>
-				GROUP BY b.member_id
 	</select>
 	<!-- 发布管理-后台功能 -->
 	<select id="releaseList" resultType = "com.yjk.manager.vo.ReleaseListVO">

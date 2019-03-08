@@ -94,6 +94,7 @@ public class DeviceRentOutInfoServiceImpl implements DeviceRentOutInfoService{
 		auditingResultVO.setMemberId(deviceRentOutInfoDTO.getMemberId());
 		auditingResultVO.setDeviceName("【出租】:"+deviceRentOutInfoDTO.getDeviceName());
 		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
+		auditingResultVO.setXcxPage("/pages/index/index?pass=fitMe&id="+deviceRentOutInfoId+"&type=1");
 		notifyRequest.setAuditingResultVO(auditingResultVO);
 		templateMessageStragegy.excute(notifyRequest);
 		

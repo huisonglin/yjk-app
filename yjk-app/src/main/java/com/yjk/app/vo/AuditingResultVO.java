@@ -13,6 +13,18 @@ public class AuditingResultVO {
 	private String AuditingReulst;
 	
 	private String remark;
+	
+	private String xcxPage;
+	
+	
+
+	public String getXcxPage() {
+		return xcxPage;
+	}
+
+	public void setXcxPage(String xcxPage) {
+		this.xcxPage = xcxPage;
+	}
 
 	public Long getMemberId() {
 		return memberId;

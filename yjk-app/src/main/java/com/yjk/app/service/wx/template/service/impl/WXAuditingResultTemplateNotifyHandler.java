@@ -43,7 +43,7 @@ public class WXAuditingResultTemplateNotifyHandler implements WxTemplateNotify{
 		MemberDO memberDO = memberMapper.selectByPrimaryKey(auditingResultVO.getMemberId());
 		templateDTO.setMemberId(auditingResultVO.getMemberId());
 		templateDTO.setTouser(memberDO.getXcxOpenId());
-		templateDTO.setPage(weiXinConfig.getXcxPage()); //小程序的路径
+		templateDTO.setPage(auditingResultVO.getXcxPage()); //小程序的路径
 		templateDTO.setAccess_token(payUtil.xcxAccessToken());
 		Map<String, Map<String, String>> data = new HashMap<>();
 		

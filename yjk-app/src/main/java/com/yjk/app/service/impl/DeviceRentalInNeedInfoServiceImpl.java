@@ -79,6 +79,7 @@ public class DeviceRentalInNeedInfoServiceImpl implements DeviceRentalInNeedInfo
 		auditingResultVO.setMemberId(deviceRentalInNeedInfoDTO.getMemberId());
 		auditingResultVO.setDeviceName("【求租】:"+deviceRentalInNeedInfoDTO.getName());
 		auditingResultVO.setRemark("点击下方，可查看适合您的需求信息");
+		auditingResultVO.setXcxPage("/pages/index/index?pass=fitMe&id="+rentalInNeedInfoId+"&type=2");
 		notifyRequest.setAuditingResultVO(auditingResultVO);
 		templateMessageStragegy.excute(notifyRequest);
 		

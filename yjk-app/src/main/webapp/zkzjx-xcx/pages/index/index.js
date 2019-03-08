@@ -113,6 +113,8 @@ Page({
               wx.getLocation({
                 type: 'gcj02', //返回可以用于wx.openLocation的经纬度
                 success: function (res) {
+                  console.log(that.data.latitude)
+                  console.log(that.data.longitude)
                   if (that.data.latitude == '') {
                     that.setData({
                       latitude: res.latitude,
