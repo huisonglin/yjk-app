@@ -41,12 +41,12 @@
   is-link
   url="/pages/person_center/about_we/about_we"
 />
-<van-cell
+<!-- <van-cell
   title="生成个性名片"
   icon="http://img.huisonglin.top/20190307151833.png"
   is-link
   url="/pages/person_center/about_we/about_we"
-/>
+/> -->
 </view>
 <van-toast id="van-toast" />
 <van-notify id="van-notify" />

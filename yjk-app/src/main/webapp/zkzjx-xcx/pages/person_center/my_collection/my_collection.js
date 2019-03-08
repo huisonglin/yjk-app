@@ -16,6 +16,21 @@ Page({
     rentalCurrentPage: 1,//发布求租的页面标识
     index: 0
   },
+  toDetail:function(e){
+    var id = e.currentTarget.dataset.infoid;
+    var type = e.currentTarget.dataset.infotype;
+    console.log(id +"---"+type)
+    if(type == 1){
+      wx.navigateTo({
+        url: '/pages/rent_detail/rent_detail?id='+id,
+      })
+    }else if(type == 2){
+      wx.navigateTo({
+        url: '/pages/rental_detail/rental_detail?id='+id,
+      })
+    }
+
+  },
   cancelCollection: function (e) {
     var that = this;
     var token = userInfo.token;
@@ -24,7 +39,6 @@ Page({
     app.agriknow.getRequest("/app/myManage/collectionOptions", {
       token: token,
       infoId: id,
-      infoType: type,
       status: isCollection
     }).then(res => {
       console.log(res)

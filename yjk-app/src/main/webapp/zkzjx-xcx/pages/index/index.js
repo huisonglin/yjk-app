@@ -64,6 +64,18 @@ Page({
     })
   },
   onLoad: function (e) {
+    if (wx.getStorageSync('identity') == ''){
+      if (e != null && e.share_query != null){
+        wx.reLaunch({
+          url: '/pages/switch_idetify/switch_idetify?share_query='+e.share_query+'&id='+e.id,
+        })
+      }else{
+        wx.reLaunch({
+          url: '/pages/switch_idetify/switch_idetify',
+        })
+      }
+      return;
+    }
     var url = '/app/search';
     var type = wx.getStorageSync('identity') == 1 ? 2 : 1
     var that = this;

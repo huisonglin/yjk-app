@@ -284,7 +284,7 @@ Page({
     return {
       title: '【求租】'+name + '(' + address + ')',
       path: '/pages/index/index?share_query=' + '/pages/rental_detail/rental_detail&id=' + id,
-      imageUrl: iamge == null ? '../../gong.png' : iamge
+      imageUrl: iamge == null ? '../../images/gong.png' : iamge
     }
 
 

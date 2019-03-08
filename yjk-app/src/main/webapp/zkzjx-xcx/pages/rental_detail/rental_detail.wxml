@@ -84,7 +84,7 @@
 </view>
 <view class = "callPhone" hidden='{{isShowBtn}}'>
 
-<view class="van-ellipsis title">注:联系我时请说是在“最快租机械”小程序上看到的{{isCollection}}</view>
+<view class="van-ellipsis title">注:联系我时请说是在“最快租机械”小程序上看到的哦!</view>
 <van-goods-action>
   <van-goods-action-icon
     icon="http://img.huisonglin.top/fenxiang-ico.png"
@@ -98,7 +98,7 @@
   />
 
   <van-goods-action-button
-    text="拨打电话"
+    text="拨打电话(剩余{{remainCount}}次机会)"
     bind:click="remind"
      type="primary"
   />

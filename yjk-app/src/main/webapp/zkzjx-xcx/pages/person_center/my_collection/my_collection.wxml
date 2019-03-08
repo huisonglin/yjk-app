@@ -12,6 +12,7 @@
     thumb="{{ itemName.pics }}"
   >
     <view slot="footer">
+          <van-button formType="submit" round size="mini" data-infoId = "{{itemName.infoId}}"  data-infoType = "{{itemName.type}}" bind:click = "toDetail">查看详情</van-button>
       <van-button formType="submit" round size="mini" data-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "cancelShow">取消收藏</van-button>
     </view>
   </van-card>
@@ -37,6 +38,7 @@
     thumb="{{ itemName.pics == null?'../../images/h1.png':itemName.pics}}"
   >
     <view slot="footer">
+              <van-button formType="submit" round size="mini" data-infoId = "{{itemName.infoId}}"  data-infoType = "{{itemName.type}}" bind:click = "toDetail">查看详情</van-button>
       <van-button formType="submit" round size="mini" data-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "cancelShow">取消收藏</van-button>
     </view>
   </van-card>

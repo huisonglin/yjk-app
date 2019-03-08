@@ -62,7 +62,7 @@ Page({
     var id = this.data.detailInfo.id;
     var isCollection = that.data.isCollection;
     app.agriknow.getRequest("/app/myManage/collectionOptions",{
-      token: token,
+      token:token,
       infoId:id,
       infoType:type,
       status: isCollection == 0?1:0
