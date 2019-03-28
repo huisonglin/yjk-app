@@ -39,8 +39,14 @@
 <van-panel title="出厂日期:{{detailInfo.manufacture == null?'无':detailInfo.manufacture}}">
 
 </van-panel>
-<van-panel title="设备描述:{{detailInfo.remark == null?'无':detailInfo.remark}}">
+<van-panel title="设备描述:">
+<!-- {{detailInfo.remark == null?'无':detailInfo.remark}} -->
+  <view wx:for='{{remark}}'>
+    <view class="tag" wx:if='{{item != ""}}'>
+        <van-tag plain size="medium">{{item}}</van-tag>
+    </view>
 
+  </view>
 </van-panel>
 
 <van-popup show="{{ show }}" bind:close="onClose">

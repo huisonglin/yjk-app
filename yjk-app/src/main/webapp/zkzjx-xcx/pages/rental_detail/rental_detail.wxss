@@ -1,6 +1,6 @@
 /* pages/rent_detail/rent_detail.wxss */
 .contain{
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
 }
 .swiper image {
   width: 100%;
@@ -14,6 +14,10 @@
   position:fixed;
   bottom:0;
   width:100%;
+}
+.tag{
+  float: left;
+  padding: 3px 10px;
 }
 .title{
   position: fixed;

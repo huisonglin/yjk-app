@@ -1,6 +1,6 @@
  <van-notice-bar
   mode="closeable"
-  text="热烈祝贺 最快租机械2.0 正式上线,修复部分BUG，以及新增匹配信息实时推送等功能 拒绝卡屏我们是认真的"
+  text="尊敬的用户：您目前选择的身份是“{{identify == 1?'出租':'求租'}}”,可通过“身份切换”按钮选取其他资源"
 /> 
 <view class="bar">
 <!-- <van-nav-bar

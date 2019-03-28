@@ -54,7 +54,7 @@ public class InfoMatchingServiceImpl implements InfoMatchingService{
 			 for (MyListVO myListVO : suitUsers) {
 				 //获取距离
 	        	Double distance = getDistance(infoMatchDTO, myListVO);
-	        	if((distance) < 40) { //如果距离需求者的距离小于40KM则通知此用户
+	        	if((distance) < 200) { //如果距离需求者的距离小于40KM则通知此用户
 	        		//发送模板信息
 	        		sendTemplateInfo(infoMatchDTO, myListVO, distance);
 	        	}

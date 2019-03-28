@@ -42,9 +42,8 @@
 				UNION ALL
 				select dr.id id,de.device_name as name,de.pics,dr.address,dr.newstime, 1 as type,dr.status,dr.member_id,dr.contact_mobile,mode_id,two_stage_mode_id,spec_id,latitude,longitude from 			yjk_device_rent_out_info 			 dr left join yjk_device de on dr.device_id=de.id
 			) as b  LEFT JOIN yjk_member m on b.member_id = m.id 
-			where b.status = 2 and b.member_id != #{selfMemberId}			
-			GROUP BY b.member_id
-			<if test="modeId != null and modeId != ''">
+			where b.status = 2 and b.member_id != #{selfMemberId}	
+						<if test="modeId != null and modeId != ''">
 				and b.mode_id=#{modeId}
 			</if>
 			<if test="twoStageModeId != null and twoStageModeId != ''">
@@ -52,7 +51,8 @@
 			</if>
 			<if test="type != null and type != ''">
 				and b.type=#{type}
-			</if>
+			</if>		
+			GROUP BY b.member_id
 	</select>
 	<!-- 发布管理-后台功能 -->
 	<select id="releaseList" resultType = "com.yjk.manager.vo.ReleaseListVO">

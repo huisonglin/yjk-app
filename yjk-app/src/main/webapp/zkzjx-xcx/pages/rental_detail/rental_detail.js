@@ -38,7 +38,8 @@ Page({
     //默认  
     current: 0,
     isShowBtn:false,
-    isCollection: 0
+    isCollection: 0,
+    remarks: []
   },
   collection: function (e) {
     console.log(this.data.detailInfo)
@@ -194,12 +195,18 @@ Page({
       infoType: 2,
       token:token
     }).then(res => {
+
       console.log(res)
       if(res.info.pics == null){
         that.data.tempPic[0] = '../../images/h2.png';
         res.info.pics = that.data.tempPic
       }
+      var mks = [];
+      if (res.info.remark != null){
+         mks = res.info.remark.split(" ");
+      }
       that.setData({
+        remark: mks,
         detailInfo: res.info,
         isCollection: res.info.isCollection,
         distance: distance == null ? '' : '(距离我' + distance + ')'

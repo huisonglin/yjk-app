@@ -37,7 +37,8 @@ Page({
     //默认  
     current: 0,
     isShowBtn:false,
-    isCollection:0
+    isCollection:0,
+    remarks:[]
   },
   imageLoad: function (e) {//获取图片真实宽度  
     var imgwidth = e.detail.width,
@@ -196,8 +197,13 @@ Page({
       infoType:1,
       token:token
     }).then(res => {
-      console.log(res)
+      var mks = [];
+      if (res.info.remark != null){
+         mks = res.info.remark.split(" ");
+      }
+
       that.setData({
+        remark: mks,
         detailInfo:res.info,
         isCollection:res.info.isCollection,
         distance: distance == null?'':'(距离我'+distance+')'
@@ -284,7 +290,7 @@ Page({
 
     return {
       title: '【出租】' + name + '(' + address+')',
-      path: '/pages/index/index?share_query='+'/pages/rent_detail/rent_detail&id='+id,
+      path: '/pages/index/index?share_query=/pages/rent_detail/rent_detail&id='+id,
       imageUrl: iamge
     }
 

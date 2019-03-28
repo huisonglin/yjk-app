@@ -1,0 +1,6 @@
+<!--pages/test/test.wxml-->
+<van-cell
+  title="我的发布"
+  icon="http://img.huisonglin.top/kzjx/zhongxin4.png"
+  is-link
+  url = "/pages/index/index?share_query=/pages/rent_detail/rent_detail&id=330"/>

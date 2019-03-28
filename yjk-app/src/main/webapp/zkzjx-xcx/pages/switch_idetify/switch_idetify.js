@@ -7,14 +7,18 @@ Page({
    */
   data: {
     identity: 0,
+    share_query:'',
+    id:''
   },
 
   rent:function(e){
     var identity = e.currentTarget.dataset.identity;
     wx.setStorageSync('identity', 1)
-    if (e != null && e.share_query != null) {
-      wx.navigateTo({
-        url: '/pages/index/index?share_query=' + '/pages/rent_detail/rent_detail&id='+e.id,
+    var share_query = this.data.share_query;
+    var id = this.data.id;
+    if (share_query != '') {
+      wx.reLaunch({
+        url: '/pages/index/index?share_query='+share_query+'&id='+id,
       })
     }else{
       wx.reLaunch({
@@ -28,9 +32,11 @@ Page({
   rental:function(e){
     var identity = e.currentTarget.dataset.identity;
     wx.setStorageSync('identity', 2)
-    if (e != null && e.share_query != null) {
-      wx.navigateTo({
-        url: '/pages/index/index?share_query=' + '/pages/rental_detail/rental_detail&id=' + e.id,
+    var share_query = this.data.share_query;
+    var id = this.data.id;
+    if (share_query != '') {
+      wx.reLaunch({
+        url: '/pages/index/index?share_query=' + share_query +'&id=' + id,
       })
     } else {
       wx.reLaunch({
@@ -43,6 +49,10 @@ Page({
    */
   onLoad: function (options) {
     userInfo = wx.getStorageSync("simpleInfo")
+    this.setData({
+      share_query:options.share_query,
+      id:options.id
+    })
   },
 
   /**
