@@ -42,8 +42,31 @@ public class DeviceRentOutInfoDetailVO {
 	//信息类型 1出租
 	private Integer type = 1;
 	
+	private String originalPic; 
+	
+	private String isCollection = "0";//默认未收藏
 	
 	
+	
+
+	public String getIsCollection() {
+		return isCollection;
+	}
+	public void setIsCollection(String isCollection) {
+		this.isCollection = isCollection;
+	}
+	public String getOriginalPic() {
+		if(pics != null && !"".equals(pics)) {
+			String[] urls = pics.split("#");
+			if(urls.length > 0) {
+				return urls[0];
+			}
+		}
+		return null;
+	}
+	public void setOriginalPic(String originalPic) {
+		this.originalPic = originalPic;
+	}
 	public Integer getType() {
 		return type;
 	}

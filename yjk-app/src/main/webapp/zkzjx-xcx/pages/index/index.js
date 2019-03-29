@@ -24,11 +24,10 @@ Page({
     specId:'',
     tabActive:'-1',
     isRefresh: 0,
-    identify:''
+    identify:'',
   },
 
   toDetail:function(e){
-    console.log(e)
     var distance = e.currentTarget.dataset.distance;
     var id = e.currentTarget.dataset.id;
     var type = e.currentTarget.dataset.type;
@@ -38,16 +37,12 @@ Page({
     }else if(type == 2){
       url = '/pages/rental_detail/rental_detail?distance=' + distance + '&id=' + id
     }
-
-    console.log(distance)
     wx.navigateTo({
       url: url,
     })
   },
   //selectTabp
   selectTab:function(e){
-    console.log(e)
-
       if(e.detail.index == '0'){ //个人中心
         wx.navigateTo({
           url: "/pages/person_center/person_center",
@@ -69,20 +64,20 @@ Page({
     })
   },
   onLoad: function (e) {
+    if (wx.getStorageSync('identity') == ''){
+      if (e != null && e.share_query != null){
+        wx.reLaunch({
+          url: '/pages/switch_idetify/switch_idetify?share_query='+e.share_query+'&id='+e.id,
+        })
+      }else{
+        wx.reLaunch({
+          url: '/pages/switch_idetify/switch_idetify',
+        })
+      }
+      return;
+    }
     var url = '/app/search';
     var type = wx.getStorageSync('identity') == 1 ? 2 : 1
-    console.log(e)
-    if(e != null && e.share_query != null){
-      wx.navigateTo({
-        url: e.share_query + '?id=' + e.id
-      })
-    }
-    if(e != null && e.pass == 'fitMe'){
-      var id= e.id;
-      type = e.type;
-      //开始写逻辑了
-      url = '/app/search/fitMe?id='+id;
-    }
     var that = this;
     var identity = wx.getStorageSync('identity') == '' ? 2 : wx.getStorageSync('identity');
     wx.setStorageSync('identity', identity)
@@ -105,75 +100,159 @@ Page({
           picPosition: 0,
           currentPage: 1,
         })
-    wx.getLocation({
-      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
-      success: function (res) {
-        console.log(that.data.longitude + "+++++++++++++++++++++++")
-        if (that.data.latitude == ''){
-          that.setData({
-            latitude: res.latitude,
-            longitude: res.longitude
+    var isFirstLogin = app.globalData.isFirstLogin;
+    if(isFirstLogin){
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          app.agriknow.getRequest('app/member/loginByWxXcx', {
+            code: res.code
+          }).then(res => {
+            if (res.code == 0) {
+              app.globalData.isFirstLogin = false;
+              wx.setStorageSync("simpleInfo", res.info)
+              if (e != null && e.share_query != null) {
+                wx.navigateTo({
+                  url: e.share_query + '?id=' + e.id
+                })
+              }
+              if (e != null && e.pass == 'fitMe') {
+                var id = e.id;
+                type = e.type;
+                //开始写逻辑了
+                url = '/app/search/fitMe?id=' + id;
+              }
+              wx.getLocation({
+                type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+                success: function (res) {
+                  if (that.data.latitude == '') {
+                    that.setData({
+                      latitude: res.latitude,
+                      longitude: res.longitude
+                    })
+                  }
+                  app.agriknow.getRequest(url, {
+                    pageNo: '1',
+                    longitude: that.data.longitude,
+                    latitude: that.data.latitude,
+                    distance: that.data.distance,
+                    type: that.data.type,
+                    modeId: that.data.modeId,
+                    twoStageModeId: that.data.twoStageModeId,
+                    specId: that.data.specId
+                  }).then(res => {
+                    if (res.code == 0) {
+                      that.setData({
+                        ["arrayItems[" + currentPage + "]"]: res.info.rows,
+                        totalCount: res.info.totalCount,
+                        pageSize: 50,
+                        picLenth: 50
+                      })
+                    }
+                  })
+                },
+                fail: function (e) {
+                  that.setData({
+                    latitude: '31.82043',
+                    longitude: '117.22715'
+                  })
+                  app.agriknow.getRequest(url, {
+                    pageNo: '1',
+                    longitude: that.data.longitude,
+                    latitude: that.data.latitude,
+                    distance: that.data.distance,
+                    type: that.data.type,
+                    modeId: that.data.modeId,
+                    twoStageModeId: that.data.twoStageModeId,
+                    specId: that.data.specId
+                  }).then(res => {
+                    if (res.code == 0) {
+                      that.setData({
+                        ["arrayItems[" + currentPage + "]"]: res.info.rows,
+                        totalCount: res.info.totalCount,
+                        pageSize: 50,
+                        picLenth: 50
+                      })
+                    }
+                  })
+                }
+              });
+            }
           })
         }
-        console.log(that.data.longitude);
-        app.agriknow.getRequest(url, {
-          pageNo: '1',
-          longitude: that.data.longitude,
-          latitude: that.data.latitude,
-          distance: that.data.distance,
-          type: that.data.type,
-          modeId: that.data.modeId,
-          twoStageModeId: that.data.twoStageModeId,
-          specId: that.data.specId
-        }).then(res => {
-          if (res.code == 0) {
-            console.log(res)
-            that.setData({
-              ["arrayItems[" + currentPage + "]"]: res.info.rows,
-              totalCount: res.info.totalCount,
-              pageSize: 50,
-              picLenth: 50
-            })
-            console.log(that.data.arrayItems)
-          }
+      })
+    }else{
+      if (e != null && e.share_query != null) {
+        wx.navigateTo({
+          url: e.share_query + '?id=' + e.id
         })
-      },
-      fail:function(e){
-        console.log(that.data.longitude + "+++++++++++++++++++++++")
-
+      }
+      if (e != null && e.pass == 'fitMe') {
+        var id = e.id;
+        type = e.type;
+        //开始写逻辑了
+        url = '/app/search/fitMe?id=' + id;
+      }
+      wx.getLocation({
+        type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+        success: function (res) {
+          if (that.data.latitude == '') {
+            that.setData({
+              latitude: res.latitude,
+              longitude: res.longitude
+            })
+          }
+          app.agriknow.getRequest(url, {
+            pageNo: '1',
+            longitude: that.data.longitude,
+            latitude: that.data.latitude,
+            distance: that.data.distance,
+            type: that.data.type,
+            modeId: that.data.modeId,
+            twoStageModeId: that.data.twoStageModeId,
+            specId: that.data.specId,
+          }).then(res => {
+            if (res.code == 0) {
+              that.setData({
+                ["arrayItems[" + currentPage + "]"]: res.info.rows,
+                totalCount: res.info.totalCount,
+                pageSize: 50,
+                picLenth: 50
+              })
+            }
+          })
+        },
+        fail: function (e) {
           that.setData({
             latitude: '31.82043',
             longitude: '117.22715'
           })
+          app.agriknow.getRequest(url, {
+            pageNo: '1',
+            longitude: that.data.longitude,
+            latitude: that.data.latitude,
+            distance: that.data.distance,
+            type: that.data.type,
+            modeId: that.data.modeId,
+            twoStageModeId: that.data.twoStageModeId,
+            specId: that.data.specId
+          }).then(res => {
+            if (res.code == 0) {
+              that.setData({
+                ["arrayItems[" + currentPage + "]"]: res.info.rows,
+                totalCount: res.info.totalCount,
+                pageSize: 50,
+                picLenth: 50
+              })
+            }
+          })
+        }
+      });
+    }
 
-        console.log(that.data.longitude);
-        app.agriknow.getRequest(url, {
-          pageNo: '1',
-          longitude: that.data.longitude,
-          latitude: that.data.latitude,
-          distance: that.data.distance,
-          type: that.data.type,
-          modeId: that.data.modeId,
-          twoStageModeId: that.data.twoStageModeId,
-          specId: that.data.specId
-        }).then(res => {
-          if (res.code == 0) {
-            console.log(res)
-            that.setData({
-              ["arrayItems[" + currentPage + "]"]: res.info.rows,
-              totalCount: res.info.totalCount,
-              pageSize: 50,
-              picLenth: 50
-            })
-            console.log(that.data.arrayItems)
-          }
-        })
-      }
-    });
   },
   toRelasae:function(e){
     var identify = wx.getStorageSync('identity')
-    console.log("c"+identify)
     var url = '';
     if(identify == 1){
       url = '../release_rent/release_rent'
@@ -189,7 +268,6 @@ Page({
       this.setData({
         isRefresh: 0
       })
-      console.log('开始刷新')
       this.onLoad()
     }
   },
@@ -202,12 +280,6 @@ Page({
       } else {//正常轮转时，记录正确页码索引
         this.setData({ picPosition: e.detail.current });
       }
-      console.log(this.data.picPosition)
-      console.log(this.data.pageSize)
-      console.log((this.data.picPosition + 1) % this.data.pageSize == 0)
-      console.log(this.data.picLenth)
-      console.log(this.data.picPosition)
-      console.log((this.data.picLenth - 1) == this.data.picPosition)
 
 
       if ( (this.data.picPosition + 1) % this.data.pageSize == 0 && (this.data.picLenth - 1 )== this.data.picPosition){
@@ -231,10 +303,7 @@ Page({
               specId:that.data.specId
             }).then(res => {
               if (res.code == 0) {
-                console.log(res)
-                console.log("分页了")
                 var row = res.info.rows;
-                console.log(that.arrayItems)
                 that.setData({
                   ["arrayItems[" + (currentPage - 1) + "]"]: res.info.rows,
                   picLenth: that.data.picLenth + that.data.pageSize
@@ -257,7 +326,6 @@ Page({
     })
   },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

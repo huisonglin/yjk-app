@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yjk.app.annotation.Login;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.MyCollectionDTO;
 import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.service.DeviceService;
@@ -103,6 +104,19 @@ public class ApiDeviceController {
 		return deviceService.deviceList(dto);
 	}
 	
+	/**
+	 * 我的收藏列表
+	 * @param memberId
+	 * @param dto
+	 * @return
+	 */
+	@Login
+	@RequestMapping("/myCollectionList")
+	public R myCollectionList(@RequestAttribute("memberId")Long memberId,MyCollectionDTO dto) {
+		Assert.isNull(dto.getPageNo(), "页码不能为空");
+		dto.setMemberId(memberId);
+		return deviceService.myCollectionList(dto);
+	}
 	/**
 	 * 刷新位置并发布
 	 * @param dto

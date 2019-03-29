@@ -1,14 +1,27 @@
-package com.yjk.app.vo;
+/**
+ * 
+ */package com.yjk.app.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-public class MyListVO {
-//b.id,b.name as device_name,b.pics,b.address,b.newstime,b.type,b.member_id,b.status
+/** 
+* @author : 刘尊亮
+* @date 创建时间：2019年3月4日 下午2:27:15 
+* @version 1.0 
+* @parameter  
+* @since  
+* @return  
+*/
+/**
+ * @author Administrator
+ *
+ */
+//我的收藏
+public class MyCollectionVO {
 	
 	private Long id;
 	
+	private Long infoId;
 	
 	private String deviceName;
 	
@@ -23,45 +36,14 @@ public class MyListVO {
 	private Long memberId;
 	
 	private String status;
+
 	
-	private String contactMobile;
-	
-	private String xcxOpenId;
-	
-	private Double longitude; //经度
-	
-	private Double latitude; //纬度
-
-	public Double getLongitude() {
-		return longitude;
+	public Long getInfoId() {
+		return infoId;
 	}
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getXcxOpenId() {
-		return xcxOpenId;
-	}
-
-	public void setXcxOpenId(String xcxOpenId) {
-		this.xcxOpenId = xcxOpenId;
-	}
-
-	public String getContactMobile() {
-		return contactMobile;
-	}
-
-	public void setContactMobile(String contactMobile) {
-		this.contactMobile = contactMobile;
+	public void setInfoId(Long infoId) {
+		this.infoId = infoId;
 	}
 
 	public Long getId() {
@@ -71,7 +53,6 @@ public class MyListVO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getDeviceName() {
 		return deviceName;
@@ -128,13 +109,7 @@ public class MyListVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	@Override
-	public String toString() {
-		return "MyListVO [id=" + id + ", deviceName=" + deviceName + ", pics=" + pics + ", address="
-				+ address + ", newstime=" + newstime + ", type=" + type + ", memberId=" + memberId + ", status="
-				+ status + "]";
-	}
+	
 	
 	
 }

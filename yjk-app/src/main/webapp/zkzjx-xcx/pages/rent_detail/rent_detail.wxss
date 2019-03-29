@@ -1,7 +1,7 @@
 /* pages/rent_detail/rent_detail.wxss */
 
 .contain{
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
 }
 
 .swiper image {
@@ -9,7 +9,10 @@
   height: auto;
 }
 
-
+.tag{
+  float: left;
+  padding: 3px 10px;
+}
 
 .callPhone{
   position:fixed;

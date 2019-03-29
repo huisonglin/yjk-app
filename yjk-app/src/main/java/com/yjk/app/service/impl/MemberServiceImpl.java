@@ -617,9 +617,6 @@ public class MemberServiceImpl implements MemberService{
 		notifyRequest.setWxComplainVO(wxComplainVO);
 		notifyRequest.setType(TemplateEnum.COMPLAIN.getValue());
 		templateMessageStragegy.excute(notifyRequest);
-		
-		
-		
 		ReceiveComplainVO receiveComplainVO = new ReceiveComplainVO();
 		return R.ok();
 	}

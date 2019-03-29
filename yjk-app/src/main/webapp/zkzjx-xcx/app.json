@@ -4,6 +4,7 @@
         "pages/rent_detail/rent_detail",
         "pages/rental_detail/rental_detail",
         "pages/person_center/my_release/my_release",
+        "pages/person_center/my_collection/my_collection",
         "pages/person_center/about_we/about_we",
         "pages/person_center/contact_we/contact_we",
         "pages/person_center/person_center",

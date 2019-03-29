@@ -1,0 +1,56 @@
+<van-tabs  bind:click="onClick">
+  <van-tab title="出租信息">
+  <view wx:if='{{rentItemsArray != ""}}'>
+<view wx:for = "{{rentItemsArray}}" wx:for-item="items" wx:for-index="arrayIndex">
+<view wx:for="{{items}}"  wx:for-item="itemName"   wx:for-index="subArrayIndex" class="shareParent">
+ <van-card
+    thumb-link="/pages/rent_detail/rent_detail?id={{itemName.infoId}}"
+    lazy-load="true"
+    currency=""
+    desc="设备地址：{{itemName.address}}"
+    title="{{itemName.deviceName}}"
+    thumb="{{ itemName.pics }}"
+  >
+    <view slot="footer">
+          <van-button formType="submit" round size="mini" data-infoId = "{{itemName.infoId}}"  data-infoType = "{{itemName.type}}" bind:click = "toDetail">查看详情</van-button>
+      <van-button formType="submit" round size="mini" data-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "cancelShow">取消收藏</van-button>
+    </view>
+  </van-card>
+  <view class = "share"><button class="btn" data-image="{{itemName.pics}}" data-title="{{itemName.deviceName}}" data-address ="{{itemName.address}}" data-id="{{itemName.infoId}}" data-infoType = "{{itemName.type}}" open-type='share'><image src = "../../../images/share.png"></image></button></view>
+</view>
+</view>
+</view>
+  <view wx:if='{{rentItemsArray == ""}}' class="blank">
+    <image src = 'http://img.huisonglin.top/kzjx/kong.png'></image>
+  </view>
+
+  </van-tab>
+  <van-tab title="求租信息">
+  <view wx:if='{{rentalItemsArray != ""}}'>
+<view wx:for = "{{rentalItemsArray}}" wx:for-item="items" wx:for-index="arrayIndex">
+<view wx:for="{{items}}"  wx:for-item="itemName" wx:for-index="subArrayIndex" class="shareParent">
+ <van-card
+    thumb-link="/pages/rental_detail/rental_detail?id={{itemName.infoId}}"
+    lazy-load="true"
+    currency=""
+    desc="设备地址：{{itemName.address}}"
+    title="{{itemName.deviceName}}"
+    thumb="{{ itemName.pics == null?'../../images/h1.png':itemName.pics}}"
+  >
+    <view slot="footer">
+              <van-button formType="submit" round size="mini" data-infoId = "{{itemName.infoId}}"  data-infoType = "{{itemName.type}}" bind:click = "toDetail">查看详情</van-button>
+      <van-button formType="submit" round size="mini" data-arrayIndex = "{{arrayIndex}}" data-subArrayIndex = "{{subArrayIndex}}" data-infoId = "{{itemName.id}}" data-infoType = "{{itemName.type}}" bind:click = "cancelShow">取消收藏</van-button>
+    </view>
+  </van-card>
+    <view class = "share"><button class="btn" data-image="{{itemName.pics}}" data-title="{{itemName.deviceName}}" data-address ="{{itemName.address}}" data-id="{{itemName.infoId}}" data-infoType = "{{itemName.type}}" open-type='share'><image src = "../../../images/share.png"></image></button></view>
+</view>
+</view>
+</view>
+  <view wx:if='{{rentalItemsArray == ""}}' class="blank">
+    <image src = 'http://img.huisonglin.top/kzjx/kong.png'></image>
+  </view>
+  </van-tab>
+</van-tabs>
+<van-toast id="van-toast" />
+<van-notify id="van-notify" />
+<van-dialog id="van-dialog" />

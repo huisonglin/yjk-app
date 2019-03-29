@@ -5,5 +5,5 @@ public interface InfoDetailService {
 
 	public Object infoDetail(Long id,Integer infoType) throws Exception;
 	
-	public void dealDetail(Object infoDetail) throws Exception;
+	public void dealDetail(Object infoDetail,Long memberId) throws Exception;
 }

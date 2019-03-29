@@ -14,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import com.yjk.app.common.Constants;
 import com.yjk.app.config.QiNiuConfig;
 import com.yjk.app.dto.DeviceDTO;
+import com.yjk.app.dto.MyCollectionDTO;
 import com.yjk.app.dto.MyListDTO;
 import com.yjk.app.dto.RefreshPositionAndPublishDTO;
 import com.yjk.app.service.DeviceService;
@@ -21,6 +22,7 @@ import com.yjk.app.service.PutOnProjectInfoService;
 import com.yjk.app.service.PutOnRentInfoService;
 import com.yjk.app.util.R;
 import com.yjk.app.vo.DeviceVO;
+import com.yjk.app.vo.MyCollectionVO;
 import com.yjk.app.vo.MyListVO;
 import com.yjk.common.dao.DeviceMapper;
 import com.yjk.common.dao.DeviceRentOutInfoMapper;
@@ -121,6 +123,19 @@ public class DeviceServiceImpl implements DeviceService{
 			}
 		}
 		PageInfo<MyListVO> pageInfo=new PageInfo<>(myList);
+		return R.ok().put("info", pageInfo);
+	}
+	
+	public R myCollectionList(MyCollectionDTO dto) {
+		int pageSize = Constants.pageSize;
+		PageHelper.startPage(dto.getPageNo(), pageSize);
+		List<MyCollectionVO> myCollections = deviceMapper.myCollection(dto);
+		for (MyCollectionVO myCollectionVO : myCollections) {
+			if(StringUtils.isNotBlank(myCollectionVO.getPics())) {
+				myCollectionVO.setPics(myCollectionVO.getPics().split("#")[0]+QiNiuConfig.XCX_THUMBNAIL);
+			}
+		}
+		PageInfo<MyCollectionVO> pageInfo=new PageInfo<>(myCollections);
 		return R.ok().put("info", pageInfo);
 	}
 	

@@ -55,7 +55,31 @@ public class DeviceRentalInNeedInfoDetailVO {
 	private Integer type = 2;
 	
 	
+	private String originalPic; 
 	
+	private String isCollection = "0";//默认未收藏
+	
+	
+	
+
+	public String getIsCollection() {
+		return isCollection;
+	}
+	public void setIsCollection(String isCollection) {
+		this.isCollection = isCollection;
+	}
+	public String getOriginalPic() {
+		if(pics != null && !"".equals(pics)) {
+			String[] urls = pics.split("#");
+			if(urls.length > 0) {
+				return urls[0];
+			}
+		}
+		return null;
+	}
+	public void setOriginalPic(String originalPic) {
+		this.originalPic = originalPic;
+	}
 	
 	public List<ValueUnitNameVO> getArrayPrice() {
 		return arrayPrice;
@@ -64,7 +88,7 @@ public class DeviceRentalInNeedInfoDetailVO {
 		this.arrayPrice = arrayPrice;
 	}
 	public Integer getType() {
-		return type;
+		return 2;
 	}
 	public void setType(Integer type) {
 		this.type = type;

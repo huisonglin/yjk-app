@@ -29,7 +29,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     ds1:
-      #url: jdbc:mysql://localhost:3306/kzjx_dev?useUnicode=true&characterEncoding=utf8
+      #url: jdbc:mysql://localhost:3306/kzjx?useUnicode=true&characterEncoding=utf8
       #username: root
       #password: 123456
       url: jdbc:mysql://gjhl.mysqldb.chinacloudapi.cn:3306/kzjx?useUnicode=true&characterEncoding=utf8
