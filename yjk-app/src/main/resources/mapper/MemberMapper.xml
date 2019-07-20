@@ -20,11 +20,10 @@
 	</select>
 	
 	<select id = "statistics" resultType="com.yjk.manager.vo.StatisticsVO">
-	select (select count(1)  from yjk_member) as registrationsCountHistory ,(select count(1) from yjk_device_rent_out_info i where i.`status` = 2) as releasesRentCountHistory
-,(select count(1) from yjk_device_rental_in_need_info n where n.`status` = 2) as releasesRetalCountHistory,
-(select count(1)  from yjk_member m where to_days(m.create_time) = to_days(now())) as registrationCountToDay
-,(select count(1) from yjk_device_rent_out_info i where i.`status` = 2 and to_days(i.newstime) = to_days(now())) as releasesRentCountToDay,
-(select count(1) from yjk_device_rental_in_need_info n where n.`status` = 2 and to_days(n.newstime) = to_days(now())) as releasesRetalCountToDay
-	
+		select (select count(1)  from yjk_member) as registrationsCountHistory ,(select count(1) from yjk_device_rent_out_info i where i.`status` = 2) as releasesRentCountHistory
+		,(select count(1) from yjk_device_rental_in_need_info n where n.`status` = 2) as releasesRetalCountHistory,
+		(select count(1)  from yjk_member m where to_days(m.create_time) = to_days(now())) as registrationCountToDay
+		,(select count(1) from yjk_device_rent_out_info i where i.`status` = 2 and to_days(i.newstime) = to_days(now())) as releasesRentCountToDay,
+		(select count(1) from yjk_device_rental_in_need_info n where n.`status` = 2 and to_days(n.newstime) = to_days(now())) as releasesRetalCountToDay			
 	</select>
 </mapper>

@@ -19,6 +19,18 @@ public class ReleaseListVO {
 	private String type;
 	
 	private String nickName;
+	
+	private String mobile;
+	
+	
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public String getId() {
 		return id;

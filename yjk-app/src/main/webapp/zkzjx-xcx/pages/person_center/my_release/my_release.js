@@ -21,6 +21,7 @@ Page({
     console.log(e)
     var id = e.currentTarget.dataset.infoid;
     var type = e.currentTarget.dataset.infotype;
+    console.log('/pages/index/index?pass=fitMe&id=' + id + '&type=' + type);
     wx.navigateTo({
       url: '/pages/index/index?pass=fitMe&id='+id+'&type='+type,
     })

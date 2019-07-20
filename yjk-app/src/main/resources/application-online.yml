@@ -121,7 +121,7 @@ jwtvalidate:
         header: token  
 solr:
   env: online   
-  url: http://10.0.1.10:8080/solr       
+  url: http://10.0.1.5:8080/solr       
 wx:
   mch_id: 1498445182
   apikey: 1145B1AFA2994480808B42793E486A81

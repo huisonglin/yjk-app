@@ -21,8 +21,8 @@
 </view>
 <view wx:if='{{arrayItems[0] != ""}}' >
 <swiper bindchange="switchPic" class="swiper-block" current="{{picPosition}}"  nextMargin="90rpx" previousMargin="90rpx">
-    <view wx:for="{{arrayItems}}" wx:for-item="itmes" wx:for-index="idx">
-      <swiper-item class="swiper-item" wx:for="{{itmes}}"  wx:for-item="item" bindtap="toDetail" data-distance="{{item.distance}}" 
+    <view wx:for="{{arrayItems}}" wx:key="this*"  wx:for-item="itmes" wx:for-index="idx">
+      <swiper-item class="swiper-item" wx:for="{{itmes}}" wx:key="this*"  wx:for-item="item" bindtap="toDetail" data-distance="{{item.distance}}" 
         data-id="{{item.id}}"  data-type="{{item.type}}">
       <image   class="slide-image {{picPosition == index + (pageSize * idx)?'active':''}}"  mode="aspectFill" src="{{item.pic == null?'../../images/h1.png':item.pic}}" ></image>
       <view class="content {{picPosition == index + (pageSize * idx) ? 'block filter' : ''}}">

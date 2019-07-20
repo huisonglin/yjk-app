@@ -136,7 +136,7 @@ Page({
                     longitude: that.data.longitude,
                     latitude: that.data.latitude,
                     distance: that.data.distance,
-                    type: that.data.type,
+                    type: type,
                     modeId: that.data.modeId,
                     twoStageModeId: that.data.twoStageModeId,
                     specId: that.data.specId
@@ -161,7 +161,7 @@ Page({
                     longitude: that.data.longitude,
                     latitude: that.data.latitude,
                     distance: that.data.distance,
-                    type: that.data.type,
+                    type: type,
                     modeId: that.data.modeId,
                     twoStageModeId: that.data.twoStageModeId,
                     specId: that.data.specId
@@ -207,7 +207,7 @@ Page({
             longitude: that.data.longitude,
             latitude: that.data.latitude,
             distance: that.data.distance,
-            type: that.data.type,
+            type: type,
             modeId: that.data.modeId,
             twoStageModeId: that.data.twoStageModeId,
             specId: that.data.specId,

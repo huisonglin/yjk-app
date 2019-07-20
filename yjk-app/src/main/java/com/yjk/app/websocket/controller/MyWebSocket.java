@@ -1,4 +1,4 @@
-package com.yjk.app.websocket.controller;
+/*package com.yjk.app.websocket.controller;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Random;
@@ -28,8 +28,8 @@ public class MyWebSocket {
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
-    /**
-     * 连接建立成功调用的方法*/
+    *//**
+     * 连接建立成功调用的方法*//*
     @OnOpen
     public void onOpen(Session session,@PathParam("userId") String relationId) {
     	System.out.println("relation:"+relationId);
@@ -45,9 +45,9 @@ public class MyWebSocket {
         }
     }
 
-    /**
+    *//**
      * 连接关闭调用的方法
-     */
+     *//*
     @OnClose
     public void onClose() {
         webSocketSet.remove(this);  //从set中删除
@@ -55,11 +55,11 @@ public class MyWebSocket {
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
 
-    /**
+    *//**
      * 收到客户端消息后调用的方法
      *
      * @param message 客户端发送过来的消息
-     * @throws IOException */
+     * @throws IOException *//*
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         System.out.println("来自客户端的消息:" + message);
@@ -68,9 +68,9 @@ public class MyWebSocket {
         myWebSocket.sendMessage(messages[0]);
     }
 
-    /**
+    *//**
      * 发生错误时调用
-     */
+     *//*
     @OnError
     public void onError(Session session, Throwable error) {
         System.out.println("发生错误");
@@ -83,9 +83,9 @@ public class MyWebSocket {
         //this.session.getAsyncRemote().sendText(message);
     }
 
-    /**
+    *//**
      * 群发自定义消息
-     * */
+     * *//*
     public static void sendInfo(String message) throws IOException {
         for (MyWebSocket item : webSocketSet) {
             try {
@@ -107,4 +107,4 @@ public class MyWebSocket {
     public static synchronized void subOnlineCount() {
         MyWebSocket.onlineCount--;
     }
-}
+}*/

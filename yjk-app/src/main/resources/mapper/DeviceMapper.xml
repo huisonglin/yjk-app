@@ -58,9 +58,9 @@
 	<select id="releaseList" resultType = "com.yjk.manager.vo.ReleaseListVO">
 		select s.*,m.nick_name FROM
 		(
-		select r.id,r.member_id,r.address,r.newstime,device_name,d.pics,r.`status`,'1' as type from yjk_device_rent_out_info r LEFT JOIN yjk_device d on r.device_id=d.id
+		select r.id,r.member_id,r.address,r.newstime,device_name,d.pics,r.`status`,'1' as type,r.contact_mobile mobile from yjk_device_rent_out_info r LEFT JOIN yjk_device d on r.device_id=d.id
 		UNION ALL
-		select n.id,n.member_id,n.adress address,n.newstime,n.`name`,n.pics,n.`status`,'2' as type from yjk_device_rental_in_need_info n
+		select n.id,n.member_id,n.adress address,n.newstime,n.`name`,n.pics,n.`status`,'2' as type,n.contact_mobile mobile from yjk_device_rental_in_need_info n
 		) s LEFT JOIN yjk_member m on s.member_id=m.id
 		where s.status != 3
 		<if test="keyword != null and keyword != ''">

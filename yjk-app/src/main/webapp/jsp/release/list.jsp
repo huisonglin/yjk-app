@@ -46,6 +46,7 @@
 		        <th style="width:200px;">状态</th>
 		        <th style="width:200px;">发布类型</th>
 		        <th>用户昵称</th>
+		        <th>联系号码</th>
 		        <th>发布时间</th>
 		        <th style="width:220px;">操作</th>
 		    </tr>
@@ -137,6 +138,7 @@
 			}
 			
 			tr += "<td>" +obj.nickName+ "</td>";
+			tr += "<td>" +obj.mobile+ "</td>";
 			tr += "<td>" +obj.newstime+ "</td>";
 
 			
