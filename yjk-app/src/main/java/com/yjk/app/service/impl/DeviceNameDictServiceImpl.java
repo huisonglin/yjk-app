@@ -39,7 +39,9 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 	@Cacheable(value="modelList")
 	public R getModelList() {
 		logger.info("机型列表走数据库了。。。。");
-		List<ModelDO> modelList = modelMapper.selectAll();
+		Example example = new Example(ModelDO.class);
+		example.createCriteria().andEqualTo("status",1);
+		List<ModelDO> modelList = modelMapper.selectByExample(example);
 		return R.ok().put("info", modelList);
 	}
 	
@@ -48,7 +50,7 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 		logger.info("二级机型列表走数据库了。。。。");
 		Example example = new Example(TwoStagemodelDO.class);
 		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("modelId", modelId);
+		criteria.andEqualTo("modelId", modelId).andEqualTo("status",1);
 		List<TwoStagemodelDO> twoStagemodelList = twoStagemodelMapper.selectByExample(example);
 		return R.ok().put("info", twoStagemodelList);
 	}
@@ -57,7 +59,7 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 		logger.info("规格ID走数据库了。。。。");
 		Example example = new Example(SpecDO.class);
 		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("twoStageModeId",twoStageModel);
+		criteria.andEqualTo("twoStageModeId",twoStageModel).andEqualTo("status",1);
 		List<SpecDO> specList = specMapper.selectByExample(example);
 		List<SpecVO> specVOs = new ArrayList<SpecVO>();
 		for (SpecDO spec : specList) {
@@ -78,14 +80,14 @@ public class DeviceNameDictServiceImpl implements DeviceNameDictService{
 		List<SelectSubTypeVO> subTypes =new ArrayList<>();
 		Example example = new Example(TwoStagemodelDO.class);
 		Criteria criteria = example.createCriteria();
-		criteria.andEqualTo("modelId", modelId);
+		criteria.andEqualTo("modelId", modelId).andEqualTo("status",1);
 		List<TwoStagemodelDO> twoStagemodelList = twoStagemodelMapper.selectByExample(example);
 		for (TwoStagemodelDO twoStagemodelDO : twoStagemodelList) {
 			SelectSubTypeVO sv = new SelectSubTypeVO();
 			sv.setText(twoStagemodelDO.getName());
 			Example specExample = new Example(SpecDO.class);
 			Criteria specCriteria = specExample.createCriteria();
-			specCriteria.andEqualTo("twoStageModeId",twoStagemodelDO.getId());
+			specCriteria.andEqualTo("twoStageModeId",twoStagemodelDO.getId()).andEqualTo("status",1);;
 			List<SelectSpecVO> lvs = new ArrayList<>();
 			SelectSpecVO ingnor = new SelectSpecVO();
 			ingnor.setId("0" + "-" + twoStagemodelDO.getName() + "-" + twoStagemodelDO.getId());

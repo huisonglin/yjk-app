@@ -90,7 +90,7 @@ spring:
     port: 6379
     password: /jq+6e4CyqOca8BSAZhv6XqcORRFLDSkqAVhc7V/dt4=
   activemq:
-    broker-url: tcp://39.100.38.6:32772
+    broker-url: tcp://139.219.12.141:61616
     user: admin
     password: admin
     in-memory: true
@@ -127,7 +127,7 @@ jwtvalidate:
         header: token  
 solr:
   env: online
-  url: http://42.159.83.118:8080/solr    
+  url: http://139.219.12.141:8080/solr    
 wx:
   mch_id: 1498445182
   apikey: 1145B1AFA2994480808B42793E486A81
