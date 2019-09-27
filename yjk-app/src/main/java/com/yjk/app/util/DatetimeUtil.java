@@ -30,6 +30,7 @@ public class DatetimeUtil {
 		  return currentTime;
 	}
 	 
+	 
 	 public static Long RemainderOfTheDay() {
 	        //方法三:LocalDateTime和ChronoUnit为1.8新增
 	        LocalDateTime midnight = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0).withSecond(0).withNano(0);

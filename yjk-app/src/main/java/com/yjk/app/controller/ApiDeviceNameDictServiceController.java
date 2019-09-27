@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yjk.app.service.DeviceNameDictService;
+import com.yjk.app.service.impl.DeviceNameDictServiceImpl;
 import com.yjk.app.util.R;
 import com.yjk.app.validator.Assert;
 
@@ -15,7 +16,7 @@ import com.yjk.app.validator.Assert;
 public class ApiDeviceNameDictServiceController {
 
 	@Autowired
-	DeviceNameDictService deviceNameDictService;
+	DeviceNameDictServiceImpl deviceNameDictService;
 	
 	@RequestMapping("/getModelList")
 	public R getModelList() {

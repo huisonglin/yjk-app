@@ -52,7 +52,6 @@ class request {
   requestAll(url, data, header, method) {
     Toast.loading({
       duration: 0,       // 持续展示 toast
-      mask: true,
       message: "加载中..."
     });
     return new Promise((resolve, reject) => {
